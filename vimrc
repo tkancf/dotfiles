@@ -1,5 +1,8 @@
 " Startup {{{1
 "==============================================================================
+" Reset autocmd
+autocmd!
+
 " Define vimrc's encoding
 scriptencoding utf-8
 
