@@ -13,8 +13,8 @@ scriptencoding utf-8
   let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
   let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 
-"==========================================================================}}}1
 " colorscheme
 colorscheme desert
 
+"==========================================================================}}}1
 " vim:foldmethod=marker expandtab fdc=3 ft=vim ts=2 sw=2 sts=2:
