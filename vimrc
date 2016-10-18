@@ -8,7 +8,6 @@ scriptencoding utf-8
 
 "==========================================================================}}}1
 
-
 " Basic {{{1
 "==============================================================================
 " Backspace key settings
@@ -24,7 +23,9 @@ set backspace=start,eol,indent
 " Colorscheme
 colorscheme desert
 
-"==========================================================================}}}1
+" Font setting
+set guifont=ricty:h18
 
+"==========================================================================}}}1
 
 " vim:foldmethod=marker expandtab fdc=3 ft=vim ts=2 sw=2 sts=2:
