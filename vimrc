@@ -38,6 +38,9 @@ nnoremap <F2> :<C-u>edit $MYVIMRC<CR>
 
 " Reload vimrc
 nnoremap <F5> :<C-u>source $MYVIMRC<CR>
+
+" Create new tab
+nnoremap <C-w>t :<C-u>tabnew<CR>
 "==========================================================================}}}1
 
 " vim:foldmethod=marker expandtab fdc=3 ft=vim ts=2 sw=2 sts=2:
