@@ -35,6 +35,9 @@ let mapleader=","
 
 " Open vimrc
 nnoremap <F2> :<C-u>edit $MYVIMRC<CR>
+
+" Reload vimrc
+nnoremap <F5> :<C-u>source $MYVIMRC<CR>
 "==========================================================================}}}1
 
 " vim:foldmethod=marker expandtab fdc=3 ft=vim ts=2 sw=2 sts=2:
