@@ -1,0 +1,6 @@
+[include]
+  path = ~/.gitconfig.local
+
+[ghq]
+  root = ~/src
+
