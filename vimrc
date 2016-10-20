@@ -37,7 +37,7 @@ let mapleader=","
 nnoremap <F2> :<C-u>edit $MYVIMRC<CR>
 
 " Reload vimrc
-nnoremap <F5> :<C-u>source $MYVIMRC<CR>
+nnoremap <F3> :<C-u>source $MYVIMRC<CR>
 
 " Create new tab
 nnoremap <C-w>t :<C-u>tabnew<CR>
