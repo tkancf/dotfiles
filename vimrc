@@ -93,7 +93,8 @@ let &runtimepath = s:dein_repo_dir .",". &runtimepath
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
       call dein#add('Shougo/dein.vim')
-      call dein#add('Shougo/neocomplete.vim')
+      call dein#add('Shougo/neocomplete.vim', {'if': has('lua'), 'on_i': 1,'lazy': 1})
+      call dein#add('Shougo/neocomplcache.vim', {'if': !has('lua'), 'on_i': 1,'lazy': 1})
       call dein#add('ctrlpvim/ctrlp.vim')
   call dein#end()
   call dein#save_state()
@@ -109,20 +110,30 @@ endif
 "--------------------------------------------------------------------------}}}2
 " Plugins setting{{{2
 "------------------------------------------------------------------------------
-" Shougo/neocomplete.vim
-  " 起動時に有効化
+" 'Shougo/neocomplete.vim' {{{
+  " enable at startup
   let g:neocomplete#enable_at_startup = 1
-  " 大文字が入力されるまで大文字小文字の区別を無視する
+  " ignore uppercase
   let g:neocomplete#enable_smart_case = 1
-  " _(アンダースコア)区切りの補完を有効化
+  " enable underscore completion
   let g:neocomplete#enable_underbar_completion = 1
   let g:neocomplete#enable_camel_case_completion  =  1
-  " ポップアップメニューで表示される候補の数
+  " pop up menu list
   let g:neocomplete#max_list = 20
-  " シンタックスをキャッシュするときの最小文字長
+  " min keyword length cache syntax
   let g:neocomplete#sources#syntax#min_keyword_length = 3
-  " 補完を表示する最小文字数
+  " starting completion word length
   let g:neocomplete#auto_completion_start_length = 2
+" }}}
+" 'Shougo/neocomplchache.vim' {{{
+" Use neocomplcache.
+let g:neocomplcache_enable_at_startup = 1
+" Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+" }}}
 
 "--------------------------------------------------------------------------}}}2
 "==========================================================================}}}1
