@@ -1,9 +1,11 @@
 [include]
   path = ~/.gitconfig.local
 
-
 [ghq]
   root = ~/src
 
 [user]
 	useConfigOnly = true
+
+[core]
+	editor = vim
