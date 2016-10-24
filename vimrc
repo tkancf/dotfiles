@@ -23,6 +23,11 @@ colorscheme desert
 " Font setting
 set guifont=ricty:h18
 
+" Beep setting
+  " Disable all beep
+set visualbell t_vb=
+set noerrorbells
+
 "==========================================================================}}}1
 
 " Key map{{{1
