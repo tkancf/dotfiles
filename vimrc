@@ -53,7 +53,8 @@ nnoremap <F3> :<C-u>source $MYVIMRC<CR>
 " Create new tab
 nnoremap <C-w>t :<C-u>tabnew<CR>
 
-" Easy cd
+" Easy change directory
+" >vim-users.jp/Hack #69
 command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
 function! s:ChangeCurrentDir(directory, bang)
     if a:directory == ''
@@ -92,8 +93,8 @@ let &runtimepath = s:dein_repo_dir .",". &runtimepath
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
       call dein#add('Shougo/dein.vim')
+      call dein#add('Shougo/neocomplete.vim')
       call dein#add('ctrlpvim/ctrlp.vim')
-
   call dein#end()
   call dein#save_state()
 endif
@@ -108,6 +109,20 @@ endif
 "--------------------------------------------------------------------------}}}2
 " Plugins setting{{{2
 "------------------------------------------------------------------------------
+" Shougo/neocomplete.vim
+  " 起動時に有効化
+  let g:neocomplete#enable_at_startup = 1
+  " 大文字が入力されるまで大文字小文字の区別を無視する
+  let g:neocomplete#enable_smart_case = 1
+  " _(アンダースコア)区切りの補完を有効化
+  let g:neocomplete#enable_underbar_completion = 1
+  let g:neocomplete#enable_camel_case_completion  =  1
+  " ポップアップメニューで表示される候補の数
+  let g:neocomplete#max_list = 20
+  " シンタックスをキャッシュするときの最小文字長
+  let g:neocomplete#sources#syntax#min_keyword_length = 3
+  " 補完を表示する最小文字数
+  let g:neocomplete#auto_completion_start_length = 2
 
 "--------------------------------------------------------------------------}}}2
 "==========================================================================}}}1
