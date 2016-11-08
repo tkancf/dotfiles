@@ -29,7 +29,6 @@ setopt auto_pushd
 # alias
 #########################
 alias tmux="TERM=screen-256color-bce tmux"
-alias vi="nvim"
 alias la="ls -Al"
 
 #########################

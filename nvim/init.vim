@@ -18,10 +18,10 @@ let &runtimepath = s:dein_repo_dir .",". &runtimepath
 
 " Load Plugins & Create Cache
 """""""""""""""""""""""""""""""""""""
-let s:toml_file = fnamemodify(expand('<sfile>'), ':h').'/rc/dein.toml'
 if dein#load_state(s:dein_dir)
-  call dein#begin(s:dein_dir, [$MYVIMRC, s:toml_file])
-  call dein#load_toml(s:toml_file, {'lazy': 0})
+  call dein#begin(s:dein_dir)
+    call dein#add('Shougo/dein.vim')
+    call dein#add('ctrlpvim/ctrlp.vim')
   call dein#end()
   call dein#save_state()
 endif
@@ -35,8 +35,6 @@ endif
 " other settings
 """""""""""""""""""""""""""""""""""""
 set guifont=Ricty:h18
-runtime! rc/*.vim
-runtime! rc/plugins/*.vim
 colorscheme desert
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 set ambiwidth=double
