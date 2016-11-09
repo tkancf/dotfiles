@@ -96,7 +96,6 @@ if dein#load_state(s:dein_dir)
       call dein#add('Shougo/neocomplete.vim', {'if': has('lua'), 'on_i': 1,'lazy': 1})
       call dein#add('Shougo/neocomplcache.vim', {'if': !has('lua'), 'on_i': 1,'lazy': 1})
       call dein#add('ctrlpvim/ctrlp.vim')
-      call dein#add('Shougo/denite
   call dein#end()
   call dein#save_state()
 endif
@@ -109,7 +108,6 @@ endif
 endif 
 "--------------------------------------------------------------------------}}}3
 "--------------------------------------------------------------------------}}}2
-
 " Plugins setting{{{2
 "------------------------------------------------------------------------------
 " 'Shougo/neocomplete.vim' {{{
@@ -135,6 +133,24 @@ let g:neocomplcache_enable_smart_case = 1
 " Set minimum syntax keyword length.
 let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+" }}}
+" 'ctrlp/ctrlp.vim' {{{
+let g:ctrlp_max_files  = 10000
+let g:ctrlp_by_filename = 1
+let g:ctrlp_max_depth = 10
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_use_caching = 1
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.jpg,*.png,*.mp3,*.docx
+if executable('ag')
+  let g:ctrlp_use_caching = 0
+  let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup -g ""'
+endif
 " }}}
 "--------------------------------------------------------------------------}}}2
 "==========================================================================}}}1
