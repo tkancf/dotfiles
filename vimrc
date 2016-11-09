@@ -54,7 +54,7 @@ nnoremap <F3> :<C-u>source $MYVIMRC<CR>
 nnoremap <C-w>t :<C-u>tabnew<CR>
 
 " Easy change directory
-" >vim-users.jp/Hack #69
+" > vim-users.jp/Hack #69
 command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
 function! s:ChangeCurrentDir(directory, bang)
     if a:directory == ''
@@ -74,8 +74,9 @@ nnoremap <silent> <Space>cd :<C-u>CD<CR>
 
 " Plugin {{{1
 "==============================================================================
-" dein install {{{2
+" dein.vim settings{{{2
 "------------------------------------------------------------------------------
+" dein install {{{3
 if v:version >= 704
 
 let s:dein_enabled = 1
@@ -87,27 +88,28 @@ if !isdirectory(s:dein_repo_dir)
   call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
 endif
 let &runtimepath = s:dein_repo_dir .",". &runtimepath
-"--------------------------------------------------------------------------}}}2
-" Load plugins{{{2
-"------------------------------------------------------------------------------
+"--------------------------------------------------------------------------}}}3
+" Load plugins list{{{3
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
       call dein#add('Shougo/dein.vim')
       call dein#add('Shougo/neocomplete.vim', {'if': has('lua'), 'on_i': 1,'lazy': 1})
       call dein#add('Shougo/neocomplcache.vim', {'if': !has('lua'), 'on_i': 1,'lazy': 1})
       call dein#add('ctrlpvim/ctrlp.vim')
+      call dein#add('Shougo/denite
   call dein#end()
   call dein#save_state()
 endif
 
-"--------------------------------------------------------------------------}}}2
-" dein.vim installation check{{{2
-"------------------------------------------------------------------------------
+"--------------------------------------------------------------------------}}}3
+" dein.vim installation check{{{3
   if dein#check_install()
     call dein#install()
   endif
 endif 
+"--------------------------------------------------------------------------}}}3
 "--------------------------------------------------------------------------}}}2
+
 " Plugins setting{{{2
 "------------------------------------------------------------------------------
 " 'Shougo/neocomplete.vim' {{{
@@ -134,7 +136,6 @@ let g:neocomplcache_enable_smart_case = 1
 let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 " }}}
-
 "--------------------------------------------------------------------------}}}2
 "==========================================================================}}}1
 " vim:foldmethod=marker expandtab fdc=3 ft=vim ts=2 sw=2 sts=2:
