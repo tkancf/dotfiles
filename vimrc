@@ -96,6 +96,8 @@ if dein#load_state(s:dein_dir)
       call dein#add('Shougo/neocomplete.vim', {'if': has('lua'), 'on_i': 1,'lazy': 1})
       call dein#add('Shougo/neocomplcache.vim', {'if': !has('lua'), 'on_i': 1,'lazy': 1})
       call dein#add('ctrlpvim/ctrlp.vim')
+      call dein#add('LeafCage/yankround.vim')
+      call dein#add('sgur/ctrlp-extensions.vim', {'depends': ['ctrlp.vim']})
   call dein#end()
   call dein#save_state()
 endif
@@ -135,6 +137,9 @@ let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 " }}}
 " 'ctrlp/ctrlp.vim' {{{
+nnoremap <C-p> <Nop>
+let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'rtscript', 'mixed',
+                         \'line', 'bookmarkdir', 'changes', 'cmdline']
 let g:ctrlp_max_files  = 10000
 let g:ctrlp_by_filename = 1
 let g:ctrlp_max_depth = 10
@@ -151,6 +156,19 @@ if executable('ag')
   let g:ctrlp_use_caching = 0
   let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup -g ""'
 endif
+" }}}
+" 'sgur/ctrlp-extensions.vim' {{{
+nnoremap <Space>p :<C-u>CtrlPMenu<CR>
+" }}}
+" 'LeafCage/yankround.vim' {{{
+nmap p <Plug>(yankround-p)
+xmap p <Plug>(yankround-p)
+nmap P <Plug>(yankround-P)
+nmap gp <Plug>(yankround-gp)
+xmap gp <Plug>(yankround-gp)
+nmap gP <Plug>(yankround-gP)
+nmap <C-p> <Plug>(yankround-prev)
+nmap <C-n> <Plug>(yankround-next)
 " }}}
 "--------------------------------------------------------------------------}}}2
 "==========================================================================}}}1
