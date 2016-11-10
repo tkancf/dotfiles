@@ -56,9 +56,6 @@ nnoremap <F2> :<C-u>edit $MYVIMRC<CR>
 " Reload vimrc
 nnoremap <F3> :<C-u>source $MYVIMRC<CR>
 
-" Create new tab
-nnoremap <C-w>t :<C-u>tabnew<CR>
-
 " Easy change directory
 " > vim-users.jp/Hack #69
 command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
@@ -76,6 +73,13 @@ endfunction
 
 " Change current directory.
 nnoremap <silent> <Space>cd :<C-u>CD<CR>
+
+" Create new tab
+nnoremap <C-w>t :<C-u>tabnew<CR>
+
+" Change ; & :
+noremap ;  :
+noremap :  ;
 "==========================================================================}}}1
 
 " Plugin {{{1
