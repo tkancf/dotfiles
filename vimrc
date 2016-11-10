@@ -20,6 +20,12 @@ let s:dein_enabled  = 0
 
 " Basic {{{1
 "==============================================================================
+" encoding
+set encoding=utf-8
+
+" file encofing
+set fileencodings=iso-2022-jp,cp932,sjis,euc-jp,utf-8
+
 " Backspace key settings
   " start :Pressing Backspace delete text that was previously inserted.
   " eol   :Pressing Backspace also remove EOL markers(\n or \r\n)
