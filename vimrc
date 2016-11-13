@@ -181,6 +181,14 @@ nmap gP <Plug>(yankround-gP)
 nmap <C-p> <Plug>(yankround-prev)
 nmap <C-n> <Plug>(yankround-next)
 " }}}
+" 'glidenote/memolist.vim' {{{
+let g:memolist_memo_suffix = "md"
+let g:memolist_path = "~/src/github.com/tkancf/memo"
+let g:memolist_memo_date = "%Y-%m-%d %H:%M"
+nnoremap ,mf :exe "CtrlP" g:memolist_path<cr><f5>
+nnoremap ,mn :MemoNew<cr>
+nnoremap ,mg :MemoGrep<cr>
+" }}}
 "--------------------------------------------------------------------------}}}2
 "==========================================================================}}}1
 " vim:foldmethod=marker expandtab fdc=3 ft=vim ts=2 sw=2 sts=2:
