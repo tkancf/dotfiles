@@ -42,24 +42,26 @@ set visualbell t_vb=
 set noerrorbells
 
 " Golang
-let g:go_bin_path = expand("~/bin")
-exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
-set completeopt=menu,preview
+" let g:go_bin_path = expand("~/bin")
+" set completeopt=menu,preview
+" let g:go_highlight_functions = 1
+" let g:go_highlight_methods = 1
+" let g:go_highlight_structs = 1
 
 " File type settings
-augroup FiletypeSetting
-  autocmd!
-  autocmd BufRead,BufNewFile *.go setfiletype golang
-  autocmd Filetype go setlocal omnifunc=go#complete#Complete
-  autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
-  autocmd FileType go nmap <Space>gr <Plug>(go-run)
-  autocmd FileType go nmap <Space>gb <Plug>(go-build)
-  autocmd FileType go nmap <Space>gt <Plug>(go-test)
-  autocmd FileType go nmap <Space>gc <Plug>(go-coverage)
-  autocmd FileType go nmap <Space>gd <Plug>(go-doc)
-  autocmd FileType go nmap <Space>gi <Plug>(go-import)
-  autocmd FileType go nmap <Space>gm <Plug>(go-implements)
-augroup END
+" augroup FiletypeSetting
+"   autocmd!
+"   autocmd BufRead,BufNewFile *.go setfiletype golang
+"   autocmd Filetype go setlocal omnifunc=go#complete#Complete
+"   autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
+"   autocmd FileType go nmap <Space>gr <Plug>(go-run)
+"   autocmd FileType go nmap <Space>gb <Plug>(go-build)
+"   autocmd FileType go nmap <Space>gt <Plug>(go-test)
+"   autocmd FileType go nmap <Space>gc <Plug>(go-coverage)
+"   autocmd FileType go nmap <Space>gd <Plug>(go-doc)
+"   autocmd FileType go nmap <Space>gi <Plug>(go-import)
+"   autocmd FileType go nmap <Space>gm <Plug>(go-implements)
+" augroup END
 
 "==========================================================================}}}1
 
@@ -218,19 +220,6 @@ let g:memolist_memo_date = "%Y-%m-%d %H:%M"
 nnoremap ,mf :exe "CtrlP" g:memolist_path<cr><f5>
 nnoremap ,mn :MemoNew<cr>
 nnoremap ,mg :MemoGrep<cr>
-" }}}
-" 'fatih/vim-go' {{{
-" !!! First you should do :GoInstallBinaries !!!
-
-" By default syntax-highlighting for Functions, Methods and Structs is disabled. 
-" To change it:
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_types = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-
 " }}}
 "--------------------------------------------------------------------------}}}2
 "==========================================================================}}}1
