@@ -26,12 +26,6 @@ if !isdirectory(s:dein_repo_dir)
   execute 'set runtimepath^=' . s:dein_repo_dir
   endif
 
-  " dein.vim settings
-  let g:dein#install_max_processes = 16
-  let g:dein#install_progress_type = 'title'
-  let g:dein#install_message_type = 'none'
-  let g:dein#enable_notification = 1
-
 if dein#load_state(s:dein_repo_dir)
   call dein#begin(s:dein_cache_dir)
     call dein#add('Shougo/dein.vim')
@@ -51,6 +45,7 @@ endif
   set guifont=Ricty:h18
   colorscheme desert
   let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+  set termguicolors
   set clipboard+=unnamedplus
   set ambiwidth=double
   "==========================================================================}}}1
@@ -62,6 +57,9 @@ endif
 
   " Create new tab
   nnoremap <C-w>t :<C-u>tabnew<CR>
+
+  noremap ; :
+  noremap : ;
 
   " Easy change directory
   " > vim-users.jp/Hack #69
