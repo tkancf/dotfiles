@@ -2,7 +2,6 @@
 augroup MyAutoCmd
 autocmd!
 augroup END
-
 " dein settings {{{1
 "==============================================================================
 let g:cache_home = empty($XDG_CACHE_HOME) ? expand('$HOME/.cache') : $XDG_CACHE_HOME
@@ -31,6 +30,7 @@ if dein#load_state(s:dein_repo_dir)
     call dein#add('Shougo/dein.vim')
     call dein#add('Shougo/deoplete.nvim')
     call dein#add('Shougo/denite.nvim')
+    call dein#add('tpope/vim-fugitive')
   call dein#end()
   call dein#save_state()
 endif
@@ -39,7 +39,6 @@ if has('vim_starting') && dein#check_install()
   call dein#install()
 endif
   "===========================================================================}}}1
-
   " Other settings {{{1
   "==============================================================================
   set guifont=Ricty:h18
@@ -48,8 +47,9 @@ endif
   set termguicolors
   set clipboard+=unnamedplus
   set ambiwidth=double
+  set ttimeout
+  set ttimeoutlen=10 "100?
   "==========================================================================}}}1
-
   " Key map{{{1
   "==============================================================================
   " Leader key
@@ -58,6 +58,9 @@ endif
   " Create new tab
   nnoremap <C-w>t :<C-u>tabnew<CR>
 
+  " Reload vimrc
+  nnoremap <F3> :<C-u>source $MYVIMRC<CR>
+
   noremap ; :
   noremap : ;
 
@@ -65,17 +68,15 @@ endif
   " > vim-users.jp/Hack #69
   command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
   function! s:ChangeCurrentDir(directory, bang)
-  if a:directory == ''
-  lcd %:p:h
-  else
-  execute 'lcd' . a:directory
-  endif
-
-  if a:bang == ''
-  pwd
-  endif
+    if a:directory == ''
+      lcd %:p:h
+      else
+      execute 'lcd' . a:directory
+    endif
+    if a:bang == ''
+      pwd
+    endif
   endfunction
-
   " Change current directory.
   nnoremap <silent> <Space>cd :<C-u>CD<CR>
 
