@@ -7,6 +7,8 @@ augroup END
 let g:cache_home = empty($XDG_CACHE_HOME) ? expand('$HOME/.cache') : $XDG_CACHE_HOME
 let g:config_home = empty($XDG_CONFIG_HOME) ? expand('$HOME/.config') : $XDG_CONFIG_HOME
 let s:dein_cache_dir = g:cache_home . '/dein'
+let g:python3_host_prog = '/usr/local/bin/python3'
+let g:python_host_prog = '/usr/local/bin/python2'
 
 " reset augroup
 augroup MyAutoCmd
@@ -31,6 +33,8 @@ if dein#load_state(s:dein_repo_dir)
     call dein#add('Shougo/deoplete.nvim')
     call dein#add('Shougo/denite.nvim')
     call dein#add('tpope/vim-fugitive')
+    call dein#add('zchee/deoplete-go', {'build': 'make'})
+    call dein#add('fatih/vim-go')
   call dein#end()
   call dein#save_state()
 endif
@@ -38,6 +42,32 @@ endif
 if has('vim_starting') && dein#check_install()
   call dein#install()
 endif
+
+let g:deoplete#enable_at_startup=1
+let g:deoplete#auto_complete_start_length=1
+
+" denite.nvim
+
+"" vim-go
+let g:go_fmt_command = "goimports"
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_term_enabled = 1
+let g:go_highlight_build_constraints = 1
+
+" deoplete-go
+" deoplete.nvim recommend
+set completeopt+=noselect
+let g:python3_host_skip_check = 1
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+let g:deoplete#sources#go#use_cache = 1
+let g:deoplete#sources#go#json_directory = '~/.cache/deoplete/go/$GOOS_$GOARCH'
+inoremap <expr><C-h> deolete#mappings#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
+
   "===========================================================================}}}1
   " Other settings {{{1
   "==============================================================================
@@ -49,11 +79,15 @@ endif
   set ambiwidth=double
   set ttimeout
   set ttimeoutlen=10 "100?
+  filetype plugin indent on
   "==========================================================================}}}1
   " Key map{{{1
   "==============================================================================
   " Leader key
   let mapleader=","
+
+  nnoremap <leader>hv :<C-u>vertical belowright help<Space>
+  nnoremap <leader>ht :<C-u>tab help<Space>
 
   " Create new tab
   nnoremap <C-w>t :<C-u>tabnew<CR>
