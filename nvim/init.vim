@@ -32,6 +32,9 @@ if dein#load_state(s:dein_repo_dir)
     call dein#add('Shougo/dein.vim')
     call dein#add('Shougo/deoplete.nvim')
     call dein#add('Shougo/denite.nvim')
+    call dein#add('altercation/solarized')
+    call dein#source('solarized')
+    colorscheme solarized
     call dein#add('tpope/vim-fugitive')
     call dein#add('zchee/deoplete-go', {'build': 'make'})
     call dein#add('fatih/vim-go')
@@ -47,6 +50,17 @@ let g:deoplete#enable_at_startup=1
 let g:deoplete#auto_complete_start_length=1
 
 " denite.nvim
+" Change file_rec command.
+call denite#custom#var('file_rec', 'command',
+\ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+" Change mappings.
+call denite#custom#map('insert', '<C-j>', 'move_to_next_line')
+call denite#custom#map('insert', '<C-k>', 'move_to_prev_line')
+" Change ignore_globs
+call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
+      \ [ '.git/', '.ropeproject/', '__pycache__/',
+      \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
+
 
 "" vim-go
 let g:go_fmt_command = "goimports"
@@ -72,7 +86,6 @@ inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
   " Other settings {{{1
   "==============================================================================
   set guifont=Ricty:h18
-  colorscheme desert
   let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
   set termguicolors
   set clipboard+=unnamedplus

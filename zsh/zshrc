@@ -18,7 +18,6 @@ fi
 # Then, source plugins and add commands to $PATH
 zplug load --verbose
 
-
 # auto complete on
 autoload -U compinit; compinit
 
@@ -28,8 +27,8 @@ setopt auto_pushd
 #########################
 # alias
 #########################
-alias tmux="TERM=screen-256color-bce tmux"
 alias la="ls -Al"
+alias hm="cd ~/src/github.com/tkancf"
 
 #########################
 # pecol function
