@@ -1,0 +1,3 @@
+[submodule "nvim/colors/vim-colors-solarized"]
+	path = nvim/colors/vim-colors-solarized
+	url = git@github.com:altercation/vim-colors-solarized.git
