@@ -3,7 +3,7 @@ augroup MyAutoCmd
 autocmd!
 augroup END
 
-source rc/plugins/dein.vim
+source ~/.config/nvim/rc/plugins/dein.vim
 
 " Other settings {{{1
 "==============================================================================
