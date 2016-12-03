@@ -21,17 +21,14 @@ filetype plugin indent on
 " Leader key
   let mapleader=","
 
-  nnoremap <leader>hv :<C-u>vertical belowright help<Space>
-  nnoremap <leader>ht :<C-u>tab help<Space>
+  nnoremap <F3> :<C-u>vertical belowright help<Space>
+  nnoremap <F2> :<C-u>tab help<Space>
 
   " Create new tab
   nnoremap <C-w>t :<C-u>tabnew<CR>
 
   " Reload vimrc
-  nnoremap <F3> :<C-u>source $MYVIMRC<CR>
-
-  noremap ; :
-  noremap : ;
+  nnoremap <F5> :<C-u>source $MYVIMRC<CR>
 
   " Easy change directory
   " > vim-users.jp/Hack #69
