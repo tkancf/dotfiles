@@ -40,6 +40,8 @@ set guifont=ricty:h18
 set visualbell t_vb=
 set noerrorbells
 
+set clipboard=unnamed,autoselect
+
 " Golang
 " let g:go_bin_path = expand("~/bin")
 " set completeopt=menu,preview
@@ -152,4 +154,5 @@ nnoremap ,mg :MemoGrep<cr>
 " }}}
 "--------------------------------------------------------------------------}}}2
 "==========================================================================}}}1
+set plugin indent on
 " vim:foldmethod=marker expandtab fdc=3 ft=vim ts=2 sw=2 sts=2:
