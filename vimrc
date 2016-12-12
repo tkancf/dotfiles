@@ -15,7 +15,6 @@ if has("vim_starting")
 endif
 
 "==========================================================================}}}1
-
 " Basic {{{1
 "==============================================================================
 " encoding
@@ -64,7 +63,6 @@ set noerrorbells
 " augroup END
 
 "==========================================================================}}}1
-
 " Key map{{{1
 "==============================================================================
 " Leader key
@@ -102,83 +100,24 @@ noremap ;  :
 noremap :  ;
 
 "==========================================================================}}}1
-
-" Plugin {{{1
-"==============================================================================
-" dein.vim settings{{{2
-"------------------------------------------------------------------------------
-" dein install {{{3
-if v:version >= 704
-
-let s:dein_enabled = 1
-
-let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.vim') : $XDG_CACHE_HOME
-let s:dein_dir = s:cache_home . '/dein'
-let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-if !isdirectory(s:dein_repo_dir)
-  call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
-endif
-let &runtimepath = s:dein_repo_dir .",". &runtimepath
-"--------------------------------------------------------------------------}}}3
-" Load plugins list{{{3
-if dein#load_state(s:dein_dir)
-  call dein#begin(s:dein_dir)
-      call dein#add('Shougo/dein.vim')
-      call dein#add('Shougo/neocomplete.vim', {'if': has('lua'), 'on_i': 1,'lazy': 1})
-      call dein#add('Shougo/neocomplcache.vim', {'if': !has('lua'), 'on_i': 1,'lazy': 1})
-      call dein#add('ctrlpvim/ctrlp.vim')
-      call dein#add('fatih/vim-go')
-      call dein#add('glidenote/memolist.vim')
-      call dein#add('LeafCage/yankround.vim')
-      call dein#add('sgur/ctrlp-extensions.vim', {'depends': ['ctrlp.vim']})
-  call dein#end()
-  call dein#save_state()
-endif
-
-"--------------------------------------------------------------------------}}}3
-" dein.vim installation check{{{3
-  if dein#check_install()
-    call dein#install()
-  endif
-endif 
-filetype plugin indent on
-"--------------------------------------------------------------------------}}}3
-"--------------------------------------------------------------------------}}}2
+"" Load plugins list{{{3
+"if dein#load_state(s:dein_dir)
+"  call dein#begin(s:dein_dir)
+"      call dein#add('Shougo/dein.vim')
+"      call dein#add('Shougo/neocomplete.vim', {'if': has('lua'), 'on_i': 1,'lazy': 1})
+"      call dein#add('Shougo/neocomplcache.vim', {'if': !has('lua'), 'on_i': 1,'lazy': 1})
+"      call dein#add('ctrlpvim/ctrlp.vim')
+"      call dein#add('fatih/vim-go')
+"      call dein#add('glidenote/memolist.vim')
+"      call dein#add('LeafCage/yankround.vim')
+"      call dein#add('sgur/ctrlp-extensions.vim', {'depends': ['ctrlp.vim']})
+"  call dein#end()
+"  call dein#save_state()
+"endif
+"
+""--------------------------------------------------------------------------}}}3
 " Plugins setting{{{2
 "------------------------------------------------------------------------------
-" 'Shougo/neocomplete.vim' {{{
-  " enable at startup
-  let g:neocomplete#enable_at_startup = 1
-  " ignore uppercase
-  let g:neocomplete#enable_smart_case = 1
-  " enable underscore completion
-  let g:neocomplete#enable_underbar_completion = 1
-  let g:neocomplete#enable_camel_case_completion  =  1
-  " pop up menu list
-  let g:neocomplete#max_list = 20
-  " min keyword length cache syntax
-  let g:neocomplete#sources#syntax#min_keyword_length = 2
-  " starting completion word length
-  let g:neocomplete#auto_completion_start_length = 1
-  " golang omni function
-  if !exists('g:neocomplete#sources#omni#input_patterns')
-    let g:neocomplete#sources#omni#input_patterns = {}
-  endif
-  let g:neocomplete#sources#omni#input_patterns.go = '\h\w\.\w*'
-" }}}
-" 'Shougo/neocomplchache.vim' {{{
-" Use neocomplcache.
-let g:neocomplcache_enable_at_startup = 1
-" Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-  let g:neocomplete#sources#omni#input_patterns.go = '[^.[:digit:] *\t]\.\w*'
-" }}}
 " 'ctrlp/ctrlp.vim' {{{
 nnoremap <C-p> <Nop>
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'rtscript', 'mixed',
@@ -202,16 +141,6 @@ endif
 " }}}
 " 'sgur/ctrlp-extensions.vim' {{{
 nnoremap <Space>p :<C-u>CtrlPMenu<CR>
-" }}}
-" 'LeafCage/yankround.vim' {{{
-nmap p <Plug>(yankround-p)
-xmap p <Plug>(yankround-p)
-nmap P <Plug>(yankround-P)
-nmap gp <Plug>(yankround-gp)
-xmap gp <Plug>(yankround-gp)
-nmap gP <Plug>(yankround-gP)
-nmap <C-p> <Plug>(yankround-prev)
-nmap <C-n> <Plug>(yankround-next)
 " }}}
 " 'glidenote/memolist.vim' {{{
 let g:memolist_memo_suffix = "md"
