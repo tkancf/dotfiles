@@ -19,8 +19,8 @@ repo = 'sjl/badwolf'
 hook_add = '''
   au MyAutoCmd VimEnter * nested colorscheme badwolf
 '''
-[[plugins]]
-repo = 'jonathanfilip/vim-lucius'
-hook_add = '''
-  " au MyAutoCmd VimEnter * nested colorscheme lucius
-'''
+# [[plugins]]
+# repo = 'jonathanfilip/vim-lucius'
+# hook_add = '''
+#   " au MyAutoCmd VimEnter * nested colorscheme lucius
+# '''

@@ -7,17 +7,22 @@ source ~/.config/nvim/rc/plugins/dein.vim
 
 " Other settings {{{1
 "==============================================================================
+set tabstop=4
+set shiftwidth=4
 set guifont=Ricty:h18
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 set termguicolors
 set clipboard+=unnamedplus
 set ambiwidth=double
 set ttimeout
 set ttimeoutlen=10 "100?
 filetype plugin indent on
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 "==========================================================================}}}1
 " Key map{{{1
 "==============================================================================
+
+nnoremap ; :
+nnoremap : ;
 " Leader key
   let mapleader=","
 

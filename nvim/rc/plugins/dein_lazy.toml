@@ -32,3 +32,7 @@ hook_source = '''
 let g:deoplete#enable_at_startup = 1
 source ~/.config/nvim/rc/plugins/deoplete.vim
 '''
+
+[[plugins]]
+repo = 'itmammoth/doorboy.vim'
+on_i = 1
