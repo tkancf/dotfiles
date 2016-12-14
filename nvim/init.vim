@@ -51,4 +51,6 @@ nnoremap : ;
   " Change current directory.
   nnoremap <silent> <Space>cd :<C-u>CD<CR>
 "==========================================================================}}}1
+nnoremap <silent> <Space>b :<C-u>Denite buffer<CR>
+nnoremap <silent> <Space>u :<C-u>Denite file_mru<CR>
 " vim:foldmethod=marker expandtab fdc=3 ft=vim ts=2 sw=2 sts=2:
