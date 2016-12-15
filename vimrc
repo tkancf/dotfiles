@@ -8,6 +8,7 @@ scriptencoding utf-8
 
 " Set .vim directory
 let s:vimdir = $HOME . "/.vim"
+
 if has("vim_starting")
   if ! isdirectory(s:vimdir)
     call system("mkdir " . s:vimdir)
@@ -41,6 +42,20 @@ set guifont=ricty:h18
 set visualbell t_vb=
 set noerrorbells
 
+" Tab setting
+  " Expand TAB to Space
+set expandtab
+  " TAB characters that appear 2-Spaces-wide 
+set tabstop=2
+  " TAB characters(auto indent) that appear 2-Spaces-wide 
+set shiftwidth=2
+  " Sets the number of columns for a TAB
+set softtabstop=2
+  " Auto indent on
+set autoindent
+set smartindent
+
+" Clipboard setting
 set clipboard=unnamed,autoselect
 
 "==========================================================================}}}1
@@ -49,6 +64,7 @@ set clipboard=unnamed,autoselect
 "==============================================================================
 " Leader key
 let mapleader=","
+nnoremap <Space> <Nop>
 
 " Open vimrc
 nnoremap <F2> :<C-u>edit $MYVIMRC<CR>
@@ -60,15 +76,15 @@ nnoremap <F5> :<C-u>source $MYVIMRC<CR>
 " > vim-users.jp/Hack #69
 command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
 function! s:ChangeCurrentDir(directory, bang)
-    if a:directory == ''
-        lcd %:p:h
-    else
-        execute 'lcd' . a:directory
-    endif
+if a:directory == ''
+    lcd %:p:h
+else
+    execute 'lcd' . a:directory
+endif
 
-    if a:bang == ''
-        pwd
-    endif
+if a:bang == ''
+    pwd
+endif
 endfunction
 
 " Change current directory.
@@ -149,7 +165,10 @@ nnoremap ,mg :MemoGrep<cr>
 Plug 'sgur/ctrlp-extensions.vim'
 nnoremap <Space>p :<C-u>CtrlPMenu<CR>
 " }}}
+" 'justinmk/vim-dirvish' {{{
+Plug 'justinmk/vim-dirvish'
 call plug#end()
 "==========================================================================}}}1
 filetype plugin indent on
-" vim:foldmethod=marker expandtab fdc=3 ft=vim ts=2 sw=2 sts=2:
+
+" vim:foldmethod=marker expandtab fdc=3 ft=vim ts=2 sw=2 sts=2
