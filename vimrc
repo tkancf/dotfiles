@@ -58,12 +58,17 @@ set smartindent
 " Clipboard setting
 set clipboard=unnamed,autoselect
 
+" Complete option setting
+set completeopt=menu,preview
+
 "==========================================================================}}}1
 
 " Key map{{{1
 "==============================================================================
+nnoremap , <Nop>
 " Leader key
 let mapleader=","
+
 nnoremap <Space> <Nop>
 
 " Open vimrc
@@ -102,9 +107,14 @@ noremap :  ;
 
 " File type{{{1
 "==============================================================================
-augroup FiletypeGroup
+augroup Vimcr
   autocmd!
   autocmd BufRead,BufNewFile *.go setlocal noexpandtab
+  autocmd FileType go nmap <leader>gr <Plug>(go-run)
+  autocmd FileType go nmap <leader>gb <Plug>(go-build)
+  autocmd FileType go nmap <leader>gt <Plug>(go-test)
+  autocmd FileType go nmap <leader>gc <Plug>(go-coverage)
+augroup END
 "==========================================================================}}}1
 
 " Plugin {{{
@@ -118,6 +128,7 @@ call plug#begin('~/.vim/plugged')
 
 " 'ctrlp/ctrlp.vim' {{{
 Plug 'ctrlpvim/ctrlp.vim'
+
 nnoremap <C-p> <Nop>
 nnoremap <silent> <Space>b :<C-u>CtrlPBuffer<CR>
 nnoremap <silent> <Space>u :<C-u>CtrlPMRUFiles<CR>
@@ -164,15 +175,26 @@ Plug 'sgur/ctrlp-extensions.vim'
 nnoremap <Space>p :<C-u>CtrlPMenu<CR>
 " }}}
 
+" 'fatih/vim-go' {{{
 Plug 'fatih/vim-go'
+
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+" }}}
 
 Plug 'itmammoth/doorboy.vim'
 
 " 'glidenote/memolist.vim' {{{
 Plug 'glidenote/memolist.vim'
+
 let g:memolist_memo_suffix = "md"
 let g:memolist_path = "~/src/github.com/tkancf/memo"
 let g:memolist_memo_date = "%Y-%m-%d %H:%M"
+
 nnoremap ,mf :exe "CtrlP" g:memolist_path<cr><f5>
 nnoremap ,mn :MemoNew<cr>
 nnoremap ,mg :MemoGrep<cr>
@@ -180,6 +202,7 @@ nnoremap ,mg :MemoGrep<cr>
 
 " 'justinmk/vim-dirvish' {{{
 Plug 'justinmk/vim-dirvish'
+
 " }}}
 
 call plug#end()
