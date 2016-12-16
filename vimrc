@@ -100,6 +100,13 @@ noremap :  ;
 
 "==========================================================================}}}1
 
+" File type{{{1
+"==============================================================================
+augroup FiletypeGroup
+  autocmd!
+  autocmd BufRead,BufNewFile *.go setlocal noexpandtab
+"==========================================================================}}}1
+
 " Plugin {{{
 "==============================================================================
 let s:vim_plug_url='https://github.com/junegunn/vim-plug'
@@ -108,7 +115,7 @@ if !filereadable(expand('~/.vim/vim-plug/plug.vim'))
 endif
 source ~/.vim/vim-plug/plug.vim
 call plug#begin('~/.vim/plugged')
-"------------------------------------------------------------------------------
+
 " 'ctrlp/ctrlp.vim' {{{
 Plug 'ctrlpvim/ctrlp.vim'
 nnoremap <C-p> <Nop>
@@ -151,7 +158,16 @@ else
       \ }
 endif
 " }}}
+
+" 'sgur/ctrlp-extensions.vim' {{{
+Plug 'sgur/ctrlp-extensions.vim'
+nnoremap <Space>p :<C-u>CtrlPMenu<CR>
+" }}}
+
 Plug 'fatih/vim-go'
+
+Plug 'itmammoth/doorboy.vim'
+
 " 'glidenote/memolist.vim' {{{
 Plug 'glidenote/memolist.vim'
 let g:memolist_memo_suffix = "md"
@@ -161,14 +177,13 @@ nnoremap ,mf :exe "CtrlP" g:memolist_path<cr><f5>
 nnoremap ,mn :MemoNew<cr>
 nnoremap ,mg :MemoGrep<cr>
 " }}}
-" 'sgur/ctrlp-extensions.vim' {{{
-Plug 'sgur/ctrlp-extensions.vim'
-nnoremap <Space>p :<C-u>CtrlPMenu<CR>
-" }}}
+
 " 'justinmk/vim-dirvish' {{{
 Plug 'justinmk/vim-dirvish'
+" }}}
+
 call plug#end()
+
 "==========================================================================}}}1
 filetype plugin indent on
-
 " vim:foldmethod=marker expandtab fdc=3 ft=vim ts=2 sw=2 sts=2
