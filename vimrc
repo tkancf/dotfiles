@@ -116,7 +116,7 @@ noremap :  ;
 
 " File type{{{1
 "==============================================================================
-augroup Vimcr
+augroup Vimrc
   autocmd!
   autocmd BufRead,BufNewFile *.go setlocal noexpandtab
   autocmd FileType go nmap <leader>gr <Plug>(go-run)
@@ -143,7 +143,7 @@ nnoremap <silent> <Space>b :<C-u>CtrlPBuffer<CR>
 nnoremap <silent> <Space>u :<C-u>CtrlPMRUFiles<CR>
 nnoremap <silent> <Space>x :<C-u>CtrlPMixed<CR>
 nnoremap <silent> <Space>l :<C-u>CtrlPLine<CR>
-nnoremap <silent> <Space>f :<C-u>CtrlP<CR>
+nnoremap <silent> <Space>i :<C-u>CtrlP<CR>
 
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'rtscript', 'mixed',
                          \'line', 'bookmarkdir', 'changes', 'cmdline']
@@ -209,9 +209,6 @@ let g:memolist_memo_suffix = "md"
 let g:memolist_path = "~/Dropbox/Memo"
 let g:memolist_memo_date = "%Y-%m-%d %H:%M"
 
-nnoremap ,mf :exe "CtrlP" g:memolist_path<cr><f5>
-nnoremap ,mn :MemoNew<cr>
-nnoremap ,mg :MemoGrep<cr>
 " }}}
 
 " 'justinmk/vim-dirvish' {{{
@@ -227,6 +224,8 @@ call plug#end()
 
 "==========================================================================}}}1
 
+" My Plugin {{{
 
+" }}}
 filetype plugin indent on
 " vim:foldmethod=marker expandtab fdc=3 ft=vim ts=2 sw=2 sts=2
