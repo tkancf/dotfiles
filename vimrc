@@ -61,6 +61,14 @@ set clipboard=unnamed,autoselect
 " Complete option setting
 set completeopt=menu,preview
 
+set list
+set listchars=tab:>-,trail:.
+
+
+" Local vimrc
+if filereadable(expand('~/.vimrc.local'))
+  source ~/.vimrc.local
+endif
 "==========================================================================}}}1
 
 " Key map{{{1
@@ -71,11 +79,12 @@ let mapleader=","
 
 nnoremap <Space> <Nop>
 
-" Open vimrc
-nnoremap <F2> :<C-u>edit $MYVIMRC<CR>
-
 " Reload vimrc
 nnoremap <F5> :<C-u>source $MYVIMRC<CR>
+
+" Open help
+nnoremap <F3> :<C-u>vertical belowright help<Space>
+nnoremap <F2> :<C-u>tab help<Space>
 
 " Easy change directory
 " > vim-users.jp/Hack #69
@@ -175,6 +184,11 @@ Plug 'sgur/ctrlp-extensions.vim'
 nnoremap <Space>p :<C-u>CtrlPMenu<CR>
 " }}}
 
+" 'mattn/ctrlp-launcher' {{{
+Plug 'mattn/ctrlp-launcher'
+nnoremap <Space><Space> :<C-u>CtrlPLauncher<CR>
+" }}}
+
 " 'fatih/vim-go' {{{
 Plug 'fatih/vim-go'
 
@@ -192,7 +206,7 @@ Plug 'itmammoth/doorboy.vim'
 Plug 'glidenote/memolist.vim'
 
 let g:memolist_memo_suffix = "md"
-let g:memolist_path = "~/src/github.com/tkancf/memo"
+let g:memolist_path = "~/Dropbox/Memo"
 let g:memolist_memo_date = "%Y-%m-%d %H:%M"
 
 nnoremap ,mf :exe "CtrlP" g:memolist_path<cr><f5>
@@ -205,8 +219,14 @@ Plug 'justinmk/vim-dirvish'
 
 " }}}
 
+Plug 'mattn/webapi-vim'
+
+Plug 'tsuyoshiwada/slack-memo-vim'
+
 call plug#end()
 
 "==========================================================================}}}1
+
+
 filetype plugin indent on
 " vim:foldmethod=marker expandtab fdc=3 ft=vim ts=2 sw=2 sts=2
