@@ -135,7 +135,7 @@ endif
 source ~/.vim/vim-plug/plug.vim
 call plug#begin('~/.vim/plugged')
 
-" 'ctrlp/ctrlp.vim' {{{
+" 'ctrlpvim/ctrlp.vim' {{{
 Plug 'ctrlpvim/ctrlp.vim'
 
 nnoremap <C-p> <Nop>
@@ -179,14 +179,19 @@ else
 endif
 " }}}
 
+" 'mattn/ctrlp-launcher' {{{
+Plug 'ctrlpvim/ctrlp.vim' |  Plug 'mattn/ctrlp-launcher'
+
+nnoremap <Space><Space> :<C-u>CtrlPLauncher<CR>
+" }}}
+
 " 'sgur/ctrlp-extensions.vim' {{{
-Plug 'sgur/ctrlp-extensions.vim'
+Plug 'ctrlpvim/ctrlp.vim' | Plug 'sgur/ctrlp-extensions.vim'
 nnoremap <Space>p :<C-u>CtrlPMenu<CR>
 " }}}
 
-" 'mattn/ctrlp-launcher' {{{
-Plug 'mattn/ctrlp-launcher'
-nnoremap <Space><Space> :<C-u>CtrlPLauncher<CR>
+" 'tacahiroy/ctrlp-funky' {{{
+Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
 " }}}
 
 " 'fatih/vim-go' {{{
