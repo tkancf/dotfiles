@@ -112,6 +112,8 @@ nnoremap <C-w><C-t> :<C-u>tabnew<CR>
 noremap ;  :
 noremap :  ;
 
+" Ex-mode
+nnoremap Q gQ
 "==========================================================================}}}1
 
 " File type{{{1
@@ -192,6 +194,8 @@ nnoremap <Space>p :<C-u>CtrlPMenu<CR>
 
 " 'tacahiroy/ctrlp-funky' {{{
 Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
+
+nnoremap <Space>f :<C-u>CtrlPFunky<CR>
 " }}}
 
 " 'fatih/vim-go' {{{
@@ -205,7 +209,9 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 " }}}
 
+" 'itmammoth/doorboy.vim' {{{
 Plug 'itmammoth/doorboy.vim'
+" }}}
 
 " 'glidenote/memolist.vim' {{{
 Plug 'glidenote/memolist.vim'
@@ -218,12 +224,16 @@ let g:memolist_memo_date = "%Y-%m-%d %H:%M"
 
 " 'justinmk/vim-dirvish' {{{
 Plug 'justinmk/vim-dirvish'
-
 " }}}
 
-Plug 'mattn/webapi-vim'
+" 'tsuyoshiwada/slack-memo-vim' {{{
+Plug 'mattn/webapi-vim' | Plug 'tsuyoshiwada/slack-memo-vim'
+" }}}
 
-Plug 'tsuyoshiwada/slack-memo-vim'
+" 'vim-jp/vimdoc-ja' {{{
+Plug 'vim-jp/vimdoc-ja'
+set helplang=ja,en
+" }}}
 
 call plug#end()
 
@@ -232,5 +242,6 @@ call plug#end()
 " My Plugin {{{
 
 " }}}
+
 filetype plugin indent on
 " vim:foldmethod=marker expandtab fdc=3 ft=vim ts=2 sw=2 sts=2
