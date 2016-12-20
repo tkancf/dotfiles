@@ -74,6 +74,8 @@ endif
 " Key map{{{1
 "==============================================================================
 nnoremap , <Nop>
+nnoremap <ENTER> <Nop>
+
 " Leader key
 let mapleader=","
 
@@ -85,6 +87,9 @@ nnoremap <F5> :<C-u>source $MYVIMRC<CR>
 " Open help
 nnoremap <F3> :<C-u>vertical belowright help<Space>
 nnoremap <F2> :<C-u>tab help<Space>
+
+" Save file quickly
+nnoremap <ENTER><ENTER> :<C-u>w<CR>
 
 " Easy change directory
 " > vim-users.jp/Hack #69
@@ -185,6 +190,7 @@ endif
 Plug 'ctrlpvim/ctrlp.vim' |  Plug 'mattn/ctrlp-launcher'
 
 nnoremap <Space><Space> :<C-u>CtrlPLauncher<CR>
+
 " }}}
 
 " 'sgur/ctrlp-extensions.vim' {{{
@@ -244,4 +250,5 @@ call plug#end()
 " }}}
 
 filetype plugin indent on
+
 " vim:foldmethod=marker expandtab fdc=3 ft=vim ts=2 sw=2 sts=2
