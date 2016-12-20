@@ -69,6 +69,7 @@ set listchars=tab:>-,trail:.
 if filereadable(expand('~/.vimrc.local'))
   source ~/.vimrc.local
 endif
+
 "==========================================================================}}}1
 
 " Key map{{{1
@@ -90,6 +91,9 @@ nnoremap <F2> :<C-u>tab help<Space>
 
 " Save file quickly
 nnoremap <ENTER><ENTER> :<C-u>w<CR>
+
+" Quit file quickly
+nnoremap <ENTER>q :<C-u>q<CR>
 
 " Easy change directory
 " > vim-users.jp/Hack #69
@@ -123,13 +127,15 @@ nnoremap Q gQ
 
 " File type{{{1
 "==============================================================================
-augroup Vimrc
+augroup vimrc-filetype
   autocmd!
-  autocmd BufRead,BufNewFile *.go setlocal noexpandtab
-  autocmd FileType go nmap <leader>gr <Plug>(go-run)
-  autocmd FileType go nmap <leader>gb <Plug>(go-build)
-  autocmd FileType go nmap <leader>gt <Plug>(go-test)
-  autocmd FileType go nmap <leader>gc <Plug>(go-coverage)
+  " Go {{{
+    autocmd BufRead,BufNewFile *.go setlocal noexpandtab
+    autocmd BufRead,BufNewFile *.go nnoremap <Leader>r :<C-u>GoRun<CR>
+    autocmd BufRead,BufNewFile *.go nnoremap <Leader>lr :<C-u>GoRun %<CR>
+    autocmd BufRead,BufNewFile *.go nnoremap <Leader>d :<C-u>GoDoc<CR>
+    autocmd BufRead,BufNewFile *.go nnoremap <Leader>i :<C-u>GoImport 
+  " }}}
 augroup END
 "==========================================================================}}}1
 
@@ -250,5 +256,6 @@ call plug#end()
 " }}}
 
 filetype plugin indent on
+syntax enable
 
 " vim:foldmethod=marker expandtab fdc=3 ft=vim ts=2 sw=2 sts=2
