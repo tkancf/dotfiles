@@ -1,29 +1,10 @@
-" Startup {{{1
-"==============================================================================
-" Reset autocmd
-autocmd!
-
-" Define vimrc's encoding
-scriptencoding utf-8
-
-" Set .vim directory
-let s:vimdir = $HOME . "/.vim"
-
-if has("vim_starting")
-  if ! isdirectory(s:vimdir)
-    call system("mkdir " . s:vimdir)
-  endif
-endif
-
-"==========================================================================}}}1
-
 " Basic {{{1
 "==============================================================================
 " encoding
 set encoding=utf-8
 
 " file encofing
-set fileencodings=iso-2022-jp,cp932,sjis,euc-jp,utf-8
+set fileencodings=utf-8,euc-jp,sjis,cp932,iso-2022-jp
 
 " Backspace key settings
   " start :Pressing Backspace delete text that was previously inserted.
@@ -89,26 +70,11 @@ nnoremap <F5> :<C-u>source $MYVIMRC<CR>
 nnoremap <F3> :<C-u>vertical belowright help<Space>
 nnoremap <F2> :<C-u>tab help<Space>
 
-" Save file quickly
+" Save file
 nnoremap <ENTER><ENTER> :<C-u>w<CR>
 
-" Quit file quickly
+" Quit file
 nnoremap <ENTER>q :<C-u>q<CR>
-
-" Easy change directory
-" > vim-users.jp/Hack #69
-command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
-function! s:ChangeCurrentDir(directory, bang)
-if a:directory == ''
-    lcd %:p:h
-else
-    execute 'lcd' . a:directory
-endif
-
-if a:bang == ''
-    pwd
-endif
-endfunction
 
 " Change current directory.
 nnoremap <silent> <Space>cd :<C-u>CD<CR>
@@ -116,6 +82,7 @@ nnoremap <silent> <Space>cd :<C-u>CD<CR>
 " Create new tab
 nnoremap <C-w>t :<C-u>tabnew<CR>
 nnoremap <C-w><C-t> :<C-u>tabnew<CR>
+nnoremap <ENTER>t :<C-u>tabfind 
 
 " Change ; & :
 noremap ;  :
@@ -131,8 +98,8 @@ augroup vimrc-filetype
   autocmd!
   " Go {{{
     autocmd BufRead,BufNewFile *.go setlocal noexpandtab
-    autocmd BufRead,BufNewFile *.go nnoremap <Leader>r :<C-u>GoRun<CR>
-    autocmd BufRead,BufNewFile *.go nnoremap <Leader>lr :<C-u>GoRun %<CR>
+    autocmd BufRead,BufNewFile *.go nnoremap <Leader>ar :<C-u>GoRun<CR>
+    autocmd BufRead,BufNewFile *.go nnoremap <Leader>r :<C-u>GoRun %<CR>
     autocmd BufRead,BufNewFile *.go nnoremap <Leader>d :<C-u>GoDoc<CR>
     autocmd BufRead,BufNewFile *.go nnoremap <Leader>i :<C-u>GoImport 
   " }}}
@@ -247,13 +214,45 @@ Plug 'vim-jp/vimdoc-ja'
 set helplang=ja,en
 " }}}
 
+" 'tpope/vim-markdown' {{{
+Plug 'tpope/vim-markdown'
+" }}}
+
+" 'kannokanno/previm' {{{
+Plug 'kannokanno/previm'
+let g:previm_open_cmd = 'open -a Firefox'
+augroup PrevimSettings
+    autocmd!
+    autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+augroup END
+" }}}
+
 call plug#end()
 
 "==========================================================================}}}1
 
-" My Plugin {{{
+" Function {{{
+"==============================================================================
+" Easy change directory
+" > vim-users.jp/Hack #69
+command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
+function! s:ChangeCurrentDir(directory, bang)
+if a:directory == ''
+    lcd %:p:h
+else
+    execute 'lcd' . a:directory
+endif
 
-" }}}
+if a:bang == ''
+    pwd
+endif
+endfunction
+
+" Rename file
+" > vim-users.jp/Hack #17
+command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
+
+"===========================================================================}}}
 
 filetype plugin indent on
 syntax enable
