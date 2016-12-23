@@ -12,3 +12,7 @@ export PATH=$PATH:$GOPATH/bin
 # 
 # set neovim
 export XDG_CONFIG_HOME=~/.config
+
+# set zplug
+export ZPLUG_HOME=/usr/local/opt/zplug
+source $ZPLUG_HOME/init.zsh]
