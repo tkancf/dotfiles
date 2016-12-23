@@ -1,8 +1,10 @@
 #!/bin/bash
 
-ln -sf ~/src/github.com/tkancf/dotfiles/zsh/zshenv ~/.zshenv
+#ln -sf ~/src/github.com/tkancf/dotfiles/zsh/zshenv ~/.zshenv
 
-ln -sf ~/src/github.com/tkancf/dotfiles/zsh/zshrc ~/.zshrc
+#ln -sf ~/src/github.com/tkancf/dotfiles/zsh/zshrc ~/.zshrc
+
+ln -sf ~/src/github.com/tkancf/dotfiles/zprezto ~/.zprezto
 
 ln -sf ~/src/github.com/tkancf/dotfiles/vimrc ~/.vimrc
 
