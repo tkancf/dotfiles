@@ -63,6 +63,12 @@ let mapleader=","
 
 nnoremap <Space> <Nop>
 
+" 
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j
+nnoremap gk k
+
 " Reload vimrc
 nnoremap <F5> :<C-u>source $MYVIMRC<CR>
 
