@@ -15,6 +15,9 @@ set backspace=start,eol,indent
 " Colorscheme
 colorscheme desert
 
+" Buffer setting
+set hidden
+
 " Font setting
 set guifont=ricty:h18
 
@@ -70,8 +73,8 @@ nnoremap gj j
 nnoremap gk k
 
 " <C-x>は押しにくすぎるので<C-l>と変更
-inoremap <C-l> <C-x>
-inoremap <C-x> <C-l>
+" inoremap <C-l> <C-x>
+" inoremap <C-x> <C-l>
 
 " Reload vimrc
 nnoremap <F5> :<C-u>source $MYVIMRC<CR>
@@ -82,9 +85,6 @@ nnoremap <F2> :<C-u>tab help<Space>
 
 " Save file
 nnoremap <ENTER><ENTER> :<C-u>w<CR>
-
-" Quit file
-nnoremap <ENTER>q :<C-u>q<CR>
 
 " Change current directory.
 nnoremap <silent> <Space>cd :<C-u>CD<CR>

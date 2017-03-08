@@ -1,13 +1,4 @@
 Edit .vimrc				e $MYVIMRC
-# Open Google.co.jp in firefox
-Open Google							!open https://www.google.co.jp
-
-Open Dropbox Paper			!open https://paper.dropbox.com/docs
-
-Open GitHub							!open https://github.com/tkancf
-
-Open Twitter					!open -a "/Applications/TweetDeck.app"
-
 Find MemolistFile			exe "CtrlP" g:memolist_path
 
 Create Memolist				MemoNew
@@ -15,7 +6,5 @@ Create Memolist				MemoNew
 Grep Memolist					MemoGrep
 
 Open Previm						PrevimOpen
-
-cd go-learning				lcd ~/src/github.com/tkancf/go-learning
 
 cd dotfiles				lcd ~/src/github.com/tkancf/dotfiles
