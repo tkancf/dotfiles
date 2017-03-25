@@ -56,6 +56,11 @@ endif
 
 "==========================================================================}}}1
 
+" GUI{{{1
+"==============================================================================
+set guifont=Monospace
+"==========================================================================}}}1
+
 " Key map{{{1
 "==============================================================================
 nnoremap , <Nop>
@@ -206,17 +211,13 @@ Plug 'itmammoth/doorboy.vim'
 Plug 'glidenote/memolist.vim'
 
 let g:memolist_memo_suffix = "md"
-let g:memolist_path = "~/Dropbox/Memo"
+let g:memolist_path = "~/src/github.com/tkancf/memo/"
 let g:memolist_memo_date = "%Y-%m-%d %H:%M"
 
 " }}}
 
 " 'justinmk/vim-dirvish' {{{
 Plug 'justinmk/vim-dirvish'
-" }}}
-
-" 'tsuyoshiwada/slack-memo-vim' {{{
-Plug 'mattn/webapi-vim' | Plug 'tsuyoshiwada/slack-memo-vim'
 " }}}
 
 " 'vim-jp/vimdoc-ja' {{{
