@@ -77,10 +77,6 @@ nnoremap k gk
 nnoremap gj j
 nnoremap gk k
 
-" <C-x>は押しにくすぎるので<C-l>と変更
-" inoremap <C-l> <C-x>
-" inoremap <C-x> <C-l>
-
 " Reload vimrc
 nnoremap <F5> :<C-u>source $MYVIMRC<CR>
 
