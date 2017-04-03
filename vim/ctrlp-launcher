@@ -1,4 +1,5 @@
 Edit .vimrc				e $MYVIMRC
+
 Find MemolistFile			exe "CtrlP" g:memolist_path
 
 Create Memolist				MemoNew
