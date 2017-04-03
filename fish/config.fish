@@ -3,7 +3,7 @@ function fish_greeting
 end
 # [Alias]
 alias ll='ls -alF'
-alias la='ls -A'
+#alias la='ls -A'
 alias l='ls -CF'
 alias cb='xsel --clipboard --input'
 
