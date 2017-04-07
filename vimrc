@@ -101,6 +101,7 @@ noremap :  ;
 
 " Ex-mode
 nnoremap Q gQ
+
 "==========================================================================}}}1
 
 " File type{{{1
@@ -284,6 +285,26 @@ endfunction
 " Rename file
 " > vim-users.jp/Hack #17
 command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
+
+" In help file
+function! KeymapInHelp()
+  if &buftype == 'help'
+    "echo "readonly modo!"
+    nnoremap <buffer> u <C-d>
+    nnoremap <buffer> i <C-u>
+    nnoremap <buffer> o <C-o>
+    nnoremap <buffer> p <C-]>
+    nnoremap <buffer> <S-j> <C-e>
+    nnoremap <buffer> <S-k> <C-y>
+  else
+"   echo "This file is not Read only FILE!!!!"
+endif
+endfunction
+
+augroup KeymapInHelp
+  autocmd!
+  autocmd BufReadPost,BufEnter * call KeymapInHelp()
+augroup END
 
 "===========================================================================}}}
 
