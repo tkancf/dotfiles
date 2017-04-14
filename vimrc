@@ -59,6 +59,8 @@ endif
 " GUI{{{1
 "==============================================================================
 set guifont=Monospace
+set guioptions-=m
+set guioptions-=T
 "==========================================================================}}}1
 
 " Key map{{{1
@@ -306,9 +308,51 @@ augroup KeymapInHelp
   autocmd BufReadPost,BufEnter * call KeymapInHelp()
 augroup END
 
+command! ChangeCharactersD2Ha call s:ChangeCharactersD2H()
+function! s:ChangeCharactersD2H()
+  %s/　/ /ge
+  %s/！/!/ge
+  %s/＃/#/ge
+  %s/＄/$/ge
+  %s/％/%/ge
+  %s/＾/^/ge
+  %s/＆/&/ge
+  %s/＊/*/ge
+  %s/（/(/ge
+  %s/）/)/ge
+  %s/^\s*ー/-/ge
+  %s/＿/_/ge
+  %s/＋/+/ge
+  %s/＝/=/ge
+  %s/｛/{/ge
+  %s/｝/}/ge
+  %s/｜/|/ge
+  %s/＼/\\/ge
+  %s/〜/~/ge
+  %s/｀/`/ge
+  %s/：/:/ge
+  %s/；/;/ge
+  %s/，/,/ge
+  %s/．/./ge
+  %s/＜/</ge
+  %s/＞/>/ge
+  %s/’/'/ge
+  %s/”/"/ge
+  %s/０/0/ge
+  %s/１/1/ge
+  %s/２/2/ge
+  %s/３/3/ge
+  %s/４/4/ge
+  %s/５/5/ge
+  %s/６/6/ge
+  %s/７/7/ge
+  %s/８/8/ge
+  %s/９/9/ge
+endfunction
+
 "===========================================================================}}}
 
 filetype plugin indent on
 syntax enable
 
-" vim:foldmethod=marker expandtab fdc=3 ft=vim ts=2 sw=2 sts=2
+" vim:foldmethod=marker
