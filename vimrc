@@ -191,6 +191,12 @@ Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
 nnoremap <Space>f :<C-u>CtrlPFunky<CR>
 " }}}
 
+" 'fisadev/vim-ctrlp-cmdpalette' {{{
+Plug 'ctrlpvim/ctrlp.vim' | Plug 'fisadev/vim-ctrlp-cmdpalette'
+
+nnoremap <Space>c :<C-u>CtrlPCmdPalette<CR>
+" }}}
+
 " 'fatih/vim-go' {{{
 Plug 'fatih/vim-go'
 
@@ -262,6 +268,11 @@ function! s:my_cr_function()
   "return pumvisible() ? "\<C-y>" : "\<CR>"
 endfunction
 " }}}
+
+Plug 'tyru/eskk.vim'
+Plug 'tyru/skkdict.vim'
+let g:eskk#enable_completion = 1
+let g:eskk#large_dictionary = { 'path': "/usr/share/skk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp' }
 
 call plug#end()
 
