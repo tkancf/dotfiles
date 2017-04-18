@@ -269,10 +269,17 @@ function! s:my_cr_function()
 endfunction
 " }}}
 
+" 'tyru/eskk.vim' {{{
 Plug 'tyru/eskk.vim'
 Plug 'tyru/skkdict.vim'
 let g:eskk#enable_completion = 1
-let g:eskk#large_dictionary = { 'path': "/usr/share/skk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp' }
+let g:eskk#large_dictionary = { 'path': "~/.SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp' }
+"}}}
+
+
+" 'mck/vim-coffee-script' {{{
+Plug 'kchmck/vim-coffee-script'
+"}}}
 
 call plug#end()
 
