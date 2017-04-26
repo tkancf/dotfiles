@@ -48,7 +48,6 @@ set completeopt=menu,preview
 set list
 set listchars=tab:>-,trail:.
 
-
 " Local vimrc
 if filereadable(expand('~/.vimrc.local'))
   source ~/.vimrc.local
@@ -338,7 +337,7 @@ function! s:ChangeCharactersD2H()
   %s/＊/*/ge
   %s/（/(/ge
   %s/）/)/ge
-  %s/^\s*ー/-/ge
+  %s/\(^\s*\)ー/\1-/ge
   %s/＿/_/ge
   %s/＋/+/ge
   %s/＝/=/ge
