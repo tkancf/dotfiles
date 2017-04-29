@@ -275,11 +275,13 @@ let g:eskk#enable_completion = 1
 let g:eskk#large_dictionary = { 'path': "~/.SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp' }
 "}}}
 
-
 " 'mck/vim-coffee-script' {{{
 Plug 'kchmck/vim-coffee-script'
 "}}}
 
+" 'slim-template/vim-slim' {{{
+Plug 'slim-template/vim-slim'
+"}}}
 call plug#end()
 
 "==========================================================================}}}1
