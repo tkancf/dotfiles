@@ -215,7 +215,7 @@ Plug 'itmammoth/doorboy.vim'
 Plug 'glidenote/memolist.vim'
 
 let g:memolist_memo_suffix = "md"
-let g:memolist_path = "~/src/github.com/tkancf/memo/"
+let g:memolist_path = "~/Dropbox/Memo/"
 let g:memolist_memo_date = "%Y-%m-%d %H:%M"
 
 " }}}
