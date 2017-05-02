@@ -179,6 +179,10 @@ nnoremap <Space><Space> :<C-u>CtrlPLauncher<CR>
 
 " }}}
 
+" 'mattn/sonictemplate-vim' {{{
+Plug 'mattn/sonictemplate-vim'
+" }}}
+
 " 'sgur/ctrlp-extensions.vim' {{{
 Plug 'ctrlpvim/ctrlp.vim' | Plug 'sgur/ctrlp-extensions.vim'
 nnoremap <Space>p :<C-u>CtrlPMenu<CR>
