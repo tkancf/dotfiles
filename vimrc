@@ -230,7 +230,7 @@ set helplang=ja,en
 " }}}
 
 " 'tpope/vim-markdown' {{{
-Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-markdown', {'for': 'markdown'}
 " }}}
 
 " 'kannokanno/previm' {{{
@@ -276,11 +276,11 @@ let g:eskk#large_dictionary = { 'path': "~/.SKK-JISYO.L", 'sorted': 1, 'encoding
 "}}}
 
 " 'mck/vim-coffee-script' {{{
-Plug 'kchmck/vim-coffee-script'
+Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 "}}}
 
 " 'slim-template/vim-slim' {{{
-Plug 'slim-template/vim-slim'
+Plug 'slim-template/vim-slim', { 'for': 'slim' }
 "}}}
 call plug#end()
 
