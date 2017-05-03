@@ -10,6 +10,4 @@ ln -sf ~/src/github.com/tkancf/dotfiles/tmux.conf ~/.tmux.conf
 
 ln -sf ~/src/github.com/tkancf/dotfiles/fish ~/.config
 
-ln -sf ~/src/github.com/tkancf/dotfiles/SKK-JISYO.L ~/.SKK-JISYO.L
-
 ln -sf ~/src/github.com/tkancf/dotfiles/gitconfig ~/.gitconfig
