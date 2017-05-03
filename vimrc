@@ -18,6 +18,9 @@ colorscheme desert
 " Buffer setting
 set hidden
 
+" swp output directory
+set directory=~/.vim/tmp
+
 " Font setting
 set guifont=ricty:h18
 
