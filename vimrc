@@ -224,10 +224,6 @@ let g:memolist_memo_date = "%Y-%m-%d %H:%M"
 
 " }}}
 
-" 'justinmk/vim-dirvish' {{{
-Plug 'justinmk/vim-dirvish'
-" }}}
-
 " 'vim-jp/vimdoc-ja' {{{
 Plug 'vim-jp/vimdoc-ja'
 set helplang=ja,en
@@ -270,6 +266,22 @@ function! s:my_cr_function()
   " For no inserting <CR> key.
   "return pumvisible() ? "\<C-y>" : "\<CR>"
 endfunction
+" }}}
+
+" {{{ 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet' | Plug 'Shougo/neocomplete'
+" Plugin key-mappings.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+" My snippets directory
+let g:neosnippet#snippets_directory='~/.vim/plugged/neosnippet-snippets/neosnippets/'
+let g:neosnippet#snippets_directory='~/.vim/snippets/'
+" }}}
+
+" {{{ 'Shougo/neosnippet-snippets'
+Plug 'Shougo/neosnippet-snippets' | Plug 'Shougo/neosnippet'
 " }}}
 
 " 'tyru/eskk.vim' {{{
