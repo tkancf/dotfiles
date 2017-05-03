@@ -1,3 +1,7 @@
+[user]
+  name = tkancf
+  email = tkancf@users.noreply.github.com
+
 [include]
   path = ~/.gitconfig.local
 
@@ -5,7 +9,14 @@
   root = ~/src
 
 [user]
-	useConfigOnly = true
+  useConfigOnly = true
 
 [core]
-	editor = vim
+  editor = vim
+
+[alias]
+  s = status
+  graph = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
+  c = commit
+  cm = commit -m
+  aa = add .
