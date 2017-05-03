@@ -3,9 +3,10 @@ function fish_greeting
 end
 # [Alias]
 alias ll='ls -alF'
-#alias la='ls -A'
 alias l='ls -CF'
 alias cb='xsel --clipboard --input'
+
+alias g='git'
 
 # [PATH]
 # Golang
