@@ -251,7 +251,7 @@ let g:quickrun_config = {'*': {'hook/time/enable': '1'},}
 " }}}
 
 " 'Shougo/neocomplete' {{{
-Plug 'Shougo/neocomplete'
+Plug 'Shougo/neocomplete', { 'on': 'InsertEnter' }
 "----------------------------------------------------
 " Use neocomplete.
 let g:neocomplete#enable_at_startup = 1
@@ -272,7 +272,7 @@ endfunction
 " }}}
 
 " {{{ 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet' | Plug 'Shougo/neocomplete'
+Plug 'Shougo/neosnippet', { 'on': 'NeocompleteEnable' } | Plug 'Shougo/neocomplete'
 " Plugin key-mappings.
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -301,6 +301,18 @@ Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 " 'slim-template/vim-slim' {{{
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
 "}}}
+
+"{{{
+Plug 'soramugi/auto-ctags.vim'
+let g:auto_ctags = 1
+let g:auto_ctags_directory_list = ['.git', '.svn']
+"}}}
+
+"{{{
+Plug 'cocopon/vaffle.vim'
+nnoremap - :<C-u>Vaffle<CR>
+"}}}
+
 call plug#end()
 
 "==========================================================================}}}1
