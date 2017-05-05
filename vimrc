@@ -12,14 +12,19 @@ set fileencodings=utf-8,euc-jp,sjis,cp932,iso-2022-jp
   " indent:Pressing Backspace also remove autoindent
 set backspace=start,eol,indent
 
-" Colorscheme
-colorscheme desert
-
 " Buffer setting
 set hidden
 
+" Colorscheme
+colorscheme desert
+
 " swp output directory
 set directory=~/.vim/tmp
+
+" Enable matchit
+if !exists('loaded_matchit')
+  runtime macros/matchit.vim
+endif
 
 " Font setting
 set guifont=ricty:h18
@@ -214,8 +219,8 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 " }}}
 
-" 'itmammoth/doorboy.vim' {{{
-Plug 'itmammoth/doorboy.vim'
+" 'kana/vim-smartinput' {{{
+Plug 'kana/vim-smartinput'
 " }}}
 
 " 'glidenote/memolist.vim' {{{
@@ -302,18 +307,23 @@ Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
 "}}}
 
-"{{{
+" 'soramugi/auto-ctags.vim' {{{
 Plug 'soramugi/auto-ctags.vim'
 let g:auto_ctags = 1
 let g:auto_ctags_directory_list = ['.git', '.svn']
 "}}}
 
-"{{{
+" 'cocopon/vaffle.vim'{{{
 Plug 'cocopon/vaffle.vim'
 nnoremap - :<C-u>Vaffle<CR>
 "}}}
 
+" 'w0rp/ale'{{{
+Plug 'w0rp/ale'
+"}}}
+
 call plug#end()
+
 
 "==========================================================================}}}1
 
