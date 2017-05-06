@@ -18,6 +18,9 @@ set hidden
 " Colorscheme
 colorscheme desert
 
+" Status line
+set laststatus=2
+
 " swp output directory
 set directory=~/.vim/tmp
 
@@ -319,7 +322,13 @@ nnoremap - :<C-u>Vaffle<CR>
 "}}}
 
 " 'w0rp/ale'{{{
-"Plug 'w0rp/ale'
+Plug 'w0rp/ale'
+"}}}
+
+" 'itchyny/lightline.vim'{{{
+Plug 'itchyny/lightline.vim'
+let g:lightline = { 'colorscheme': 'default' }
+
 "}}}
 
 call plug#end()
