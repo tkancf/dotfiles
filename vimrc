@@ -319,7 +319,7 @@ nnoremap - :<C-u>Vaffle<CR>
 "}}}
 
 " 'w0rp/ale'{{{
-Plug 'w0rp/ale'
+"Plug 'w0rp/ale'
 "}}}
 
 call plug#end()
