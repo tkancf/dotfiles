@@ -4,6 +4,7 @@ ln -sf ~/src/github.com/tkancf/dotfiles/vimrc ~/.vimrc
 
 ln -sf ~/src/github.com/tkancf/dotfiles/vim/ ~/.vim
 
+ln -sf ~/src/github.com/tkancf/dotfiles/bashrc ~/.bashrc
 
 ln -sf ~/src/github.com/tkancf/dotfiles/vim/ctrlp-launcher ~/.ctrlp-launcher
 

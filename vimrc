@@ -15,11 +15,11 @@ set backspace=start,eol,indent
 " Buffer setting
 set hidden
 
-" Colorscheme
-colorscheme desert
-
 " Status line
 set laststatus=2
+
+" 256 color
+set t_Co=256
 
 " swp output directory
 set directory=~/.vim/tmp
@@ -327,10 +327,11 @@ Plug 'w0rp/ale'
 
 " 'itchyny/lightline.vim'{{{
 Plug 'itchyny/lightline.vim'
-let g:lightline = { 'colorscheme': 'default' }
+let g:lightline = { 'colorscheme': 'wombat' }
 
 "}}}
 
+Plug 'vim-scripts/wombat256.vim'
 call plug#end()
 
 
@@ -421,7 +422,10 @@ endfunction
 
 "===========================================================================}}}
 
-filetype plugin indent on
+" Colorscheme
+colorscheme wombat256mod
+
 syntax enable
+filetype plugin indent on
 
 " vim:foldmethod=marker

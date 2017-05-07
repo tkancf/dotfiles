@@ -6,6 +6,8 @@ alias ll='ls -alF'
 alias l='ls -CF'
 alias cb='xsel --clipboard --input'
 
+# tmux
+alias t='tmux -2'
 # git
 alias g='git'
 alias gg='git graph'
