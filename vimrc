@@ -6,6 +6,10 @@ set encoding=utf-8
 " file encofing
 set fileencodings=utf-8,euc-jp,sjis,cp932,iso-2022-jp
 
+" Clipboard
+set clipboard&
+set clipboard^=unnamedplus
+
 " Backspace key settings
   " start :Pressing Backspace delete text that was previously inserted.
   " eol   :Pressing Backspace also remove EOL markers(\n or \r\n)
@@ -17,6 +21,9 @@ set hidden
 
 " Status line
 set laststatus=2
+
+" Cursor line
+set cursorline
 
 " 256 color
 set t_Co=256
@@ -30,7 +37,7 @@ if !exists('loaded_matchit')
 endif
 
 " Font setting
-set guifont=ricty:h18
+set guifont=ricty:h20
 
 " Beep setting
   " Disable all beep
@@ -75,11 +82,7 @@ set guioptions-=T
 
 " Key map{{{1
 "==============================================================================
-nnoremap , <Nop>
 nnoremap <ENTER> <Nop>
-
-" Leader key
-let mapleader=","
 
 nnoremap <Space> <Nop>
 
@@ -322,7 +325,7 @@ nnoremap - :<C-u>Vaffle<CR>
 "}}}
 
 " 'w0rp/ale'{{{
-Plug 'w0rp/ale'
+"Plug 'w0rp/ale'
 "}}}
 
 " 'itchyny/lightline.vim'{{{
@@ -332,9 +335,9 @@ let g:lightline = { 'colorscheme': 'wombat' }
 "}}}
 
 Plug 'vim-scripts/wombat256.vim'
+
+
 call plug#end()
-
-
 "==========================================================================}}}1
 
 " Function {{{
@@ -422,10 +425,9 @@ endfunction
 
 "===========================================================================}}}
 
-" Colorscheme
-colorscheme wombat256mod
-
 syntax enable
 filetype plugin indent on
+" Colorscheme
+colorscheme wombat256mod
 
 " vim:foldmethod=marker
