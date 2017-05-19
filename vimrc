@@ -302,7 +302,7 @@ Plug 'Shougo/neosnippet-snippets' | Plug 'Shougo/neosnippet'
 Plug 'tyru/eskk.vim'
 Plug 'tyru/skkdict.vim'
 let g:eskk#enable_completion = 1
-let g:eskk#large_dictionary = { 'path': "~/.SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp' }
+let g:eskk#large_dictionary = { 'path': "~/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp' }
 "}}}
 
 " 'mck/vim-coffee-script' {{{
