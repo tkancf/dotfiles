@@ -22,3 +22,5 @@
   aa = add .
 
 [push]
+[push]
+	default = matching
