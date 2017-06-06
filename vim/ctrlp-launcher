@@ -9,3 +9,5 @@ Grep Memolist					MemoGrep
 Open Previm						PrevimOpen
 
 cd dotfiles				lcd ~/src/github.com/tkancf/dotfiles
+
+Edit NeoSnippet			NeoSnippetEdit
