@@ -215,7 +215,7 @@ nnoremap <Space>c :<C-u>CtrlPCmdPalette<CR>
 " }}}
 
 " 'fatih/vim-go' {{{
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go' , { 'for': 'go' }
 
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
@@ -249,7 +249,7 @@ Plug 'tpope/vim-markdown', {'for': 'markdown'}
 " }}}
 
 " 'kannokanno/previm' {{{
-Plug 'kannokanno/previm'
+Plug 'kannokanno/previm', {'for': 'markdown'}
 let g:previm_open_cmd = 'open -a Firefox'
 augroup PrevimSettings
     autocmd!
