@@ -263,14 +263,14 @@ let g:quickrun_config = {'*': {'hook/time/enable': '1'},}
 " }}}
 
 " 'Shougo/neocomplete' {{{
-Plug 'Shougo/neocomplete', { 'on': 'InsertEnter' }
+Plug 'Shougo/neocomplete'
 "----------------------------------------------------
 " Use neocomplete.
 let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
 " Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#sources#syntax#min_keyword_length = 2
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
@@ -284,7 +284,7 @@ endfunction
 " }}}
 
 " {{{ 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet', { 'on': 'NeocompleteEnable' } | Plug 'Shougo/neocomplete'
+Plug 'Shougo/neosnippet' , { 'on': 'NeocompleteEnable' } | Plug 'Shougo/neocomplete'
 " Plugin key-mappings.
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -303,7 +303,8 @@ Plug 'Shougo/neosnippet-snippets' | Plug 'Shougo/neosnippet'
 Plug 'tyru/eskk.vim'
 Plug 'tyru/skkdict.vim'
 let g:eskk#enable_completion = 1
-let g:eskk#large_dictionary = { 'path': "~/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp' }
+let g:eskk#large_dictionary = { 'path': "~/Dropbox/src/SKK-JISYO.L", 'sorted': 0, 'encoding': 'euc-jp' }
+imap <C-j> <Plug>(eskk:toggle)
 "}}}
 
 " 'mck/vim-coffee-script' {{{
@@ -325,17 +326,15 @@ Plug 'cocopon/vaffle.vim'
 nnoremap - :<C-u>Vaffle<CR>
 "}}}
 
-" 'w0rp/ale'{{{
-"Plug 'w0rp/ale'
-"}}}
-
 " 'itchyny/lightline.vim'{{{
 Plug 'itchyny/lightline.vim'
 let g:lightline = { 'colorscheme': 'wombat' }
 
 "}}}
 
+" 'vim-scripts/wombat256.vim'{{{
 Plug 'vim-scripts/wombat256.vim'
+" }}}
 
 
 call plug#end()
