@@ -148,11 +148,11 @@ Plug 'ctrlpvim/ctrlp.vim'
 nnoremap <C-p> <Nop>
 nnoremap <silent> <Space>b :<C-u>CtrlPBuffer<CR>
 nnoremap <silent> <Space>u :<C-u>CtrlPMRUFiles<CR>
-nnoremap <silent> <Space>x :<C-u>CtrlPMixed<CR>
+"nnoremap <silent> <Space>x :<C-u>CtrlPMixed<CR>
 nnoremap <silent> <Space>l :<C-u>CtrlPLine<CR>
 nnoremap <silent> <Space>i :<C-u>CtrlP<CR>
 
-let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'rtscript', 'mixed',
+let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix',  'mixed',
                          \'line', 'bookmarkdir', 'changes', 'cmdline']
 let g:ctrlp_max_files  = 10000
 let g:ctrlp_by_filename = 1
