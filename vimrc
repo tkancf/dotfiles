@@ -133,216 +133,9 @@ augroup vimrc-filetype
 augroup END
 "==========================================================================}}}1
 
-" Plugin {{{
-"==============================================================================
-let s:vim_plug_url='https://github.com/junegunn/vim-plug'
-if !filereadable(expand('~/.vim/vim-plug/plug.vim'))
-    call system("git clone " . s:vim_plug_url . " " . $HOME . "/.vim/vim-plug/")
-endif
-source ~/.vim/vim-plug/plug.vim
-call plug#begin('~/.vim/plugged')
-
-" 'ctrlpvim/ctrlp.vim' {{{
-Plug 'ctrlpvim/ctrlp.vim'
-
-nnoremap <C-p> <Nop>
-nnoremap <silent> <Space>b :<C-u>CtrlPBuffer<CR>
-nnoremap <silent> <Space>u :<C-u>CtrlPMRUFiles<CR>
-"nnoremap <silent> <Space>x :<C-u>CtrlPMixed<CR>
-nnoremap <silent> <Space>l :<C-u>CtrlPLine<CR>
-nnoremap <silent> <Space>i :<C-u>CtrlP<CR>
-
-let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix',  'mixed',
-                         \'line', 'bookmarkdir', 'changes', 'cmdline']
-let g:ctrlp_max_files  = 10000
-let g:ctrlp_by_filename = 1
-let g:ctrlp_max_depth = 20
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_use_caching = 1
-if executable('ag')
-    set grepprg=ag\ --nogroup\ --nocolor\ --hidden
-    let g:ctrlp_user_command = 'ag %s -i
-          \ --ignore "*.gif"
-          \ --ignore "*.png"
-          \ --ignore "*.PNG"
-          \ --ignore "*.jpg"
-          \ --ignore "*.JPG"
-          \ --ignore "*.ico"
-          \ --ignore "*.app"
-          \ --ignore "*.zip"
-          \ --ignore "*.rar"
-          \ --ignore "Applications/*"
-          \ --ignore "Library/*"
-          \ -g ""'
-
-    let g:ctrlp_use_caching = 0
-
-else
-    let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-      \ 'file': '\v\.(txt)$',
-      \ 'link': 'some_bad_symbolic_links',
-      \ }
-endif
-" }}}
-
-" 'mattn/ctrlp-launcher' {{{
-Plug 'ctrlpvim/ctrlp.vim' |  Plug 'mattn/ctrlp-launcher'
-
-nnoremap <Space><Space> :<C-u>CtrlPLauncher<CR>
-
-" }}}
-
-" 'mattn/sonictemplate-vim' {{{
-Plug 'mattn/sonictemplate-vim'
-" }}}
-
-" 'sgur/ctrlp-extensions.vim' {{{
-Plug 'ctrlpvim/ctrlp.vim' | Plug 'sgur/ctrlp-extensions.vim'
-nnoremap <Space>p :<C-u>CtrlPMenu<CR>
-" }}}
-
-" 'tacahiroy/ctrlp-funky' {{{
-Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
-
-nnoremap <Space>f :<C-u>CtrlPFunky<CR>
-" }}}
-
-" 'fisadev/vim-ctrlp-cmdpalette' {{{
-Plug 'ctrlpvim/ctrlp.vim' | Plug 'fisadev/vim-ctrlp-cmdpalette'
-
-nnoremap <Space>c :<C-u>CtrlPCmdPalette<CR>
-" }}}
-
-" 'fatih/vim-go' {{{
-Plug 'fatih/vim-go' , { 'for': 'go' }
-
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_types = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-let g:go_fmt_command = "goimports"
-" }}}
-
-" 'kana/vim-smartinput' {{{
-Plug 'kana/vim-smartinput'
-" }}}
-
-" 'glidenote/memolist.vim' {{{
-Plug 'glidenote/memolist.vim'
-
-let g:memolist_memo_suffix = "md"
-let g:memolist_path = "~/Dropbox/Memo/"
-let g:memolist_memo_date = "%Y-%m-%d %H:%M"
-
-" }}}
-
-" 'vim-jp/vimdoc-ja' {{{
-Plug 'vim-jp/vimdoc-ja'
-set helplang=ja,en
-" }}}
-
-" 'tpope/vim-markdown' {{{
-Plug 'tpope/vim-markdown', {'for': 'markdown'}
-" }}}
-
-" 'kannokanno/previm' {{{
-Plug 'kannokanno/previm', {'for': 'markdown'}
-let g:previm_open_cmd = 'open -a Firefox'
-augroup PrevimSettings
-    autocmd!
-    autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
-augroup END
-" }}}
-
-" 'thinca/vim-quickrun' {{{
-Plug 'thinca/vim-quickrun'
-let g:quickrun_config = {'*': {'hook/time/enable': '1'},}
-" }}}
-
-" 'Shougo/neocomplete' {{{
-Plug 'Shougo/neocomplete'
-"----------------------------------------------------
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 2
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? "\<C-y>" : "\<CR>"
-endfunction
-" }}}
-
-" {{{ 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet' , { 'on': 'NeocompleteEnable' } | Plug 'Shougo/neocomplete'
-" Plugin key-mappings.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-" My snippets directory
-let g:neosnippet#snippets_directory='~/.vim/plugged/neosnippet-snippets/neosnippets/'
-let g:neosnippet#snippets_directory='~/.vim/snippets/'
-" }}}
-
-" {{{ 'Shougo/neosnippet-snippets'
-Plug 'Shougo/neosnippet-snippets' | Plug 'Shougo/neosnippet'
-" }}}
-
-" 'tyru/eskk.vim' {{{
-Plug 'tyru/eskk.vim'
-Plug 'tyru/skkdict.vim'
-let g:eskk#enable_completion = 1
-let g:eskk#large_dictionary = { 'path': "~/Dropbox/src/SKK-JISYO.L", 'sorted': 0, 'encoding': 'euc-jp' }
-imap <C-j> <Plug>(eskk:toggle)
-"}}}
-
-" 'mck/vim-coffee-script' {{{
-Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
-"}}}
-
-" 'slim-template/vim-slim' {{{
-Plug 'slim-template/vim-slim', { 'for': 'slim' }
-"}}}
-
-" 'soramugi/auto-ctags.vim' {{{
-Plug 'soramugi/auto-ctags.vim'
-let g:auto_ctags = 1
-let g:auto_ctags_directory_list = ['.git', '.svn']
-"}}}
-
-" 'cocopon/vaffle.vim'{{{
-Plug 'cocopon/vaffle.vim'
-nnoremap - :<C-u>Vaffle<CR>
-"}}}
-
-" 'itchyny/lightline.vim'{{{
-Plug 'itchyny/lightline.vim'
-let g:lightline = { 'colorscheme': 'wombat' }
-
-"}}}
-
-" 'vim-scripts/wombat256.vim'{{{
-Plug 'vim-scripts/wombat256.vim'
-" }}}
-
-
-call plug#end()
-"==========================================================================}}}1
-
 " Function {{{
 "==============================================================================
-" Easy change directory
+" {{{  Easy change directory
 " > vim-users.jp/Hack #69
 command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
 function! s:ChangeCurrentDir(directory, bang)
@@ -356,8 +149,9 @@ if a:bang == ''
     pwd
 endif
 endfunction
+" }}}
 
-" Rename file
+"{{{ Rename file
 " > vim-users.jp/Hack #17
 command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
 
@@ -375,11 +169,14 @@ function! KeymapInHelp()
 "   echo "This file is not Read only FILE!!!!"
 endif
 endfunction
+"}}}
 
+" {{{ To Fix Japanese Markdown
 augroup KeymapInHelp
   autocmd!
   autocmd BufReadPost,BufEnter * call KeymapInHelp()
 augroup END
+
 
 command! ChangeCharactersD2Ha call s:ChangeCharactersD2H()
 function! s:ChangeCharactersD2H()
@@ -422,12 +219,216 @@ function! s:ChangeCharactersD2H()
   %s/８/8/ge
   %s/９/9/ge
 endfunction
-
+" }}}
 "===========================================================================}}}
 
+" Plugin Load {{{
+"==============================================================================
+let s:vim_plug_url='https://github.com/junegunn/vim-plug'
+if !filereadable(expand('~/.vim/vim-plug/plug.vim'))
+    call system("git clone " . s:vim_plug_url . " " . $HOME . "/.vim/vim-plug/")
+endif
+source ~/.vim/vim-plug/plug.vim
+call plug#begin('~/.vim/plugged')
+
+" Color
+Plug 'vim-scripts/wombat256.vim'
+Plug 'itchyny/lightline.vim'
+
+"ctrlp
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim' |  Plug 'mattn/ctrlp-launcher'
+Plug 'ctrlpvim/ctrlp.vim' | Plug 'sgur/ctrlp-extensions.vim'
+Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
+Plug 'ctrlpvim/ctrlp.vim' | Plug 'fisadev/vim-ctrlp-cmdpalette'
+
+" Basics
+Plug 'vim-jp/vimdoc-ja'
+Plug 'cocopon/vaffle.vim'
+Plug 'tyru/skkdict.vim'| Plug 'tyru/eskk.vim'
+Plug 'soramugi/auto-ctags.vim'
+Plug 'thinca/vim-quickrun'
+Plug 'glidenote/memolist.vim'
+Plug 'kana/vim-smartinput'
+
+" Complete&Snippets
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/asyncomplete-buffer.vim' | Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-gocode.vim' | Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-neosnippet.vim' | Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-necovim.vim' | Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets' | Plug 'Shougo/neosnippet'
+
+" Languages
+Plug 'slim-template/vim-slim', { 'for': 'slim' }
+Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
+Plug 'fatih/vim-go' , { 'for': 'go' }
+Plug 'tpope/vim-markdown', {'for': 'markdown'}
+Plug 'kannokanno/previm', {'for': 'markdown'}
+
+" Others
+Plug 'mattn/sonictemplate-vim'
+
+call plug#end()
+
+"==========================================================================}}}1
+
+" Plugin config {{{1
+"==============================================================================
 syntax enable
 filetype plugin indent on
-" Colorscheme
+
+" {{{ Colorscheme
 colorscheme wombat256mod
+" }}}
+
+" 'ctrlpvim/ctrlp.vim' {{{
+nnoremap <C-p> <Nop>
+nnoremap <silent> <Space>b :<C-u>CtrlPBuffer<CR>
+nnoremap <silent> <Space>u :<C-u>CtrlPMRUFiles<CR>
+nnoremap <silent> <Space>l :<C-u>CtrlPLine<CR>
+nnoremap <silent> <Space>i :<C-u>CtrlP<CR>
+
+let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix',  'mixed',
+                         \'line', 'bookmarkdir', 'changes', 'cmdline']
+let g:ctrlp_max_files  = 10000
+let g:ctrlp_by_filename = 1
+let g:ctrlp_max_depth = 20
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_use_caching = 1
+if executable('ag')
+    set grepprg=ag\ --nogroup\ --nocolor\ --hidden
+    let g:ctrlp_user_command = 'ag %s -i
+          \ --ignore "*.gif"
+          \ --ignore "*.png"
+          \ --ignore "*.PNG"
+          \ --ignore "*.jpg"
+          \ --ignore "*.JPG"
+          \ --ignore "*.ico"
+          \ --ignore "*.app"
+          \ --ignore "*.zip"
+          \ --ignore "*.rar"
+          \ --ignore "Applications/*"
+          \ --ignore "Library/*"
+          \ -g ""'
+
+    let g:ctrlp_use_caching = 0
+
+else
+    let g:ctrlp_custom_ignore = {
+      \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+      \ 'file': '\v\.(txt)$',
+      \ 'link': 'some_bad_symbolic_links',
+      \ }
+endif
+" }}}
+
+" {{{ 'asyncomplete.vim'
+call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+    \ 'name': 'buffer',
+    \ 'whitelist': ['*'],
+    \ 'blacklist': [],
+    \ 'completor': function('asyncomplete#sources#buffer#completor'),
+    \ }))
+call asyncomplete#register_source(asyncomplete#sources#gocode#get_source_options({
+    \ 'name': 'gocode',
+    \ 'whitelist': ['go'],
+    \ 'completor': function('asyncomplete#sources#gocode#completor'),
+    \ 'config': {
+    \    'gocode_path': expand('~/bin/gocode')
+    \  },
+    \ }))
+call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
+    \ 'name': 'neosnippet',
+    \ 'whitelist': ['*'],
+    \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
+    \ }))
+call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
+    \ 'name': 'necovim',
+    \ 'whitelist': ['vim'],
+    \ 'completor': function('asyncomplete#sources#necovim#completor'),
+    \ }))
+" }}}
+
+" 'mattn/ctrlp-launcher' {{{
+nnoremap <Space><Space> :<C-u>CtrlPLauncher<CR>
+" }}}
+
+" 'sgur/ctrlp-extensions.vim' {{{
+nnoremap <Space>p :<C-u>CtrlPMenu<CR>
+" }}}
+
+" 'tacahiroy/ctrlp-funky' {{{
+nnoremap <Space>f :<C-u>CtrlPFunky<CR>
+" }}}
+
+" 'fisadev/vim-ctrlp-cmdpalette' {{{
+nnoremap <Space>c :<C-u>CtrlPCmdPalette<CR>
+" }}}
+
+" 'fatih/vim-go' {{{
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_fmt_command = "goimports"
+set completeopt=menuone
+" }}}
+
+" 'glidenote/memolist.vim' {{{
+let g:memolist_memo_suffix = "md"
+let g:memolist_path = "~/Dropbox/Memo/"
+let g:memolist_memo_date = "%Y-%m-%d %H:%M"
+" }}}
+
+" 'vim-jp/vimdoc-ja' {{{
+set helplang=ja,en
+" }}}
+
+" 'kannokanno/previm' {{{
+let g:previm_open_cmd = 'open -a Firefox'
+augroup PrevimSettings
+    autocmd!
+    autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+augroup END
+" }}}
+
+" 'thinca/vim-quickrun' {{{
+let g:quickrun_config = {'*': {'hook/time/enable': '1'},}
+" }}}
+
+" {{{ 'Shougo/neosnippet'
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+" My snippets directory
+let g:neosnippet#snippets_directory='~/.vim/plugged/neosnippet-snippets/neosnippets/'
+let g:neosnippet#snippets_directory='~/.vim/snippets/'
+" }}}
+
+" 'tyru/eskk.vim' {{{
+let g:eskk#enable_completion = 1
+let g:eskk#large_dictionary = { 'path': "~/Dropbox/src/SKK-JISYO.L", 'sorted': 0, 'encoding': 'euc-jp' }
+imap <C-j> <Plug>(eskk:toggle)
+"}}}
+
+" 'soramugi/auto-ctags.vim' {{{
+let g:auto_ctags = 1
+let g:auto_ctags_directory_list = ['.git', '.svn']
+"}}}
+
+" 'cocopon/vaffle.vim'{{{
+nnoremap - :<C-u>Vaffle<CR>
+"}}}
+
+" 'itchyny/lightline.vim'{{{
+let g:lightline = { 'colorscheme': 'wombat' }
+"}}}
+
+"==========================================================================}}}1
 
 " vim:foldmethod=marker
