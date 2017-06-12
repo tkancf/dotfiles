@@ -237,7 +237,7 @@ Plug 'itchyny/lightline.vim'
 
 "ctrlp
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'ctrlpvim/ctrlp.vim' |  Plug 'mattn/ctrlp-launcher'
+Plug 'ctrlpvim/ctrlp.vim' | Plug 'mattn/ctrlp-launcher'
 Plug 'ctrlpvim/ctrlp.vim' | Plug 'sgur/ctrlp-extensions.vim'
 Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
 Plug 'ctrlpvim/ctrlp.vim' | Plug 'fisadev/vim-ctrlp-cmdpalette'
@@ -250,6 +250,7 @@ Plug 'soramugi/auto-ctags.vim'
 Plug 'thinca/vim-quickrun'
 Plug 'glidenote/memolist.vim'
 Plug 'kana/vim-smartinput'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
 " Complete&Snippets
 Plug 'prabirshrestha/async.vim'
@@ -257,7 +258,6 @@ Plug 'prabirshrestha/asyncomplete-buffer.vim' | Plug 'prabirshrestha/asyncomplet
 Plug 'prabirshrestha/asyncomplete-gocode.vim' | Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-neosnippet.vim' | Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-necovim.vim' | Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets' | Plug 'Shougo/neosnippet'
 
 " Languages
@@ -266,9 +266,12 @@ Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'fatih/vim-go' , { 'for': 'go' }
 Plug 'tpope/vim-markdown', {'for': 'markdown'}
 Plug 'kannokanno/previm', {'for': 'markdown'}
+Plug 'aharisu/vim_goshrepl', {'for': 'scheme'}
+Plug 'aharisu/vim-gdev', {'for': 'scheme'}
 
 " Others
 Plug 'mattn/sonictemplate-vim'
+Plug 'yuratomo/w3m.vim'
 
 call plug#end()
 
@@ -324,7 +327,7 @@ else
 endif
 " }}}
 
-" {{{ 'asyncomplete.vim'
+" {{{ 'prabirshrestha/asyncomplete.vim'
 call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
     \ 'name': 'buffer',
     \ 'whitelist': ['*'],
