@@ -12,3 +12,6 @@ alias t='tmux -2'
 
 # added by Anaconda2 4.3.1 installer
 export PATH="/home/tkancf/anaconda2/bin:$PATH"
+
+export GOPATH=$HOME
+export PATH=$GOPATH:$PATH

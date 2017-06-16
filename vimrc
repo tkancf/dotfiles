@@ -29,7 +29,7 @@ set cursorline
 set t_Co=256
 
 " swp output directory
-set directory=~/.vim/tmp
+set directory=$HOME/.vim/tmp
 
 " Enable matchit
 if !exists('loaded_matchit')
@@ -67,8 +67,8 @@ set list
 set listchars=tab:>-,trail:.
 
 " Local vimrc
-if filereadable(expand('~/.vimrc.local'))
-  source ~/.vimrc.local
+if filereadable(expand($HOME . '/.vimrc.local'))
+  source $HOME/.vimrc.local
 endif
 
 "==========================================================================}}}1
@@ -129,6 +129,9 @@ augroup vimrc-filetype
     autocmd BufRead,BufNewFile *.go nnoremap <Leader>r :<C-u>GoRun %<CR>
     autocmd BufRead,BufNewFile *.go nnoremap <Leader>d :<C-u>GoDoc<CR>
     autocmd BufRead,BufNewFile *.go nnoremap <Leader>i :<C-u>GoImport 
+  " }}}
+  " fold method for vimrc {{{
+    autocmd BufRead,BufNewFile vimrc set foldmethod=marker
   " }}}
 augroup END
 "==========================================================================}}}1
@@ -225,18 +228,18 @@ endfunction
 " Plugin Load {{{
 "==============================================================================
 let s:vim_plug_url='https://github.com/junegunn/vim-plug'
-if !filereadable(expand('~/.vim/vim-plug/plug.vim'))
+
+if !filereadable(expand($HOME . '/.vim/vim-plug/plug.vim'))
     call system("git clone " . s:vim_plug_url . " " . $HOME . "/.vim/vim-plug/")
 endif
-source ~/.vim/vim-plug/plug.vim
-call plug#begin('~/.vim/plugged')
+source $HOME/.vim/vim-plug/plug.vim
+call plug#begin($HOME . "/.vim/plugged")
 
 " Color
 Plug 'vim-scripts/wombat256.vim'
 Plug 'itchyny/lightline.vim'
 
 "ctrlp
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ctrlpvim/ctrlp.vim' | Plug 'mattn/ctrlp-launcher'
 Plug 'ctrlpvim/ctrlp.vim' | Plug 'sgur/ctrlp-extensions.vim'
 Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
@@ -245,7 +248,6 @@ Plug 'ctrlpvim/ctrlp.vim' | Plug 'fisadev/vim-ctrlp-cmdpalette'
 " Basics
 Plug 'vim-jp/vimdoc-ja'
 Plug 'cocopon/vaffle.vim'
-Plug 'tyru/skkdict.vim'| Plug 'tyru/eskk.vim'
 Plug 'soramugi/auto-ctags.vim'
 Plug 'thinca/vim-quickrun'
 Plug 'glidenote/memolist.vim'
@@ -253,12 +255,12 @@ Plug 'kana/vim-smartinput'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
 " Complete&Snippets
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/asyncomplete-buffer.vim' | Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-gocode.vim' | Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-neosnippet.vim' | Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-necovim.vim' | Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'Shougo/neosnippet-snippets' | Plug 'Shougo/neosnippet'
+if has('lua')
+  Plug 'Shougo/neocomplete.vim'
+else
+  Plug 'Shougo/neocomplcache.vim'
+endif
 
 " Languages
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
@@ -266,8 +268,6 @@ Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'fatih/vim-go' , { 'for': 'go' }
 Plug 'tpope/vim-markdown', {'for': 'markdown'}
 Plug 'kannokanno/previm', {'for': 'markdown'}
-Plug 'aharisu/vim_goshrepl', {'for': 'scheme'}
-Plug 'aharisu/vim-gdev', {'for': 'scheme'}
 
 " Others
 Plug 'mattn/sonictemplate-vim'
@@ -281,7 +281,13 @@ call plug#end()
 "==============================================================================
 syntax enable
 filetype plugin indent on
+let s:plug = {
+      \ "plugs": get(g:, 'plugs', {})
+      \ }
 
+function! s:plug.is_installed(name)
+  return has_key(self.plugs, a:name) ? isdirectory(self.plugs[a:name].dir) : 0
+endfunction
 " {{{ Colorscheme
 colorscheme wombat256mod
 " }}}
@@ -327,33 +333,6 @@ else
 endif
 " }}}
 
-" {{{ 'prabirshrestha/asyncomplete.vim'
-call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-    \ 'name': 'buffer',
-    \ 'whitelist': ['*'],
-    \ 'blacklist': [],
-    \ 'completor': function('asyncomplete#sources#buffer#completor'),
-    \ }))
-call asyncomplete#register_source(asyncomplete#sources#gocode#get_source_options({
-    \ 'name': 'gocode',
-    \ 'whitelist': ['go'],
-    \ 'completor': function('asyncomplete#sources#gocode#completor'),
-    \ 'config': {
-    \    'gocode_path': expand('~/bin/gocode')
-    \  },
-    \ }))
-call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
-    \ 'name': 'neosnippet',
-    \ 'whitelist': ['*'],
-    \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
-    \ }))
-call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
-    \ 'name': 'necovim',
-    \ 'whitelist': ['vim'],
-    \ 'completor': function('asyncomplete#sources#necovim#completor'),
-    \ }))
-" }}}
-
 " 'mattn/ctrlp-launcher' {{{
 nnoremap <Space><Space> :<C-u>CtrlPLauncher<CR>
 " }}}
@@ -383,7 +362,7 @@ set completeopt=menuone
 
 " 'glidenote/memolist.vim' {{{
 let g:memolist_memo_suffix = "md"
-let g:memolist_path = "~/Dropbox/Memo/"
+let g:memolist_path = $HOME . "/Dropbox/Memo/"
 let g:memolist_memo_date = "%Y-%m-%d %H:%M"
 " }}}
 
@@ -403,21 +382,30 @@ augroup END
 let g:quickrun_config = {'*': {'hook/time/enable': '1'},}
 " }}}
 
+"{{{ 'Shougo/neocomplete'
+if s:plug.is_installed("neocomplete.vim")
+  let g:neocomplete#enable_at_startup = 1
+  let g:neocomplete#enable_smart_case = 1
+endif
+"}}}
+
+"{{{ 'Shougo/neocomplcache'
+if s:plug.is_installed("neocomplcache.vim")
+  let g:neocomplcache_enable_at_startup = 1
+  let g:neocomplcache_enable_smart_case = 1
+  let g:neocomplcache_min_syntax_length = 2
+endif
+"}}}
+
 " {{{ 'Shougo/neosnippet'
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 " My snippets directory
-let g:neosnippet#snippets_directory='~/.vim/plugged/neosnippet-snippets/neosnippets/'
-let g:neosnippet#snippets_directory='~/.vim/snippets/'
+let g:neosnippet#snippets_directory=$HOME . '/.vim/plugged/neosnippet-snippets/neosnippets/'
+let g:neosnippet#snippets_directory=$HOME . '/.vim/snippets/'
 " }}}
-
-" 'tyru/eskk.vim' {{{
-let g:eskk#enable_completion = 1
-let g:eskk#large_dictionary = { 'path': "~/Dropbox/src/SKK-JISYO.L", 'sorted': 0, 'encoding': 'euc-jp' }
-imap <C-j> <Plug>(eskk:toggle)
-"}}}
 
 " 'soramugi/auto-ctags.vim' {{{
 let g:auto_ctags = 1
