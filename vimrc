@@ -271,7 +271,6 @@ Plug 'kannokanno/previm', {'for': 'markdown'}
 
 " Others
 Plug 'mattn/sonictemplate-vim'
-Plug 'yuratomo/w3m.vim'
 
 call plug#end()
 
