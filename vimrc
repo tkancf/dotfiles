@@ -266,11 +266,11 @@ endif
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'fatih/vim-go' , { 'for': 'go' }
-Plug 'tpope/vim-markdown', {'for': 'markdown'}
+Plug 'plasticboy/vim-markdown' , { 'for': 'markdown' }
 Plug 'kannokanno/previm', {'for': 'markdown'}
-
 " Others
 Plug 'mattn/sonictemplate-vim'
+Plug 'tyru/open-browser.vim'
 
 call plug#end()
 
@@ -370,7 +370,7 @@ set helplang=ja,en
 " }}}
 
 " 'kannokanno/previm' {{{
-let g:previm_open_cmd = 'open -a Firefox'
+"let g:previm_open_cmd = 'open -a Firefox'
 augroup PrevimSettings
     autocmd!
     autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
