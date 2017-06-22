@@ -8,13 +8,25 @@ unsetopt beep extendedglob nomatch
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/tkancf/.zshrc'
 
-autoload -Uz compinit
+autoload -U compinit
 compinit
+zstyle ':completion:*:default' menu select=2
+
 # End of lines added by compinstall
+# colors
+autoload colors
+colors
+export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+PROMPT="%{$fg[green]%}%m%(!.#.$) %{$reset_color%}"
+PROMPT2="%{$fg[green]%}%_> %{$reset_color%}"
+SPROMPT="%{$fg[red]%}correct: %R -> %r [nyae]? %{$reset_color%}"
+RPROMPT="%{$fg[blue]%}[%~]%{$reset_color%}"
 # Alias
+alias ls='ls --color=auto'
 alias ll='ls -alF'
 alias l='ls -CF'
 alias cb='xsel --clipboard --input'
+alias grep='grep --color=auto'
 alias g='git'
 alias gg='git graph'
 alias ga='git add .'
