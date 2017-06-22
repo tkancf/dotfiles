@@ -18,4 +18,4 @@ ln -sf ~/src/github.com/tkancf/dotfiles/gitconfig ~/.gitconfig
 
 ln -sf ~/src/github.com/tkancf/dotfiles/zshrc ~/.zshrc
 
-ln -sf ~/src/github.com/tkancf/dotfiles/zsh/ ~/.zsh
+ln -sf ~/src/github.com/tkancf/dotfiles/zprofile ~/.zprofile

@@ -22,6 +22,3 @@ alias gf='git diff'
 alias gfc='git diff --cached'
 alias gc='git commit -m'
 alias t='tmux -2'
-
-export GOPATH=$HOME
-export PATH=$GOPATH:$PATH
