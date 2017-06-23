@@ -131,7 +131,7 @@ augroup vimrc-filetype
     autocmd BufRead,BufNewFile *.go nnoremap <Leader>i :<C-u>GoImport 
   " }}}
   " fold method for vimrc {{{
-    autocmd BufRead,BufNewFile vimrc set foldmethod=marker
+    autocmd BufRead,BufNewFile .vimrc set foldmethod=marker
   " }}}
 augroup END
 "==========================================================================}}}1
