@@ -83,7 +83,7 @@ set guioptions-=T
 " Key map{{{1
 "==============================================================================
 nnoremap <ENTER> <Nop>
-
+nnoremap s <Nop>
 nnoremap <Space> <Nop>
 
 " j, kで見た目通りに移動
@@ -253,6 +253,7 @@ Plug 'thinca/vim-quickrun'
 Plug 'glidenote/memolist.vim'
 Plug 'kana/vim-smartinput'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'kana/vim-operator-user' | Plug 'rhysd/vim-operator-surround'
 
 " Complete&Snippets
 Plug 'Shougo/neosnippet-snippets' | Plug 'Shougo/neosnippet'
@@ -268,6 +269,7 @@ Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'fatih/vim-go' , { 'for': 'go' }
 Plug 'plasticboy/vim-markdown' , { 'for': 'markdown' }
 Plug 'kannokanno/previm', {'for': 'markdown'}
+Plug 'rust-lang/rust.vim', {'for': 'rust'}
 " Others
 Plug 'mattn/sonictemplate-vim'
 Plug 'tyru/open-browser.vim'
@@ -379,6 +381,7 @@ augroup END
 
 " 'thinca/vim-quickrun' {{{
 let g:quickrun_config = {'*': {'hook/time/enable': '1'},}
+nnoremap <Leader>q :<C-u>bw! \[quickrun\ output\]<CR>
 " }}}
 
 "{{{ 'Shougo/neocomplete'
@@ -419,6 +422,15 @@ nnoremap - :<C-u>Vaffle<CR>
 let g:lightline = { 'colorscheme': 'wombat' }
 "}}}
 
+" 'rhysd/vim-operator-surround'{{{
+" operator mappings
+map <silent>sa <Plug>(operator-surround-append)
+map <silent>sd <Plug>(operator-surround-delete)
+map <silent>sr <Plug>(operator-surround-replace)
+" }}}
+" 'rust-lang/rust.vim' {{{
+let g:rustfmt_autosave = 1
+" }}}
 "==========================================================================}}}1
 
 " vim:foldmethod=marker
