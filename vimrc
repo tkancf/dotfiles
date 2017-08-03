@@ -117,6 +117,9 @@ noremap :  ;
 " Ex-mode
 nnoremap Q gQ
 
+" Insertmode
+inoremap <C-l> <C-o>A
+
 "==========================================================================}}}1
 
 " File type{{{1
@@ -270,6 +273,7 @@ Plug 'fatih/vim-go' , { 'for': 'go' }
 Plug 'plasticboy/vim-markdown' , { 'for': 'markdown' }
 Plug 'kannokanno/previm', {'for': 'markdown'}
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
+
 " Others
 Plug 'mattn/sonictemplate-vim'
 Plug 'tyru/open-browser.vim'
