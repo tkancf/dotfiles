@@ -237,8 +237,8 @@ if !filereadable(expand($HOME . '/.vim/vim-plug/plug.vim'))
 endif
 source $HOME/.vim/vim-plug/plug.vim
 call plug#begin($HOME . "/.vim/plugged")
-
-" Color
+"
+"" Color
 Plug 'vim-scripts/wombat256.vim'
 Plug 'itchyny/lightline.vim'
 
@@ -257,6 +257,7 @@ Plug 'glidenote/memolist.vim'
 Plug 'kana/vim-smartinput'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'kana/vim-operator-user' | Plug 'rhysd/vim-operator-surround'
+Plug 'mattn/vim-fz'
 
 " Complete&Snippets
 Plug 'Shougo/neosnippet-snippets' | Plug 'Shougo/neosnippet'
@@ -277,6 +278,14 @@ Plug 'rust-lang/rust.vim', {'for': 'rust'}
 " Others
 Plug 'mattn/sonictemplate-vim'
 Plug 'tyru/open-browser.vim'
+
+" Twitter
+Plug 'basyura/TweetVim'
+Plug 'mattn/webapi-vim'
+Plug 'basyura/twibill.vim'
+Plug 'tyru/open-browser.vim'
+Plug 'basyura/bitly.vim'
+
 
 call plug#end()
 

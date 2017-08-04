@@ -34,3 +34,15 @@ alias gf='git diff'
 alias gfc='git diff --cached'
 alias gc='git commit -m'
 alias t='tmux -2'
+
+# Function
+function peco-src () {
+  local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
+  if [ -n "$selected_dir" ]; then
+    BUFFER="cd ${selected_dir}"
+    zle accept-line
+  fi
+  zle clear-screen
+}
+zle -N peco-src
+bindkey '^]' peco-src
