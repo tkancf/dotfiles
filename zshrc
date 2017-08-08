@@ -34,6 +34,7 @@ alias gf='git diff'
 alias gfc='git diff --cached'
 alias gc='git commit -m'
 alias t='tmux -2'
+alias vi='vim'
 
 # Function
 function peco-src () {

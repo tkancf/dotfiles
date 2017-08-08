@@ -122,6 +122,11 @@ inoremap <C-l> <C-o>A
 
 "==========================================================================}}}1
 
+" Command Short{{{1
+"==============================================================================
+
+"==========================================================================}}}1
+
 " File type{{{1
 "==============================================================================
 augroup vimrc-filetype
@@ -254,7 +259,7 @@ Plug 'cocopon/vaffle.vim'
 Plug 'soramugi/auto-ctags.vim'
 Plug 'thinca/vim-quickrun'
 Plug 'glidenote/memolist.vim'
-Plug 'kana/vim-smartinput'
+"Plug 'kana/vim-smartinput'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'kana/vim-operator-user' | Plug 'rhysd/vim-operator-surround'
 Plug 'mattn/vim-fz'
@@ -271,7 +276,7 @@ endif
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'fatih/vim-go' , { 'for': 'go' }
-Plug 'plasticboy/vim-markdown' , { 'for': 'markdown' }
+"Plug 'plasticboy/vim-markdown' , { 'for': 'markdown' }
 Plug 'kannokanno/previm', {'for': 'markdown'}
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
 
@@ -283,7 +288,6 @@ Plug 'tyru/open-browser.vim'
 Plug 'basyura/TweetVim'
 Plug 'mattn/webapi-vim'
 Plug 'basyura/twibill.vim'
-Plug 'tyru/open-browser.vim'
 Plug 'basyura/bitly.vim'
 
 
@@ -441,6 +445,7 @@ map <silent>sa <Plug>(operator-surround-append)
 map <silent>sd <Plug>(operator-surround-delete)
 map <silent>sr <Plug>(operator-surround-replace)
 " }}}
+
 " 'rust-lang/rust.vim' {{{
 let g:rustfmt_autosave = 1
 " }}}
