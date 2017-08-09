@@ -1,21 +1,21 @@
 #!/bin/bash
 
-ln -sf ~/src/github.com/tkancf/dotfiles/vimrc ~/.vimrc
+ln -sf ~/.dotfiles/vimrc ~/.vimrc
 
-ln -sf ~/src/github.com/tkancf/dotfiles/vim/ ~/.vim
+ln -sf ~/.dotfiles/vim/ ~/.vim
 
-ln -sf ~/src/github.com/tkancf/dotfiles/bashrc ~/.bashrc
+ln -sf ~/.dotfiles/bashrc ~/.bashrc
 
-ln -sf ~/src/github.com/tkancf/dotfiles/vim/ctrlp-launcher ~/.ctrlp-launcher
+ln -sf ~/.dotfiles/vim/ctrlp-launcher ~/.ctrlp-launcher
 
-ln -sf ~/src/github.com/tkancf/dotfiles/tmux.conf ~/.tmux.conf
+ln -sf ~/.dotfiles/tmux.conf ~/.tmux.conf
 
-ln -sf ~/src/github.com/tkancf/dotfiles/fish ~/.config
+ln -sf ~/.dotfiles/fish ~/.config
 
-ln -sf ~/src/github.com/tkancf/dotfiles/nvim ~/.config
+ln -sf ~/.dotfiles/nvim ~/.config
 
-ln -sf ~/src/github.com/tkancf/dotfiles/gitconfig ~/.gitconfig
+ln -sf ~/.dotfiles/gitconfig ~/.gitconfig
 
-ln -sf ~/src/github.com/tkancf/dotfiles/zshrc ~/.zshrc
+ln -sf ~/.dotfiles/zshrc ~/.zshrc
 
-ln -sf ~/src/github.com/tkancf/dotfiles/zprofile ~/.zprofile
+ln -sf ~/.dotfiles/zprofile ~/.zprofile
