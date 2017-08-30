@@ -380,7 +380,7 @@ set completeopt=menuone
 
 " 'glidenote/memolist.vim' {{{
 let g:memolist_memo_suffix = "md"
-let g:memolist_path = $HOME . "/Dropbox/Memo/"
+let g:memolist_path = $HOME . "/Memo/"
 let g:memolist_memo_date = "%Y-%m-%d %H:%M"
 " }}}
 
