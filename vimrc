@@ -120,6 +120,8 @@ nnoremap Q gQ
 " Insertmode
 inoremap <C-l> <C-o>A
 
+" Search selected strings visualmode
+vnoremap * "zy:let @/ = '\V' . substitute(escape(@z, '\/'), '\n', '\\n', 'g')<CR>n
 "==========================================================================}}}1
 
 " Command Short{{{1
@@ -380,7 +382,7 @@ set completeopt=menuone
 
 " 'glidenote/memolist.vim' {{{
 let g:memolist_memo_suffix = "md"
-let g:memolist_path = $HOME . "/Dropbox/Memo/"
+let g:memolist_path = $HOME . "/Memo/"
 let g:memolist_memo_date = "%Y-%m-%d %H:%M"
 " }}}
 
