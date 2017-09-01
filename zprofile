@@ -1,7 +1,7 @@
 # Ruby
 export RBENV_PATH=$HOME/.rbenv
 if [ -d "$RBENV_PATH" ]; then
-  export PATH=$RBENV_PATH/bin:$PATH
+  export PATH="$RBENV_PATH/bin:$PATH"
   eval "$(rbenv init -)"
 fi
 
@@ -13,5 +13,5 @@ export PATH="$GOPATH:$PATH"
 export CARGO_PATH=$HOME/.cargo
 if [ -d "$CARGO_PATH" ]; then
   source $CARGO_PATH/env
-  export PATH="$HOME/.cargo/bin:$PATH"
+  export PATH="$CARGO_PATH/bin:$PATH"
 fi
