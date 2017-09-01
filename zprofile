@@ -1,7 +1,16 @@
-eval "$(rbenv init -)"
-export PATH="$HOME/.rbenv/bin:$PATH"
+# Ruby
+export RBENV_PATH=$HOME/.rbenv
+if [ -d "$RBENV_PATH" ]; then
+  export PATH=$RBENV_PATH/bin:$PATH
+  eval "$(rbenv init -)"
+fi
 
+# Golang
 export GOPATH="$HOME"
 export PATH="$GOPATH:$PATH"
 
-source ~/.cargo/env
+# Rust
+export CARGO_PATH=$HOME/.cargo
+if [ -d "$CARGO_PATH" ]; then
+  source $CARGO_PATH/env
+fi

@@ -12,6 +12,14 @@ autoload -U compinit
 compinit
 zstyle ':completion:*:default' menu select=2
 
+# 単語の区切り文字を指定する
+autoload -Uz select-word-style
+select-word-style default
+# ここで指定した文字は単語区切りとみなされる
+# / も区切りと扱うので、^W でディレクトリ１つ分を削除できる
+zstyle ':zle:*' word-chars " /=;@:{},|"
+zstyle ':zle:*' word-style unspecified
+
 # End of lines added by compinstall
 # colors
 autoload colors
