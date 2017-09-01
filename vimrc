@@ -120,6 +120,8 @@ nnoremap Q gQ
 " Insertmode
 inoremap <C-l> <C-o>A
 
+" Search selected strings visualmode
+vnoremap * "zy:let @/ = '\V' . substitute(escape(@z, '\/'), '\n', '\\n', 'g')<CR>n
 "==========================================================================}}}1
 
 " Command Short{{{1

@@ -13,4 +13,5 @@ export PATH="$GOPATH:$PATH"
 export CARGO_PATH=$HOME/.cargo
 if [ -d "$CARGO_PATH" ]; then
   source $CARGO_PATH/env
+  export PATH="$HOME/.cargo/bin:$PATH"
 fi
