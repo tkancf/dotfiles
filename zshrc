@@ -11,6 +11,11 @@ zstyle :compinstall filename '/home/tkancf/.zshrc'
 autoload -U compinit
 compinit
 zstyle ':completion:*:default' menu select=2
+WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+
+# Disable screen lock short cut to enable Ctrl+s
+stty stop undef
+stty start undef
 
 # End of lines added by compinstall
 # colors
