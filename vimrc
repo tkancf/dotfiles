@@ -292,7 +292,7 @@ Plug 'mattn/webapi-vim'
 Plug 'basyura/twibill.vim'
 Plug 'basyura/bitly.vim'
 
-
+Plug 'irrationalistic/vim-tasks'
 call plug#end()
 
 "==========================================================================}}}1

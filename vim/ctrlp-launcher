@@ -4,6 +4,8 @@ Find MemolistFile					exe "CtrlP" g:memolist_path
 
 Create Memolist						MemoNew
 
+Tasks						e $HOME/maintask.tasks
+
 Grep Memolist						MemoGrep
 
 Open Previm						PrevimOpen
