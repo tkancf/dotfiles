@@ -7,7 +7,7 @@ set encoding=utf-8
 set fileencodings=utf-8,euc-jp,sjis,cp932,iso-2022-jp
 
 " Clipboard
-set clipboard&
+"set clipboard&
 set clipboard^=unnamedplus
 
 " Backspace key settings
