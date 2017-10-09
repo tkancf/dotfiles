@@ -279,6 +279,7 @@ Plug 'slim-template/vim-slim', { 'for': 'slim' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'fatih/vim-go' , { 'for': 'go' }
 "Plug 'plasticboy/vim-markdown' , { 'for': 'markdown' }
+Plug 'aharisu/vim_goshrepl', {'for': 'scheme'}
 Plug 'kannokanno/previm', {'for': 'markdown'}
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
 
