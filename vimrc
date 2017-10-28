@@ -66,6 +66,9 @@ set completeopt=menu,preview
 set list
 set listchars=tab:>-,trail:.
 
+" double:Use twice the width of ASCII characters.
+set ambiwidth=double
+
 " Local vimrc
 if filereadable(expand($HOME . '/.vimrc.local'))
   source $HOME/.vimrc.local
@@ -115,7 +118,8 @@ noremap ;  :
 noremap :  ;
 
 " Ex-mode
-nnoremap Q gQ
+nnoremap gQ Q
+nnoremap Q <Nop>
 
 " Insertmode
 inoremap <C-l> <C-o>A
@@ -167,8 +171,9 @@ endfunction
 "{{{ Rename file
 " > vim-users.jp/Hack #17
 command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
+"}}}
 
-" In help file
+"{{{ In help file
 function! KeymapInHelp()
   if &buftype == 'help'
     "echo "readonly modo!"
@@ -176,8 +181,10 @@ function! KeymapInHelp()
     nnoremap <buffer> i <C-u>
     nnoremap <buffer> o <C-o>
     nnoremap <buffer> p <C-]>
-    nnoremap <buffer> <S-j> <C-e>
-    nnoremap <buffer> <S-k> <C-y>
+    nnoremap <buffer> j <C-e>
+    nnoremap <buffer> k <C-y>
+    nnoremap <buffer> <S-j> j
+    nnoremap <buffer> <S-k> k
   else
 "   echo "This file is not Read only FILE!!!!"
 endif

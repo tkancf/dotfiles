@@ -38,6 +38,7 @@ RPROMPT="%{$fg[blue]%}[%~]%{$reset_color%}"
 alias ls='ls --color=auto'
 alias ll='ls -alF'
 alias l='ls -CF'
+alias la='ls -aF'
 alias cb='xsel --clipboard --input'
 alias grep='grep --color=auto'
 alias g='git'
