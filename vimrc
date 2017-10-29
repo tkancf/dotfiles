@@ -16,7 +16,7 @@ set clipboard^=unnamedplus
   " indent:Pressing Backspace also remove autoindent
 set backspace=start,eol,indent
 
-" Buffer setting
+" Allow unsaved buffer hidden
 set hidden
 
 " Status line
