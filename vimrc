@@ -29,6 +29,9 @@ set cursorline
 set t_Co=256
 
 " swp output directory
+if !filereadable(expand($HOME . '/.vim/tmp'))
+    call system("mkdir" . " " . $HOME . "/.vim/tmp/")
+endif
 set directory=$HOME/.vim/tmp
 
 " Enable matchit
@@ -66,6 +69,16 @@ set completeopt=menu,preview
 set list
 set listchars=tab:>-,trail:.
 
+" linux fcitx ime setting
+function! ImInActivate()
+  call system('fcitx-remote -c')
+endfunction
+inoremap <silent> <C-[> <ESC>:call ImInActivate()<CR>
+
+" incsearch setting
+set hlsearch
+set incsearch
+
 " Local vimrc
 if filereadable(expand($HOME . '/.vimrc.local'))
   source $HOME/.vimrc.local
@@ -101,6 +114,9 @@ nnoremap <F2> :<C-u>tab help<Space>
 
 " Save file
 nnoremap <ENTER><ENTER> :<C-u>w<CR>
+
+" highlight off
+nnoremap <silent> <ESC><ESC> :<C-u>nohlsearch<CR>
 
 " Change current directory.
 nnoremap <silent> <Space>cd :<C-u>CD<CR>
@@ -233,6 +249,8 @@ function! s:ChangeCharactersD2H()
   %s/９/9/ge
 endfunction
 " }}}
+
+
 "===========================================================================}}}
 
 " Plugin Load {{{
