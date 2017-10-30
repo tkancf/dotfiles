@@ -15,3 +15,7 @@ if [ -d "$CARGO_PATH" ]; then
   source $CARGO_PATH/env
   export PATH="$CARGO_PATH/bin:$PATH"
 fi
+
+# Haskell
+export STACK_BIN="$HOME/.local/bin"
+export PATH="$STACK_BIN:$PATH"

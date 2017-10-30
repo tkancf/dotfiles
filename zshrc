@@ -2,7 +2,7 @@
 HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=1000
-setopt appendhistory autocd notify
+setopt appendhistory autocd notify share_history hist_ignore_dups
 unsetopt beep extendedglob nomatch
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
@@ -38,6 +38,7 @@ RPROMPT="%{$fg[blue]%}[%~]%{$reset_color%}"
 alias ls='ls --color=auto'
 alias ll='ls -alF'
 alias l='ls -CF'
+alias la='ls -aF'
 alias cb='xsel --clipboard --input'
 alias grep='grep --color=auto'
 alias g='git'
