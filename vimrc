@@ -291,12 +291,12 @@ Plug 'kana/vim-operator-user' | Plug 'rhysd/vim-operator-surround'
 Plug 'mattn/vim-fz'
 
 " Complete&Snippets
-Plug 'Shougo/neosnippet-snippets' | Plug 'Shougo/neosnippet'
-if has('lua')
-  Plug 'Shougo/neocomplete.vim'
-else
-  Plug 'Shougo/neocomplcache.vim'
-endif
+"Plug 'Shougo/neosnippet-snippets' | Plug 'Shougo/neosnippet'
+"if has('lua')
+"  Plug 'Shougo/neocomplete.vim'
+"else
+"  Plug 'Shougo/neocomplcache.vim'
+"endif
 
 " Languages
 Plug 'slim-template/vim-slim', { 'for': 'slim' }

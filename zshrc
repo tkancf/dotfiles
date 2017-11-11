@@ -53,6 +53,8 @@ alias gos='rlwrap gosh'
 alias runghc='stack runghc --'
 alias ghci='stack ghci --'
 
+alias cdh='cd ~/dev/haskell'
+
 # Function
 function peco-src () {
   local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
