@@ -50,8 +50,8 @@ alias gc='git commit -m'
 alias t='tmux -2'
 alias vi='vim'
 alias gos='rlwrap gosh'
-alias runghc='stack runghc'
-alias ghci='stack ghci'
+alias runghc='stack runghc --'
+alias ghci='stack ghci --'
 
 # Function
 function peco-src () {
