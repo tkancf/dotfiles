@@ -69,6 +69,9 @@ set listchars=tab:>-,trail:.
 " double:Use twice the width of ASCII characters.
 set ambiwidth=double
 
+" Command line window height setting
+set cmdwinheight=20
+
 " Local vimrc
 if filereadable(expand($HOME . '/.vimrc.local'))
   source $HOME/.vimrc.local
@@ -126,6 +129,9 @@ inoremap <C-l> <C-o>A
 
 " Search selected strings visualmode
 vnoremap * "zy:let @/ = '\V' . substitute(escape(@z, '\/'), '\n', '\\n', 'g')<CR>n
+
+" Show registers
+nnoremap ,r :<C-u>registers<CR>
 "==========================================================================}}}1
 
 " Command Short{{{1

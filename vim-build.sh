@@ -5,6 +5,4 @@ git pull
   --enable-python3interp --enable-rubyinterp \
   --enable-luainterp --with-luajit \
   --enable-fail-if-missing \
-  --enable-terminal
 make
-sudo make install
