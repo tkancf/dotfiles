@@ -10,6 +10,9 @@ set fileencodings=utf-8,euc-jp,sjis,cp932,iso-2022-jp
 "set clipboard&
 set clipboard^=unnamedplus
 
+" Mouse disable
+set mouse=
+
 " Backspace key settings
   " start :Pressing Backspace delete text that was previously inserted.
   " eol   :Pressing Backspace also remove EOL markers(\n or \r\n)
@@ -59,9 +62,6 @@ set softtabstop=2
   " Auto indent on
 set autoindent
 set smartindent
-
-" Clipboard setting
-set clipboard=unnamed,autoselect
 
 " Complete option setting
 set completeopt=menu,preview
@@ -113,6 +113,9 @@ nnoremap gk k
 " Reload vimrc
 nnoremap <F5> :<C-u>source $MYVIMRC<CR>
 
+" Open vimrc
+nnoremap <F4> :<C-u>tabedit $MYVIMRC<CR>
+
 " Open help
 nnoremap <F3> :<C-u>vertical belowright help<Space>
 nnoremap <F2> :<C-u>tab help<Space>
@@ -146,7 +149,7 @@ inoremap <C-l> <C-o>A
 vnoremap * "zy:let @/ = '\V' . substitute(escape(@z, '\/'), '\n', '\\n', 'g')<CR>n
 
 " Show registers
-nnoremap ,r :<C-u>registers<CR>
+nnoremap ,g :<C-u>registers<CR>
 "==========================================================================}}}1
 
 " Command Short{{{1
@@ -297,12 +300,17 @@ Plug 'kana/vim-operator-user' | Plug 'rhysd/vim-operator-surround'
 Plug 'mattn/vim-fz'
 
 " Complete&Snippets
-"Plug 'Shougo/neosnippet-snippets' | Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets' | Plug 'Shougo/neosnippet'
+
+if v:version >= 800
+  Plug 'roxma/nvim-yarp' | Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/vim-hug-neovim-rpc' | Plug 'Shougo/deoplete.nvim'
+elseif has('lua')
 "if has('lua')
-"  Plug 'Shougo/neocomplete.vim'
-"else
-"  Plug 'Shougo/neocomplcache.vim'
-"endif
+  Plug 'Shougo/neocomplete.vim'
+else
+  Plug 'Shougo/neocomplcache.vim'
+endif
 
 " Languages
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
@@ -433,6 +441,13 @@ augroup END
 let g:quickrun_config = {'*': {'hook/time/enable': '1'},}
 nnoremap <Leader>q :<C-u>bw! \[quickrun\ output\]<CR>
 " }}}
+
+"{{{ 'Shougo/deoplete.nvim'
+if s:plug.is_installed("deoplete.nvim")
+  let g:deoplete#enable_at_startup = 1
+  let g:deoplete#enable_smart_case = 1
+endif
+"}}}
 
 "{{{ 'Shougo/neocomplete'
 if s:plug.is_installed("neocomplete.vim")
