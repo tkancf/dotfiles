@@ -304,8 +304,13 @@ Plug 'mattn/vim-fz'
 " Complete&Snippets
 Plug 'Shougo/neosnippet-snippets' "| Plug 'Shougo/neosnippet'
 
-if has('lua')
-"if has('lua')
+let s:deoplete_enable=0
+
+if has('pythonx') && s:deoplete_enable == 1 && v:version >= 800
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+elseif has('lua')
   Plug 'Shougo/neocomplete.vim'
 else
   Plug 'Shougo/neocomplcache.vim'
@@ -440,6 +445,12 @@ augroup END
 let g:quickrun_config = {'*': {'hook/time/enable': '1'},}
 nnoremap <Leader>q :<C-u>bw! \[quickrun\ output\]<CR>
 " }}}
+
+"{{{ 'Shougo/deoplete.nvim'
+if s:plug.is_installed("deoplete.nvim")
+  let g:deoplete#enable_at_startup = 1
+endif
+"}}}
 
 "{{{ 'Shougo/neocomplete'
 if s:plug.is_installed("neocomplete.vim")
