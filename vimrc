@@ -441,13 +441,6 @@ let g:quickrun_config = {'*': {'hook/time/enable': '1'},}
 nnoremap <Leader>q :<C-u>bw! \[quickrun\ output\]<CR>
 " }}}
 
-"{{{ 'Shougo/deoplete.nvim'
-if s:plug.is_installed("deoplete.nvim")
-  let g:deoplete#enable_at_startup = 1
-  let g:deoplete#enable_smart_case = 1
-endif
-"}}}
-
 "{{{ 'Shougo/neocomplete'
 if s:plug.is_installed("neocomplete.vim")
   let g:neocomplete#enable_at_startup = 1
