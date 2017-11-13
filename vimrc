@@ -6,6 +6,8 @@ set encoding=utf-8
 " file encofing
 set fileencodings=utf-8,euc-jp,sjis,cp932,iso-2022-jp
 
+let g:hoge = "hoge"
+
 " Clipboard
 "set clipboard&
 set clipboard^=unnamedplus
@@ -300,12 +302,9 @@ Plug 'kana/vim-operator-user' | Plug 'rhysd/vim-operator-surround'
 Plug 'mattn/vim-fz'
 
 " Complete&Snippets
-Plug 'Shougo/neosnippet-snippets' | Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets' "| Plug 'Shougo/neosnippet'
 
-if v:version >= 800
-  Plug 'roxma/nvim-yarp' | Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/vim-hug-neovim-rpc' | Plug 'Shougo/deoplete.nvim'
-elseif has('lua')
+if has('lua')
 "if has('lua')
   Plug 'Shougo/neocomplete.vim'
 else
