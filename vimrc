@@ -6,8 +6,6 @@ set encoding=utf-8
 " file encofing
 set fileencodings=utf-8,euc-jp,sjis,cp932,iso-2022-jp
 
-let g:hoge = "hoge"
-
 " Clipboard
 "set clipboard&
 set clipboard^=unnamedplus
@@ -162,7 +160,9 @@ nnoremap ,g :<C-u>registers<CR>
 " File type{{{1
 "==============================================================================
 augroup vimrc-filetype
-  autocmd!
+  " Haskell {{{
+    autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+  " }}}
   " Go {{{
     autocmd BufRead,BufNewFile *.go setlocal noexpandtab
     autocmd BufRead,BufNewFile *.go nnoremap <Leader>ar :<C-u>GoRun<CR>
@@ -302,7 +302,7 @@ Plug 'kana/vim-operator-user' | Plug 'rhysd/vim-operator-surround'
 Plug 'mattn/vim-fz'
 
 " Complete&Snippets
-Plug 'Shougo/neosnippet-snippets' "| Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets' | Plug 'Shougo/neosnippet'
 
 let s:deoplete_enable=0
 
@@ -324,6 +324,7 @@ Plug 'fatih/vim-go' , { 'for': 'go' }
 Plug 'aharisu/vim_goshrepl', {'for': 'scheme'}
 Plug 'kannokanno/previm', {'for': 'markdown'}
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
+Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
 
 " Others
 Plug 'mattn/sonictemplate-vim'
@@ -499,6 +500,10 @@ map <silent>sr <Plug>(operator-surround-replace)
 
 " 'rust-lang/rust.vim' {{{
 let g:rustfmt_autosave = 1
+" }}}
+
+" 'eagletmt/neco-ghc'{{{
+let g:haskellmode_completion_ghc = 0
 " }}}
 "==========================================================================}}}1
 
