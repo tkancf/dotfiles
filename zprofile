@@ -19,3 +19,6 @@ fi
 # Haskell
 export STACK_BIN="$HOME/.stack/bin"
 export PATH="$STACK_BIN:$PATH"
+
+# firefox-latest
+export PATH="/usr/local/firefox:$PATH"

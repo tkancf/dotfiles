@@ -124,7 +124,7 @@ nnoremap <F2> :<C-u>tab help<Space>
 nnoremap <ENTER><ENTER> :<C-u>w<CR>
 
 " highlight off
-nnoremap <silent> <ESC><ESC> :<C-u>nohlsearch<CR>
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR>
 
 " Change current directory.
 nnoremap <silent> <Space>cd :<C-u>CD<CR>
@@ -171,7 +171,7 @@ augroup vimrc-filetype
     autocmd BufRead,BufNewFile *.go nnoremap <Leader>i :<C-u>GoImport 
   " }}}
   " fold method for vimrc {{{
-    autocmd BufRead,BufNewFile .vimrc set foldmethod=marker
+    "autocmd BufRead,BufNewFile .vimrc set foldmethod=marker
   " }}}
 augroup END
 "==========================================================================}}}1
@@ -325,10 +325,15 @@ Plug 'aharisu/vim_goshrepl', {'for': 'scheme'}
 Plug 'kannokanno/previm', {'for': 'markdown'}
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
+Plug 'nbouscal/vim-stylish-haskell', {'for': 'haskell'}
+Plug 'w0rp/ale'
 
 " Others
 Plug 'mattn/sonictemplate-vim'
 Plug 'tyru/open-browser.vim'
+Plug 'lambdalisue/gina.vim'
+Plug 'haya14busa/vim-asterisk'
+Plug 'easymotion/vim-easymotion'
 
 " Twitter
 Plug 'basyura/TweetVim'
@@ -504,6 +509,30 @@ let g:rustfmt_autosave = 1
 
 " 'eagletmt/neco-ghc'{{{
 let g:haskellmode_completion_ghc = 0
+" }}}
+
+" 'haya14busa/vim-asterisk' {{{
+map *  <Plug>(asterisk-z*)
+map #  <Plug>(asterisk-z#)
+map g* <Plug>(asterisk-gz*)
+map g# <Plug>(asterisk-gz#)
+" }}}
+
+" 'easymotion/vim-easymotion' {{{
+" <Leader>f{char} to move to {char}
+map  <Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader>f <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Move to line
+map <Leader>L <Plug>(easymotion-bd-jk)
+nmap <Leader>L <Plug>(easymotion-overwin-line)
+
+" Move to word
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
 " }}}
 "==========================================================================}}}1
 
