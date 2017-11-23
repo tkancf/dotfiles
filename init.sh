@@ -10,9 +10,9 @@ ln -sf ~/.dotfiles/vim/ctrlp-launcher ~/.ctrlp-launcher
 
 ln -sf ~/.dotfiles/tmux.conf ~/.tmux.conf
 
-ln -sf ~/.dotfiles/fish ~/.config
+#ln -sf ~/.dotfiles/fish ~/.config
 
-ln -sf ~/.dotfiles/nvim ~/.config
+#ln -sf ~/.dotfiles/nvim ~/.config
 
 ln -sf ~/.dotfiles/gitconfig ~/.gitconfig
 
