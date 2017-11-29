@@ -22,3 +22,5 @@ export PATH="$STACK_BIN:$PATH"
 
 # firefox-latest
 export PATH="/usr/local/firefox:$PATH"
+
+export PATH="$HOME/.cargo/bin:$PATH"
