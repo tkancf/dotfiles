@@ -320,7 +320,6 @@ endif
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'fatih/vim-go' , { 'for': 'go' }
-"Plug 'plasticboy/vim-markdown' , { 'for': 'markdown' }
 Plug 'aharisu/vim_goshrepl', {'for': 'scheme'}
 Plug 'kannokanno/previm', {'for': 'markdown'}
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
@@ -541,6 +540,9 @@ let g:ale_enabled = 0
 "
 " 'seiya.vm' {{{
 let g:seiya_auto_enable=1
+" }}}
+" 'dag/vim2hs' {{{
+let g:haskell_conceal_wide = 0
 " }}}
 "==========================================================================}}}1
 
