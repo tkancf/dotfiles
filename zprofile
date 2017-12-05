@@ -20,7 +20,6 @@ fi
 export STACK_BIN="$HOME/.stack/bin"
 export PATH="$STACK_BIN:$PATH"
 
-# firefox-latest
-export PATH="/usr/local/firefox:$PATH"
-
-export PATH="$HOME/.cargo/bin:$PATH"
+# MyScripts
+export SCRIPTS="$HOME/.dotfiles/scripts"
+export PATH="$SCRIPTS:$PATH"
