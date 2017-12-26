@@ -20,6 +20,14 @@ fi
 export STACK_BIN="$HOME/.stack/bin"
 export PATH="$STACK_BIN:$PATH"
 
+# node
+export NODE_BIN="$HOME/.node/node-v8.9.3-linux-x64/bin"
+export PATH="$NODE_BIN:$PATH"
+
 # MyScripts
 export SCRIPTS="$HOME/.dotfiles/scripts"
 export PATH="$SCRIPTS:$PATH"
+
+# editorconfig
+export VISUAL="/usr/local/bin/vim"
+export EDITOR="$VISUAL"

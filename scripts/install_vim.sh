@@ -1,6 +1,7 @@
 #!/bin/sh
-sudo apt install git gettext libtinfo-dev libacl1-dev libgpm-dev build-essential libxmu-dev libgtk2.0-dev libxpm-dev libperl-dev python-dev python3-dev ruby-dev liblua5.3-0 liblua5.3-dev luajit libluajit-5.1-dev
 export VIM_REPO="$HOME/src/github.com/vim/vim"
+
+sudo apt install git gettext libtinfo-dev libacl1-dev libgpm-dev build-essential libxmu-dev libgtk2.0-dev libxpm-dev libperl-dev python-dev python3-dev ruby-dev liblua5.3-0 liblua5.3-dev luajit libluajit-5.1-dev
 
 if [ -e $VIM_REPO ]; then
 # Update Vim
@@ -19,4 +20,3 @@ else
   sudo make install
   cd -
 fi
-

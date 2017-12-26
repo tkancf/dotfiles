@@ -282,6 +282,7 @@ call plug#begin($HOME . "/.vim/plugged")
 "
 "" Color
 Plug 'vim-scripts/wombat256.vim'
+Plug 'cocopon/iceberg.vim'
 Plug 'itchyny/lightline.vim'
 
 "ctrlp
@@ -358,7 +359,8 @@ function! s:plug.is_installed(name)
   return has_key(self.plugs, a:name) ? isdirectory(self.plugs[a:name].dir) : 0
 endfunction
 " {{{ Colorscheme
-colorscheme wombat256mod
+colorscheme iceberg
+
 " }}}
 
 " 'ctrlpvim/ctrlp.vim' {{{
@@ -491,6 +493,10 @@ let g:auto_ctags_directory_list = ['.git', '.svn']
 " 'cocopon/vaffle.vim'{{{
 nnoremap - :<C-u>Vaffle<CR>
 "}}}
+
+" 'kannokanno/previm'{{{
+let g:previm_enable_realtime = 1
+" }}}
 
 " 'itchyny/lightline.vim'{{{
 let g:lightline = { 'colorscheme': 'wombat' }

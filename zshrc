@@ -17,13 +17,14 @@ WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 stty stop undef
 stty start undef
 
-# 単語の区切り文字を指定する
+# select word div style
 autoload -Uz select-word-style
 select-word-style default
-# ここで指定した文字は単語区切りとみなされる
-# / も区切りと扱うので、^W でディレクトリ１つ分を削除できる
 zstyle ':zle:*' word-chars " /=;@:{},|"
 zstyle ':zle:*' word-style unspecified
+
+# Enable typo correct
+setopt correct
 
 # End of lines added by compinstall
 # colors
@@ -66,3 +67,14 @@ function peco-src () {
 }
 zle -N peco-src
 bindkey '^]' peco-src
+
+## vim build
+function Vim-build () {
+  local vim_source_dir="$HOME/src/github.com/vim/vim"
+  cd $vim_source_dir
+  git pull
+  ./configure --with-features=huge --enable-gui=gtk2  --enable-perlinterp --enable-pythoninterp  --enable-python3interp --enable-rubyinterp  --enable-luainterp --with-luajit  --enable-fail-if-missing
+  make
+  sudo make install
+  cd -
+}
