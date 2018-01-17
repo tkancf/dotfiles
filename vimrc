@@ -162,6 +162,7 @@ nnoremap ,g :<C-u>registers<CR>
 augroup vimrc-filetype
   " Haskell {{{
     autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+    autocmd FileType haskell setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
   " }}}
   " Go {{{
     autocmd BufRead,BufNewFile *.go setlocal noexpandtab
@@ -301,6 +302,7 @@ Plug 'glidenote/memolist.vim'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'kana/vim-operator-user' | Plug 'rhysd/vim-operator-surround'
 Plug 'mattn/vim-fz'
+Plug 'majutsushi/tagbar'
 
 " Complete&Snippets
 Plug 'Shougo/neosnippet-snippets' | Plug 'Shougo/neosnippet'
@@ -543,13 +545,21 @@ nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 " 'w0rp/ale'{{{
 let g:ale_enabled = 0
-"
+"}}}
+
 " 'seiya.vm' {{{
 let g:seiya_auto_enable=1
 " }}}
+
 " 'dag/vim2hs' {{{
 let g:haskell_conceal_wide = 0
 " }}}
+
+" 'tagbar' {{{
+nnoremap <F8> <Nop>
+nnoremap <F8> :TagbarToggle<CR>
+" }}}
+
 "==========================================================================}}}1
 
 " vim:foldmethod=marker
