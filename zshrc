@@ -42,19 +42,23 @@ alias l='ls -CF'
 alias la='ls -aF'
 alias cb='xsel --clipboard --input'
 alias grep='grep --color=auto'
-alias g='git'
-alias gg='git graph'
-alias ga='git add .'
-alias gf='git diff'
-alias gfc='git diff --cached'
-alias gc='git commit -m'
+
 alias t='tmux -2'
 alias vi='vim'
 alias gos='rlwrap gosh'
+
+# git
+alias gs='git status'
+alias gl='git log'
+alias gg='git graph'
+alias ga='git add .'
+alias gd='git diff'
+alias gdc='git diff --cached'
+alias gc='git commit'
+alias gcm='git commit -m'
+# stack
 alias runghc='stack runghc --'
 alias ghci='stack ghci --'
-
-alias cdh='cd ~/dev/haskell'
 
 # Function
 function peco-src () {

@@ -17,6 +17,7 @@ if [ -d "$CARGO_PATH" ]; then
 fi
 
 # Haskell
+export PATH="~/.local/bin/stack:$PATH"
 export STACK_BIN="$HOME/.stack/bin"
 export PATH="$STACK_BIN:$PATH"
 
