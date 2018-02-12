@@ -22,5 +22,6 @@
   aa = add .
 
 [push]
-[push]
 	default = matching
+[color]
+	ui = true
