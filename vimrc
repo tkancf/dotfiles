@@ -42,9 +42,6 @@ if !exists('loaded_matchit')
   runtime macros/matchit.vim
 endif
 
-" Font setting
-set guifont=ricty:h20
-
 " Beep setting
   " Disable all beep
 set visualbell t_vb=
@@ -93,7 +90,8 @@ endif
 
 " GUI{{{1
 "==============================================================================
-set guifont=Monospace
+set guifont=Ricty\ Diminished\ 16
+
 set guioptions-=m
 set guioptions-=T
 "==========================================================================}}}1
@@ -150,6 +148,9 @@ vnoremap * "zy:let @/ = '\V' . substitute(escape(@z, '\/'), '\n', '\\n', 'g')<CR
 
 " Show registers
 nnoremap ,g :<C-u>registers<CR>
+
+" Edit macro
+nnoremap <leader>... :<c-u><c-r><c-r>='let @q = '. string(getreg('q'))<cr><c-f><left>
 "==========================================================================}}}1
 
 " Command Short{{{1
@@ -166,10 +167,13 @@ augroup vimrc-filetype
   " }}}
   " Go {{{
     autocmd BufRead,BufNewFile *.go setlocal noexpandtab
-    autocmd BufRead,BufNewFile *.go nnoremap <Leader>ar :<C-u>GoRun<CR>
-    autocmd BufRead,BufNewFile *.go nnoremap <Leader>r :<C-u>GoRun %<CR>
-    autocmd BufRead,BufNewFile *.go nnoremap <Leader>d :<C-u>GoDoc<CR>
-    autocmd BufRead,BufNewFile *.go nnoremap <Leader>i :<C-u>GoImport 
+    autocmd BufRead,BufNewFile *.go nnoremap <buffer> <Leader>ar :<C-u>GoRun<CR>
+    autocmd BufRead,BufNewFile *.go nnoremap <buffer> <Leader>r :<C-u>GoRun %<CR>
+    autocmd BufRead,BufNewFile *.go nnoremap <buffer> <Leader>d :<C-u>GoDoc<CR>
+    autocmd BufRead,BufNewFile *.go nnoremap <buffer> <Leader>i :<C-u>GoImport 
+  " }}}
+  " Gauche {{{
+    autocmd FileType scheme vmap <buffer> <CR> <Plug>(gosh_repl_send_block)
   " }}}
   " fold method for vimrc {{{
     "autocmd BufRead,BufNewFile .vimrc set foldmethod=marker
@@ -329,6 +333,7 @@ Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
 Plug 'nbouscal/vim-stylish-haskell', {'for': 'haskell'}
 Plug 'w0rp/ale'
+Plug 'rhysd/vim-clang-format', {'for': 'c'}
 
 " Others
 Plug 'mattn/sonictemplate-vim'
@@ -337,6 +342,7 @@ Plug 'lambdalisue/gina.vim'
 Plug 'haya14busa/vim-asterisk'
 Plug 'easymotion/vim-easymotion'
 Plug 'miyakogi/seiya.vim'
+Plug 'jiangmiao/auto-pairs'
 
 " Twitter
 Plug 'basyura/TweetVim'
@@ -580,6 +586,12 @@ let g:haskell_conceal_wide = 0
 nnoremap <F8> <Nop>
 nnoremap <F8> :TagbarToggle<CR>
 " }}}
+
+" 'kana/vim-operator-user' {{{
+autocmd FileType c ClangFormatAutoEnable
+" }}}
+
+
 
 "==========================================================================}}}1
 

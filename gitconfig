@@ -1,6 +1,6 @@
 [user]
   name = tkancf
-  email = tkancf@users.noreply.github.com
+	email = tkancf@users.noreply.github.com
 
 [include]
   path = ~/.gitconfig.local
@@ -16,7 +16,7 @@
 
 [alias]
   s = status
-  graph = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
+	graph = log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short
   c = commit
   cm = commit -m
   aa = add .

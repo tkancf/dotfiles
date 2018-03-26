@@ -7,7 +7,7 @@ fi
 
 # Golang
 export GOPATH="$HOME"
-export PATH="$GOPATH:$PATH"
+export PATH="$GOPATH/bin:$PATH"
 
 # Rust
 export CARGO_PATH=$HOME/.cargo

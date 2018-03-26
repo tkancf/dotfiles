@@ -9,6 +9,7 @@ unsetopt beep extendedglob nomatch
 zstyle :compinstall filename '/home/tkancf/.zshrc'
 
 autoload -U compinit
+fpath+=~/.zfunc
 compinit
 zstyle ':completion:*:default' menu select=2
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
@@ -26,7 +27,13 @@ zstyle ':zle:*' word-style unspecified
 # Enable typo correct
 setopt correct
 
+# tmux
+if [[ ! -n $TMUX ]]; then
+  tmux new-session
+fi
+
 # End of lines added by compinstall
+
 # colors
 autoload colors
 colors
@@ -49,7 +56,7 @@ alias gos='rlwrap gosh'
 
 # git
 alias gs='git status'
-alias gl='git log'
+alias gl='git log --graph'
 alias gg='git graph'
 alias ga='git add .'
 alias gd='git diff'
@@ -59,6 +66,7 @@ alias gcm='git commit -m'
 # stack
 alias runghc='stack runghc --'
 alias ghci='stack ghci --'
+alias ghc='stack ghc --'
 
 # Function
 function peco-src () {
