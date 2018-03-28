@@ -329,6 +329,8 @@ Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'fatih/vim-go' , { 'for': 'go' }
 Plug 'aharisu/vim_goshrepl', {'for': 'scheme'}
 Plug 'kannokanno/previm', {'for': 'markdown'}
+Plug 'violetyk/iikanji-markdown.vim', {'for': 'markdown'}
+Plug 'jszakmeister/markdown2ctags', {'for': 'markdown'}
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
 Plug 'nbouscal/vim-stylish-haskell', {'for': 'haskell'}
@@ -585,6 +587,20 @@ let g:haskell_conceal_wide = 0
 " 'tagbar' {{{
 nnoremap <F8> <Nop>
 nnoremap <F8> :TagbarToggle<CR>
+let g:tagbar_type_markdown = {
+    \ 'ctagstype': 'markdown',
+    \ 'ctagsbin' : $HOME . '/.vim/plugged/markdown2ctags/markdown2ctags.py',
+    \ 'ctagsargs' : '-f - --sort=yes',
+    \ 'kinds' : [
+        \ 's:sections',
+        \ 'i:images'
+    \ ],
+    \ 'sro' : '|',
+    \ 'kind2scope' : {
+        \ 's' : 'section',
+    \ },
+    \ 'sort': 0,
+\ }
 " }}}
 
 " 'kana/vim-operator-user' {{{

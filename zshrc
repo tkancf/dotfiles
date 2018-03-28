@@ -67,6 +67,11 @@ alias gcm='git commit -m'
 alias runghc='stack runghc --'
 alias ghci='stack ghci --'
 alias ghc='stack ghc --'
+alias s='ssh'
+
+if [ -f "$HOME/bin/gomi" ]; then
+  alias rm='gomi'
+fi
 
 # Function
 function peco-src () {

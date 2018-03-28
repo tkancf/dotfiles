@@ -9,6 +9,7 @@ alias gf='git diff'
 alias gfc='git diff --cached'
 alias gc='git commit -m'
 alias t='tmux -2'
+alias s='ssh'
 tmux -2
 
 # added by Anaconda2 4.3.1 installer
