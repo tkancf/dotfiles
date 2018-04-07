@@ -8,7 +8,9 @@ unsetopt beep extendedglob nomatch
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/tkancf/.zshrc'
 
-autoload -U compinit
+autoload -U +X compinit && compinit
+autoload -U +X bashcompinit && bashcompinit
+eval "$(stack --bash-completion-script stack)"
 fpath+=~/.zfunc
 compinit
 zstyle ':completion:*:default' menu select=2
@@ -32,6 +34,7 @@ if [[ ! -n $TMUX ]]; then
   tmux new-session
 fi
 
+
 # End of lines added by compinstall
 
 # colors
@@ -42,32 +45,7 @@ PROMPT="%{$fg[green]%}%m%(!.#.$) %{$reset_color%}"
 PROMPT2="%{$fg[green]%}%_> %{$reset_color%}"
 SPROMPT="%{$fg[red]%}correct: %R -> %r [nyae]? %{$reset_color%}"
 RPROMPT="%{$fg[blue]%}[%~]%{$reset_color%}"
-# Alias
-alias ls='ls --color=auto'
-alias ll='ls -alF'
-alias l='ls -CF'
-alias la='ls -aF'
-alias cb='xsel --clipboard --input'
-alias grep='grep --color=auto'
 
-alias t='tmux -2'
-alias vi='vim'
-alias gos='rlwrap gosh'
-
-# git
-alias gs='git status'
-alias gl='git log --graph'
-alias gg='git graph'
-alias ga='git add .'
-alias gd='git diff'
-alias gdc='git diff --cached'
-alias gc='git commit'
-alias gcm='git commit -m'
-# stack
-alias runghc='stack runghc --'
-alias ghci='stack ghci --'
-alias ghc='stack ghc --'
-alias s='ssh'
 
 if [ -f "$HOME/bin/gomi" ]; then
   alias rm='gomi'
@@ -95,3 +73,40 @@ function Vim-build () {
   sudo make install
   cd -
 }
+
+ssh() {
+  if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then
+    tmux rename-window ${@: -1} # <---- ここ
+    command ssh "$@"
+    tmux set-window-option automatic-rename "on" 1>/dev/null
+  else
+    command ssh "$@"
+  fi
+}
+
+# Alias
+alias ls='ls --color=auto'
+alias ll='ls -alF'
+alias l='ls -CF'
+alias la='ls -aF'
+alias cb='xsel --clipboard --input'
+alias grep='grep --color=auto'
+alias t='tmux -2'
+alias vi='vim'
+# git
+alias gs='git status'
+alias gl='git log --graph'
+alias gg='git graph'
+alias ga='git add .'
+alias gd='git diff'
+alias gdc='git diff --cached'
+alias gc='git commit'
+alias gcm='git commit -m'
+# stack
+alias runghc='stack runghc --'
+alias ghci='stack ghci --'
+alias ghc='stack ghc --'
+alias s='ssh'
+# scheme
+alias gos='rlwrap gosh'
+alias sicp='racket -i -p neil/sicp -l xrepl'

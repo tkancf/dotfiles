@@ -289,6 +289,7 @@ call plug#begin($HOME . "/.vim/plugged")
 Plug 'vim-scripts/wombat256.vim'
 Plug 'cocopon/iceberg.vim'
 Plug 'itchyny/lightline.vim'
+"Plug 'NLKNguyen/papercolor-theme'
 
 "ctrlp
 Plug 'ctrlpvim/ctrlp.vim' | Plug 'mattn/ctrlp-launcher'
@@ -302,29 +303,33 @@ Plug 'cocopon/vaffle.vim'
 Plug 'soramugi/auto-ctags.vim'
 Plug 'thinca/vim-quickrun'
 Plug 'glidenote/memolist.vim'
-"Plug 'kana/vim-smartinput'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'kana/vim-operator-user' | Plug 'rhysd/vim-operator-surround'
 Plug 'mattn/vim-fz'
 Plug 'majutsushi/tagbar'
 
+Plug 'jgdavey/tslime.vim'
+vmap <C-c><C-c> <Plug>SendSelectionToTmux
+nmap <C-c><C-c> <Plug>NormalModeSendToTmux
+nmap <C-c>r <Plug>SetTmuxVars
+
 " Complete&Snippets
 Plug 'Shougo/neosnippet-snippets' | Plug 'Shougo/neosnippet'
+"let s:deoplete_enable=0
 
-let s:deoplete_enable=0
-
-if has('pythonx') && s:deoplete_enable == 1 && v:version >= 800
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-elseif has('lua')
+"if has('pythonx') && s:deoplete_enable == 1 && v:version >= 800
+"  Plug 'Shougo/deoplete.nvim'
+"  Plug 'roxma/nvim-yarp'
+"  Plug 'roxma/vim-hug-neovim-rpc'
+"else
+if has('lua')
   Plug 'Shougo/neocomplete.vim'
 else
   Plug 'Shougo/neocomplcache.vim'
 endif
 
 " Languages
-Plug 'slim-template/vim-slim', { 'for': 'slim' }
+Plug 'slim-template/vim-slim',{'for': 'slimv'}
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'fatih/vim-go' , { 'for': 'go' }
 Plug 'aharisu/vim_goshrepl', {'for': 'scheme'}
@@ -336,6 +341,8 @@ Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
 Plug 'nbouscal/vim-stylish-haskell', {'for': 'haskell'}
 Plug 'w0rp/ale'
 Plug 'rhysd/vim-clang-format', {'for': 'c'}
+Plug 'wlangstroth/vim-racket'
+
 
 " Others
 Plug 'mattn/sonictemplate-vim'
@@ -345,6 +352,7 @@ Plug 'haya14busa/vim-asterisk'
 Plug 'easymotion/vim-easymotion'
 Plug 'miyakogi/seiya.vim'
 Plug 'jiangmiao/auto-pairs'
+Plug 'losingkeys/vim-niji'
 
 " Twitter
 Plug 'basyura/TweetVim'
@@ -606,8 +614,6 @@ let g:tagbar_type_markdown = {
 " 'kana/vim-operator-user' {{{
 autocmd FileType c ClangFormatAutoEnable
 " }}}
-
-
 
 "==========================================================================}}}1
 
