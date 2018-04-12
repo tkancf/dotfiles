@@ -161,7 +161,6 @@ nnoremap <leader>... :<c-u><c-r><c-r>='let @q = '. string(getreg('q'))<cr><c-f><
 " File type{{{1
 "==============================================================================
 augroup vimrc-filetype
-    au!
   " Haskell {{{
     autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
     autocmd FileType haskell setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
@@ -339,12 +338,10 @@ Plug 'violetyk/iikanji-markdown.vim', {'for': 'markdown'}
 Plug 'jszakmeister/markdown2ctags', {'for': 'markdown'}
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
 Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
-Plug 'eagletmt/ghcmod-vim', {'for': 'haskell'}
 Plug 'nbouscal/vim-stylish-haskell', {'for': 'haskell'}
 Plug 'w0rp/ale'
 Plug 'rhysd/vim-clang-format', {'for': 'c'}
 Plug 'wlangstroth/vim-racket'
-Plug 'pangloss/vim-javascript', {'for': 'javascript'}
 
 
 " Others
@@ -556,7 +553,7 @@ let g:rustfmt_autosave = 1
 " }}}
 
 " 'eagletmt/neco-ghc'{{{
-let g:haskellmode_completion_ghc = 0
+let g:haskellmode_completion_ghc = 1
 " }}}
 
 " 'haya14busa/vim-asterisk' {{{
@@ -616,10 +613,6 @@ let g:tagbar_type_markdown = {
 
 " 'kana/vim-operator-user' {{{
 autocmd FileType c ClangFormatAutoEnable
-" }}}
-
-" 'eagletmt/ghcmod-vim'{{{
-let $PATH .= (":" . $HOME . "/.cabal/bin" . ":" . $HOME . "/.local/bin")
 " }}}
 
 "==========================================================================}}}1

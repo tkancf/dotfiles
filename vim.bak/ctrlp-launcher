@@ -1,0 +1,22 @@
+Edit .vimrc								e $MYVIMRC
+
+Find MemolistFile					exe "CtrlP" g:memolist_path
+
+Create Memolist						MemoNew
+
+Tasks						e $HOME/maintask.tasks
+
+Grep Memolist						MemoGrep
+
+Open Previm						PrevimOpen
+
+cd dotfiles						lcd ~/src/github.com/tkancf/dotfiles
+
+Edit NeoSnippet						NeoSnippetEdit
+
+Open Gosh REPL								GoshREPL
+
+Twitter Tweet									TweetVimCommandSay
+
+Twitter Timeline						TweetVimHomeTimeline
+

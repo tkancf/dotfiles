@@ -5,10 +5,6 @@ if [ -d "$RBENV_PATH" ]; then
   eval "$(rbenv init -)"
 fi
 
-# Golang
-export GOPATH="$HOME"
-export PATH="$GOPATH/bin:$PATH"
-
 # Rust
 export CARGO_PATH=$HOME/.cargo
 if [ -d "$CARGO_PATH" ]; then
@@ -19,7 +15,8 @@ fi
 # Haskell
 export PATH="~/.local/bin/stack:$PATH"
 export STACK_BIN="$HOME/.stack/bin"
-export PATH="$STACK_BIN:$PATH"
+export HASKELL_BIN="$HOME/.local/bin"
+export PATH="$STACK_BIN:$HASKELL_BIN:$PATH"
 
 # node
 export NODE_BIN="$HOME/.node/node-v8.9.3-linux-x64/bin"
@@ -32,3 +29,8 @@ export PATH="$SCRIPTS:$PATH"
 # editorconfig
 export VISUAL="/usr/local/bin/vim"
 export EDITOR="$VISUAL"
+#
+# Golang
+export GOPATH="$HOME"
+export PATH="$GOPATH/bin:$PATH"
+

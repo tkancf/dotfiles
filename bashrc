@@ -20,3 +20,4 @@ tmux -2
 # Golang
 export GOPATH="$HOME"
 export PATH="$GOPATH/bin:$PATH"
+
