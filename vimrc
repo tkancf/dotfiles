@@ -316,14 +316,13 @@ nmap <C-c>r <Plug>SetTmuxVars
 
 " Complete&Snippets
 Plug 'Shougo/neosnippet-snippets' | Plug 'Shougo/neosnippet'
-"let s:deoplete_enable=0
 
-"if has('pythonx') && s:deoplete_enable == 1 && v:version >= 800
-"  Plug 'Shougo/deoplete.nvim'
-"  Plug 'roxma/nvim-yarp'
-"  Plug 'roxma/vim-hug-neovim-rpc'
-"else
-if has('lua')
+let g:deoplete#enable_at_startup = 1
+if has('pythonx') && v:version >= 800
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+elseif has('lua')
   Plug 'Shougo/neocomplete.vim'
 else
   Plug 'Shougo/neocomplcache.vim'
@@ -363,10 +362,30 @@ Plug 'mattn/webapi-vim'
 Plug 'basyura/twibill.vim'
 Plug 'basyura/bitly.vim'
 
-Plug 'irrationalistic/vim-tasks'
+" New
+Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh' }
+Plug 'zchee/deoplete-go', {'do': 'make'}
 call plug#end()
 
 "==========================================================================}}}1
+
+" Required for operations modifying multiple buffers like rename.
+set hidden
+let g:LanguageClient_serverCommands = {
+      \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+      \ 'haskell': ['hie', '--lsp'],
+      \ 'go': ['go-langserver'],
+      \ }
+" 'javascript': ['javascript-typescript-stdio'],
+" 'javascript.jsx': ['javascript-typescript-stdio'],
+augroup lsp-keymap
+  autocmd!
+  autocmd FileType haskell nnoremap <buffer><silent> K :call LanguageClient#textDocument_hover()<CR>
+  autocmd FileType haskell nnoremap <buffer><silent> gd :call LanguageClient#textDocument_definition()<CR>
+  autocmd FileType haskell nnoremap <buffer><silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+augroup END
+let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 
 " Plugin config {{{1
 "==============================================================================
