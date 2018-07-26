@@ -29,8 +29,7 @@ export PATH="$SCRIPTS:$PATH"
 # editorconfig
 export VISUAL="/usr/local/bin/vim"
 export EDITOR="$VISUAL"
-#
+
 # Golang
 export GOPATH="$HOME"
 export PATH="$GOPATH/bin:$PATH"
-

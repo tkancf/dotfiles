@@ -74,6 +74,10 @@ function Vim-build () {
   cd -
 }
 
+hugo-server() {
+  nohup hugo server -s $HOME/memo &
+}
+
 ssh() {
   if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then
     tmux rename-window ${@: -1} # <---- ここ

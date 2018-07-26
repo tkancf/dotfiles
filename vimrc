@@ -166,12 +166,19 @@ augroup vimrc-filetype
     autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
     autocmd FileType haskell setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
   " }}}
+  " {{{
+    autocmd FileType markdown setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+  " }}}
+  " }}}
   " Go {{{
     autocmd BufRead,BufNewFile *.go setlocal noexpandtab
     autocmd BufRead,BufNewFile *.go nnoremap <buffer> <Leader>ar :<C-u>GoRun<CR>
     autocmd BufRead,BufNewFile *.go nnoremap <buffer> <Leader>r :<C-u>GoRun %<CR>
     autocmd BufRead,BufNewFile *.go nnoremap <buffer> <Leader>d :<C-u>GoDoc<CR>
     autocmd BufRead,BufNewFile *.go nnoremap <buffer> <Leader>i :<C-u>GoImport 
+  " }}}
+  " Vue {{{
+    autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
   " }}}
   " Gauche {{{
     autocmd FileType scheme vmap <buffer> <CR> <Plug>(gosh_repl_send_block)
@@ -334,17 +341,18 @@ Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'fatih/vim-go' , { 'for': 'go' }
 Plug 'aharisu/vim_goshrepl', {'for': 'scheme'}
 Plug 'kannokanno/previm', {'for': 'markdown'}
-Plug 'violetyk/iikanji-markdown.vim', {'for': 'markdown'}
+"Plug 'violetyk/iikanji-markdown.vim', {'for': 'markdown'}
+Plug 'tpope/vim-markdown', {'for': 'markdown'}
 Plug 'jszakmeister/markdown2ctags', {'for': 'markdown'}
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
-Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
-Plug 'eagletmt/ghcmod-vim', {'for': 'haskell'}
+" Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
+" Plug 'eagletmt/ghcmod-vim', {'for': 'haskell'}
 Plug 'nbouscal/vim-stylish-haskell', {'for': 'haskell'}
 Plug 'w0rp/ale'
 Plug 'rhysd/vim-clang-format', {'for': 'c'}
 Plug 'wlangstroth/vim-racket'
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
-
+Plug 'posva/vim-vue'
 
 " Others
 Plug 'mattn/sonictemplate-vim'
@@ -363,7 +371,7 @@ Plug 'basyura/twibill.vim'
 Plug 'basyura/bitly.vim'
 
 " New
-Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh' }
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'zchee/deoplete-go', {'do': 'make'}
 call plug#end()
 
@@ -376,6 +384,7 @@ let g:LanguageClient_serverCommands = {
       \ 'haskell': ['hie', '--lsp'],
       \ 'go': ['go-langserver'],
       \ }
+
 " 'javascript': ['javascript-typescript-stdio'],
 " 'javascript.jsx': ['javascript-typescript-stdio'],
 augroup lsp-keymap
@@ -473,8 +482,9 @@ set completeopt=menuone
 
 " 'glidenote/memolist.vim' {{{
 let g:memolist_memo_suffix = "md"
-let g:memolist_path = $HOME . "/memo/"
-let g:memolist_memo_date = "%Y-%m-%d %H:%M"
+let g:memolist_template_dir_path = "~/.vim/template/memolist"
+let g:memolist_path = $HOME . "/memo/content/memo/"
+let g:memolist_memo_date = "%Y-%m-%dT%H:%M:%S+09:00"
 " }}}
 
 " 'vim-jp/vimdoc-ja' {{{
@@ -485,6 +495,7 @@ set helplang=ja,en
 "let g:previm_open_cmd = 'open -a Firefox'
 augroup PrevimSettings
     autocmd!
+    autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
     autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
 augroup END
 " }}}
@@ -547,7 +558,7 @@ let g:neosnippet#snippets_directory=$HOME . '/.vim/snippets/'
 " }}}
 
 " 'soramugi/auto-ctags.vim' {{{
-let g:auto_ctags = 1
+let g:auto_ctags = 0
 let g:auto_ctags_directory_list = ['.git', '.svn']
 "}}}
 
