@@ -311,7 +311,7 @@ Plug 'cocopon/vaffle.vim'
 Plug 'soramugi/auto-ctags.vim'
 Plug 'thinca/vim-quickrun'
 Plug 'glidenote/memolist.vim'
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+"Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'kana/vim-operator-user' | Plug 'rhysd/vim-operator-surround'
 Plug 'mattn/vim-fz'
 Plug 'majutsushi/tagbar'
@@ -371,7 +371,7 @@ Plug 'basyura/twibill.vim'
 Plug 'basyura/bitly.vim'
 
 " New
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
+" Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'zchee/deoplete-go', {'do': 'make'}
 call plug#end()
 
@@ -504,8 +504,6 @@ augroup END
 " '*' : {'hook/time/enable': '1'},
 let g:quickrun_config = {
 \    "_" : {
-\        'runner'    : 'vimproc',
-\        'runner/vimproc/updatetime' : 60,
 \        'outputter' : 'error',
 \        'outputter/error/success' : 'buffer',
 \        'outputter/error/error'   : 'quickfix',

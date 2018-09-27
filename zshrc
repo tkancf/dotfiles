@@ -10,7 +10,7 @@ zstyle :compinstall filename '/home/tkancf/.zshrc'
 
 autoload -U +X compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
-eval "$(stack --bash-completion-script stack)"
+#eval "$(stack --bash-completion-script stack)"
 fpath+=~/.zfunc
 compinit
 zstyle ':completion:*:default' menu select=2
@@ -28,6 +28,8 @@ zstyle ':zle:*' word-style unspecified
 
 # Enable typo correct
 setopt correct
+
+bindkey -e
 
 # tmux
 if [[ ! -n $TMUX ]]; then
