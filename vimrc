@@ -345,8 +345,8 @@ Plug 'kannokanno/previm', {'for': 'markdown'}
 Plug 'tpope/vim-markdown', {'for': 'markdown'}
 Plug 'jszakmeister/markdown2ctags', {'for': 'markdown'}
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
-" Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
-" Plug 'eagletmt/ghcmod-vim', {'for': 'haskell'}
+Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
+Plug 'eagletmt/ghcmod-vim', {'for': 'haskell'}
 Plug 'nbouscal/vim-stylish-haskell', {'for': 'haskell'}
 Plug 'w0rp/ale'
 Plug 'rhysd/vim-clang-format', {'for': 'c'}
