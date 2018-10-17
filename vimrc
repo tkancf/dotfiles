@@ -66,15 +66,10 @@ set completeopt=menu,preview
 set list
 set listchars=tab:>-,trail:.
 
-" linux fcitx ime setting
-function! ImInActivate()
-  call system('fcitx-remote -c')
-endfunction
-inoremap <silent> <C-[> <ESC>:call ImInActivate()<CR>
-
 " incsearch setting
 set hlsearch
 set incsearch
+
 " double:Use twice the width of ASCII characters.
 set ambiwidth=double
 
@@ -153,38 +148,23 @@ nnoremap ,g :<C-u>registers<CR>
 nnoremap <leader>... :<c-u><c-r><c-r>='let @q = '. string(getreg('q'))<cr><c-f><left>
 "==========================================================================}}}1
 
-" Command Short{{{1
-"==============================================================================
-
-"==========================================================================}}}1
-
 " File type{{{1
 "==============================================================================
 augroup vimrc-filetype
     au!
   " Haskell {{{
-    autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
     autocmd FileType haskell setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
   " }}}
-  " {{{
+  " Markdown {{{
     autocmd FileType markdown setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
   " }}}
-  " }}}
   " Go {{{
-    autocmd BufRead,BufNewFile *.go setlocal noexpandtab
-    autocmd BufRead,BufNewFile *.go nnoremap <buffer> <Leader>ar :<C-u>GoRun<CR>
-    autocmd BufRead,BufNewFile *.go nnoremap <buffer> <Leader>r :<C-u>GoRun %<CR>
-    autocmd BufRead,BufNewFile *.go nnoremap <buffer> <Leader>d :<C-u>GoDoc<CR>
-    autocmd BufRead,BufNewFile *.go nnoremap <buffer> <Leader>i :<C-u>GoImport 
+    autocmd FileType go setlocal noexpandtab
+    autocmd FileType go nnoremap <buffer> <Leader>ar :<C-u>GoRun<CR>
+    autocmd FileType go nnoremap <buffer> <Leader>r :<C-u>GoRun %<CR>
   " }}}
   " Vue {{{
     autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
-  " }}}
-  " Gauche {{{
-    autocmd FileType scheme vmap <buffer> <CR> <Plug>(gosh_repl_send_block)
-  " }}}
-  " fold method for vimrc {{{
-    "autocmd BufRead,BufNewFile .vimrc set foldmethod=marker
   " }}}
 augroup END
 "==========================================================================}}}1
@@ -236,7 +216,6 @@ augroup KeymapInHelp
   autocmd BufReadPost,BufEnter * call KeymapInHelp()
 augroup END
 
-
 command! ChangeCharactersD2Ha call s:ChangeCharactersD2H()
 function! s:ChangeCharactersD2H()
   %s/　/ /ge
@@ -280,7 +259,6 @@ function! s:ChangeCharactersD2H()
 endfunction
 " }}}
 
-
 "===========================================================================}}}
 
 " Plugin Load {{{
@@ -293,13 +271,12 @@ endif
 source $HOME/.vim/vim-plug/plug.vim
 call plug#begin($HOME . "/.vim/plugged")
 "
-"" Color
-Plug 'vim-scripts/wombat256.vim'
-Plug 'cocopon/iceberg.vim'
-Plug 'itchyny/lightline.vim'
-"Plug 'NLKNguyen/papercolor-theme'
 
-"ctrlp
+" Color
+Plug 'vim-scripts/wombat256.vim'
+Plug 'itchyny/lightline.vim'
+
+" ctrlp
 Plug 'ctrlpvim/ctrlp.vim' | Plug 'mattn/ctrlp-launcher'
 Plug 'ctrlpvim/ctrlp.vim' | Plug 'sgur/ctrlp-extensions.vim'
 Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
@@ -311,90 +288,47 @@ Plug 'cocopon/vaffle.vim'
 Plug 'soramugi/auto-ctags.vim'
 Plug 'thinca/vim-quickrun'
 Plug 'glidenote/memolist.vim'
-"Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'kana/vim-operator-user' | Plug 'rhysd/vim-operator-surround'
 Plug 'mattn/vim-fz'
 Plug 'majutsushi/tagbar'
 
-Plug 'jgdavey/tslime.vim'
-vmap <C-c><C-c> <Plug>SendSelectionToTmux
-nmap <C-c><C-c> <Plug>NormalModeSendToTmux
-nmap <C-c>r <Plug>SetTmuxVars
-
 " Complete&Snippets
-Plug 'Shougo/neosnippet-snippets' | Plug 'Shougo/neosnippet'
-
-let g:deoplete#enable_at_startup = 1
-if has('pythonx') && v:version >= 800
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
+if v:version >= 800
+  Plug 'prabirshrestha/asyncomplete.vim' |  Plug 'prabirshrestha/async.vim'
+  Plug 'prabirshrestha/asyncomplete-gocode.vim'
+  Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
+  Plug 'yami-beta/asyncomplete-omni.vim'
+  Plug 'prabirshrestha/asyncomplete-necosyntax.vim' | Plug 'Shougo/neco-syntax'
+  Plug 'prabirshrestha/asyncomplete-necovim.vim'
 elseif has('lua')
   Plug 'Shougo/neocomplete.vim'
 else
   Plug 'Shougo/neocomplcache.vim'
 endif
 
+Plug 'Shougo/neosnippet-snippets' | Plug 'Shougo/neosnippet'
+
 " Languages
-Plug 'slim-template/vim-slim',{'for': 'slimv'}
-Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'fatih/vim-go' , { 'for': 'go' }
-Plug 'aharisu/vim_goshrepl', {'for': 'scheme'}
 Plug 'kannokanno/previm', {'for': 'markdown'}
-"Plug 'violetyk/iikanji-markdown.vim', {'for': 'markdown'}
 Plug 'tpope/vim-markdown', {'for': 'markdown'}
 Plug 'jszakmeister/markdown2ctags', {'for': 'markdown'}
-Plug 'rust-lang/rust.vim', {'for': 'rust'}
-Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
-Plug 'eagletmt/ghcmod-vim', {'for': 'haskell'}
-Plug 'nbouscal/vim-stylish-haskell', {'for': 'haskell'}
-Plug 'w0rp/ale'
-Plug 'rhysd/vim-clang-format', {'for': 'c'}
-Plug 'wlangstroth/vim-racket'
-Plug 'pangloss/vim-javascript', {'for': 'javascript'}
-Plug 'posva/vim-vue'
 
 " Others
 Plug 'mattn/sonictemplate-vim'
 Plug 'tyru/open-browser.vim'
-Plug 'lambdalisue/gina.vim'
 Plug 'haya14busa/vim-asterisk'
 Plug 'easymotion/vim-easymotion'
 Plug 'miyakogi/seiya.vim'
-Plug 'jiangmiao/auto-pairs'
-Plug 'losingkeys/vim-niji'
 
 " Twitter
 Plug 'basyura/TweetVim'
 Plug 'mattn/webapi-vim'
 Plug 'basyura/twibill.vim'
 Plug 'basyura/bitly.vim'
-
-" New
-" Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
-Plug 'zchee/deoplete-go', {'do': 'make'}
 call plug#end()
 
 "==========================================================================}}}1
-
-" Required for operations modifying multiple buffers like rename.
-set hidden
-let g:LanguageClient_serverCommands = {
-      \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-      \ 'haskell': ['hie', '--lsp'],
-      \ 'go': ['go-langserver'],
-      \ }
-
-" 'javascript': ['javascript-typescript-stdio'],
-" 'javascript.jsx': ['javascript-typescript-stdio'],
-augroup lsp-keymap
-  autocmd!
-  autocmd FileType haskell nnoremap <buffer><silent> K :call LanguageClient#textDocument_hover()<CR>
-  autocmd FileType haskell nnoremap <buffer><silent> gd :call LanguageClient#textDocument_definition()<CR>
-  autocmd FileType haskell nnoremap <buffer><silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-augroup END
-let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 
 " Plugin config {{{1
 "==============================================================================
@@ -579,14 +513,6 @@ map <silent>sd <Plug>(operator-surround-delete)
 map <silent>sr <Plug>(operator-surround-replace)
 " }}}
 
-" 'rust-lang/rust.vim' {{{
-let g:rustfmt_autosave = 1
-" }}}
-
-" 'eagletmt/neco-ghc'{{{
-let g:haskellmode_completion_ghc = 0
-" }}}
-
 " 'haya14busa/vim-asterisk' {{{
 map *  <Plug>(asterisk-z*)
 map #  <Plug>(asterisk-z#)
@@ -610,10 +536,6 @@ nmap <Leader>L <Plug>(easymotion-overwin-line)
 map  <Leader>w <Plug>(easymotion-bd-w)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
 " }}}
-
-" 'w0rp/ale'{{{
-let g:ale_enabled = 0
-"}}}
 
 " 'seiya.vm' {{{
 let g:seiya_auto_enable=1
@@ -646,8 +568,30 @@ let g:tagbar_type_markdown = {
 autocmd FileType c ClangFormatAutoEnable
 " }}}
 
-" 'eagletmt/ghcmod-vim'{{{
-let $PATH .= (":" . $HOME . "/.cabal/bin" . ":" . $HOME . "/.local/bin")
+" 'prabirshrestha/asyncomplete.vim' {{{
+" If you have many sources enabled (especially the buffer source), it might be useful to remove duplicates from the completion list. You can enable this by setting g:asyncomplete_remove_duplicates to 1.
+let g:asyncomplete_remove_duplicates = 1
+
+call asyncomplete#register_source(asyncomplete#sources#gocode#get_source_options({
+    \ 'name': 'gocode',
+    \ 'whitelist': ['go'],
+    \ 'completor': function('asyncomplete#sources#gocode#completor'),
+    \ 'config': {
+    \    'gocode_path': expand('~/bin/gocode')
+    \  },
+    \ }))
+
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necosyntax#get_source_options({
+    \ 'name': 'necosyntax',
+    \ 'whitelist': ['*'],
+    \ 'completor': function('asyncomplete#sources#necosyntax#completor'),
+    \ }))
+
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
+    \ 'name': 'necovim',
+    \ 'whitelist': ['vim'],
+    \ 'completor': function('asyncomplete#sources#necovim#completor'),
+    \ }))
 " }}}
 
 "==========================================================================}}}1
