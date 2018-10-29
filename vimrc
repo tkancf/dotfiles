@@ -288,26 +288,9 @@ Plug 'soramugi/auto-ctags.vim'
 Plug 'thinca/vim-quickrun'
 Plug 'glidenote/memolist.vim'
 Plug 'mattn/vim-fz'
-Plug 'majutsushi/tagbar'
 Plug 'kana/vim-operator-user'
 Plug 'rhysd/vim-operator-surround'
 Plug 'Townk/vim-autoclose'
-
-" Complete&Snippets
-if v:version >= 800
-  Plug 'prabirshrestha/asyncomplete.vim' |  Plug 'prabirshrestha/async.vim'
-  Plug 'prabirshrestha/asyncomplete-gocode.vim'
-  Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
-  Plug 'yami-beta/asyncomplete-omni.vim'
-  Plug 'prabirshrestha/asyncomplete-necosyntax.vim' | Plug 'Shougo/neco-syntax'
-  Plug 'prabirshrestha/asyncomplete-necovim.vim'
-elseif has('lua')
-  Plug 'Shougo/neocomplete.vim'
-else
-  Plug 'Shougo/neocomplcache.vim'
-endif
-
-Plug 'Shougo/neosnippet-snippets' | Plug 'Shougo/neosnippet'
 
 " Languages
 Plug 'fatih/vim-go' , { 'for': 'go' }
@@ -461,31 +444,6 @@ nnoremap <leader>r :write<CR>:QuickRun -mode n<CR>
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 " }}}
 
-"{{{ 'Shougo/neocomplete'
-if s:plug.is_installed("neocomplete.vim")
-  let g:neocomplete#enable_at_startup = 1
-  let g:neocomplete#enable_smart_case = 1
-endif
-"}}}
-
-"{{{ 'Shougo/neocomplcache'
-if s:plug.is_installed("neocomplcache.vim")
-  let g:neocomplcache_enable_at_startup = 1
-  let g:neocomplcache_enable_smart_case = 1
-  let g:neocomplcache_min_syntax_length = 2
-endif
-"}}}
-
-" {{{ 'Shougo/neosnippet'
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-" My snippets directory
-let g:neosnippet#snippets_directory=$HOME . '/.vim/plugged/neosnippet-snippets/neosnippets/'
-let g:neosnippet#snippets_directory=$HOME . '/.vim/snippets/'
-" }}}
-
 " 'soramugi/auto-ctags.vim' {{{
 let g:auto_ctags = 0
 let g:auto_ctags_directory_list = ['.git', '.svn']
@@ -537,61 +495,6 @@ let g:seiya_auto_enable=1
 
 " 'dag/vim2hs' {{{
 let g:haskell_conceal_wide = 1
-" }}}
-
-" 'tagbar' {{{
-nnoremap <F8> <Nop>
-nnoremap <F8> :TagbarToggle<CR>
-let g:tagbar_type_markdown = {
-    \ 'ctagstype': 'markdown',
-    \ 'ctagsbin' : $HOME . '/.vim/plugged/markdown2ctags/markdown2ctags.py',
-    \ 'ctagsargs' : '-f - --sort=yes',
-    \ 'kinds' : [
-        \ 's:sections',
-        \ 'i:images'
-    \ ],
-    \ 'sro' : '|',
-    \ 'kind2scope' : {
-        \ 's' : 'section',
-    \ },
-    \ 'sort': 0,
-\ }
-" }}}
-
-" 'prabirshrestha/asyncomplete.vim' {{{
-" If you have many sources enabled (especially the buffer source), it might be useful to remove duplicates from the completion list. You can enable this by setting g:asyncomplete_remove_duplicates to 1.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
-let g:asyncomplete_remove_duplicates = 1
-let g:asyncomplete_smart_completion = 1
-let g:asyncomplete_auto_popup = 1
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
-call asyncomplete#register_source(asyncomplete#sources#gocode#get_source_options({
-    \ 'name': 'gocode',
-    \ 'whitelist': ['go'],
-    \ 'completor': function('asyncomplete#sources#gocode#completor'),
-    \ 'config': {
-    \    'gocode_path': expand('~/bin/gocode')
-    \  },
-    \ }))
-
-call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
-    \ 'name': 'neosnippet',
-    \ 'whitelist': ['*'],
-    \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
-    \ }))
-
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necosyntax#get_source_options({
-    \ 'name': 'necosyntax',
-    \ 'whitelist': ['*'],
-    \ 'completor': function('asyncomplete#sources#necosyntax#completor'),
-    \ }))
-
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
-    \ 'name': 'necovim',
-    \ 'whitelist': ['vim'],
-    \ 'completor': function('asyncomplete#sources#necovim#completor'),
-    \ }))
 " }}}
 
 "==========================================================================}}}1
