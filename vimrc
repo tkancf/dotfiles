@@ -91,6 +91,27 @@ set guioptions-=m
 set guioptions-=T
 "==========================================================================}}}1
 
+" File type{{{1
+"==============================================================================
+augroup vimrc
+    au!
+  " Haskell {{{
+    autocmd FileType haskell setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+  " }}}
+  " Markdown {{{
+    autocmd FileType markdown setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+  " }}}
+  " Go {{{
+    autocmd FileType go setlocal noexpandtab
+    autocmd FileType go nnoremap <buffer> <Leader>ar :<C-u>GoRun<CR>
+    autocmd FileType go nnoremap <buffer> <Leader>r :<C-u>GoRun %<CR>
+  " }}}
+  " Vue {{{
+    autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
+  " }}}
+augroup END
+"==========================================================================}}}1
+
 " Key map{{{1
 "==============================================================================
 nnoremap <ENTER> <Nop>
@@ -148,27 +169,6 @@ nnoremap ,g :<C-u>registers<CR>
 nnoremap <leader>... :<c-u><c-r><c-r>='let @q = '. string(getreg('q'))<cr><c-f><left>
 "==========================================================================}}}1
 
-" File type{{{1
-"==============================================================================
-augroup vimrc-filetype
-    au!
-  " Haskell {{{
-    autocmd FileType haskell setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
-  " }}}
-  " Markdown {{{
-    autocmd FileType markdown setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
-  " }}}
-  " Go {{{
-    autocmd FileType go setlocal noexpandtab
-    autocmd FileType go nnoremap <buffer> <Leader>ar :<C-u>GoRun<CR>
-    autocmd FileType go nnoremap <buffer> <Leader>r :<C-u>GoRun %<CR>
-  " }}}
-  " Vue {{{
-    autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
-  " }}}
-augroup END
-"==========================================================================}}}1
-
 " Function {{{
 "==============================================================================
 " {{{  Easy change directory
@@ -211,8 +211,7 @@ endfunction
 "}}}
 
 " {{{ To Fix Japanese Markdown
-augroup KeymapInHelp
-  autocmd!
+augroup vimrc
   autocmd BufReadPost,BufEnter * call KeymapInHelp()
 augroup END
 
@@ -288,25 +287,10 @@ Plug 'cocopon/vaffle.vim'
 Plug 'soramugi/auto-ctags.vim'
 Plug 'thinca/vim-quickrun'
 Plug 'glidenote/memolist.vim'
-Plug 'kana/vim-operator-user' | Plug 'rhysd/vim-operator-surround'
 Plug 'mattn/vim-fz'
-Plug 'majutsushi/tagbar'
-
-" Complete&Snippets
-if v:version >= 800
-  Plug 'prabirshrestha/asyncomplete.vim' |  Plug 'prabirshrestha/async.vim'
-  Plug 'prabirshrestha/asyncomplete-gocode.vim'
-  Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
-  Plug 'yami-beta/asyncomplete-omni.vim'
-  Plug 'prabirshrestha/asyncomplete-necosyntax.vim' | Plug 'Shougo/neco-syntax'
-  Plug 'prabirshrestha/asyncomplete-necovim.vim'
-elseif has('lua')
-  Plug 'Shougo/neocomplete.vim'
-else
-  Plug 'Shougo/neocomplcache.vim'
-endif
-
-Plug 'Shougo/neosnippet-snippets' | Plug 'Shougo/neosnippet'
+Plug 'kana/vim-operator-user'
+Plug 'rhysd/vim-operator-surround'
+Plug 'Townk/vim-autoclose'
 
 " Languages
 Plug 'fatih/vim-go' , { 'for': 'go' }
@@ -412,6 +396,9 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = "goimports"
 set completeopt=menuone
+augroup vimrc
+  autocmd FileType go nmap <Leader>K <Plug>(go-doc-vertical)
+augroup END
 " }}}
 
 " 'glidenote/memolist.vim' {{{
@@ -427,10 +414,9 @@ set helplang=ja,en
 
 " 'kannokanno/previm' {{{
 "let g:previm_open_cmd = 'open -a Firefox'
-augroup PrevimSettings
-    autocmd!
-    autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
-    autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+augroup vimrc
+    autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} setlocal filetype=markdown
+    autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} setlocal filetype=markdown
 augroup END
 " }}}
 
@@ -453,40 +439,9 @@ let g:quickrun_config = {
 \}
 
 let g:quickrun_no_default_key_mappings = 1
-nnoremap <leader>r :write<CR>:QuickRun -mode n<CR>        
-"xnoremap <leader>r :<C-U>write<CR>gv:QuickRun -mode v<CR> 
+nnoremap <leader>r :write<CR>:QuickRun -mode n<CR>
+"xnoremap <leader>r :<C-U>write<CR>gv:QuickRun -mode v<CR>
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
-" }}}
-
-"{{{ 'Shougo/deoplete.nvim'
-if s:plug.is_installed("deoplete.nvim")
-  let g:deoplete#enable_at_startup = 1
-endif
-"}}}
-
-"{{{ 'Shougo/neocomplete'
-if s:plug.is_installed("neocomplete.vim")
-  let g:neocomplete#enable_at_startup = 1
-  let g:neocomplete#enable_smart_case = 1
-endif
-"}}}
-
-"{{{ 'Shougo/neocomplcache'
-if s:plug.is_installed("neocomplcache.vim")
-  let g:neocomplcache_enable_at_startup = 1
-  let g:neocomplcache_enable_smart_case = 1
-  let g:neocomplcache_min_syntax_length = 2
-endif
-"}}}
-
-" {{{ 'Shougo/neosnippet'
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-" My snippets directory
-let g:neosnippet#snippets_directory=$HOME . '/.vim/plugged/neosnippet-snippets/neosnippets/'
-let g:neosnippet#snippets_directory=$HOME . '/.vim/snippets/'
 " }}}
 
 " 'soramugi/auto-ctags.vim' {{{
@@ -525,9 +480,6 @@ map g# <Plug>(asterisk-gz#)
 map  <Leader>f <Plug>(easymotion-bd-f)
 nmap <Leader>f <Plug>(easymotion-overwin-f)
 
-" s{char}{char} to move to {char}{char}
-"nmap s <Plug>(easymotion-overwin-f2)
-
 " Move to line
 map <Leader>L <Plug>(easymotion-bd-jk)
 nmap <Leader>L <Plug>(easymotion-overwin-line)
@@ -543,55 +495,6 @@ let g:seiya_auto_enable=1
 
 " 'dag/vim2hs' {{{
 let g:haskell_conceal_wide = 1
-" }}}
-
-" 'tagbar' {{{
-nnoremap <F8> <Nop>
-nnoremap <F8> :TagbarToggle<CR>
-let g:tagbar_type_markdown = {
-    \ 'ctagstype': 'markdown',
-    \ 'ctagsbin' : $HOME . '/.vim/plugged/markdown2ctags/markdown2ctags.py',
-    \ 'ctagsargs' : '-f - --sort=yes',
-    \ 'kinds' : [
-        \ 's:sections',
-        \ 'i:images'
-    \ ],
-    \ 'sro' : '|',
-    \ 'kind2scope' : {
-        \ 's' : 'section',
-    \ },
-    \ 'sort': 0,
-\ }
-" }}}
-
-" 'kana/vim-operator-user' {{{
-autocmd FileType c ClangFormatAutoEnable
-" }}}
-
-" 'prabirshrestha/asyncomplete.vim' {{{
-" If you have many sources enabled (especially the buffer source), it might be useful to remove duplicates from the completion list. You can enable this by setting g:asyncomplete_remove_duplicates to 1.
-let g:asyncomplete_remove_duplicates = 1
-
-call asyncomplete#register_source(asyncomplete#sources#gocode#get_source_options({
-    \ 'name': 'gocode',
-    \ 'whitelist': ['go'],
-    \ 'completor': function('asyncomplete#sources#gocode#completor'),
-    \ 'config': {
-    \    'gocode_path': expand('~/bin/gocode')
-    \  },
-    \ }))
-
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necosyntax#get_source_options({
-    \ 'name': 'necosyntax',
-    \ 'whitelist': ['*'],
-    \ 'completor': function('asyncomplete#sources#necosyntax#completor'),
-    \ }))
-
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
-    \ 'name': 'necovim',
-    \ 'whitelist': ['vim'],
-    \ 'completor': function('asyncomplete#sources#necovim#completor'),
-    \ }))
 " }}}
 
 "==========================================================================}}}1
