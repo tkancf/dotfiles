@@ -468,6 +468,7 @@ endif
 let g:deoplete#enable_at_startup = 1
 
 inoremap <expr><CR> pumvisible() ? deoplete#close_popup() : "<CR>"
+inoremap <expr><Tab> pumvisible() ? deoplete#close_popup() : "<Tab>"
 
 "==========================================================================}}}1
 
