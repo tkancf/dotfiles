@@ -146,7 +146,6 @@ nnoremap <silent> <Space>cd :<C-u>CD<CR>
 " Create new tab
 nnoremap <C-w>t :<C-u>tabnew<CR>
 nnoremap <C-w><C-t> :<C-u>tabnew<CR>
-nnoremap <ENTER>t :<C-u>tabfind 
 
 " Change ; & :
 noremap ;  :
@@ -192,72 +191,6 @@ endfunction
 command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
 "}}}
 
-"{{{ In help file
-function! KeymapInHelp()
-  if &buftype == 'help'
-    "echo "readonly modo!"
-    nnoremap <buffer> u <C-d>
-    nnoremap <buffer> i <C-u>
-    nnoremap <buffer> o <C-o>
-    nnoremap <buffer> p <C-]>
-    nnoremap <buffer> j <C-e>
-    nnoremap <buffer> k <C-y>
-    nnoremap <buffer> <S-j> j
-    nnoremap <buffer> <S-k> k
-  else
-"   echo "This file is not Read only FILE!!!!"
-endif
-endfunction
-"}}}
-
-" {{{ To Fix Japanese Markdown
-augroup vimrc
-  autocmd BufReadPost,BufEnter * call KeymapInHelp()
-augroup END
-
-command! ChangeCharactersD2Ha call s:ChangeCharactersD2H()
-function! s:ChangeCharactersD2H()
-  %s/　/ /ge
-  %s/！/!/ge
-  %s/＃/#/ge
-  %s/＄/$/ge
-  %s/％/%/ge
-  %s/＾/^/ge
-  %s/＆/&/ge
-  %s/＊/*/ge
-  %s/（/(/ge
-  %s/）/)/ge
-  %s/\(^\s*\)ー/\1-/ge
-  %s/＿/_/ge
-  %s/＋/+/ge
-  %s/＝/=/ge
-  %s/｛/{/ge
-  %s/｝/}/ge
-  %s/｜/|/ge
-  %s/＼/\\/ge
-  %s/〜/~/ge
-  %s/｀/`/ge
-  %s/：/:/ge
-  %s/；/;/ge
-  %s/，/,/ge
-  %s/．/./ge
-  %s/＜/</ge
-  %s/＞/>/ge
-  %s/’/'/ge
-  %s/”/"/ge
-  %s/０/0/ge
-  %s/１/1/ge
-  %s/２/2/ge
-  %s/３/3/ge
-  %s/４/4/ge
-  %s/５/5/ge
-  %s/６/6/ge
-  %s/７/7/ge
-  %s/８/8/ge
-  %s/９/9/ge
-endfunction
-" }}}
-
 "===========================================================================}}}
 
 " Plugin Load {{{
@@ -281,6 +214,10 @@ Plug 'ctrlpvim/ctrlp.vim' | Plug 'sgur/ctrlp-extensions.vim'
 Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
 Plug 'ctrlpvim/ctrlp.vim' | Plug 'fisadev/vim-ctrlp-cmdpalette'
 
+" Complete
+Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/neosnippet.vim'
+
 " Basics
 Plug 'vim-jp/vimdoc-ja'
 Plug 'cocopon/vaffle.vim'
@@ -291,8 +228,10 @@ Plug 'mattn/vim-fz'
 Plug 'kana/vim-operator-user'
 Plug 'rhysd/vim-operator-surround'
 Plug 'Townk/vim-autoclose'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
 " Languages
+Plug 'mdempsky/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
 Plug 'fatih/vim-go' , { 'for': 'go' }
 Plug 'kannokanno/previm', {'for': 'markdown'}
 Plug 'tpope/vim-markdown', {'for': 'markdown'}
@@ -310,6 +249,11 @@ Plug 'basyura/TweetVim'
 Plug 'mattn/webapi-vim'
 Plug 'basyura/twibill.vim'
 Plug 'basyura/bitly.vim'
+
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+
 call plug#end()
 
 "==========================================================================}}}1
@@ -415,33 +359,47 @@ set helplang=ja,en
 " 'kannokanno/previm' {{{
 "let g:previm_open_cmd = 'open -a Firefox'
 augroup vimrc
-    autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} setlocal filetype=markdown
-    autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} setlocal filetype=markdown
+  autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} setlocal filetype=markdown
+  autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} setlocal filetype=markdown
 augroup END
 " }}}
 
 " 'thinca/vim-quickrun' {{{
-" '*' : {'hook/time/enable': '1'},
+if !exists("g:quickrun_config")
+    let g:quickrun_config={}
+endif
+
 let g:quickrun_config = {
-\    "_" : {
-\        'outputter' : 'error',
-\        'outputter/error/success' : 'buffer',
-\        'outputter/error/error'   : 'quickfix',
-\        'outputter/buffer/split'  : ':rightbelow 8sp',
-\        'outputter/buffer/close_on_empty' : 1,
-\    },
-\   'haskell' : { 'type' : 'haskell/stack' },
-\   'haskell/stack' : {
-\       'command' : 'stack',
-\       'exec' : '%c %o %s %a',
-\       'cmdopt' : 'runghc',
-\   },
+\  "_" : {
+\    'runner' : 'vimproc' ,
+\    'runner/vimproc/updatetime' : 80,
+\    'outputter/buffer/split' : ':botright 8sp',
+\    'outputter' : 'error',
+\    'outputter/error/success' : 'buffer',
+\    'outputter/error/error' : 'quickfix',
+\    'outputter/buffer/close_on_empty' : 1,
+\  },
+\    'haskell' : { 'type' : 'haskell/stack' },
+\    'haskell/stack' : {
+\    'command' : 'stack',
+\    'exec' : '%c %o %s %a',
+\    'cmdopt' : 'runghc',
+\  },
 \}
 
+let g:quickrun_config['go.test'] = {'command' : 'go', 'exec' : ['%c test']}
+augroup vimrc
+  autocmd BufRead,BufNewFile *_test.go set filetype=go.test
+augroup END
+
 let g:quickrun_no_default_key_mappings = 1
-nnoremap <leader>r :write<CR>:QuickRun -mode n<CR>
-"xnoremap <leader>r :<C-U>write<CR>gv:QuickRun -mode v<CR>
+nnoremap <space>r :cclose<CR>:write<CR>:QuickRun -mode n<CR>
+xnoremap <space>r :<C-U>cclose<CR>:write<CR>gv:QuickRun -mode v<CR>
+augroup vimrc
+  autocmd FileType qf nnoremap <silent><buffer>q :quit<CR>
+augroup END
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
+
 " }}}
 
 " 'soramugi/auto-ctags.vim' {{{
@@ -489,13 +447,27 @@ map  <Leader>w <Plug>(easymotion-bd-w)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
 " }}}
 
-" 'seiya.vm' {{{
+" 'seiya.vim' {{{
 let g:seiya_auto_enable=1
 " }}}
 
 " 'dag/vim2hs' {{{
 let g:haskell_conceal_wide = 1
 " }}}
+
+" Plugin key-mappings.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
+let g:deoplete#enable_at_startup = 1
+
+inoremap <expr><CR> pumvisible() ? deoplete#close_popup() : "<CR>"
 
 "==========================================================================}}}1
 
