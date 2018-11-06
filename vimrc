@@ -217,6 +217,9 @@ Plug 'ctrlpvim/ctrlp.vim' | Plug 'fisadev/vim-ctrlp-cmdpalette'
 " Complete
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neosnippet.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-gocode.vim'
+Plug 'prabirshrestha/asyncomplete-buffer.vim'
 
 " Basics
 Plug 'vim-jp/vimdoc-ja'
@@ -227,7 +230,7 @@ Plug 'glidenote/memolist.vim'
 Plug 'mattn/vim-fz'
 Plug 'kana/vim-operator-user'
 Plug 'rhysd/vim-operator-surround'
-Plug 'Townk/vim-autoclose'
+Plug 'jiangmiao/auto-pairs'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
 " Languages
@@ -249,10 +252,6 @@ Plug 'basyura/TweetVim'
 Plug 'mattn/webapi-vim'
 Plug 'basyura/twibill.vim'
 Plug 'basyura/bitly.vim'
-
-Plug 'Shougo/deoplete.nvim'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
 
 call plug#end()
 
@@ -465,10 +464,25 @@ if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
 
-let g:deoplete#enable_at_startup = 1
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+let g:asyncomplete_remove_duplicates = 1
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
-inoremap <expr><CR> pumvisible() ? deoplete#close_popup() : "<CR>"
-inoremap <expr><Tab> pumvisible() ? deoplete#close_popup() : "<Tab>"
+call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+    \ 'name': 'buffer',
+    \ 'whitelist': ['*'],
+    \ 'blacklist': [''],
+    \ 'completor': function('asyncomplete#sources#buffer#completor'),
+    \ }))
+
+call asyncomplete#register_source(asyncomplete#sources#gocode#get_source_options({
+    \ 'name': 'gocode',
+    \ 'whitelist': ['go'],
+    \ 'completor': function('asyncomplete#sources#gocode#completor'),
+    \ 'config': {
+    \    'gocode_path': expand('~/bin/gocode')
+    \  },
+    \ }))
 
 "==========================================================================}}}1
 
