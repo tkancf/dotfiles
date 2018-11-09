@@ -18,5 +18,5 @@ tmux -2
 #export GOPATH=$HOME
 #export PATH=$GOPATH:$PATH
 # Golang
-export GOPATH="$HOME"
-export PATH="$GOPATH/bin:$PATH"
+export GOPATH=$HOME
+export PATH=$GOPATH/bin:$PATH

@@ -81,6 +81,8 @@ if filereadable(expand($HOME . '/.vimrc.local'))
   source $HOME/.vimrc.local
 endif
 
+set shell=/usr/bin/zsh
+
 "==========================================================================}}}1
 
 " GUI{{{1
@@ -103,8 +105,6 @@ augroup vimrc
   " }}}
   " Go {{{
     autocmd FileType go setlocal noexpandtab
-    autocmd FileType go nnoremap <buffer> <Leader>ar :<C-u>GoRun<CR>
-    autocmd FileType go nnoremap <buffer> <Leader>r :<C-u>GoRun %<CR>
   " }}}
   " Vue {{{
     autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
@@ -217,9 +217,10 @@ Plug 'ctrlpvim/ctrlp.vim' | Plug 'fisadev/vim-ctrlp-cmdpalette'
 " Complete
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neosnippet.vim'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-gocode.vim'
-Plug 'prabirshrestha/asyncomplete-buffer.vim'
+Plug 'Shougo/deoplete.nvim'
+Plug 'zchee/deoplete-go', { 'do': 'make'}
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 
 " Basics
 Plug 'vim-jp/vimdoc-ja'
@@ -338,9 +339,14 @@ let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = "goimports"
+let g:go_def_mode = 'godef'
 set completeopt=menuone
 augroup vimrc
-  autocmd FileType go nmap <Leader>K <Plug>(go-doc-vertical)
+  autocmd FileType go nmap K <Plug>(go-doc-vertical)
+  autocmd FileType go nnoremap <buffer> <Leader>ar :<C-u>GoRun<CR>
+  autocmd FileType go nnoremap <buffer> <Leader>r :<C-u>GoRun %<CR>
+  autocmd FileType go nnoremap <buffer> <Space>r :<C-u>GoRename<CR>
+  autocmd FileType go nnoremap <buffer> <Space>t :<C-u>GoTest<CR>
 augroup END
 " }}}
 
@@ -454,35 +460,38 @@ let g:seiya_auto_enable=1
 let g:haskell_conceal_wide = 1
 " }}}
 
+" Complete Plugins settings {{{
 " Plugin key-mappings.
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
 
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
-let g:asyncomplete_remove_duplicates = 1
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+" SuperTab like snippets behavior.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-    \ 'name': 'buffer',
-    \ 'whitelist': ['*'],
-    \ 'blacklist': [''],
-    \ 'completor': function('asyncomplete#sources#buffer#completor'),
-    \ }))
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
+" Use smartcase.
+call deoplete#custom#option('smart_case', v:true)
 
-call asyncomplete#register_source(asyncomplete#sources#gocode#get_source_options({
-    \ 'name': 'gocode',
-    \ 'whitelist': ['go'],
-    \ 'completor': function('asyncomplete#sources#gocode#completor'),
-    \ 'config': {
-    \    'gocode_path': expand('~/bin/gocode')
-    \  },
-    \ }))
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
+
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function() abort
+  return deoplete#close_popup() . "\<CR>"
+endfunction
+
+"}}}
 
 "==========================================================================}}}1
 
