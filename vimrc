@@ -87,10 +87,15 @@ set shell=/usr/bin/zsh
 
 " GUI{{{1
 "==============================================================================
-set guifont=Ricty\ Diminished\ 16
-
+set guifont=Ricty\ Diminished\ 13
 set guioptions-=m
 set guioptions-=T
+set guioptions-=r
+set guioptions-=R
+set guioptions-=l
+set guioptions-=L
+set guioptions-=b
+set guioptions=c
 "==========================================================================}}}1
 
 " File type{{{1
@@ -214,13 +219,12 @@ Plug 'ctrlpvim/ctrlp.vim' | Plug 'sgur/ctrlp-extensions.vim'
 Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
 Plug 'ctrlpvim/ctrlp.vim' | Plug 'fisadev/vim-ctrlp-cmdpalette'
 
-"  Complete
-" Plug 'Shougo/neosnippet-snippets'
-" Plug 'Shougo/neosnippet.vim'
-" Plug 'Shougo/deoplete.nvim'
-" Plug 'zchee/deoplete-go', { 'do': 'make'}
-" Plug 'roxma/nvim-yarp'
-" Plug 'roxma/vim-hug-neovim-rpc'
+" Complete & Snippet
+Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/neosnippet.vim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'Shougo/deoplete.nvim'
 
 " Basics
 Plug 'vim-jp/vimdoc-ja'
@@ -231,7 +235,7 @@ Plug 'glidenote/memolist.vim'
 Plug 'mattn/vim-fz'
 Plug 'kana/vim-operator-user'
 Plug 'rhysd/vim-operator-surround'
-Plug 'jiangmiao/auto-pairs'
+"Plug 'Townk/vim-autoclose'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'kana/vim-submode'
 
@@ -462,39 +466,15 @@ let g:haskell_conceal_wide = 1
 " }}}
 
 "   Complete Plugins settings {{{
+let g:deoplete#enable_at_startup = 1
 "" Plugin key-mappings.
 "" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-"imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-"smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-"xmap <C-k>     <Plug>(neosnippet_expand_target)
-"
-"" SuperTab like snippets behavior.
-"" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-""imap <expr><TAB>
-"" \ pumvisible() ? "\<C-n>" :
-"" \ neosnippet#expandable_or_jumpable() ?
-"" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-"smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-"\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-"
-"" Use deoplete.
-"let g:deoplete#enable_at_startup = 1
-"" Use smartcase.
-"call deoplete#custom#option('smart_case', v:true)
-"
-"" <C-h>, <BS>: close popup and delete backword char.
-"inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
-"inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
-"
-"" <CR>: close popup and save indent.
-"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-"function! s:my_cr_function() abort
-"  return deoplete#close_popup() . "\<CR>"
-"endfunction
-
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
 "}}}
 
-" {{{
+" sumbode{{{
 call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
 call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
 call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>+')
