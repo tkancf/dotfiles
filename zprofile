@@ -18,10 +18,6 @@ export STACK_BIN="$HOME/.stack/bin"
 export HASKELL_BIN="$HOME/.local/bin"
 export PATH="$STACK_BIN:$HASKELL_BIN:$PATH"
 
-# node
-export NODE_BIN="$HOME/.node/node-v8.9.3-linux-x64/bin"
-export PATH="$NODE_BIN:$PATH"
-
 # MyScripts
 export SCRIPTS="$HOME/.dotfiles/scripts"
 export PATH="$SCRIPTS:$PATH"
@@ -32,4 +28,9 @@ export EDITOR="$VISUAL"
 
 # Golang
 export GOPATH="$HOME"
-export PATH="$PATH:$GOPATH/bin"
+export PATH="$GOPATH/bin:$PATH"
+
+# node.js
+export NDENV="$HOME/.ndenv/bin"
+export PATH="$NDENV:$PATH"
+eval "$(ndenv init -)"

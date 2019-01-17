@@ -12,7 +12,6 @@ autoload -U +X compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
 #eval "$(stack --bash-completion-script stack)"
 fpath+=~/.zfunc
-compinit
 zstyle ':completion:*:default' menu select=2
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 

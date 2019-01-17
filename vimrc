@@ -114,6 +114,12 @@ augroup vimrc
   " Vue {{{
     autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
   " }}}
+  " Elm {{{
+    autocmd FileType elm setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+  " }}}
+  " TypeScript jsx
+    autocmd BufNewFile,BufRead *.tsx,*.jsx setlocal filetype=typescript.tsx
+  "
 augroup END
 "==========================================================================}}}1
 
@@ -225,6 +231,7 @@ Plug 'Shougo/neosnippet.vim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/neco-syntax'
 
 " Basics
 Plug 'vim-jp/vimdoc-ja'
@@ -235,7 +242,7 @@ Plug 'glidenote/memolist.vim'
 Plug 'mattn/vim-fz'
 Plug 'kana/vim-operator-user'
 Plug 'rhysd/vim-operator-surround'
-"Plug 'Townk/vim-autoclose'
+Plug 'jiangmiao/auto-pairs'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'kana/vim-submode'
 
@@ -245,6 +252,10 @@ Plug 'fatih/vim-go' , { 'for': 'go' }
 Plug 'kannokanno/previm', {'for': 'markdown'}
 Plug 'tpope/vim-markdown', {'for': 'markdown'}
 Plug 'jszakmeister/markdown2ctags', {'for': 'markdown'}
+Plug 'ElmCast/elm-vim', {'for': 'elm'}
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
 
 " Others
 Plug 'mattn/sonictemplate-vim'
@@ -484,6 +495,9 @@ call submode#map('winsize', 'n', '', '<', '<C-w><')
 call submode#map('winsize', 'n', '', '+', '<C-w>+')
 call submode#map('winsize', 'n', '', '-', '<C-w>-')
 " }}}
+
+" {{ ts
+" }}
 
 "==========================================================================}}}1
 
