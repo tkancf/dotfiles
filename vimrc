@@ -225,14 +225,6 @@ Plug 'ctrlpvim/ctrlp.vim' | Plug 'sgur/ctrlp-extensions.vim'
 Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
 Plug 'ctrlpvim/ctrlp.vim' | Plug 'fisadev/vim-ctrlp-cmdpalette'
 
-" Complete & Snippet
-Plug 'Shougo/neosnippet-snippets'
-Plug 'Shougo/neosnippet.vim'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
-Plug 'Shougo/deoplete.nvim'
-Plug 'Shougo/neco-syntax'
-
 " Basics
 Plug 'vim-jp/vimdoc-ja'
 Plug 'cocopon/vaffle.vim'
@@ -269,6 +261,14 @@ Plug 'basyura/TweetVim'
 Plug 'mattn/webapi-vim'
 Plug 'basyura/twibill.vim'
 Plug 'basyura/bitly.vim'
+
+" Complete & Snippet
+Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/neosnippet.vim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/neco-syntax'
 
 call plug#end()
 
@@ -476,15 +476,6 @@ let g:seiya_auto_enable=1
 let g:haskell_conceal_wide = 1
 " }}}
 
-"   Complete Plugins settings {{{
-let g:deoplete#enable_at_startup = 1
-"" Plugin key-mappings.
-"" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-"}}}
-
 " sumbode{{{
 call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
 call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
@@ -496,8 +487,14 @@ call submode#map('winsize', 'n', '', '+', '<C-w>+')
 call submode#map('winsize', 'n', '', '-', '<C-w>-')
 " }}}
 
-" {{ ts
-" }}
+"   Complete Plugins settings {{{
+let g:deoplete#enable_at_startup = 1
+"" Plugin key-mappings.
+"" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+"}}}
 
 "==========================================================================}}}1
 
