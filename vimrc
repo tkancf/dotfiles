@@ -262,20 +262,22 @@ Plug 'mattn/webapi-vim'
 Plug 'basyura/twibill.vim'
 Plug 'basyura/bitly.vim'
 
-" Complete & Snippet
-Plug 'Shougo/neosnippet-snippets'
-Plug 'Shougo/neosnippet.vim'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
-Plug 'Shougo/deoplete.nvim'
-Plug 'Shougo/neco-syntax'
-
-call plug#end()
-
 "==========================================================================}}}1
 
-" Plugin config {{{1
-"==============================================================================
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'natebosch/vim-lsc'
+
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete-buffer.vim'
+Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
+
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
+
+call plug#end()
+" Plugin config {{{1 "==============================================================================
 syntax enable
 filetype plugin indent on
 let s:plug = {
@@ -487,15 +489,38 @@ call submode#map('winsize', 'n', '', '+', '<C-w>+')
 call submode#map('winsize', 'n', '', '-', '<C-w>-')
 " }}}
 
-"   Complete Plugins settings {{{
-let g:deoplete#enable_at_startup = 1
+"==========================================================================}}}1
+
+let g:lsp_async_completion = 1
+if executable('go-langserver')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'go-langserver',
+        \ 'cmd': {server_info->['go-langserver', '-gocodecompletion']},
+        \ 'whitelist': ['go'],
+        \ })
+endif
+
+call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
+    \ 'name': 'neosnippet',
+    \ 'whitelist': ['*'],
+    \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
+    \ }))
+
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+    \ 'name': 'buffer',
+    \ 'whitelist': ['*'],
+    \ 'completor': function('asyncomplete#sources#buffer#completor'),
+    \ }))
+
+let g:asyncomplete_remove_duplicates = 1
+let g:asyncomplete_smart_completion = 1
+let g:asyncomplete_auto_popup = 1
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
 "" Plugin key-mappings.
 "" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
-"}}}
-
-"==========================================================================}}}1
 
 " vim:foldmethod=marker
