@@ -75,8 +75,10 @@ function Vim-build () {
   cd -
 }
 
-hugo-server() {
-  nohup hugo server -s $HOME/memo &
+function anyenv-install ()
+{
+  git clone https://github.com/riywo/anyenv ~/.anyenv
+  exec $SHELL -l
 }
 
 ssh() {

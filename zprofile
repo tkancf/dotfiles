@@ -22,6 +22,11 @@ export PATH="$STACK_BIN:$HASKELL_BIN:$PATH"
 export SCRIPTS="$HOME/.dotfiles/scripts"
 export PATH="$SCRIPTS:$PATH"
 
+# anyenv
+export ANYENV_PATH="$HOME/.anyenv/bin"
+export PATH="$ANYENV_PATH:$PATH"
+eval "$(anyenv init -)"
+
 # editorconfig
 export VISUAL="/usr/local/bin/vim"
 export EDITOR="$VISUAL"
