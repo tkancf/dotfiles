@@ -62,6 +62,7 @@ set smartindent
 
 " Complete option setting
 set completeopt=menu,preview
+set pumheight=10
 
 set list
 set listchars=tab:>-,trail:.
@@ -112,7 +113,7 @@ augroup vimrc
     autocmd FileType go setlocal noexpandtab
   " }}}
   " Vue {{{
-    autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
+    autocmd BufRead,BufNewFile *.vue setlocal filetype=vue
   " }}}
   " Elm {{{
     autocmd FileType elm setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
@@ -239,7 +240,6 @@ Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'kana/vim-submode'
 
 " Languages
-Plug 'mdempsky/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
 Plug 'fatih/vim-go' , { 'for': 'go' }
 Plug 'kannokanno/previm', {'for': 'markdown'}
 Plug 'tpope/vim-markdown', {'for': 'markdown'}
@@ -263,6 +263,8 @@ Plug 'basyura/twibill.vim'
 Plug 'basyura/bitly.vim'
 
 "==========================================================================}}}1
+
+Plug 'posva/vim-vue', { 'for': ['vue'] }
 
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
@@ -492,12 +494,72 @@ call submode#map('winsize', 'n', '', '-', '<C-w>-')
 "==========================================================================}}}1
 
 let g:lsp_async_completion = 1
+
 if executable('go-langserver')
+  augroup LspGo
+    au!
     au User lsp_setup call lsp#register_server({
         \ 'name': 'go-langserver',
         \ 'cmd': {server_info->['go-langserver', '-gocodecompletion']},
         \ 'whitelist': ['go'],
         \ })
+    au FileType go setlocal omnifunc=lsp#complete
+   " au FileType go nnoremap <buffer><silent> <C-]> :<C-u>LspDefinition<CR>
+   " au FileType go nnoremap <buffer><silent> gD :<C-u>LspReferences<CR>
+   " au FileType go nnoremap <buffer><silent> gs :<C-u>LspDocumentSymbol<CR>
+   " au FileType go nnoremap <buffer><silent> gS :<C-u>LspWorkspaceSymbol<CR>
+   " au FileType go nnoremap <buffer><silent> gQ :<C-u>LspDocumentFormat<CR>
+   " au FileType go vnoremap <buffer><silent> gQ :LspDocumentRangeFormat<CR>
+   " au FileType go nnoremap <buffer><silent> K :<C-u>LspHover<CR>
+   " au FileType go nnoremap <buffer><silent> <Leader>i :<C-u>LspImplementation<CR>
+   " au FileType go nnoremap <buffer><silent> <Leader>r :<C-u>LspRename<CR>
+ augroup END
+endif
+
+if executable('bash-language-server')
+  augroup LspBash
+    au!
+    au User lsp_setup call lsp#register_server({
+          \ 'name': 'bash-language-server',
+          \ 'cmd': {server_info->[&shell, &shellcmdflag, 'bash-language-server start']},
+          \ 'whitelist': ['sh'],
+          \ })
+    " omnifunc
+    au FileType sh setlocal omnifunc=lsp#complete
+    " map
+    au FileType sh nnoremap <buffer><silent> <C-]> :<C-u>LspDefinition<CR>
+    au FileType sh nnoremap <buffer><silent> gD :<C-u>LspReferences<CR>
+    au FileType sh nnoremap <buffer><silent> gs :<C-u>LspDocumentSymbol<CR>
+    au FileType sh nnoremap <buffer><silent> gS :<C-u>LspWorkspaceSymbol<CR>
+    au FileType sh nnoremap <buffer><silent> gQ :<C-u>LspDocumentFormat<CR>
+    au FileType sh vnoremap <buffer><silent> gQ :LspDocumentRangeFormat<CR>
+    au FileType sh nnoremap <buffer><silent> K :<C-u>LspHover<CR>
+    au FileType sh nnoremap <buffer><silent> <Leader>i :<C-u>LspImplementation<CR>
+    " au FileType sh nnoremap <buffer><silent> <Leader>r :<C-u>LspRename<CR>
+  augroup END
+endif
+
+if executable('vls')
+  augroup LspVls
+    au!
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'vue-language-server',
+        \ 'cmd': {server_info->['vls']},
+        \ 'whitelist': ['vue'],
+        \ })
+    " omnifunc
+    au FileType vue setlocal omnifunc=lsp#complete
+    " map
+    au FileType vue nnoremap <buffer><silent> <C-]> :<C-u>LspDefinition<CR>
+    au FileType vue nnoremap <buffer><silent> gD :<C-u>LspReferences<CR>
+    au FileType vue nnoremap <buffer><silent> gs :<C-u>LspDocumentSymbol<CR>
+    au FileType vue nnoremap <buffer><silent> gS :<C-u>LspWorkspaceSymbol<CR>
+    au FileType vue nnoremap <buffer><silent> gQ :<C-u>LspDocumentFormat<CR>
+    au FileType vue vnoremap <buffer><silent> gQ :LspDocumentRangeFormat<CR>
+    au FileType vue nnoremap <buffer><silent> K :<C-u>LspHover<CR>
+    au FileType vue nnoremap <buffer><silent> <Leader>i :<C-u>LspImplementation<CR>
+    au FileType vue nnoremap <buffer><silent> <Leader>r :<C-u>LspRename<CR>
+  augroup END
 endif
 
 call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
@@ -512,7 +574,7 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
     \ 'completor': function('asyncomplete#sources#buffer#completor'),
     \ }))
 
-let g:asyncomplete_remove_duplicates = 1
+" let g:asyncomplete_remove_duplicates = 1
 let g:asyncomplete_smart_completion = 1
 let g:asyncomplete_auto_popup = 1
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
