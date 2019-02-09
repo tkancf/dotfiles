@@ -8,7 +8,11 @@ set fileencodings=utf-8,euc-jp,sjis,cp932,iso-2022-jp
 
 " Clipboard
 "set clipboard&
-set clipboard^=unnamedplus
+if has('mac')
+  set clipboard+=unnamed
+else
+  set clipboard^=unnamedplus
+endif
 
 " Mouse disable
 set mouse=
@@ -236,7 +240,6 @@ Plug 'mattn/vim-fz'
 Plug 'kana/vim-operator-user'
 Plug 'rhysd/vim-operator-surround'
 Plug 'jiangmiao/auto-pairs'
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'kana/vim-submode'
 
 " Languages
@@ -251,7 +254,6 @@ Plug 'peitalin/vim-jsx-typescript'
 
 " Others
 Plug 'mattn/sonictemplate-vim'
-Plug 'tyru/open-browser.vim'
 Plug 'haya14busa/vim-asterisk'
 Plug 'easymotion/vim-easymotion'
 Plug 'miyakogi/seiya.vim'
@@ -396,8 +398,6 @@ endif
 
 let g:quickrun_config = {
 \  "_" : {
-\    'runner' : 'vimproc' ,
-\    'runner/vimproc/updatetime' : 80,
 \    'outputter/buffer/split' : ':botright 8sp',
 \    'outputter' : 'error',
 \    'outputter/error/success' : 'buffer',
@@ -493,8 +493,6 @@ call submode#map('winsize', 'n', '', '-', '<C-w>-')
 
 "==========================================================================}}}1
 
-let g:lsp_async_completion = 1
-
 if executable('go-langserver')
   augroup LspGo
     au!
@@ -521,7 +519,7 @@ if executable('bash-language-server')
     au!
     au User lsp_setup call lsp#register_server({
           \ 'name': 'bash-language-server',
-          \ 'cmd': {server_info->[&shell, &shellcmdflag, 'bash-language-server start']},
+          \ 'cmd': {server_info->['bash-language-server', 'start']},
           \ 'whitelist': ['sh'],
           \ })
     " omnifunc
