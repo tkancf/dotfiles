@@ -8,9 +8,9 @@ alias ga='git add .'
 alias gf='git diff'
 alias gfc='git diff --cached'
 alias gc='git commit -m'
-alias t='tmux -2'
+alias t='tmux'
 alias s='ssh'
-tmux -2
+tmux
 
 # added by Anaconda2 4.3.1 installer
 #export PATH="/home/tkancf/anaconda2/bin:$PATH"
