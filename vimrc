@@ -271,6 +271,7 @@ Plug 'basyura/bitly.vim'
 
 "==========================================================================}}}1
 
+Plug 'lambdalisue/gina.vim'
 Plug 'posva/vim-vue', { 'for': ['vue'] }
 
 Plug 'prabirshrestha/async.vim'
