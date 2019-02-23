@@ -38,6 +38,7 @@ export PATH="$GOPATH/bin:$PATH"
 # node.js
 export NPM_BIN="$HOME/.npm-global/bin/"
 export PATH="$NPM_BIN:$PATH"
-export NDENV="$HOME/.ndenv/bin"
-export PATH="$NDENV:$PATH"
-eval "$(ndenv init -)"
+export NODENV="$HOME/.nodenv/bin"
+export PATH="$NODENV:$PATH"
+eval "$(nodenv init -)"
+

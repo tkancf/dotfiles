@@ -86,7 +86,12 @@ if filereadable(expand($HOME . '/.vimrc.local'))
   source $HOME/.vimrc.local
 endif
 
-set shell=/usr/bin/zsh
+
+if has('mac')
+  set shell=/usr/local/bin/zsh
+else
+  set shell=/usr/bin/zsh
+endif
 
 "==========================================================================}}}1
 
@@ -508,7 +513,7 @@ if executable('go-langserver')
    " au FileType go nnoremap <buffer><silent> gS :<C-u>LspWorkspaceSymbol<CR>
    " au FileType go nnoremap <buffer><silent> gQ :<C-u>LspDocumentFormat<CR>
    " au FileType go vnoremap <buffer><silent> gQ :LspDocumentRangeFormat<CR>
-   " au FileType go nnoremap <buffer><silent> K :<C-u>LspHover<CR>
+    au FileType go nnoremap <buffer><silent> K :<C-u>LspHover<CR>
    " au FileType go nnoremap <buffer><silent> <Leader>i :<C-u>LspImplementation<CR>
    " au FileType go nnoremap <buffer><silent> <Leader>r :<C-u>LspRename<CR>
  augroup END
@@ -558,6 +563,36 @@ if executable('vls')
     au FileType vue nnoremap <buffer><silent> <Leader>i :<C-u>LspImplementation<CR>
     au FileType vue nnoremap <buffer><silent> <Leader>r :<C-u>LspRename<CR>
   augroup END
+endif
+
+if executable('cquery')
+   au User lsp_setup call lsp#register_server({
+      \ 'name': 'cquery',
+      \ 'cmd': {server_info->['cquery']},
+      \ 'initialization_options': { 'cacheDirectory': '/tmp/cquery/cache' },
+      \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+      \ })
+      "\ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+    au FileType c setlocal omnifunc=lsp#complete
+    au FileType c nnoremap <buffer><silent> <C-]> :<C-u>LspDefinition<CR>
+    au FileType c nnoremap <buffer><silent> gD :<C-u>LspReferences<CR>
+    au FileType c nnoremap <buffer><silent> gs :<C-u>LspDocumentSymbol<CR>
+    au FileType c nnoremap <buffer><silent> gS :<C-u>LspWorkspaceSymbol<CR>
+    au FileType c nnoremap <buffer><silent> gQ :<C-u>LspDocumentFormat<CR>
+    au FileType c vnoremap <buffer><silent> gQ :LspDocumentRangeFormat<CR>
+    au FileType c nnoremap <buffer><silent> K :<C-u>LspHover<CR>
+    au FileType c nnoremap <buffer><silent> <Leader>i :<C-u>LspImplementation<CR>
+    au FileType c nnoremap <buffer><silent> <Leader>r :<C-u>LspRename<CR>
+    au FileType cpp setlocal omnifunc=lsp#complete
+    au FileType cpp nnoremap <buffer><silent> <C-]> :<C-u>LspDefinition<CR>
+    au FileType cpp nnoremap <buffer><silent> gD :<C-u>LspReferences<CR>
+    au FileType cpp nnoremap <buffer><silent> gs :<C-u>LspDocumentSymbol<CR>
+    au FileType cpp nnoremap <buffer><silent> gS :<C-u>LspWorkspaceSymbol<CR>
+    au FileType cpp nnoremap <buffer><silent> gQ :<C-u>LspDocumentFormat<CR>
+    au FileType cpp vnoremap <buffer><silent> gQ :LspDocumentRangeFormat<CR>
+    au FileType cpp nnoremap <buffer><silent> K :<C-u>LspHover<CR>
+    au FileType cpp nnoremap <buffer><silent> <Leader>i :<C-u>LspImplementation<CR>
+    au FileType cpp nnoremap <buffer><silent> <Leader>r :<C-u>LspRename<CR>
 endif
 
 call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({

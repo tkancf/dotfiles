@@ -1,6 +1,6 @@
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
-HISTSIZE=100000
+HISTSIZE=1000000
 SAVEHIST=1000
 setopt appendhistory autocd notify share_history hist_ignore_dups
 unsetopt beep extendedglob nomatch
@@ -42,10 +42,26 @@ fi
 autoload colors
 colors
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-PROMPT="%{$fg[green]%}%m%(!.#.$) %{$reset_color%}"
+autoload -Uz vcs_info
+setopt prompt_subst
+
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' unstagedstr '!'
+zstyle ':vcs_info:git:*' stagedstr '+'
+zstyle ':vcs_info:*' formats ' %c%u(%s:%b)'
+zstyle ':vcs_info:*' actionformats ' %c%u(%s:%b|%a)'
+precmd () {
+  psvar=()
+  LANG=en_US.UTF-8 vcs_info
+  [[ -n "$vcs_info_msg_0_"  ]] && psvar[1]="$vcs_info_msg_0_"
+}
+
+PROMPT="%B%F{green}❯❯%1(v|%1v|)%f%b %B%F{blue}%~%f%b
+%B%F{green}❯%f%b "
+#PROMPT="%{$fg[green]%}%m%(!.#.$) %{$reset_color%}"
 PROMPT2="%{$fg[green]%}%_> %{$reset_color%}"
 SPROMPT="%{$fg[red]%}correct: %R -> %r [nyae]? %{$reset_color%}"
-RPROMPT="%{$fg[blue]%}[%~]%{$reset_color%}"
+#RPROMPT="%{$fg[blue]%}[%~]%{$reset_color%}"
 
 
 if [ -f "$HOME/bin/gomi" ]; then
@@ -69,7 +85,7 @@ function Vim-build () {
   local vim_source_dir="$HOME/src/github.com/vim/vim"
   cd $vim_source_dir
   git pull
-  ./configure --with-features=huge --enable-gui=gtk2  --enable-perlinterp --enable-pythoninterp  --enable-python3interp --enable-rubyinterp  --enable-luainterp --with-luajit  --enable-fail-if-missing
+  ./configure --with-features=huge --enable-gui=gtk2  --enable-perlinterp --enable-pythoninterp  --enable-python3interp --enable-rubyinterp  --enable-luainterp --with-lua-prefix=/usr/local/Cellar/lua/5.3.5_1 --enable-fail-if-missing
   make
   sudo make install
   cd -
@@ -92,7 +108,10 @@ ssh() {
 }
 
 # Alias
-alias ls='ls --color=auto'
+# for mac
+alias awk='gawk'
+
+# basics
 alias ll='ls -alF'
 alias l='ls -CF'
 alias la='ls -aF'
@@ -101,7 +120,7 @@ alias grep='grep --color=auto'
 alias t='tmux -2'
 alias vi='vim'
 # git
-alias gs='git status'
+alias g='git'
 alias gl='git log --graph'
 alias gg='git graph'
 alias ga='git add .'
@@ -117,3 +136,7 @@ alias s='ssh'
 # scheme
 alias gos='rlwrap gosh'
 alias sicp='racket -i -p neil/sicp -l xrepl'
+
+if [ "$PS1"  ] && [ -f '/usr/local/Cellar/coreutils/8.12/aliases'  ]; then
+  . /usr/local/Cellar/coreutils/8.12/aliases
+fi
