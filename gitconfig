@@ -1,6 +1,6 @@
 [user]
   name = tkancf
-	email = tkancf@users.noreply.github.com
+  email = tkancf@users.noreply.github.com
 
 [include]
   path = ~/.gitconfig.local
@@ -16,11 +16,23 @@
   excludesfile = /home/tkancf/.gitignore
 
 [alias]
-  s = status
-  graph = log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short
+
+  alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
+  s = status --short --branch
+  st = status
+  su = submodule update
+  b = branch -a
+  g = log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short
+  l = log --graph -n 20 --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(green)- %an, %cr%Creset'
+  ll = log --stat --abbrev-commit
   c = commit
   cm = commit -m
-  aa = add .
+  co = checkout
+  a = add
+  d = diff
+  dc = diff --cached
+  ignore = !([ ! -e .gitignore ] && touch .gitignore) | echo $1 >> .gitignore
+  info = remote show origin
 
 [push]
 	default = matching
