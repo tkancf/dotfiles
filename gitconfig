@@ -16,14 +16,6 @@
   excludesfile = /home/tkancf/.gitignore
 
 [alias]
-  a = add
-  aa = add .
-  alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
-  b = branch -a
-  c = commit
-  cancel = !git commit -a -m 'Temporary commit for cancel' && git reset --hard HEAD~
-  cm = commit -m
-  co = checkout
   d = diff
   dc = diff --cached
   g = log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short
@@ -36,6 +28,11 @@
   s = status --short --branch
   st = status
   su = submodule update
+  a = add
+  d = diff
+  dc = diff --cached
+  ignore = !([ ! -e .gitignore ] && touch .gitignore) | echo $1 >> .gitignore
+  info = remote show origin
 
 [push]
 	default = matching
