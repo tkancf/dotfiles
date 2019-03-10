@@ -128,7 +128,7 @@ augroup vimrc
     autocmd FileType elm setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
   " }}}
   " TypeScript jsx
-    autocmd BufNewFile,BufRead *.tsx,*.jsx setlocal filetype=typescript.tsx
+    "autocmd BufNewFile,BufRead *.tsx,*.jsx setlocal filetype=typescript.tsx
   "
 augroup END
 "==========================================================================}}}1
@@ -282,9 +282,13 @@ Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
 Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
-
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
+
+Plug 'pangloss/vim-javascript'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'leafgarland/typescript-vim'
+Plug 'ianks/vim-tsx'
 
 call plug#end()
 " Plugin config {{{1 "==============================================================================
