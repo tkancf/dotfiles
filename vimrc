@@ -285,10 +285,11 @@ Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 
-Plug 'pangloss/vim-javascript'
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'leafgarland/typescript-vim'
 Plug 'ianks/vim-tsx'
+Plug 'leafgarland/typescript-vim'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'pangloss/vim-javascript'
+Plug 'ryanolsonx/vim-lsp-typescript'
 
 call plug#end()
 " Plugin config {{{1 "==============================================================================
@@ -547,6 +548,30 @@ if executable('bash-language-server')
   augroup END
 endif
 
+if executable('typescript-language-server')
+  augroup LspTs
+    au!
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'typescript-language-server',
+        \ 'cmd': {server_info-> ['typescript-language-server', '--stdio']},
+        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+        \ 'whitelist': ['typescript', 'typescript.tsx'],
+        \ })
+    " omnifunc
+    au FileType typescript.tsx setlocal omnifunc=lsp#complete
+    " map
+    au FileType typescript.tsx nnoremap <buffer><silent> <C-]> :<C-u>LspDefinition<CR>
+    au FileType typescript.tsx nnoremap <buffer><silent> gD :<C-u>LspReferences<CR>
+    au FileType typescript.tsx nnoremap <buffer><silent> gs :<C-u>LspDocumentSymbol<CR>
+    au FileType typescript.tsx nnoremap <buffer><silent> gS :<C-u>LspWorkspaceSymbol<CR>
+    au FileType typescript.tsx nnoremap <buffer><silent> gQ :<C-u>LspDocumentFormat<CR>
+    au FileType typescript.tsx vnoremap <buffer><silent> gQ :LspDocumentRangeFormat<CR>
+    au FileType typescript.tsx nnoremap <buffer><silent> K :<C-u>LspHover<CR>
+    au FileType typescript.tsx nnoremap <buffer><silent> <Leader>i :<C-u>LspImplementation<CR>
+    au FileType typescript.tsx nnoremap <buffer><silent> <Leader>r :<C-u>LspRename<CR>
+  augroup END
+endif
+
 if executable('vls')
   augroup LspVls
     au!
@@ -571,13 +596,15 @@ if executable('vls')
 endif
 
 if executable('cquery')
-   au User lsp_setup call lsp#register_server({
-      \ 'name': 'cquery',
-      \ 'cmd': {server_info->['cquery']},
-      \ 'initialization_options': { 'cacheDirectory': '/tmp/cquery/cache' },
-      \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
-      \ })
-      "\ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+  augroup LspCquery
+    au!
+    au User lsp_setup call lsp#register_server({
+          \ 'name': 'cquery',
+          \ 'cmd': {server_info->['cquery']},
+          \ 'initialization_options': { 'cacheDirectory': '/tmp/cquery/cache' },
+          \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+          \ })
+          "\ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
     au FileType c setlocal omnifunc=lsp#complete
     au FileType c nnoremap <buffer><silent> <C-]> :<C-u>LspDefinition<CR>
     au FileType c nnoremap <buffer><silent> gD :<C-u>LspReferences<CR>
@@ -598,6 +625,7 @@ if executable('cquery')
     au FileType cpp nnoremap <buffer><silent> K :<C-u>LspHover<CR>
     au FileType cpp nnoremap <buffer><silent> <Leader>i :<C-u>LspImplementation<CR>
     au FileType cpp nnoremap <buffer><silent> <Leader>r :<C-u>LspRename<CR>
+  augroup END
 endif
 
 call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
