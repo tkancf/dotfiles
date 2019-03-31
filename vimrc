@@ -128,7 +128,7 @@ augroup vimrc
     autocmd FileType elm setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
   " }}}
   " TypeScript jsx
-    "autocmd BufNewFile,BufRead *.tsx,*.jsx setlocal filetype=typescript.tsx
+    autocmd BufNewFile,BufRead *.tsx,*.jsx,*.js,*.ts setlocal filetype=typescript.tsx
   "
 augroup END
 "==========================================================================}}}1
@@ -373,12 +373,13 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = "goimports"
 let g:go_def_mode = 'godef'
+let g:go_test_show_name=1
 set completeopt=menuone
 augroup vimrc
   autocmd FileType go nmap K <Plug>(go-doc-vertical)
   autocmd FileType go nnoremap <buffer> <Leader>ar :<C-u>GoRun<CR>
   autocmd FileType go nnoremap <buffer> <Leader>r :<C-u>GoRun %<CR>
-  autocmd FileType go nnoremap <buffer> <Space>r :<C-u>GoRename<CR>
+  "autocmd FileType go nnoremap <buffer> <Space>r :<C-u>GoRename<CR>
   autocmd FileType go nnoremap <buffer> <Space>t :<C-u>GoTest<CR>
 augroup END
 " }}}
@@ -521,7 +522,7 @@ if executable('go-langserver')
    " au FileType go vnoremap <buffer><silent> gQ :LspDocumentRangeFormat<CR>
     au FileType go nnoremap <buffer><silent> K :<C-u>LspHover<CR>
    " au FileType go nnoremap <buffer><silent> <Leader>i :<C-u>LspImplementation<CR>
-   " au FileType go nnoremap <buffer><silent> <Leader>r :<C-u>LspRename<CR>
+   au FileType go nnoremap <buffer><silent> <Leader>r :<C-u>LspRename<CR>
  augroup END
 endif
 
@@ -544,13 +545,20 @@ if executable('bash-language-server')
     au FileType sh vnoremap <buffer><silent> gQ :LspDocumentRangeFormat<CR>
     au FileType sh nnoremap <buffer><silent> K :<C-u>LspHover<CR>
     au FileType sh nnoremap <buffer><silent> <Leader>i :<C-u>LspImplementation<CR>
-    " au FileType sh nnoremap <buffer><silent> <Leader>r :<C-u>LspRename<CR>
+    au FileType sh nnoremap <buffer><silent> <Leader>r :<C-u>LspRename<CR>
   augroup END
 endif
 
 if executable('typescript-language-server')
   augroup LspTs
     au!
+
+    function! s:lsp_save_format()
+      :LspDocumentFormat
+      :w
+    endfunction
+    command! LspSaveFormat :call s:lsp_save_format()
+
     au User lsp_setup call lsp#register_server({
         \ 'name': 'typescript-language-server',
         \ 'cmd': {server_info-> ['typescript-language-server', '--stdio']},
@@ -564,7 +572,8 @@ if executable('typescript-language-server')
     au FileType typescript.tsx nnoremap <buffer><silent> gD :<C-u>LspReferences<CR>
     au FileType typescript.tsx nnoremap <buffer><silent> gs :<C-u>LspDocumentSymbol<CR>
     au FileType typescript.tsx nnoremap <buffer><silent> gS :<C-u>LspWorkspaceSymbol<CR>
-    au FileType typescript.tsx nnoremap <buffer><silent> gQ :<C-u>LspDocumentFormat<CR>
+    " au FileType typescript.tsx nnoremap <ENTER><ENTER> :<C-u>LspDocumentFormat<CR> :<C-u>w<CR>
+    au FileType typescript.tsx nnoremap <buffer><silent> <ENTER><ENTER> :<C-u>:LspSaveFormat<CR>
     au FileType typescript.tsx vnoremap <buffer><silent> gQ :LspDocumentRangeFormat<CR>
     au FileType typescript.tsx nnoremap <buffer><silent> K :<C-u>LspHover<CR>
     au FileType typescript.tsx nnoremap <buffer><silent> <Leader>i :<C-u>LspImplementation<CR>
