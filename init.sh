@@ -2,7 +2,8 @@
 
 ln -sf ~/.dotfiles/vimrc ~/.vimrc
 
-ln -sf ~/.dotfiles/vim/ ~/.vim
+ln -sf ~/.dotfiles/vim/ ~/.vim/
+ln -sf ~/.dotfiles/vim/autoload/
 
 ln -sf ~/.dotfiles/bashrc ~/.bashrc
 
