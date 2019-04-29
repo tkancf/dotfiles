@@ -128,7 +128,7 @@ augroup vimrc
     autocmd FileType elm setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
   " }}}
   " TypeScript jsx
-    autocmd BufNewFile,BufRead *.tsx,*.jsx,*.js,*.ts setlocal filetype=typescript.tsx
+    autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
   "
 augroup END
 "==========================================================================}}}1
@@ -249,8 +249,9 @@ Plug 'kana/vim-submode'
 
 " Languages
 Plug 'fatih/vim-go' , { 'for': 'go' }
-Plug 'kannokanno/previm', {'for': 'markdown'}
 Plug 'tpope/vim-markdown', {'for': 'markdown'}
+Plug 'iamcco/mathjax-support-for-mkdp'
+Plug 'iamcco/markdown-preview.vim'
 Plug 'jszakmeister/markdown2ctags', {'for': 'markdown'}
 Plug 'ElmCast/elm-vim', {'for': 'elm'}
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
@@ -271,6 +272,7 @@ Plug 'basyura/bitly.vim'
 
 "==========================================================================}}}1
 
+Plug 'l04m33/vlime', { 'rtp': 'vim' }
 Plug 'lambdalisue/gina.vim'
 Plug 'posva/vim-vue', { 'for': ['vue'] }
 
@@ -395,14 +397,6 @@ let g:memolist_memo_date = "%Y-%m-%dT%H:%M:%S+09:00"
 set helplang=ja,en
 " }}}
 
-" 'kannokanno/previm' {{{
-"let g:previm_open_cmd = 'open -a Firefox'
-augroup vimrc
-  autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} setlocal filetype=markdown
-  autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} setlocal filetype=markdown
-augroup END
-" }}}
-
 " 'thinca/vim-quickrun' {{{
 if !exists("g:quickrun_config")
     let g:quickrun_config={}
@@ -447,10 +441,6 @@ let g:auto_ctags_directory_list = ['.git', '.svn']
 " 'cocopon/vaffle.vim'{{{
 nnoremap - :<C-u>Vaffle<CR>
 "}}}
-
-" 'kannokanno/previm'{{{
-let g:previm_enable_realtime = 1
-" }}}
 
 " 'itchyny/lightline.vim'{{{
 let g:lightline = { 'colorscheme': 'wombat' }
@@ -562,22 +552,22 @@ if executable('typescript-language-server')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'typescript-language-server',
         \ 'cmd': {server_info-> ['typescript-language-server', '--stdio']},
-        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
-        \ 'whitelist': ['typescript', 'typescript.tsx'],
+        \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
+        \ 'whitelist': ['javascript', 'javascript.jsx', 'typescript', 'typescript.tsx'],
         \ })
     " omnifunc
-    au FileType typescript.tsx setlocal omnifunc=lsp#complete
+    au FileType typescript.tsx,javascript,javascript.jsx,typescript setlocal omnifunc=lsp#complete
     " map
-    au FileType typescript.tsx nnoremap <buffer><silent> <C-]> :<C-u>LspDefinition<CR>
-    au FileType typescript.tsx nnoremap <buffer><silent> gD :<C-u>LspReferences<CR>
-    au FileType typescript.tsx nnoremap <buffer><silent> gs :<C-u>LspDocumentSymbol<CR>
-    au FileType typescript.tsx nnoremap <buffer><silent> gS :<C-u>LspWorkspaceSymbol<CR>
+    au FileType typescript.tsx,javascript,javascript.jsx,typescript nnoremap <buffer><silent> <C-]> :<C-u>LspDefinition<CR>
+    au FileType typescript.tsx,javascript,javascript.jsx,typescript nnoremap <buffer><silent> gD :<C-u>LspReferences<CR>
+    au FileType typescript.tsx,javascript,javascript.jsx,typescript nnoremap <buffer><silent> gs :<C-u>LspDocumentSymbol<CR>
+    au FileType typescript.tsx,javascript,javascript.jsx,typescript nnoremap <buffer><silent> gS :<C-u>LspWorkspaceSymbol<CR>
     " au FileType typescript.tsx nnoremap <ENTER><ENTER> :<C-u>LspDocumentFormat<CR> :<C-u>w<CR>
-    au FileType typescript.tsx nnoremap <buffer><silent> <ENTER><ENTER> :<C-u>:LspSaveFormat<CR>
-    au FileType typescript.tsx vnoremap <buffer><silent> gQ :LspDocumentRangeFormat<CR>
-    au FileType typescript.tsx nnoremap <buffer><silent> K :<C-u>LspHover<CR>
-    au FileType typescript.tsx nnoremap <buffer><silent> <Leader>i :<C-u>LspImplementation<CR>
-    au FileType typescript.tsx nnoremap <buffer><silent> <Leader>r :<C-u>LspRename<CR>
+    au FileType typescript.tsx,javascript,javascript.jsx,typescript noremap <buffer><silent> <ENTER><ENTER> :<C-u>:LspSaveFormat<CR>
+    au FileType typescript.tsx,javascript,javascript.jsx,typescript noremap <buffer><silent> gQ :LspDocumentRangeFormat<CR>
+    au FileType typescript.tsx,javascript,javascript.jsx,typescript noremap <buffer><silent> K :<C-u>LspHover<CR>
+    au FileType typescript.tsx,javascript,javascript.jsx,typescript noremap <buffer><silent> <Leader>i :<C-u>LspImplementation<CR>
+    au FileType typescript.tsx,javascript,javascript.jsx,typescript nnoremap <buffer><silent> <Leader>r :<C-u>LspRename<CR>
   augroup END
 endif
 

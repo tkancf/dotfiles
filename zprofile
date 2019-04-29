@@ -42,3 +42,6 @@ export NODENV="$HOME/.nodenv/bin"
 export PATH="$NODENV:$PATH"
 eval "$(nodenv init -)"
 
+export PATH="/usr/local/opt/avr-gcc@7/bin:$PATH"
+
+export PATH="/Users/tkancf/.roswell/bin/:$PATH"
