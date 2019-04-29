@@ -1,4 +1,0 @@
-ls
-la
-vim
-ls
