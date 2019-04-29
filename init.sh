@@ -3,11 +3,10 @@
 ln -sf ~/.dotfiles/vimrc ~/.vimrc
 
 ln -sf ~/.dotfiles/vim/ ~/.vim/
-ln -sf ~/.dotfiles/vim/autoload/
-
-ln -sf ~/.dotfiles/bashrc ~/.bashrc
 
 ln -sf ~/.dotfiles/vim/ctrlp-launcher ~/.ctrlp-launcher
+
+ln -sf ~/.dotfiles/bashrc ~/.bashrc
 
 ln -sf ~/.dotfiles/tmux.conf ~/.tmux.conf
 
