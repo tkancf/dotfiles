@@ -3,9 +3,9 @@
 # vimrc
 ln -sf ~/.dotfiles/vimrc ~/.vimrc
 ln -sf ~/.dotfiles/vim/ctrlp-launcher ~/.ctrlp-launcher
-ln -sf ~/.dotfiles/snippets/ ~/.vim
-ln -sf ~/.dotfiles/template/ ~/.vim
-ln -sf ~/.dotfiles/tmp/ ~/.vim
+ln -sf ~/.dotfiles/snippets ~/.vim/snippets/
+ln -sf ~/.dotfiles/template ~/.vim/template/
+ln -sf ~/.dotfiles/tmp ~/.vim/tmp/
 
 # bashrc
 ln -sf ~/.dotfiles/bashrc ~/.bashrc
