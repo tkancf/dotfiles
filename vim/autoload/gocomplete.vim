@@ -1,1 +1,0 @@
-/home/tkancf/.vim/plugged/gocode/vim/autoload/gocomplete.vim
