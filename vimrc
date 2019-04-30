@@ -218,12 +218,11 @@ command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
 "==============================================================================
 let s:vim_plug_url='https://github.com/junegunn/vim-plug'
 
-if !filereadable(expand($HOME . '/.vim/vim-plug/plug.vim'))
-  call system("git clone " . s:vim_plug_url . " " . $HOME . "/.vim/vim-plug/")
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
-source $HOME/.vim/vim-plug/plug.vim
-
-
 
 call plug#begin($HOME . "/.vim/plugged")
 "
