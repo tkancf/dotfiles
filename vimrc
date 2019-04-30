@@ -1,5 +1,14 @@
 " Basic {{{1
 "==============================================================================
+" plug install
+let s:vim_plug_url='https://github.com/junegunn/vim-plug'
+
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 " encoding
 set encoding=utf-8
 
@@ -216,13 +225,6 @@ command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
 
 " Plugin Load {{{
 "==============================================================================
-let s:vim_plug_url='https://github.com/junegunn/vim-plug'
-
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
 
 call plug#begin($HOME . "/.vim/plugged")
 "
