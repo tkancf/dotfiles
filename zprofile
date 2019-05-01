@@ -13,10 +13,12 @@ if [ -d "$CARGO_PATH" ]; then
 fi
 
 # Haskell
-export PATH="~/.local/bin/stack:$PATH"
-export STACK_BIN="$HOME/.stack/bin"
-export HASKELL_BIN="$HOME/.local/bin"
-export PATH="$STACK_BIN:$HASKELL_BIN:$PATH"
+if [ -d "$HOME/.stack" ]; then
+  export PATH="~/.local/bin/stack:$PATH"
+  export STACK_BIN="$HOME/.stack/bin"
+  export HASKELL_BIN="$HOME/.local/bin"
+  export PATH="$STACK_BIN:$HASKELL_BIN:$PATH"
+fi
 
 # MyScripts
 export SCRIPTS="$HOME/.dotfiles/scripts"
@@ -24,8 +26,10 @@ export PATH="$SCRIPTS:$PATH"
 
 # anyenv
 export ANYENV_PATH="$HOME/.anyenv/bin"
-export PATH="$ANYENV_PATH:$PATH"
-eval "$(anyenv init -)"
+if [ -d "$ANYENV_PATH" ]; then
+  export PATH="$ANYENV_PATH:$PATH"
+  eval "$(anyenv init -)"
+fi
 
 # editorconfig
 export VISUAL="/usr/local/bin/vim"
@@ -39,8 +43,10 @@ export PATH="$GOPATH/bin:$PATH"
 export NPM_BIN="$HOME/.npm-global/bin/"
 export PATH="$NPM_BIN:$PATH"
 export NODENV="$HOME/.nodenv/bin"
-export PATH="$NODENV:$PATH"
-eval "$(nodenv init -)"
+if [ -d "$NODENV" ]; then
+  export PATH="$NODENV:$PATH"
+  eval "$(nodenv init -)"
+fi
 
 export PATH="/usr/local/opt/avr-gcc@7/bin:$PATH"
 
