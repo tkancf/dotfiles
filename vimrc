@@ -259,8 +259,8 @@ Plug 'iamcco/markdown-preview.vim'
 Plug 'jszakmeister/markdown2ctags', {'for': 'markdown'}
 Plug 'ElmCast/elm-vim', {'for': 'elm'}
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
+Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
+Plug 'peitalin/vim-jsx-typescript', {'for': 'typescript'}
 
 " Others
 Plug 'mattn/sonictemplate-vim'
@@ -292,10 +292,10 @@ Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 
 Plug 'ianks/vim-tsx'
-Plug 'leafgarland/typescript-vim'
+Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'pangloss/vim-javascript'
-Plug 'ryanolsonx/vim-lsp-typescript'
+Plug 'ryanolsonx/vim-lsp-typescript', {'for': 'typescript'}
 
 call plug#end()
 " Plugin config {{{1 "==============================================================================
