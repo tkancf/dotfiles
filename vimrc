@@ -250,6 +250,7 @@ Plug 'kana/vim-operator-user'
 Plug 'rhysd/vim-operator-surround'
 Plug 'jiangmiao/auto-pairs'
 Plug 'kana/vim-submode'
+Plug 'lambdalisue/gina.vim'
 
 " Languages
 Plug 'fatih/vim-go' , { 'for': 'go' }
@@ -257,10 +258,7 @@ Plug 'tpope/vim-markdown', {'for': 'markdown'}
 Plug 'iamcco/mathjax-support-for-mkdp'
 Plug 'iamcco/markdown-preview.vim'
 Plug 'jszakmeister/markdown2ctags', {'for': 'markdown'}
-Plug 'ElmCast/elm-vim', {'for': 'elm'}
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
-Plug 'peitalin/vim-jsx-typescript', {'for': 'typescript'}
 
 " Others
 Plug 'mattn/sonictemplate-vim'
@@ -276,28 +274,21 @@ Plug 'basyura/bitly.vim'
 
 "==========================================================================}}}1
 
-Plug 'l04m33/vlime', { 'rtp': 'vim' }
-Plug 'lambdalisue/gina.vim'
-Plug 'posva/vim-vue', { 'for': ['vue'] }
+Plug 'Shougo/deoplete.nvim' , {'do': 'pip3 install --user pynvim'}
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'natebosch/vim-lsc'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'prabirshrestha/asyncomplete-buffer.vim'
-Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
+Plug 'lighttiger2505/deoplete-vim-lsp'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 
-Plug 'ianks/vim-tsx'
-Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'pangloss/vim-javascript'
-Plug 'ryanolsonx/vim-lsp-typescript', {'for': 'typescript'}
-
 call plug#end()
+
 " Plugin config {{{1 "==============================================================================
 syntax enable
 filetype plugin indent on
@@ -499,159 +490,31 @@ call submode#map('winsize', 'n', '', '-', '<C-w>-')
 
 "==========================================================================}}}1
 
-if executable('go-langserver')
-  augroup LspGo
-    au!
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'go-langserver',
-        \ 'cmd': {server_info->['go-langserver', '-gocodecompletion']},
-        \ 'whitelist': ['go'],
-        \ })
-    au FileType go setlocal omnifunc=lsp#complete
-   " au FileType go nnoremap <buffer><silent> <C-]> :<C-u>LspDefinition<CR>
-   " au FileType go nnoremap <buffer><silent> gD :<C-u>LspReferences<CR>
-   " au FileType go nnoremap <buffer><silent> gs :<C-u>LspDocumentSymbol<CR>
-   " au FileType go nnoremap <buffer><silent> gS :<C-u>LspWorkspaceSymbol<CR>
-   " au FileType go nnoremap <buffer><silent> gQ :<C-u>LspDocumentFormat<CR>
-   " au FileType go vnoremap <buffer><silent> gQ :LspDocumentRangeFormat<CR>
-    au FileType go nnoremap <buffer><silent> K :<C-u>LspHover<CR>
-   " au FileType go nnoremap <buffer><silent> <Leader>i :<C-u>LspImplementation<CR>
-   au FileType go nnoremap <buffer><silent> <Leader>r :<C-u>LspRename<CR>
- augroup END
-endif
+" 'Shougo Complete plugin' {{{
+" deoplete.nvim
+let g:deoplete#enable_at_startup = 1
+let g:neosnippet#enable_completed_snippet = 1
 
-if executable('bash-language-server')
-  augroup LspBash
-    au!
-    au User lsp_setup call lsp#register_server({
-          \ 'name': 'bash-language-server',
-          \ 'cmd': {server_info->['bash-language-server', 'start']},
-          \ 'whitelist': ['sh'],
-          \ })
-    " omnifunc
-    au FileType sh setlocal omnifunc=lsp#complete
-    " map
-    au FileType sh nnoremap <buffer><silent> <C-]> :<C-u>LspDefinition<CR>
-    au FileType sh nnoremap <buffer><silent> gD :<C-u>LspReferences<CR>
-    au FileType sh nnoremap <buffer><silent> gs :<C-u>LspDocumentSymbol<CR>
-    au FileType sh nnoremap <buffer><silent> gS :<C-u>LspWorkspaceSymbol<CR>
-    au FileType sh nnoremap <buffer><silent> gQ :<C-u>LspDocumentFormat<CR>
-    au FileType sh vnoremap <buffer><silent> gQ :LspDocumentRangeFormat<CR>
-    au FileType sh nnoremap <buffer><silent> K :<C-u>LspHover<CR>
-    au FileType sh nnoremap <buffer><silent> <Leader>i :<C-u>LspImplementation<CR>
-    au FileType sh nnoremap <buffer><silent> <Leader>r :<C-u>LspRename<CR>
-  augroup END
-endif
-
-if executable('typescript-language-server')
-  augroup LspTs
-    au!
-
-    function! s:lsp_save_format()
-      :LspDocumentFormat
-      :w
-    endfunction
-    command! LspSaveFormat :call s:lsp_save_format()
-
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'typescript-language-server',
-        \ 'cmd': {server_info-> ['typescript-language-server', '--stdio']},
-        \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
-        \ 'whitelist': ['javascript', 'javascript.jsx', 'typescript', 'typescript.tsx'],
-        \ })
-    " omnifunc
-    au FileType typescript.tsx,javascript,javascript.jsx,typescript setlocal omnifunc=lsp#complete
-    " map
-    au FileType typescript.tsx,javascript,javascript.jsx,typescript nnoremap <buffer><silent> <C-]> :<C-u>LspDefinition<CR>
-    au FileType typescript.tsx,javascript,javascript.jsx,typescript nnoremap <buffer><silent> gD :<C-u>LspReferences<CR>
-    au FileType typescript.tsx,javascript,javascript.jsx,typescript nnoremap <buffer><silent> gs :<C-u>LspDocumentSymbol<CR>
-    au FileType typescript.tsx,javascript,javascript.jsx,typescript nnoremap <buffer><silent> gS :<C-u>LspWorkspaceSymbol<CR>
-    " au FileType typescript.tsx nnoremap <ENTER><ENTER> :<C-u>LspDocumentFormat<CR> :<C-u>w<CR>
-    au FileType typescript.tsx,javascript,javascript.jsx,typescript noremap <buffer><silent> <ENTER><ENTER> :<C-u>:LspSaveFormat<CR>
-    au FileType typescript.tsx,javascript,javascript.jsx,typescript noremap <buffer><silent> gQ :LspDocumentRangeFormat<CR>
-    au FileType typescript.tsx,javascript,javascript.jsx,typescript noremap <buffer><silent> K :<C-u>LspHover<CR>
-    au FileType typescript.tsx,javascript,javascript.jsx,typescript noremap <buffer><silent> <Leader>i :<C-u>LspImplementation<CR>
-    au FileType typescript.tsx,javascript,javascript.jsx,typescript nnoremap <buffer><silent> <Leader>r :<C-u>LspRename<CR>
-  augroup END
-endif
-
-if executable('vls')
-  augroup LspVls
-    au!
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'vue-language-server',
-        \ 'cmd': {server_info->['vls']},
-        \ 'whitelist': ['vue'],
-        \ })
-    " omnifunc
-    au FileType vue setlocal omnifunc=lsp#complete
-    " map
-    au FileType vue nnoremap <buffer><silent> <C-]> :<C-u>LspDefinition<CR>
-    au FileType vue nnoremap <buffer><silent> gD :<C-u>LspReferences<CR>
-    au FileType vue nnoremap <buffer><silent> gs :<C-u>LspDocumentSymbol<CR>
-    au FileType vue nnoremap <buffer><silent> gS :<C-u>LspWorkspaceSymbol<CR>
-    au FileType vue nnoremap <buffer><silent> gQ :<C-u>LspDocumentFormat<CR>
-    au FileType vue vnoremap <buffer><silent> gQ :LspDocumentRangeFormat<CR>
-    au FileType vue nnoremap <buffer><silent> K :<C-u>LspHover<CR>
-    au FileType vue nnoremap <buffer><silent> <Leader>i :<C-u>LspImplementation<CR>
-    au FileType vue nnoremap <buffer><silent> <Leader>r :<C-u>LspRename<CR>
-  augroup END
-endif
-
-if executable('cquery')
-  augroup LspCquery
-    au!
-    au User lsp_setup call lsp#register_server({
-          \ 'name': 'cquery',
-          \ 'cmd': {server_info->['cquery']},
-          \ 'initialization_options': { 'cacheDirectory': '/tmp/cquery/cache' },
-          \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
-          \ })
-          "\ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
-    au FileType c setlocal omnifunc=lsp#complete
-    au FileType c nnoremap <buffer><silent> <C-]> :<C-u>LspDefinition<CR>
-    au FileType c nnoremap <buffer><silent> gD :<C-u>LspReferences<CR>
-    au FileType c nnoremap <buffer><silent> gs :<C-u>LspDocumentSymbol<CR>
-    au FileType c nnoremap <buffer><silent> gS :<C-u>LspWorkspaceSymbol<CR>
-    au FileType c nnoremap <buffer><silent> gQ :<C-u>LspDocumentFormat<CR>
-    au FileType c vnoremap <buffer><silent> gQ :LspDocumentRangeFormat<CR>
-    au FileType c nnoremap <buffer><silent> K :<C-u>LspHover<CR>
-    au FileType c nnoremap <buffer><silent> <Leader>i :<C-u>LspImplementation<CR>
-    au FileType c nnoremap <buffer><silent> <Leader>r :<C-u>LspRename<CR>
-    au FileType cpp setlocal omnifunc=lsp#complete
-    au FileType cpp nnoremap <buffer><silent> <C-]> :<C-u>LspDefinition<CR>
-    au FileType cpp nnoremap <buffer><silent> gD :<C-u>LspReferences<CR>
-    au FileType cpp nnoremap <buffer><silent> gs :<C-u>LspDocumentSymbol<CR>
-    au FileType cpp nnoremap <buffer><silent> gS :<C-u>LspWorkspaceSymbol<CR>
-    au FileType cpp nnoremap <buffer><silent> gQ :<C-u>LspDocumentFormat<CR>
-    au FileType cpp vnoremap <buffer><silent> gQ :LspDocumentRangeFormat<CR>
-    au FileType cpp nnoremap <buffer><silent> K :<C-u>LspHover<CR>
-    au FileType cpp nnoremap <buffer><silent> <Leader>i :<C-u>LspImplementation<CR>
-    au FileType cpp nnoremap <buffer><silent> <Leader>r :<C-u>LspRename<CR>
-  augroup END
-endif
-
-call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
-    \ 'name': 'neosnippet',
-    \ 'whitelist': ['*'],
-    \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
-    \ }))
-
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-    \ 'name': 'buffer',
-    \ 'whitelist': ['*'],
-    \ 'completor': function('asyncomplete#sources#buffer#completor'),
-    \ }))
-
-" let g:asyncomplete_remove_duplicates = 1
-let g:asyncomplete_smart_completion = 1
-let g:asyncomplete_auto_popup = 1
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
-"" Plugin key-mappings.
-"" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+" NeoSnippet.vim
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
+" }}}
+
+" Required for operations modifying multiple buffers like rename.
+set hidden
+
+let g:LanguageClient_autoStart = 1
+
+let g:LanguageClient_serverCommands = {
+    \ 'javascript': ['javascript-typescript-stdio'],
+    \ }
+
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" Or map each action separately
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> <C-]> :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> ,r :call LanguageClient#textDocument_rename()<CR>
 
 " vim:foldmethod=marker

@@ -17,6 +17,15 @@ tmux
 #
 #export GOPATH=$HOME
 #export PATH=$GOPATH:$PATH
+
 # Golang
 export GOPATH=$HOME
 export PATH=$GOPATH/bin:$PATH
+
+export LINUXBREW="$HOME/.linuxbrew/bin"
+if [ condition ]; then
+  export PATH="$LI:$PATH"
+  export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
+  export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
+
+fi
