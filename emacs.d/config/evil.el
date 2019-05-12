@@ -1,4 +1,5 @@
 (setq evil-want-keybinding nil)
+
 (use-package evil
   :straight t
   :commands (evil-mode evil-define-key)
@@ -6,10 +7,15 @@
   (evil-mode 1)
 
   (evil-select-search-module 'evil-search-module 'evil-search)
-  (defvar evil-want-C-u-scroll t)
+  ;;(defvar evil-want-C-u-scroll t)
   (setq evil-ex-search-vim-style-regexp t
         evil-ex-substitute-global t)
-
+  (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
+  (define-key evil-visual-state-map (kbd "C-u") 'evil-scroll-up)
+  (define-key evil-insert-state-map (kbd "C-u")
+    (lambda ()
+      (interactive)
+      (evil-delete (point-at-bol) (point))))
   (define-key evil-normal-state-map (kbd "C-c +") #'evil-numbers/inc-at-pt)
   (define-key evil-normal-state-map (kbd "C-c -") #'evil-numbers/dec-at-pt)
   (define-key evil-normal-state-map (kbd "<RET>") 'nil)

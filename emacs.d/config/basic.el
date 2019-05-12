@@ -1,9 +1,18 @@
 ;;スタート画面を開かない
 (setq inhibit-startup-screen t)
 
+;; スクロールは１行ごとに
+(setq scroll-conservatively 1)
+
+;; "yes or no" の選択を "y or n" にする
+(fset 'yes-or-no-p 'y-or-n-p)
+
 ;;Tab周り
 (setq indent-line-function 'indent-to-left-margin)
-(setq-default tab-width 4 indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil tab-width 4)
+
+;;バッファ自動読み込み
+(global-auto-revert-mode 1)
 
 ;;; 文字コーディング設定
 (set-language-environment "Japanese")

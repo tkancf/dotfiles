@@ -62,4 +62,12 @@
               '(:with company-yasnippet))))
   (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
 
+(use-package yasnippet
+  :config
+  (add-to-list 'load-path "~/.emacs.d/plugins/yasnippet")
+  (setq yas-snippet-dirs
+        '("~/.emacs.d/yasnippets" ;; お好みで!!
+          "~/.emacs.d/mysnippets"))
+  (yas-global-mode 1))
+
 (provide 'complete)

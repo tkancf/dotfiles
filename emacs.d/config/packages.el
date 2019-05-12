@@ -42,5 +42,12 @@
   ;; 発動
   (global-whitespace-mode 1))
 
+(use-package smartparens
+  :straight t
+  :config
+  (use-package smartparens-config
+  :straight f
+  :config
+  (smartparens-global-mode t)))
 
 (provide 'packages)
