@@ -28,7 +28,9 @@
 
 (cl-dolist (pkg
             '((basic "basic")
-              (evil "evil")))
+             (packages "packages")
+             (complete "complete")
+             (evil "evil")))
   (let ((name (car pkg))
         (path (nth 1 pkg)))
     (require name (concat user-emacs-directory "config/" path))))
