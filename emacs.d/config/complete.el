@@ -50,24 +50,16 @@
   (set-face-attribute 'company-scrollbar-fg nil
                       :background "orange")
   (set-face-attribute 'company-scrollbar-bg nil
-                      :background "gray40")
-
-  ;; yasnippetとの連携
-  (defvar company-mode/enable-yas t
-    "Enable yasnippet for all backends.")
-  (defun company-mode/backend-with-yas (backend)
-    (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
-        backend
-      (append (if (consp backend) backend (list backend))
-              '(:with company-yasnippet))))
-  (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
+                      :background "gray40"))
 
 (use-package yasnippet
+  :after company
   :config
+  (use-package yasnippet-snippets)
   (add-to-list 'load-path "~/.emacs.d/plugins/yasnippet")
   (setq yas-snippet-dirs
-        '("~/.emacs.d/yasnippets" ;; お好みで!!
-          "~/.emacs.d/mysnippets"))
+        '("~/.emacs.d/straight/repos/yasnippet-snippets/snippets"
+          "~/.emacs.d/snippets"))
   (yas-global-mode 1))
 
 (provide 'complete)

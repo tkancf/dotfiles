@@ -46,8 +46,13 @@
   :straight t
   :config
   (use-package smartparens-config
-  :straight f
+    :straight f
+    :config
+    (smartparens-global-mode t)))
+
+(use-package markdown-mode
+  ;; プレビューするにはmarkdownコマンドが必要 (for Mac `brew install markdown', for Ubuntu `sudo apt install markdown')
   :config
-  (smartparens-global-mode t)))
+  (setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist)))
 
 (provide 'packages)
