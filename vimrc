@@ -138,6 +138,7 @@ augroup vimrc
   " }}}
   " TypeScript jsx
     autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
+    autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
   "
 augroup END
 "==========================================================================}}}1
@@ -274,7 +275,7 @@ Plug 'basyura/bitly.vim'
 
 "==========================================================================}}}1
 
-Plug 'Shougo/deoplete.nvim' , {'do': 'pip3 install --user pynvim'}
+Plug 'Shougo/deoplete.nvim', {'do': 'pip3 install --user pynvim'}
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 

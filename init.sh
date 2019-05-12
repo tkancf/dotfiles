@@ -23,3 +23,6 @@ ln -sf ~/.dotfiles/gitconfig ~/.gitconfig
 # zsh
 ln -sf ~/.dotfiles/zshrc ~/.zshrc
 ln -sf ~/.dotfiles/zprofile ~/.zprofile
+
+# emacs
+ln -sf ~/.dotfiles/emacs.d ~/.emacs.d

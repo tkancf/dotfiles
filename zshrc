@@ -31,9 +31,9 @@ setopt correct
 bindkey -e
 
 # tmux
-if [[ ! -n $TMUX ]]; then
-  tmux new-session
-fi
+#if [[ ! -n $TMUX ]]; then
+#  tmux new-session
+#fi
 
 
 # End of lines added by compinstall
