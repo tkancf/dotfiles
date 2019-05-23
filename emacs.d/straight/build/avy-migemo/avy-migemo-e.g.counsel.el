@@ -1,0 +1,1 @@
+/Users/tkancf/.emacs.d/straight/repos/avy-migemo/avy-migemo-e.g.counsel.el

@@ -40,14 +40,24 @@ export GOPATH="$HOME"
 export PATH="$GOPATH/bin:$PATH"
 
 # node.js
-export NPM_BIN="$HOME/.npm-global/bin/"
-export PATH="$NPM_BIN:$PATH"
-export NODENV="$HOME/.nodenv/bin"
-if [ -d "$NODENV" ]; then
-  export PATH="$NODENV:$PATH"
-  eval "$(nodenv init -)"
-fi
+export PATH="$HOME/.nodebrew/current/bin:$PATH"
+
+#export NPM_BIN="$HOME/.npm-global/bin/"
+#export PATH="$NPM_BIN:$PATH"
+#export NODENV="$HOME/.nodenv/bin"
+#if [ -d "$NODENV" ]; then
+#  export PATH="$NODENV:$PATH"
+#  eval "$(nodenv init -)"
+#fi
 
 export PATH="/usr/local/opt/avr-gcc@7/bin:$PATH"
 
 export PATH="/Users/tkancf/.roswell/bin/:$PATH"
+
+if [ "$PS1"  ] && [ -f '/usr/local/Cellar/coreutils/8.12/aliases'  ]; then
+  . /usr/local/Cellar/coreutils/8.12/aliases
+fi
+export PATH="/usr/local/sbin:$PATH"
+
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$PATH":"$HOME/.pub-cache/bin"

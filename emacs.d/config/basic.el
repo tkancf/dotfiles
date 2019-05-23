@@ -8,7 +8,8 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;;Tab周り
-(setq indent-line-function 'indent-to-left-margin)
+;;(setq indent-line-function 'indent-to-left-margin)
+(setq indent-line-function 'tab-to-tab-stop)
 (setq-default indent-tabs-mode nil tab-width 4)
 
 ;;バッファ自動読み込み
@@ -55,5 +56,11 @@
   (setq locale-coding-system 'utf-8-hfs)
   :straight nil
   )
+
+;; path
+
+(use-package exec-path-from-shell
+  :config
+  (exec-path-from-shell-initialize))
 
 (provide 'basic)

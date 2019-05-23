@@ -1,0 +1,1 @@
+/Users/tkancf/.emacs.d/straight/repos/emacs-doom-themes/doom-themes-org.el

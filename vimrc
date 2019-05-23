@@ -140,6 +140,8 @@ augroup vimrc
     autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
     autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
   "
+  " JSON
+    "autocmd FileType json syntax match Comment +\/\/.\+$+
 augroup END
 "==========================================================================}}}1
 
@@ -237,7 +239,6 @@ Plug 'itchyny/lightline.vim'
 " ctrlp
 Plug 'ctrlpvim/ctrlp.vim' | Plug 'mattn/ctrlp-launcher'
 Plug 'ctrlpvim/ctrlp.vim' | Plug 'sgur/ctrlp-extensions.vim'
-Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
 Plug 'ctrlpvim/ctrlp.vim' | Plug 'fisadev/vim-ctrlp-cmdpalette'
 
 " Basics
@@ -275,16 +276,17 @@ Plug 'basyura/bitly.vim'
 
 "==========================================================================}}}1
 
-Plug 'Shougo/deoplete.nvim', {'do': 'pip3 install --user pynvim'}
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'dart-lang/dart-vim-plugin'
+Plug 'natebosch/vim-lsc'
+"Plug 'natebosch/vim-lsc-dart'
 
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+" Install nightly build, replace ./install.sh with install.cmd on windows
+Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
+" Or install latest release tag
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+" Or build from source code
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
-Plug 'lighttiger2505/deoplete-vim-lsp'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 
@@ -309,7 +311,6 @@ colorscheme wombat256mod
 nnoremap <C-p> <Nop>
 nnoremap <silent> <Space>b :<C-u>CtrlPBuffer<CR>
 nnoremap <silent> <Space>u :<C-u>CtrlPMRUFiles<CR>
-nnoremap <silent> <Space>l :<C-u>CtrlPLine<CR>
 nnoremap <silent> <Space>i :<C-u>CtrlP<CR>
 
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix',  'mixed',
@@ -352,10 +353,6 @@ nnoremap <Space><Space> :<C-u>CtrlPLauncher<CR>
 
 " 'sgur/ctrlp-extensions.vim' {{{
 nnoremap <Space>p :<C-u>CtrlPMenu<CR>
-" }}}
-
-" 'tacahiroy/ctrlp-funky' {{{
-nnoremap <Space>f :<C-u>CtrlPFunky<CR>
 " }}}
 
 " 'fisadev/vim-ctrlp-cmdpalette' {{{
@@ -491,10 +488,34 @@ call submode#map('winsize', 'n', '', '-', '<C-w>-')
 
 "==========================================================================}}}1
 
-" 'Shougo Complete plugin' {{{
-" deoplete.nvim
-let g:deoplete#enable_at_startup = 1
-let g:neosnippet#enable_completed_snippet = 1
+let g:lsc_auto_map = v:true
+let dart_format_on_save = 1
+let g:lsc_server_commands = {'dart': 'dart_language_server'}
+
+" Remap keys for gotos
+nmap <silent> <C-]> <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 " NeoSnippet.vim
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
@@ -502,20 +523,5 @@ imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 " }}}
-
-" Required for operations modifying multiple buffers like rename.
-set hidden
-
-let g:LanguageClient_autoStart = 1
-
-let g:LanguageClient_serverCommands = {
-    \ 'javascript': ['javascript-typescript-stdio'],
-    \ }
-
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" Or map each action separately
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> <C-]> :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> ,r :call LanguageClient#textDocument_rename()<CR>
 
 " vim:foldmethod=marker

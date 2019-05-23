@@ -19,7 +19,8 @@
 (use-package company
   :straight t
   :config
-  (global-company-mode) ; 全バッファで有効にする
+  (global-company-mode 1) ; 全バッファで有効にする
+  (add-to-list 'company-backends 'company-ghc)
   (setq company-transformers '(company-sort-by-backend-importance)) ;; ソート順
   (setq company-idle-delay 0) ; デフォルトは0.5
   (setq company-minimum-prefix-length 2) ; デフォルトは4
@@ -51,6 +52,8 @@
                       :background "orange")
   (set-face-attribute 'company-scrollbar-bg nil
                       :background "gray40"))
+
+(use-package company-ghc)
 
 (use-package yasnippet
   :after company

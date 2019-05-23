@@ -1,4 +1,4 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; straight.el
 ;; - package management with version lock system
 ;; - https://github.com/raxod502/straight.el
@@ -29,6 +29,7 @@
 (cl-dolist (pkg
             '((basic "basic")
              (packages "packages")
+             (language "language")
              (complete "complete")
              (evil "evil")))
   (let ((name (car pkg))

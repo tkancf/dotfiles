@@ -136,8 +136,3 @@ alias s='ssh'
 # scheme
 alias gos='rlwrap gosh'
 alias sicp='racket -i -p neil/sicp -l xrepl'
-
-if [ "$PS1"  ] && [ -f '/usr/local/Cellar/coreutils/8.12/aliases'  ]; then
-  . /usr/local/Cellar/coreutils/8.12/aliases
-fi
-export PATH="/usr/local/sbin:$PATH"

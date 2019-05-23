@@ -1,0 +1,1 @@
+/Users/tkancf/.emacs.d/straight/repos/evil-collection/evil-collection-js2-mode.el

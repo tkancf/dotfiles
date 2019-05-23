@@ -1,0 +1,1 @@
+/Users/tkancf/.emacs.d/straight/repos/ghc-mod/elisp/ghc-rewrite.el

@@ -29,3 +29,4 @@ if [ condition ]; then
   export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 
 fi
+export PATH="$PATH":"$HOME/.pub-cache/bin"

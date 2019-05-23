@@ -7,9 +7,9 @@ mkdir ~/.vim/snippets
 mkdir ~/.vim/template
 mkdir ~/.vim/tmp
 
-ln -sf ~/.dotfiles/snippets/ ~/.vim/snippets
-ln -sf ~/.dotfiles/template/ ~/.vim/template
-ln -sf ~/.dotfiles/tmp/ ~/.vim/tmp
+ln -sf ~/.dotfiles/snippets ~/.vim/snippets
+ln -sf ~/.dotfiles/template ~/.vim/template
+ln -sf ~/.dotfiles/tmp ~/.vim/tmp
 
 # bashrc
 ln -sf ~/.dotfiles/bashrc ~/.bashrc
