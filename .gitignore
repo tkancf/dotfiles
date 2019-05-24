@@ -3,3 +3,6 @@
 /vim/tmp/*
 /vim/vim-plug/
 /vim/view/*
+/emacs.d/auto-save-list/*
+/emacs.d/elpa/*
+/emacs.d/straight/*

@@ -276,17 +276,6 @@ Plug 'basyura/bitly.vim'
 
 "==========================================================================}}}1
 
-Plug 'dart-lang/dart-vim-plugin'
-Plug 'natebosch/vim-lsc'
-"Plug 'natebosch/vim-lsc-dart'
-
-" Install nightly build, replace ./install.sh with install.cmd on windows
-Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
-" Or install latest release tag
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
-" Or build from source code
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 
@@ -487,35 +476,6 @@ call submode#map('winsize', 'n', '', '-', '<C-w>-')
 " }}}
 
 "==========================================================================}}}1
-
-let g:lsc_auto_map = v:true
-let dart_format_on_save = 1
-let g:lsc_server_commands = {'dart': 'dart_language_server'}
-
-" Remap keys for gotos
-nmap <silent> <C-]> <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" Using CocList
-" Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 " NeoSnippet.vim
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
