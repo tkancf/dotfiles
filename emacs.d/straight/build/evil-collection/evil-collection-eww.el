@@ -1,1 +1,0 @@
-/Users/tkancf/.emacs.d/straight/repos/evil-collection/evil-collection-eww.el

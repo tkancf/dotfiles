@@ -1,1 +1,0 @@
-/Users/tkancf/.emacs.d/straight/repos/smartparens/smartparens.el

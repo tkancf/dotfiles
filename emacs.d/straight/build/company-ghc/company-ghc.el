@@ -1,1 +1,0 @@
-/Users/tkancf/.emacs.d/straight/repos/company-ghc/company-ghc.el
