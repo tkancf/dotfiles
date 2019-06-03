@@ -276,9 +276,6 @@ Plug 'basyura/bitly.vim'
 
 "==========================================================================}}}1
 
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
-
 call plug#end()
 
 " Plugin config {{{1 "==============================================================================
@@ -476,12 +473,5 @@ call submode#map('winsize', 'n', '', '-', '<C-w>-')
 " }}}
 
 "==========================================================================}}}1
-
-" NeoSnippet.vim
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-" }}}
 
 " vim:foldmethod=marker
