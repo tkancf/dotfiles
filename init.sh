@@ -1,8 +1,10 @@
 #!/bin/bash
 
 # vimrc
+mkdir ~/.vim
 ln -sf ~/.dotfiles/vimrc ~/.vimrc
 ln -sf ~/.dotfiles/vim/ctrlp-launcher ~/.ctrlp-launcher
+ln -sf ~/.dotfiles/vim/coc-settings.json ~/.vim/coc-settings.json
 mkdir ~/.vim/snippets
 mkdir ~/.vim/template
 mkdir ~/.vim/tmp
