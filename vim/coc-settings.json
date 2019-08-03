@@ -1,0 +1,40 @@
+{
+  "suggest.triggerAfterInsertEnter": true,
+  "suggest.noselect": true,
+  "suggest.minTriggerInputLength": 2,
+  "suggest.acceptSuggestionOnCommitCharacter": true,
+  "suggest.snippetIndicator": " ►",
+  "suggest.enablePreview": true,
+  "coc.preferences.hoverTarget": "preview",
+  "coc.preferences.diagnostic.displayByAle": true,
+  "list.autoResize": true,
+  "python.jediEnabled": false,
+  "languageserver": {
+    "golang":{
+      "command": "go-langserver",
+      "filetypes": ["go"],
+      "initializationOptions": {
+        "gocodeCompletionEnabled": true,
+        "diagnosticsEnabled": true,
+        "lintTool": "golint"
+      }
+    },
+    "elmLS": {
+      "command": "elm-language-server",
+      "args": [
+        "--stdio"
+      ],
+      "filetypes": [
+        "elm"
+      ],
+      "rootPatterns": [
+        "elm.json"
+      ],
+      "initializationOptions": {
+        "runtime": "node",
+        "elmPath": "elm",
+        "elmFormatPath": "elm-format"
+      }
+    }
+  }
+}
