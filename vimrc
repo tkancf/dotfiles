@@ -199,6 +199,7 @@ nnoremap ,g :<C-u>registers<CR>
 
 " Edit macro
 nnoremap <leader>... :<c-u><c-r><c-r>='let @q = '. string(getreg('q'))<cr><c-f><left>
+
 "==========================================================================}}}1
 
 " Function {{{
@@ -261,6 +262,7 @@ Plug 'iamcco/mathjax-support-for-mkdp'
 Plug 'iamcco/markdown-preview.vim'
 Plug 'jszakmeister/markdown2ctags', {'for': 'markdown'}
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+Plug 'ElmCast/elm-vim', { 'for': 'elm' }
 
 " Others
 Plug 'mattn/sonictemplate-vim'
@@ -274,11 +276,14 @@ Plug 'mattn/webapi-vim'
 Plug 'basyura/twibill.vim'
 Plug 'basyura/bitly.vim'
 
-" LSP
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
+" Complete
+" Use release branch
+Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+
+" Outline
+
+Plug 'majutsushi/tagbar'
+
 
 call plug#end()
 
@@ -463,10 +468,6 @@ nmap <Leader>w <Plug>(easymotion-overwin-w)
 let g:seiya_auto_enable=1
 " }}}
 
-" 'dag/vim2hs' {{{
-let g:haskell_conceal_wide = 1
-" }}}
-
 " sumbode{{{
 call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
 call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
@@ -478,20 +479,29 @@ call submode#map('winsize', 'n', '', '+', '<C-w>+')
 call submode#map('winsize', 'n', '', '-', '<C-w>-')
 " }}}
 
-" 'prabirshrestha/vim-lsp' {{{
-
-let g:lsp_diagnostics_enabled = 0
-
-if executable('typescript-language-server')
-    au User lsp_setup call lsp#register_server({
-      \ 'name': 'javascript support using typescript-language-server',
-      \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-      \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
-      \ 'whitelist': ['typescript', 'javascript', 'javascript.jsx']
-      \ })
-endif
-
+" 'elm' {{{
+let g:elm_setup_keybindings = 0
 " }}}
+"
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
 "==========================================================================}}}1
 
