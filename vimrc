@@ -3,6 +3,8 @@
 " plug install
 let s:vim_plug_url='https://github.com/junegunn/vim-plug'
 
+set rtp^="/Users/tkancf/.opam/default/share/ocp-indent/vim"
+
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -254,6 +256,7 @@ Plug 'rhysd/vim-operator-surround'
 Plug 'jiangmiao/auto-pairs'
 Plug 'kana/vim-submode'
 Plug 'lambdalisue/gina.vim'
+Plug 'previm/previm'
 
 " Languages
 Plug 'fatih/vim-go' , { 'for': 'go' }
@@ -282,9 +285,6 @@ Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 
 " Outline
 
-Plug 'majutsushi/tagbar'
-
-
 call plug#end()
 
 "==========================================================================}}}1
@@ -303,6 +303,10 @@ endfunction
 " {{{ Colorscheme
 colorscheme wombat256mod
 " }}}
+
+" 'previm/previm' {{{
+let g:previm_open_cmd = 'open '
+"}}}
 
 " 'ctrlpvim/ctrlp.vim' {{{
 nnoremap <C-p> <Nop>
@@ -368,8 +372,8 @@ let g:go_def_mode = 'godef'
 let g:go_test_show_name=1
 set completeopt=menuone
 augroup vimrc
-  autocmd FileType go nmap K <Plug>(go-doc-vertical)
-  autocmd FileType go nnoremap <buffer> <Leader>ar :<C-u>GoRun<CR>
+  "autocmd FileType go nmap K <Plug>(go-doc-vertical)
+  "autocmd FileType go nnoremap <buffer> <Leader>ar :<C-u>GoRun<CR>
   autocmd FileType go nnoremap <buffer> <Leader>r :<C-u>GoRun %<CR>
   "autocmd FileType go nnoremap <buffer> <Space>r :<C-u>GoRename<CR>
   autocmd FileType go nnoremap <buffer> <Space>t :<C-u>GoTest<CR>
@@ -379,8 +383,9 @@ augroup END
 " 'glidenote/memolist.vim' {{{
 let g:memolist_memo_suffix = "md"
 let g:memolist_template_dir_path = "~/.vim/template/memolist"
-let g:memolist_path = $HOME . "/memo/content/memo/"
+let g:memolist_path = $HOME . "/memo"
 let g:memolist_memo_date = "%Y-%m-%dT%H:%M:%S+09:00"
+let g:memolist_ex_cmd = 'CtrlP'
 " }}}
 
 " 'vim-jp/vimdoc-ja' {{{
@@ -482,19 +487,32 @@ call submode#map('winsize', 'n', '', '-', '<C-w>-')
 " 'elm' {{{
 let g:elm_setup_keybindings = 0
 " }}}
-"
-" use <tab> for trigger completion and navigate to the next complete item
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
 
-inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<Tab>" :
+" 'coc.nvim' {{{
+
+" snippet jump with <tab> key
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+inoremap <C-k> <Nop>
+
+command! -nargs=0 Format :call CocAction('format')
+let g:coc_snippet_next = '<tab>'
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -502,6 +520,8 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+
+" }}}
 
 "==========================================================================}}}1
 

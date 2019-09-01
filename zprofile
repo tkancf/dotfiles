@@ -38,6 +38,7 @@ export EDITOR="$VISUAL"
 # Golang
 export GOPATH="$HOME"
 export PATH="$GOPATH/bin:$PATH"
+export GO111MODULE=on
 
 # node.js
 export PATH="$HOME/.nodebrew/current/bin:$PATH"
@@ -61,3 +62,5 @@ export PATH="/usr/local/sbin:$PATH"
 
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$PATH":"$HOME/.pub-cache/bin"
+
+eval "$(opam env)"
