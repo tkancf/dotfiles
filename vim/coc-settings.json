@@ -11,13 +11,9 @@
   "python.jediEnabled": false,
   "languageserver": {
     "golang":{
-      "command": "go-langserver",
-      "filetypes": ["go"],
-      "initializationOptions": {
-        "gocodeCompletionEnabled": true,
-        "diagnosticsEnabled": true,
-        "lintTool": "golint"
-      }
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"]
     },
     "elmLS": {
       "command": "elm-language-server",
