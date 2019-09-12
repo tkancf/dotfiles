@@ -142,66 +142,7 @@ augroup vimrc
     autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
     autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
   "
-  " JSON
-    "autocmd FileType json syntax match Comment +\/\/.\+$+
 augroup END
-"==========================================================================}}}1
-
-" Key map{{{1
-"==============================================================================
-nnoremap <ENTER> <Nop>
-nnoremap s <Nop>
-nnoremap <Space> <Nop>
-
-" j, kで見た目通りに移動
-nnoremap j gj
-nnoremap k gk
-nnoremap gj j
-nnoremap gk k
-
-" Reload vimrc
-nnoremap <F5> :<C-u>source $MYVIMRC<CR>
-
-" Open vimrc
-nnoremap <F4> :<C-u>tabedit $MYVIMRC<CR>
-
-" Open help
-nnoremap <F3> :<C-u>vertical belowright help<Space>
-nnoremap <F2> :<C-u>tab help<Space>
-
-" Save file
-nnoremap <ENTER><ENTER> :<C-u>w<CR>
-
-" highlight off
-nnoremap <silent> <C-l> :<C-u>nohlsearch<CR>
-
-" Change current directory.
-nnoremap <silent> <Space>cd :<C-u>CD<CR>
-
-" Create new tab
-nnoremap <C-w>t :<C-u>tabnew<CR>
-nnoremap <C-w><C-t> :<C-u>tabnew<CR>
-
-" Change ; & :
-noremap ;  :
-noremap :  ;
-
-" Ex-mode
-nnoremap gQ Q
-nnoremap Q <Nop>
-
-" Insertmode
-inoremap <C-l> <C-o>A
-
-" Search selected strings visualmode
-vnoremap * "zy:let @/ = '\V' . substitute(escape(@z, '\/'), '\n', '\\n', 'g')<CR>n
-
-" Show registers
-nnoremap ,g :<C-u>registers<CR>
-
-" Edit macro
-nnoremap <leader>... :<c-u><c-r><c-r>='let @q = '. string(getreg('q'))<cr><c-f><left>
-
 "==========================================================================}}}1
 
 " Function {{{
@@ -266,7 +207,8 @@ Plug 'iamcco/markdown-preview.vim'
 Plug 'jszakmeister/markdown2ctags', {'for': 'markdown'}
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'ElmCast/elm-vim', { 'for': 'elm' }
-
+Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/neosnippet.vim'
 " Others
 Plug 'mattn/sonictemplate-vim'
 Plug 'haya14busa/vim-asterisk'
@@ -312,7 +254,7 @@ let g:previm_open_cmd = 'open '
 nnoremap <C-p> <Nop>
 nnoremap <silent> <Space>b :<C-u>CtrlPBuffer<CR>
 nnoremap <silent> <Space>u :<C-u>CtrlPMRUFiles<CR>
-nnoremap <silent> <Space>i :<C-u>CtrlP<CR>
+nnoremap <silent> <Leader>p :<C-u>CtrlP<CR>
 
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix',  'mixed',
                          \'line', 'bookmarkdir', 'changes', 'cmdline']
@@ -358,26 +300,6 @@ nnoremap <Space>p :<C-u>CtrlPMenu<CR>
 
 " 'fisadev/vim-ctrlp-cmdpalette' {{{
 nnoremap <Space>c :<C-u>CtrlPCmdPalette<CR>
-" }}}
-
-" 'fatih/vim-go' {{{
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_types = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-let g:go_fmt_command = "goimports"
-let g:go_def_mode = 'godef'
-let g:go_test_show_name=1
-set completeopt=menuone
-augroup vimrc
-  "autocmd FileType go nmap K <Plug>(go-doc-vertical)
-  "autocmd FileType go nnoremap <buffer> <Leader>ar :<C-u>GoRun<CR>
-  autocmd FileType go nnoremap <buffer> <Leader>r :<C-u>GoRun %<CR>
-  "autocmd FileType go nnoremap <buffer> <Space>r :<C-u>GoRename<CR>
-  autocmd FileType go nnoremap <buffer> <Space>t :<C-u>GoTest<CR>
-augroup END
 " }}}
 
 " 'glidenote/memolist.vim' {{{
@@ -488,8 +410,7 @@ call submode#map('winsize', 'n', '', '-', '<C-w>-')
 let g:elm_setup_keybindings = 0
 " }}}
 
-" 'coc.nvim' {{{
-
+" 'neoclide/coc.nvim' {{{
 " snippet jump with <tab> key
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? coc#_select_confirm() :
@@ -501,8 +422,6 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-
-inoremap <C-k> <Nop>
 
 command! -nargs=0 Format :call CocAction('format')
 let g:coc_snippet_next = '<tab>'
@@ -522,6 +441,92 @@ function! s:show_documentation()
 endfunction
 
 " }}}
+
+" 'fatih/vim-go' {{{
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_fmt_command = "goimports"
+let g:go_def_mode = 'godef'
+let g:go_test_show_name=1
+let g:go_auto_type_info = 1
+let g:go_auto_sameids = 1
+set updatetime=100
+set completeopt=menuone
+augroup vimrc
+  autocmd FileType go nmap K <Plug>(go-doc-vertical)
+  autocmd FileType go nnoremap <buffer> <Leader>r :<C-u>GoRun %<CR>
+  autocmd FileType go nnoremap <buffer> <Space>r :<C-u>GoRename<CR>
+  autocmd FileType go nnoremap <buffer> <Space>t :<C-u>GoTest<CR>
+augroup END
+" }}}
+
+"{{{
+" Plugin key-mappings.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+"}}}
+
+"==========================================================================}}}1
+
+" Key map{{{1
+"==============================================================================
+nnoremap <ENTER> <Nop>
+nnoremap s <Nop>
+nnoremap <Space> <Nop>
+
+" j, kで見た目通りに移動
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j
+nnoremap gk k
+
+" Reload vimrc
+nnoremap <F5> :<C-u>source $MYVIMRC<CR>
+
+" Open vimrc
+nnoremap <F4> :<C-u>tabedit $MYVIMRC<CR>
+
+" Open help
+nnoremap <F3> :<C-u>vertical belowright help<Space>
+nnoremap <F2> :<C-u>tab help<Space>
+
+" Save file
+nnoremap <ENTER><ENTER> :<C-u>w<CR>
+
+" highlight off
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR>
+
+" Create new tab
+nnoremap <C-w>t :<C-u>tabnew<CR>
+nnoremap <C-w><C-t> :<C-u>tabnew<CR>
+
+" Change ; & :
+noremap ;  :
+noremap :  ;
+
+" Ex-mode
+nnoremap gQ Q
+nnoremap Q <Nop>
+
+" Insertmode
+inoremap <C-l> <C-o>A
+"inoremap <C-k> <Nop>
+
+" Search selected strings visualmode
+vnoremap * "zy:let @/ = '\V' . substitute(escape(@z, '\/'), '\n', '\\n', 'g')<CR>n
+
+" Show registers
+nnoremap <leader>g :<C-u>registers<CR>
+
+" Edit macro
+nnoremap <leader>... :<c-u><c-r><c-r>='let @q = '. string(getreg('q'))<cr><c-f><left>
+
 
 "==========================================================================}}}1
 
