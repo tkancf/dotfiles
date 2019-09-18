@@ -108,7 +108,11 @@ endif
 
 " GUI{{{1
 "==============================================================================
-set guifont=Ricty\ Diminished\ 13
+if has('mac')
+  set guifont=RictyDiminished-Regular:h18
+else
+  set guifont=Ricty\ Diminished\ 22
+endif
 set guioptions-=m
 set guioptions-=T
 set guioptions-=r
@@ -130,7 +134,7 @@ augroup vimrc
     autocmd FileType markdown setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
   " }}}
   " Go {{{
-    autocmd FileType go setlocal noexpandtab
+    autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
   " }}}
   " Vue {{{
     autocmd BufRead,BufNewFile *.vue setlocal filetype=vue
@@ -169,6 +173,58 @@ command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
 "}}}
 
 "===========================================================================}}}
+
+" Key map{{{1
+"==============================================================================
+nnoremap s <Nop>
+nnoremap <Space> <Nop>
+
+" j, kで見た目通りに移動
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j
+nnoremap gk k
+
+" Reload vimrc
+nnoremap <F5> :<C-u>source $MYVIMRC<CR>
+
+" Open vimrc
+nnoremap <F4> :<C-u>tabedit $MYVIMRC<CR>
+
+" Open help
+nnoremap <F3> :<C-u>vertical belowright help<Space>
+nnoremap <F2> :<C-u>tab help<Space>
+
+" Save file
+nnoremap <ENTER><ENTER> :<C-u>w<CR>
+
+" highlight off
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR>
+
+" Create new tab
+nnoremap <C-w>t :<C-u>tabnew<CR>
+nnoremap <C-w><C-t> :<C-u>tabnew<CR>
+
+" Change ; & :
+noremap ;  :
+noremap :  ;
+
+" Ex-mode
+nnoremap gQ Q
+nnoremap Q <Nop>
+
+" Insertmode
+inoremap <C-l> <C-o>A
+"inoremap <C-k> <Nop>
+
+" Search selected strings visualmode
+vnoremap * "zy:let @/ = '\V' . substitute(escape(@z, '\/'), '\n', '\\n', 'g')<CR>n
+
+" Edit macro
+nnoremap <leader>... :<c-u><c-r><c-r>='let @q = '. string(getreg('q'))<cr><c-f><left>
+
+
+"==========================================================================}}}1
 
 " Plugin Load {{{
 "==============================================================================
@@ -252,8 +308,8 @@ let g:previm_open_cmd = 'open '
 
 " 'ctrlpvim/ctrlp.vim' {{{
 nnoremap <C-p> <Nop>
-nnoremap <silent> <Space>b :<C-u>CtrlPBuffer<CR>
-nnoremap <silent> <Space>u :<C-u>CtrlPMRUFiles<CR>
+nnoremap <silent> <Leader>b :<C-u>CtrlPBuffer<CR>
+nnoremap <silent> <Leader>u :<C-u>CtrlPMRUFiles<CR>
 nnoremap <silent> <Leader>p :<C-u>CtrlP<CR>
 
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix',  'mixed',
@@ -379,16 +435,16 @@ map g# <Plug>(asterisk-gz#)
 
 " 'easymotion/vim-easymotion' {{{
 " <Leader>f{char} to move to {char}
-map  <Leader>f <Plug>(easymotion-bd-f)
-nmap <Leader>f <Plug>(easymotion-overwin-f)
+map  <Space>f <Plug>(easymotion-bd-f)
+nmap <Space>f <Plug>(easymotion-overwin-f)
 
 " Move to line
-map <Leader>L <Plug>(easymotion-bd-jk)
-nmap <Leader>L <Plug>(easymotion-overwin-line)
+map <Space>l <Plug>(easymotion-bd-jk)
+nmap <Space>l <Plug>(easymotion-overwin-line)
 
 " Move to word
-map  <Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
+map  <Space>w <Plug>(easymotion-bd-w)
+nmap <Space>w <Plug>(easymotion-overwin-w)
 " }}}
 
 " 'seiya.vim' {{{
@@ -459,8 +515,14 @@ set completeopt=menuone
 augroup vimrc
   autocmd FileType go nmap K <Plug>(go-doc-vertical)
   autocmd FileType go nnoremap <buffer> <Leader>r :<C-u>GoRun %<CR>
-  autocmd FileType go nnoremap <buffer> <Space>r :<C-u>GoRename<CR>
-  autocmd FileType go nnoremap <buffer> <Space>t :<C-u>GoTest<CR>
+  autocmd FileType go nnoremap <buffer> <Leader>gr :<C-u>GoRename<CR>
+  autocmd FileType go nnoremap <buffer> <Leader>t :<C-u>GoTest<CR>
+  autocmd FileType go nnoremap <buffer> <Leader>f :<C-u>GoDecls<CR>
+  autocmd FileType go nnoremap <buffer> <Leader>gf :<C-u>GoDeclsDir<CR>
+  autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+  autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+  autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+  autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
 augroup END
 " }}}
 
@@ -471,62 +533,6 @@ imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 "}}}
-
-"==========================================================================}}}1
-
-" Key map{{{1
-"==============================================================================
-nnoremap <ENTER> <Nop>
-nnoremap s <Nop>
-nnoremap <Space> <Nop>
-
-" j, kで見た目通りに移動
-nnoremap j gj
-nnoremap k gk
-nnoremap gj j
-nnoremap gk k
-
-" Reload vimrc
-nnoremap <F5> :<C-u>source $MYVIMRC<CR>
-
-" Open vimrc
-nnoremap <F4> :<C-u>tabedit $MYVIMRC<CR>
-
-" Open help
-nnoremap <F3> :<C-u>vertical belowright help<Space>
-nnoremap <F2> :<C-u>tab help<Space>
-
-" Save file
-nnoremap <ENTER><ENTER> :<C-u>w<CR>
-
-" highlight off
-nnoremap <silent> <C-l> :<C-u>nohlsearch<CR>
-
-" Create new tab
-nnoremap <C-w>t :<C-u>tabnew<CR>
-nnoremap <C-w><C-t> :<C-u>tabnew<CR>
-
-" Change ; & :
-noremap ;  :
-noremap :  ;
-
-" Ex-mode
-nnoremap gQ Q
-nnoremap Q <Nop>
-
-" Insertmode
-inoremap <C-l> <C-o>A
-"inoremap <C-k> <Nop>
-
-" Search selected strings visualmode
-vnoremap * "zy:let @/ = '\V' . substitute(escape(@z, '\/'), '\n', '\\n', 'g')<CR>n
-
-" Show registers
-nnoremap <leader>g :<C-u>registers<CR>
-
-" Edit macro
-nnoremap <leader>... :<c-u><c-r><c-r>='let @q = '. string(getreg('q'))<cr><c-f><left>
-
 
 "==========================================================================}}}1
 
