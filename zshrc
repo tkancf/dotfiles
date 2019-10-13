@@ -136,6 +136,10 @@ if [ -f "$HOME/bin/gomi" ]; then
   alias rm='gomi'
 fi
 
+local git==git
+branchname=`${git} symbolic-ref --short HEAD 2> /dev/null`
+function git(){hub "$@"} # zsh
+
 # Function
 function peco-src () {
   local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
