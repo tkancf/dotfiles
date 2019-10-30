@@ -142,10 +142,13 @@ augroup vimrc
   " Elm {{{
     autocmd FileType elm setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
   " }}}
-  " TypeScript jsx
+  " TypeScript jsx {{{
     autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
     autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
-  "
+  " }}}
+  " racket {{{
+    autocmd BufNewFile,BufRead,BufReadPost *.rkt,*.rktl set filetype=scheme
+  " }}}
 augroup END
 "==========================================================================}}}1
 
@@ -254,6 +257,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'kana/vim-submode'
 Plug 'lambdalisue/gina.vim'
 Plug 'previm/previm'
+Plug 'junegunn/vim-easy-align'
 
 " Languages
 Plug 'fatih/vim-go' , { 'for': 'go' }
@@ -266,18 +270,39 @@ Plug 'ElmCast/elm-vim', { 'for': 'elm' }
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neosnippet.vim'
 Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
+Plug 'wlangstroth/vim-racket'
+Plug 'kovisoft/slimv'
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'branch': 'release/1.x',
+  \ 'for': [
+    \ 'javascript',
+    \ 'typescript',
+    \ 'typescript.tsx',
+    \ 'css',
+    \ 'less',
+    \ 'scss',
+    \ 'json',
+    \ 'graphql',
+    \ 'markdown',
+    \ 'vue',
+    \ 'lua',
+    \ 'python',
+    \ 'html'] }
 
 " LSP
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'ryanolsonx/vim-lsp-javascript'
 
 " Others
 Plug 'mattn/sonictemplate-vim'
 Plug 'haya14busa/vim-asterisk'
 Plug 'easymotion/vim-easymotion'
 Plug 'miyakogi/seiya.vim'
+Plug 'rizzatti/dash.vim'
 
 " Twitter
 Plug 'basyura/TweetVim'
@@ -414,8 +439,18 @@ let g:auto_ctags_directory_list = ['.git', '.svn']
 "}}}
 
 " 'cocopon/vaffle.vim'{{{
-nnoremap - :<C-u>Vaffle<CR>
-"}}}
+function! <SID>OpenVaffleUnderBuffer()
+    let name = expand('%:t')
+    let file = expand('%:p')
+    let folder = expand('%:p:h')
+    if !empty(name) && filereadable(file)
+        execute ':Vaffle' . file
+    else
+        execute ':Vaffle' . folder
+    endif
+endfunction
+nnoremap - :<C-u>call <SID>OpenVaffleUnderBuffer()<CR>
+" }}}
 
 " 'itchyny/lightline.vim'{{{
 let g:lightline = { 'colorscheme': 'wombat' }
@@ -505,6 +540,13 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 "}}}
 
+" 'junegunn/vim-easy-align'{{{
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+" }}}
+
 "==========================================================================}}}1
 
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -547,7 +589,33 @@ if executable('elm-language-server')
     \ 'whitelist': ['elm'],
     \ })
   autocmd BufWritePre *.elm LspDocumentFormat
+  autocmd FileType elm call s:configure_lsp()
 endif
+
+if executable('typescript-language-server')
+  au User lsp_setup call lsp#register_server({
+    \ 'name': 'typescript-language-server',
+    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+    \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'package.json'))},
+    \ 'whitelist': ['typescript.tsx', 'typescript', 'javascript', 'javascript.jsx', 'javascriptreact'],
+    \ })
+  autocmd FileType typescript.tsx,typescript,javascript,javascript.jsx,javascriptreact call s:configure_lsp()
+endif
+
+function! s:configure_lsp() abort
+  setlocal omnifunc=lsp#complete   " オムニ補完を有効化
+  " LSP用にマッピング
+  nnoremap <buffer> <C-]> :<C-u>LspDefinition<CR>
+  nnoremap <buffer> gd :<C-u>LspDefinition<CR>
+  nnoremap <buffer> gD :<C-u>LspReferences<CR>
+  nnoremap <buffer> gs :<C-u>LspDocumentSymbol<CR>
+  nnoremap <buffer> gS :<C-u>LspWorkspaceSymbol<CR>
+  nnoremap <buffer> gQ :<C-u>LspDocumentFormat<CR>
+  vnoremap <buffer> gQ :LspDocumentRangeFormat<CR>
+  nnoremap <buffer> K :<C-u>LspHover<CR>
+  nnoremap <buffer> <F1> :<C-u>LspImplementation<CR>
+  nnoremap <buffer> <F2> :<C-u>LspRename<CR>
+endfunction
 
 " asyncomplete-neosnippet
 call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
@@ -555,5 +623,7 @@ call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_opt
     \ 'whitelist': ['*'],
     \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
     \ }))
+
+autocmd BufWritePre *.py,*.js,*.ts,*.tsx,*.vue,*.css,*.scss,*.json,*.md PrettierAsync
 
 " vim:foldmethod=marker
