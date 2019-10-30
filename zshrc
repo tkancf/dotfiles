@@ -1,3 +1,6 @@
+# locale
+export LC_ALL="en_US.UTF-8"
+
 # Ruby
 export RBENV_PATH=$HOME/.rbenv
 if [ -d "$RBENV_PATH" ]; then
@@ -44,18 +47,13 @@ export GO111MODULE=on
 # node.js
 export PATH="$HOME/.nodebrew/current/bin:$PATH"
 
-#export NPM_BIN="$HOME/.npm-global/bin/"
-#export PATH="$NPM_BIN:$PATH"
-#export NODENV="$HOME/.nodenv/bin"
-#if [ -d "$NODENV" ]; then
-#  export PATH="$NODENV:$PATH"
-#  eval "$(nodenv init -)"
-#fi
-
+# gcc
 export PATH="/usr/local/opt/avr-gcc@7/bin:$PATH"
 
+# roswell
 export PATH="/Users/tkancf/.roswell/bin/:$PATH"
 
+# coreutils
 if [ "$PS1"  ] && [ -f '/usr/local/Cellar/coreutils/8.12/aliases'  ]; then
   . /usr/local/Cellar/coreutils/8.12/aliases
 fi
@@ -64,6 +62,7 @@ export PATH="/usr/local/sbin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$PATH":"$HOME/.pub-cache/bin"
 
+# OCaml
 eval "$(opam env)"
 
 # Lines configured by zsh-newuser-install
