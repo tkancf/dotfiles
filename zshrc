@@ -62,9 +62,6 @@ export PATH="/usr/local/sbin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$PATH":"$HOME/.pub-cache/bin"
 
-# OCaml
-eval "$(opam env)"
-
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=1000000

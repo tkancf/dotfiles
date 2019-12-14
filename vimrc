@@ -137,9 +137,18 @@ augroup vimrc
     function! MDConf()
       " todoリストを簡単に入力する
       abbreviate tl - [ ]
+      function! MkdIsNoIndentCheckboxLine(line)
+        return a:line =~ '^- \[[ x]\] '
+      endfunction
 
-      " 入れ子のリストを折りたたむ
-      setlocal foldmethod=expr foldexpr=MkdCheckboxFold(v:lnum) foldtext=MkdCheckboxFoldText()
+      function! MkdHasIndentLine(line)
+        return a:line =~ '^[[:blank:]]\+'
+      endfunction
+
+      function! MkdCheckboxFoldText()
+        return getline(v:foldstart) . ' (' . (v:foldend - v:foldstart) . ' lines) '
+      endfunction
+
       function! MkdCheckboxFold(lnum)
         let line = getline(a:lnum)
         let next = getline(a:lnum + 1)
@@ -150,19 +159,9 @@ augroup vimrc
         endif
         return '='
       endfunction
-      function! MkdIsNoIndentCheckboxLine(line)
-        return a:line =~ '^- \[[ x]\] '
-      endfunction
-      function! MkdHasIndentLine(line)
-        return a:line =~ '^[[:blank:]]\+'
-      endfunction
-      function! MkdCheckboxFoldText()
-        return getline(v:foldstart) . ' (' . (v:foldend - v:foldstart) . ' lines) '
-      endfunction
 
-      " todoリストのon/offを切り替える
-      nnoremap <buffer> <Leader><Leader> :call ToggleCheckbox()<CR>
-      vnoremap <buffer> <Leader><Leader> :call ToggleCheckbox()<CR>
+      " 入れ子のリストを折りたたむ
+      setlocal foldmethod=expr foldexpr=MkdCheckboxFold(v:lnum) foldtext=MkdCheckboxFoldText()
 
       " 選択行のチェックボックスを切り替える
       function! ToggleCheckbox()
@@ -177,10 +176,15 @@ augroup vimrc
         end
       endfunction
 
+      " todoリストのon/offを切り替える
+      nnoremap <buffer> <Leader><Leader> :call ToggleCheckbox()<CR>
+      vnoremap <buffer> <Leader><Leader> :call ToggleCheckbox()<CR>
+
       syn match MkdCheckboxMark /-\s\[x\]\s.\+/ display containedin=ALL
       hi MkdCheckboxMark ctermfg=green
       syn match MkdCheckboxUnmark /-\s\[\s\]\s.\+/ display containedin=ALL
       hi MkdCheckboxUnmark ctermfg=red
+
     endfunction
 
     autocmd FileType markdown setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
@@ -388,8 +392,7 @@ let g:previm_open_cmd = 'open '
 "}}}
 
 " 'ctrlpvim/ctrlp.vim' {{{
-nnoremap <C-p> <Nop>
-nnoremap <silent> <Space>p :<C-u>CtrlPBuffer<CR>
+nnoremap <silent> <Space>j :<C-u>CtrlPBuffer<CR>
 nnoremap <silent> <Leader>u :<C-u>CtrlPMRUFiles<CR>
 nnoremap <silent> <Leader>p :<C-u>CtrlP<CR>
 
