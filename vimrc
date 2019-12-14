@@ -11,6 +11,9 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+" keyword define
+set iskeyword+=-
+
 " encoding
 set encoding=utf-8
 
@@ -131,7 +134,58 @@ augroup vimrc
     autocmd FileType haskell setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
   " }}}
   " Markdown {{{
+    function! MDConf()
+      " todoリストを簡単に入力する
+      abbreviate tl - [ ]
+
+      " 入れ子のリストを折りたたむ
+      setlocal foldmethod=expr foldexpr=MkdCheckboxFold(v:lnum) foldtext=MkdCheckboxFoldText()
+      function! MkdCheckboxFold(lnum)
+        let line = getline(a:lnum)
+        let next = getline(a:lnum + 1)
+        if MkdIsNoIndentCheckboxLine(line) && MkdHasIndentLine(next)
+          return 1
+        elseif (MkdIsNoIndentCheckboxLine(next) || next =~ '^$') && !MkdHasIndentLine(next)
+          return '<1'
+        endif
+        return '='
+      endfunction
+      function! MkdIsNoIndentCheckboxLine(line)
+        return a:line =~ '^- \[[ x]\] '
+      endfunction
+      function! MkdHasIndentLine(line)
+        return a:line =~ '^[[:blank:]]\+'
+      endfunction
+      function! MkdCheckboxFoldText()
+        return getline(v:foldstart) . ' (' . (v:foldend - v:foldstart) . ' lines) '
+      endfunction
+
+      " todoリストのon/offを切り替える
+      nnoremap <buffer> <Leader><Leader> :call ToggleCheckbox()<CR>
+      vnoremap <buffer> <Leader><Leader> :call ToggleCheckbox()<CR>
+
+      " 選択行のチェックボックスを切り替える
+      function! ToggleCheckbox()
+        let l:line = getline('.')
+        if l:line =~ '\-\s\[\s\]'
+          " 完了時刻を挿入する
+          let l:result = substitute(l:line, '-\s\[\s\]', '- [x]', '') . ' [' . strftime("%Y/%m/%d (%a) %H:%M") . ']'
+          call setline('.', l:result)
+        elseif l:line =~ '\-\s\[x\]'
+          let l:result = substitute(substitute(l:line, '-\s\[x\]', '- [ ]', ''), '\s\[\d\{4}.\+]$', '', '')
+          call setline('.', l:result)
+        end
+      endfunction
+
+      syn match MkdCheckboxMark /-\s\[x\]\s.\+/ display containedin=ALL
+      hi MkdCheckboxMark ctermfg=green
+      syn match MkdCheckboxUnmark /-\s\[\s\]\s.\+/ display containedin=ALL
+      hi MkdCheckboxUnmark ctermfg=red
+    endfunction
+
     autocmd FileType markdown setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+    autocmd FileType markdown :call MDConf()
+
   " }}}
   " Go {{{
     autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
@@ -246,7 +300,8 @@ Plug 'ctrlpvim/ctrlp.vim' | Plug 'fisadev/vim-ctrlp-cmdpalette'
 
 " Basics
 Plug 'vim-jp/vimdoc-ja'
-Plug 'cocopon/vaffle.vim'
+Plug 'scrooloose/nerdtree'
+"Plug 'cocopon/vaffle.vim'
 Plug 'soramugi/auto-ctags.vim'
 Plug 'thinca/vim-quickrun'
 Plug 'glidenote/memolist.vim'
@@ -261,11 +316,10 @@ Plug 'junegunn/vim-easy-align'
 
 " Languages
 Plug 'fatih/vim-go' , { 'for': 'go' }
-Plug 'tpope/vim-markdown', {'for': 'markdown'}
 Plug 'iamcco/mathjax-support-for-mkdp'
 Plug 'iamcco/markdown-preview.vim'
 Plug 'jszakmeister/markdown2ctags', {'for': 'markdown'}
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+Plug 'moorereason/vim-markdownfmt'
 Plug 'ElmCast/elm-vim', { 'for': 'elm' }
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neosnippet.vim'
@@ -284,7 +338,6 @@ Plug 'prettier/vim-prettier', {
     \ 'scss',
     \ 'json',
     \ 'graphql',
-    \ 'markdown',
     \ 'vue',
     \ 'lua',
     \ 'python',
@@ -303,6 +356,7 @@ Plug 'haya14busa/vim-asterisk'
 Plug 'easymotion/vim-easymotion'
 Plug 'miyakogi/seiya.vim'
 Plug 'rizzatti/dash.vim'
+Plug 'thinca/vim-showtime'
 
 " Twitter
 Plug 'basyura/TweetVim'
@@ -335,7 +389,7 @@ let g:previm_open_cmd = 'open '
 
 " 'ctrlpvim/ctrlp.vim' {{{
 nnoremap <C-p> <Nop>
-nnoremap <silent> <Leader>b :<C-u>CtrlPBuffer<CR>
+nnoremap <silent> <Space>p :<C-u>CtrlPBuffer<CR>
 nnoremap <silent> <Leader>u :<C-u>CtrlPMRUFiles<CR>
 nnoremap <silent> <Leader>p :<C-u>CtrlP<CR>
 
@@ -391,6 +445,7 @@ let g:memolist_template_dir_path = "~/.vim/template/memolist"
 let g:memolist_path = $HOME . "/memo"
 let g:memolist_memo_date = "%Y-%m-%dT%H:%M:%S+09:00"
 let g:memolist_ex_cmd = 'CtrlP'
+
 " }}}
 
 " 'vim-jp/vimdoc-ja' {{{
@@ -439,17 +494,17 @@ let g:auto_ctags_directory_list = ['.git', '.svn']
 "}}}
 
 " 'cocopon/vaffle.vim'{{{
-function! <SID>OpenVaffleUnderBuffer()
-    let name = expand('%:t')
-    let file = expand('%:p')
-    let folder = expand('%:p:h')
-    if !empty(name) && filereadable(file)
-        execute ':Vaffle' . file
-    else
-        execute ':Vaffle' . folder
-    endif
-endfunction
-nnoremap - :<C-u>call <SID>OpenVaffleUnderBuffer()<CR>
+"function! <SID>OpenVaffleUnderBuffer()
+"    let name = expand('%:t')
+"    let file = expand('%:p')
+"    let folder = expand('%:p:h')
+"    if !empty(name) && filereadable(file)
+"        execute ':Vaffle' . file
+"    else
+"        execute ':Vaffle' . folder
+"    endif
+"endfunction
+"nnoremap - :<C-u>call <SID>OpenVaffleUnderBuffer()<CR>
 " }}}
 
 " 'itchyny/lightline.vim'{{{
@@ -547,6 +602,12 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 " }}}
 
+"{{{ 'justinmk/vim-dirvish'
+nnoremap - :<C-u>NERDTreeToggle<CR>
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"}}}
+
 "==========================================================================}}}1
 
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -624,6 +685,6 @@ call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_opt
     \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
     \ }))
 
-autocmd BufWritePre *.py,*.js,*.ts,*.tsx,*.vue,*.css,*.scss,*.json,*.md PrettierAsync
+autocmd BufWritePre *.py,*.js,*.ts,*.tsx,*.vue,*.css,*.scss,*.json PrettierAsync
 
 " vim:foldmethod=marker
