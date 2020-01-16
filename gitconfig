@@ -4,6 +4,9 @@
 [include]
   path = ~/.gitconfig.local
 
+[url "https://"]
+    insteadOf = git://
+
 [ghq]
   root = ~/src
 
@@ -12,7 +15,7 @@
 
 [core]
   editor = vim
-  excludesfile = /home/tkancf/.gitignore
+  excludesfile = ~/.gitignore
 
 [alias]
   d = diff
@@ -38,3 +41,5 @@
 	default = matching
 [color]
 	ui = true
+[credential]
+	helper = osxkeychain

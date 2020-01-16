@@ -48,10 +48,10 @@ export GO111MODULE=on
 export PATH="$HOME/.nodebrew/current/bin:$PATH"
 
 # gcc
-export PATH="/usr/local/opt/avr-gcc@7/bin:$PATH"
+# export PATH="/usr/local/opt/avr-gcc@7/bin:$PATH"
 
 # roswell
-export PATH="/Users/tkancf/.roswell/bin/:$PATH"
+# export PATH="/Users/tkancf/.roswell/bin/:$PATH"
 
 # coreutils
 if [ "$PS1"  ] && [ -f '/usr/local/Cellar/coreutils/8.12/aliases'  ]; then
@@ -65,7 +65,7 @@ export PATH="$PATH":"$HOME/.pub-cache/bin"
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=1000000
-SAVEHIST=1000
+SAVEHIST=1000000
 setopt appendhistory autocd notify share_history hist_ignore_dups
 unsetopt beep extendedglob nomatch
 # End of lines configured by zsh-newuser-install
@@ -93,12 +93,6 @@ zstyle ':zle:*' word-style unspecified
 setopt correct
 
 bindkey -e
-
-# tmux
-#if [[ ! -n $TMUX ]]; then
-#  tmux new-session
-#fi
-
 
 # End of lines added by compinstall
 

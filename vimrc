@@ -284,7 +284,6 @@ vnoremap * "zy:let @/ = '\V' . substitute(escape(@z, '\/'), '\n', '\\n', 'g')<CR
 " Edit macro
 nnoremap <leader>... :<c-u><c-r><c-r>='let @q = '. string(getreg('q'))<cr><c-f><left>
 
-
 "==========================================================================}}}1
 
 " Plugin Load {{{
@@ -305,7 +304,6 @@ Plug 'ctrlpvim/ctrlp.vim' | Plug 'fisadev/vim-ctrlp-cmdpalette'
 " Basics
 Plug 'vim-jp/vimdoc-ja'
 Plug 'scrooloose/nerdtree'
-"Plug 'cocopon/vaffle.vim'
 Plug 'soramugi/auto-ctags.vim'
 Plug 'thinca/vim-quickrun'
 Plug 'glidenote/memolist.vim'
@@ -317,42 +315,23 @@ Plug 'kana/vim-submode'
 Plug 'lambdalisue/gina.vim'
 Plug 'previm/previm'
 Plug 'junegunn/vim-easy-align'
+Plug 'jeetsukumaran/vim-buffergator'
 
 " Languages
-Plug 'fatih/vim-go' , { 'for': 'go' }
+Plug 'mattn/vim-goimports'
 Plug 'iamcco/mathjax-support-for-mkdp'
 Plug 'iamcco/markdown-preview.vim'
-Plug 'jszakmeister/markdown2ctags', {'for': 'markdown'}
 Plug 'moorereason/vim-markdownfmt'
-Plug 'ElmCast/elm-vim', { 'for': 'elm' }
-Plug 'Shougo/neosnippet-snippets'
-Plug 'Shougo/neosnippet.vim'
-Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
-Plug 'wlangstroth/vim-racket'
-Plug 'kovisoft/slimv'
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'yarn install',
-  \ 'branch': 'release/1.x',
-  \ 'for': [
-    \ 'javascript',
-    \ 'typescript',
-    \ 'typescript.tsx',
-    \ 'css',
-    \ 'less',
-    \ 'scss',
-    \ 'json',
-    \ 'graphql',
-    \ 'vue',
-    \ 'lua',
-    \ 'python',
-    \ 'html'] }
 
 " LSP
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'ryanolsonx/vim-lsp-javascript'
+Plug 'mattn/vim-lsp-settings'
+Plug 'mattn/vim-lsp-icons'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
 
 " Others
 Plug 'mattn/sonictemplate-vim'
@@ -561,43 +540,6 @@ call submode#map('winsize', 'n', '', '-', '<C-w>-')
 let g:elm_setup_keybindings = 0
 " }}}
 
-" 'fatih/vim-go' {{{
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_types = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-let g:go_fmt_command = "goimports"
-let g:go_def_mode = 'godef'
-let g:go_test_show_name=1
-let g:go_auto_type_info = 1
-let g:go_auto_sameids = 1
-set updatetime=100
-set completeopt=menuone
-augroup vimrc
-  autocmd FileType go nmap K <Plug>(go-doc-vertical)
-  autocmd FileType go nnoremap <buffer> <Leader>r :<C-u>GoRun %<CR>
-  autocmd FileType go nnoremap <buffer> <Leader>gr :<C-u>GoRename<CR>
-  autocmd FileType go nnoremap <buffer> <Leader>t :<C-u>GoTest<CR>
-  autocmd FileType go nnoremap <buffer> <Leader>f :<C-u>GoDecls<CR>
-  autocmd FileType go nnoremap <buffer> <Leader>gf :<C-u>GoDeclsDir<CR>
-  autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
-  autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
-  autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
-  autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
-augroup END
-" }}}
-
-"'Shougo/neosnippet' {{{
-" Plugin key-mappings.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-"}}}
-
 " 'junegunn/vim-easy-align'{{{
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
@@ -611,83 +553,30 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 "}}}
 
+" 'mattn/vim-lsp-settings' {{
+
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> <f2> <plug>(lsp-rename)
+    " refer to doc to add more commands
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd BufNewFile,BufRead *.go,.vimrc call s:on_lsp_buffer_enabled()
+augroup END
+
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
+let g:asyncomplete_auto_popup = 1
+let g:asyncomplete_auto_completeopt = 1
+let g:asyncomplete_popup_delay = 200
+let g:lsp_text_edit_enabled = 0
+" }}
+
 "==========================================================================}}}1
-
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-inoremap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ asyncomplete#force_refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-set completeopt+=preview
-
-" Go
-if executable('gopls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'gopls',
-        \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
-        \ 'whitelist': ['go'],
-        \ })
-    autocmd BufWritePre *.go LspDocumentFormatSync
-endif
-
-" Elm
-if executable('elm-language-server')
-  au User lsp_setup call lsp#register_server({
-    \ 'name': 'elm-language-server',
-    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'elm-language-server --stdio']},
-    \ 'initialization_options': {
-      \ 'runtime': 'node',
-      \ 'elmPath': 'elm',
-      \ 'elmFormatPath': 'elm-format',
-      \ 'elmTestPath': 'elm-test',
-      \ 'rootPatterns': 'elm.json'
-      \ },
-    \ 'whitelist': ['elm'],
-    \ })
-  autocmd BufWritePre *.elm LspDocumentFormat
-  autocmd FileType elm call s:configure_lsp()
-endif
-
-if executable('typescript-language-server')
-  au User lsp_setup call lsp#register_server({
-    \ 'name': 'typescript-language-server',
-    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-    \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'package.json'))},
-    \ 'whitelist': ['typescript.tsx', 'typescript', 'javascript', 'javascript.jsx', 'javascriptreact'],
-    \ })
-  autocmd FileType typescript.tsx,typescript,javascript,javascript.jsx,javascriptreact call s:configure_lsp()
-endif
-
-function! s:configure_lsp() abort
-  setlocal omnifunc=lsp#complete   " オムニ補完を有効化
-  " LSP用にマッピング
-  nnoremap <buffer> <C-]> :<C-u>LspDefinition<CR>
-  nnoremap <buffer> gd :<C-u>LspDefinition<CR>
-  nnoremap <buffer> gD :<C-u>LspReferences<CR>
-  nnoremap <buffer> gs :<C-u>LspDocumentSymbol<CR>
-  nnoremap <buffer> gS :<C-u>LspWorkspaceSymbol<CR>
-  nnoremap <buffer> gQ :<C-u>LspDocumentFormat<CR>
-  vnoremap <buffer> gQ :LspDocumentRangeFormat<CR>
-  nnoremap <buffer> K :<C-u>LspHover<CR>
-  nnoremap <buffer> <F1> :<C-u>LspImplementation<CR>
-  nnoremap <buffer> <F2> :<C-u>LspRename<CR>
-endfunction
-
-" asyncomplete-neosnippet
-call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
-    \ 'name': 'neosnippet',
-    \ 'whitelist': ['*'],
-    \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
-    \ }))
-
-autocmd BufWritePre *.py,*.js,*.ts,*.tsx,*.vue,*.css,*.scss,*.json PrettierAsync
 
 " vim:foldmethod=marker

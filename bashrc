@@ -10,7 +10,6 @@ alias gfc='git diff --cached'
 alias gc='git commit -m'
 alias t='tmux'
 alias s='ssh'
-tmux
 
 # added by Anaconda2 4.3.1 installer
 #export PATH="/home/tkancf/anaconda2/bin:$PATH"
@@ -19,6 +18,7 @@ tmux
 #export PATH=$GOPATH:$PATH
 
 # Golang
+export GOROOT="/usr/local/Cellar/go/1.13.6/libexec"
 export GOPATH=$HOME
 export PATH=$GOPATH/bin:$PATH
 
