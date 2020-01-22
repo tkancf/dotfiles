@@ -178,7 +178,7 @@ alias ll='ls -alF'
 alias l='ls -CF'
 alias la='ls -aF'
 alias cb='xsel --clipboard --input'
-alias grep='grep --color=auto'
+alias grep='ggrep --color=auto'
 alias t='tmux -2'
 alias vi='vim'
 # git

@@ -297,17 +297,16 @@ Plug 'vim-scripts/wombat256.vim'
 Plug 'itchyny/lightline.vim'
 
 " ctrlp
-Plug 'ctrlpvim/ctrlp.vim' | Plug 'mattn/ctrlp-launcher'
-Plug 'ctrlpvim/ctrlp.vim' | Plug 'sgur/ctrlp-extensions.vim'
-Plug 'ctrlpvim/ctrlp.vim' | Plug 'fisadev/vim-ctrlp-cmdpalette'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'mattn/ctrlp-launcher'
+Plug 'sgur/ctrlp-extensions.vim'
+Plug 'fisadev/vim-ctrlp-cmdpalette'
 
 " Basics
 Plug 'vim-jp/vimdoc-ja'
 Plug 'scrooloose/nerdtree'
-Plug 'soramugi/auto-ctags.vim'
 Plug 'thinca/vim-quickrun'
 Plug 'glidenote/memolist.vim'
-Plug 'mattn/vim-fz'
 Plug 'kana/vim-operator-user'
 Plug 'rhysd/vim-operator-surround'
 Plug 'jiangmiao/auto-pairs'
@@ -326,9 +325,9 @@ Plug 'moorereason/vim-markdownfmt'
 " LSP
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'mattn/vim-lsp-settings'
 Plug 'mattn/vim-lsp-icons'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
@@ -339,7 +338,6 @@ Plug 'haya14busa/vim-asterisk'
 Plug 'easymotion/vim-easymotion'
 Plug 'miyakogi/seiya.vim'
 Plug 'rizzatti/dash.vim'
-Plug 'thinca/vim-showtime'
 
 " Twitter
 Plug 'basyura/TweetVim'
@@ -371,12 +369,11 @@ let g:previm_open_cmd = 'open '
 "}}}
 
 " 'ctrlpvim/ctrlp.vim' {{{
-nnoremap <silent> <Space>j :<C-u>CtrlPBuffer<CR>
-nnoremap <silent> <Leader>u :<C-u>CtrlPMRUFiles<CR>
-nnoremap <silent> <Leader>p :<C-u>CtrlP<CR>
+nnoremap <silent> <Space>b :<C-u>CtrlPBuffer<CR>
+nnoremap <silent> <Space>u :<C-u>CtrlPMRUFiles<CR>
+nnoremap <silent> <Space>p :<C-u>CtrlPMixed<CR>
 
-let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix',  'mixed',
-                         \'line', 'bookmarkdir', 'changes', 'cmdline']
+let g:ctrlp_extensions = ['quickfix', 'mixed', 'line', 'cmdline']
 let g:ctrlp_max_files  = 10000
 let g:ctrlp_by_filename = 1
 let g:ctrlp_max_depth = 20
@@ -414,7 +411,7 @@ nnoremap <Space><Space> :<C-u>CtrlPLauncher<CR>
 " }}}
 
 " 'sgur/ctrlp-extensions.vim' {{{
-nnoremap <Space>p :<C-u>CtrlPMenu<CR>
+nnoremap <Space>m :<C-u>CtrlPMenu<CR>
 " }}}
 
 " 'fisadev/vim-ctrlp-cmdpalette' {{{
@@ -474,20 +471,6 @@ nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() 
 let g:auto_ctags = 0
 let g:auto_ctags_directory_list = ['.git', '.svn']
 "}}}
-
-" 'cocopon/vaffle.vim'{{{
-"function! <SID>OpenVaffleUnderBuffer()
-"    let name = expand('%:t')
-"    let file = expand('%:p')
-"    let folder = expand('%:p:h')
-"    if !empty(name) && filereadable(file)
-"        execute ':Vaffle' . file
-"    else
-"        execute ':Vaffle' . folder
-"    endif
-"endfunction
-"nnoremap - :<C-u>call <SID>OpenVaffleUnderBuffer()<CR>
-" }}}
 
 " 'itchyny/lightline.vim'{{{
 let g:lightline = { 'colorscheme': 'wombat' }
@@ -549,24 +532,25 @@ nmap ga <Plug>(EasyAlign)
 
 "{{{ 'justinmk/vim-dirvish'
 nnoremap - :<C-u>NERDTreeToggle<CR>
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 "}}}
 
-" 'mattn/vim-lsp-settings' {{
+" 'mattn/vim-lsp-settings' {{{
 
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=yes
     nmap <buffer> gd <plug>(lsp-definition)
-    nmap <buffer> <f2> <plug>(lsp-rename)
+    nmap <buffer> gr <plug>(lsp-rename)
+    nmap <buffer> K <plug>(lsp-hover)
     " refer to doc to add more commands
 endfunction
 
 augroup lsp_install
     au!
     " call s:on_lsp_buffer_enabled only for languages that has the server registered.
-    autocmd BufNewFile,BufRead *.go,.vimrc call s:on_lsp_buffer_enabled()
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 
 let g:lsp_diagnostics_enabled = 1
@@ -574,8 +558,8 @@ let g:lsp_diagnostics_echo_cursor = 1
 let g:asyncomplete_auto_popup = 1
 let g:asyncomplete_auto_completeopt = 1
 let g:asyncomplete_popup_delay = 200
-let g:lsp_text_edit_enabled = 0
-" }}
+let g:lsp_text_edit_enabled = 1
+" }}}
 
 "==========================================================================}}}1
 
