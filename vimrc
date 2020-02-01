@@ -3,8 +3,6 @@
 " plug install
 let s:vim_plug_url='https://github.com/junegunn/vim-plug'
 
-set rtp^="/Users/tkancf/.opam/default/share/ocp-indent/vim"
-
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -208,6 +206,7 @@ augroup vimrc
     autocmd BufNewFile,BufRead,BufReadPost *.rkt,*.rktl set filetype=scheme
   " }}}
 augroup END
+
 "==========================================================================}}}1
 
 " Function {{{
@@ -303,7 +302,7 @@ Plug 'sgur/ctrlp-extensions.vim'
 Plug 'fisadev/vim-ctrlp-cmdpalette'
 
 " Basics
-Plug 'vim-jp/vimdoc-ja'
+"Plug 'vim-jp/vimdoc-ja'
 Plug 'scrooloose/nerdtree'
 Plug 'thinca/vim-quickrun'
 Plug 'glidenote/memolist.vim'
@@ -532,8 +531,6 @@ nmap ga <Plug>(EasyAlign)
 
 "{{{ 'justinmk/vim-dirvish'
 nnoremap - :<C-u>NERDTreeToggle<CR>
-"autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 "}}}
 
 " 'mattn/vim-lsp-settings' {{{
