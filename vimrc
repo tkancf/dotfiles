@@ -53,6 +53,7 @@ if !filereadable(expand($HOME . '/.vim/tmp'))
 endif
 set directory=$HOME/.vim/tmp
 
+
 " Enable matchit
 if !exists('loaded_matchit')
   runtime macros/matchit.vim
@@ -98,12 +99,12 @@ if filereadable(expand($HOME . '/.vimrc.local'))
   source $HOME/.vimrc.local
 endif
 
-
 if has('mac')
   set shell=/usr/local/bin/zsh
 else
   set shell=/usr/bin/zsh
 endif
+
 
 "==========================================================================}}}1
 
@@ -132,62 +133,7 @@ augroup vimrc
     autocmd FileType haskell setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
   " }}}
   " Markdown {{{
-    function! MDConf()
-      " todoリストを簡単に入力する
-      abbreviate tl - [ ]
-      function! MkdIsNoIndentCheckboxLine(line)
-        return a:line =~ '^- \[[ x]\] '
-      endfunction
-
-      function! MkdHasIndentLine(line)
-        return a:line =~ '^[[:blank:]]\+'
-      endfunction
-
-      function! MkdCheckboxFoldText()
-        return getline(v:foldstart) . ' (' . (v:foldend - v:foldstart) . ' lines) '
-      endfunction
-
-      function! MkdCheckboxFold(lnum)
-        let line = getline(a:lnum)
-        let next = getline(a:lnum + 1)
-        if MkdIsNoIndentCheckboxLine(line) && MkdHasIndentLine(next)
-          return 1
-        elseif (MkdIsNoIndentCheckboxLine(next) || next =~ '^$') && !MkdHasIndentLine(next)
-          return '<1'
-        endif
-        return '='
-      endfunction
-
-      " 入れ子のリストを折りたたむ
-      setlocal foldmethod=expr foldexpr=MkdCheckboxFold(v:lnum) foldtext=MkdCheckboxFoldText()
-
-      " 選択行のチェックボックスを切り替える
-      function! ToggleCheckbox()
-        let l:line = getline('.')
-        if l:line =~ '\-\s\[\s\]'
-          " 完了時刻を挿入する
-          let l:result = substitute(l:line, '-\s\[\s\]', '- [x]', '') . ' [' . strftime("%Y/%m/%d (%a) %H:%M") . ']'
-          call setline('.', l:result)
-        elseif l:line =~ '\-\s\[x\]'
-          let l:result = substitute(substitute(l:line, '-\s\[x\]', '- [ ]', ''), '\s\[\d\{4}.\+]$', '', '')
-          call setline('.', l:result)
-        end
-      endfunction
-
-      " todoリストのon/offを切り替える
-      nnoremap <buffer> <Leader><Leader> :call ToggleCheckbox()<CR>
-      vnoremap <buffer> <Leader><Leader> :call ToggleCheckbox()<CR>
-
-      syn match MkdCheckboxMark /-\s\[x\]\s.\+/ display containedin=ALL
-      hi MkdCheckboxMark ctermfg=green
-      syn match MkdCheckboxUnmark /-\s\[\s\]\s.\+/ display containedin=ALL
-      hi MkdCheckboxUnmark ctermfg=red
-
-    endfunction
-
     autocmd FileType markdown setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
-    autocmd FileType markdown :call MDConf()
-
   " }}}
   " Go {{{
     autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
@@ -199,8 +145,8 @@ augroup vimrc
     autocmd FileType elm setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
   " }}}
   " TypeScript jsx {{{
-    autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
-    autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
+    "autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
+    "autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
   " }}}
   " racket {{{
     autocmd BufNewFile,BufRead,BufReadPost *.rkt,*.rktl set filetype=scheme
@@ -300,6 +246,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mattn/ctrlp-launcher'
 Plug 'sgur/ctrlp-extensions.vim'
 Plug 'fisadev/vim-ctrlp-cmdpalette'
+Plug 'haya14busa/vim-migemo'
 
 " Basics
 "Plug 'vim-jp/vimdoc-ja'
@@ -372,12 +319,14 @@ nnoremap <silent> <Space>b :<C-u>CtrlPBuffer<CR>
 nnoremap <silent> <Space>u :<C-u>CtrlPMRUFiles<CR>
 nnoremap <silent> <Space>p :<C-u>CtrlPMixed<CR>
 
-let g:ctrlp_extensions = ['quickfix', 'mixed', 'line', 'cmdline']
+"let g:ctrlp_use_migemo = 1
+let g:ctrlp_extensions = ['quickfix', 'mixed', 'cmdline']
 let g:ctrlp_max_files  = 10000
 let g:ctrlp_by_filename = 1
 let g:ctrlp_max_depth = 20
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_use_caching = 1
+
 if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor\ --hidden
     let g:ctrlp_user_command = 'ag %s -i
@@ -395,7 +344,6 @@ if executable('ag')
           \ -g ""'
 
     let g:ctrlp_use_caching = 0
-
 else
     let g:ctrlp_custom_ignore = {
       \ 'dir':  '\v[\/]\.(git|hg|svn)$',
@@ -403,7 +351,7 @@ else
       \ 'link': 'some_bad_symbolic_links',
       \ }
 endif
-" }}}
+ " }}}
 
 " 'mattn/ctrlp-launcher' {{{
 nnoremap <Space><Space> :<C-u>CtrlPLauncher<CR>
@@ -419,8 +367,8 @@ nnoremap <Space>c :<C-u>CtrlPCmdPalette<CR>
 
 " 'glidenote/memolist.vim' {{{
 let g:memolist_memo_suffix = "md"
-let g:memolist_template_dir_path = "~/.vim/template/memolist"
-let g:memolist_path = $HOME . "/memo"
+let g:memolist_template_dir_path = "~/.vim/template/"
+let g:memolist_path = $HOME . "/Dropbox/memo"
 let g:memolist_memo_date = "%Y-%m-%dT%H:%M:%S+09:00"
 let g:memolist_ex_cmd = 'CtrlP'
 
@@ -450,11 +398,6 @@ let g:quickrun_config = {
 \    'cmdopt' : 'runghc',
 \  },
 \}
-
-let g:quickrun_config['go.test'] = {'command' : 'go', 'exec' : ['%c test']}
-augroup vimrc
-  autocmd BufRead,BufNewFile *_test.go set filetype=go.test
-augroup END
 
 let g:quickrun_no_default_key_mappings = 1
 nnoremap <space>r :cclose<CR>:write<CR>:QuickRun -mode n<CR>
@@ -518,10 +461,6 @@ call submode#map('winsize', 'n', '', '+', '<C-w>+')
 call submode#map('winsize', 'n', '', '-', '<C-w>-')
 " }}}
 
-" 'ElmCast/elm-vim' {{{
-let g:elm_setup_keybindings = 0
-" }}}
-
 " 'junegunn/vim-easy-align'{{{
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
@@ -533,7 +472,7 @@ nmap ga <Plug>(EasyAlign)
 nnoremap - :<C-u>NERDTreeToggle<CR>
 "}}}
 
-" 'mattn/vim-lsp-settings' {{{
+" 'prabirshrestha/vim-lsp' {{{
 
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
@@ -541,6 +480,7 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> gd <plug>(lsp-definition)
     nmap <buffer> gr <plug>(lsp-rename)
     nmap <buffer> K <plug>(lsp-hover)
+    inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
     " refer to doc to add more commands
 endfunction
 
@@ -549,6 +489,10 @@ augroup lsp_install
     " call s:on_lsp_buffer_enabled only for languages that has the server registered.
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
+
+" }}}
+
+" 'mattn/vim-lsp-settings' {{{
 
 let g:lsp_diagnostics_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1

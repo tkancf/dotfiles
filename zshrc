@@ -47,19 +47,12 @@ export GO111MODULE=on
 # node.js
 export PATH="$HOME/.nodebrew/current/bin:$PATH"
 
-# gcc
-# export PATH="/usr/local/opt/avr-gcc@7/bin:$PATH"
-
-# roswell
-# export PATH="/Users/tkancf/.roswell/bin/:$PATH"
-
 # coreutils
 if [ "$PS1"  ] && [ -f '/usr/local/Cellar/coreutils/8.12/aliases'  ]; then
   . /usr/local/Cellar/coreutils/8.12/aliases
 fi
 export PATH="/usr/local/sbin:$PATH"
 
-export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$PATH":"$HOME/.pub-cache/bin"
 
 # Lines configured by zsh-newuser-install

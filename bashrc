@@ -1,5 +1,5 @@
 export TERM=xterm-256color
-alias ll='ls -alF'
+alias ll='ls -al'
 alias l='ls -CF'
 alias cb='xsel --clipboard --input'
 alias g='git'
