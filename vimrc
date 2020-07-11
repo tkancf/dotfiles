@@ -99,11 +99,11 @@ if filereadable(expand($HOME . '/.vimrc.local'))
   source $HOME/.vimrc.local
 endif
 
-if has('mac')
-  set shell=/usr/local/bin/zsh
-else
-  set shell=/usr/bin/zsh
-endif
+"if has('mac')
+"  set shell=/usr/local/bin/zsh
+"else
+"  set shell=/usr/bin/zsh
+"endif
 
 
 "==========================================================================}}}1
@@ -143,10 +143,6 @@ augroup vimrc
   " }}}
   " Elm {{{
     autocmd FileType elm setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
-  " }}}
-  " TypeScript jsx {{{
-    "autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
-    "autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
   " }}}
   " racket {{{
     autocmd BufNewFile,BufRead,BufReadPost *.rkt,*.rktl set filetype=scheme
@@ -465,7 +461,7 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 " }}}
 
-"{{{ 'justinmk/vim-dirvish'
+"{{{ 'scrooloose/nerdtree'
 nnoremap - :<C-u>NERDTreeToggle<CR>
 "}}}
 
