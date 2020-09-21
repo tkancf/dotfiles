@@ -20,3 +20,4 @@ Twitter Tweet									TweetVimCommandSay
 
 Twitter Timeline						TweetVimHomeTimeline
 
+SonicTemplate Edit 						e ~/.vim/plugged/vim-sonictemplate-templates/
