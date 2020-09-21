@@ -1,59 +1,6 @@
-# locale
-export LC_ALL="en_US.UTF-8"
-
-# Ruby
-export RBENV_PATH=$HOME/.rbenv
-if [ -d "$RBENV_PATH" ]; then
-  export PATH="$RBENV_PATH/bin:$PATH"
-  eval "$(rbenv init -)"
-fi
-
-# Rust
-export CARGO_PATH=$HOME/.cargo
-if [ -d "$CARGO_PATH" ]; then
-  source $CARGO_PATH/env
-  export PATH="$CARGO_PATH/bin:$PATH"
-fi
-
-# Haskell
-if [ -d "$HOME/.stack" ]; then
-  export PATH="~/.local/bin/stack:$PATH"
-  export STACK_BIN="$HOME/.stack/bin"
-  export HASKELL_BIN="$HOME/.local/bin"
-  export PATH="$STACK_BIN:$HASKELL_BIN:$PATH"
-fi
-
-# MyScripts
-export SCRIPTS="$HOME/.dotfiles/scripts"
-export PATH="$SCRIPTS:$PATH"
-
-# anyenv
-export ANYENV_PATH="$HOME/.anyenv/bin"
-if [ -d "$ANYENV_PATH" ]; then
-  export PATH="$ANYENV_PATH:$PATH"
-  eval "$(anyenv init -)"
-fi
-
-# editorconfig
-export VISUAL="/usr/local/bin/vim"
-export EDITOR="$VISUAL"
-
-# Golang
-export GOROOT=$( go env GOROOT )
-export GOPATH="$HOME"
-export PATH="$GOPATH/bin:$PATH"
-export GO111MODULE=on
-
-# node.js
-export PATH="$HOME/.nodebrew/current/bin:$PATH"
-
-# coreutils
-if [ "$PS1"  ] && [ -f '/usr/local/Cellar/coreutils/8.12/aliases'  ]; then
-  . /usr/local/Cellar/coreutils/8.12/aliases
-fi
-export PATH="/usr/local/sbin:$PATH"
-
-export PATH="$PATH":"$HOME/.pub-cache/bin"
+#################################################
+# BASIC OPTION
+#################################################
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
@@ -87,8 +34,6 @@ setopt correct
 
 bindkey -e
 
-# End of lines added by compinstall
-
 # colors
 autoload colors
 colors
@@ -109,21 +54,74 @@ precmd () {
 
 PROMPT="%B%F{green}❯❯%1(v|%1v|)%f%b %B%F{blue}%~%f%b
 %B%F{green}❯%f%b "
-#PROMPT="%{$fg[green]%}%m%(!.#.$) %{$reset_color%}"
 PROMPT2="%{$fg[green]%}%_> %{$reset_color%}"
 SPROMPT="%{$fg[red]%}correct: %R -> %r [nyae]? %{$reset_color%}"
-#RPROMPT="%{$fg[blue]%}[%~]%{$reset_color%}"
 
+# locale
+export LC_ALL="en_US.UTF-8"
 
-if [ -f "$HOME/bin/gomi" ]; then
-  alias rm='gomi'
+#################################################
+# Language Option
+#################################################
+
+# Ruby
+export RBENV_PATH=$HOME/.rbenv
+if [ -d "$RBENV_PATH" ]; then
+  export PATH="$RBENV_PATH/bin:$PATH"
+  eval "$(rbenv init -)"
 fi
+
+# Rust
+export CARGO_PATH=$HOME/.cargo
+if [ -d "$CARGO_PATH" ]; then
+  source $CARGO_PATH/env
+  export PATH="$CARGO_PATH/bin:$PATH"
+fi
+
+# Haskell
+if [ -d "$HOME/.stack" ]; then
+  export PATH="~/.local/bin/stack:$PATH"
+  export STACK_BIN="$HOME/.stack/bin"
+  export HASKELL_BIN="$HOME/.local/bin"
+  export PATH="$STACK_BIN:$HASKELL_BIN:$PATH"
+fi
+
+# anyenv
+export ANYENV_PATH="$HOME/.anyenv/bin"
+if [ -d "$ANYENV_PATH" ]; then
+  export PATH="$ANYENV_PATH:$PATH"
+  eval "$(anyenv init -)"
+fi
+
+# editorconfig
+export VISUAL="/usr/local/bin/vim"
+export EDITOR="$VISUAL"
+
+# Golang
+export GOPATH="$HOME"
+if [ -d "$GOPATH" ]; then
+  export PATH="$GOPATH/bin:$PATH"
+  export GO111MODULE=on
+fi
+
+# node.js
+export NODEENV_PATH="$HOME/.nodebrew/current/bin:$PATH"
+if [ -d "$NODEENV_PATH" ]; then
+  export PATH="$NODEENV_PATH:$PATH"
+fi
+
+#################################################
+# Function
+#################################################
+
+# Git
 
 local git==git
 branchname=`${git} symbolic-ref --short HEAD 2> /dev/null`
 function git(){hub "$@"} # zsh
 
-# Function
+# Peco
+
 function peco-src () {
   local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
   if [ -n "$selected_dir" ]; then
@@ -135,7 +133,7 @@ function peco-src () {
 zle -N peco-src
 bindkey '^]' peco-src
 
-## vim build
+# vim build
 function Vim-build () {
   local vim_source_dir="$HOME/src/github.com/vim/vim"
   cd $vim_source_dir
@@ -146,11 +144,15 @@ function Vim-build () {
   cd -
 }
 
+# anyenv install
+
 function anyenv-install ()
 {
   git clone https://github.com/riywo/anyenv ~/.anyenv
   exec $SHELL -l
 }
+
+# ssh
 
 ssh() {
   if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=)" = "tmux" ]; then
@@ -162,8 +164,11 @@ ssh() {
   fi
 }
 
+#################################################
 # Alias
-# for mac
+#################################################
+
+# For mac
 alias awk='gawk'
 
 # basics
@@ -183,11 +188,10 @@ alias gd='git diff'
 alias gdc='git diff --cached'
 alias gc='git commit'
 alias gcm='git commit -m'
-# stack
-alias runghc='stack runghc --'
-alias ghci='stack ghci --'
-alias ghc='stack ghc --'
+# ssh
 alias s='ssh'
-# scheme
-alias gos='rlwrap gosh'
-alias sicp='racket -i -p neil/sicp -l xrepl'
+# others
+if [ -f "$HOME/bin/gomi" ]; then
+  alias rm='gomi'
+fi
+
