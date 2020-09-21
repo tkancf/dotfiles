@@ -157,11 +157,11 @@ augroup END
 " > vim-users.jp/Hack #69
 command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
 function! s:ChangeCurrentDir(directory, bang)
-if a:directory == ''
+  if a:directory == ''
     lcd %:p:h
-else
+  else
     execute 'lcd' . a:directory
-endif
+  endif
 
 if a:bang == ''
     pwd
@@ -200,9 +200,6 @@ nnoremap <F2> :<C-u>tab help<Space>
 " Save file
 nnoremap <ENTER><ENTER> :<C-u>w<CR>
 
-" highlight off
-nnoremap <silent> <C-l> :<C-u>nohlsearch<CR>
-
 " Create new tab
 nnoremap <C-w>t :<C-u>tabnew<CR>
 nnoremap <C-w><C-t> :<C-u>tabnew<CR>
@@ -216,8 +213,7 @@ nnoremap gQ Q
 nnoremap Q <Nop>
 
 " Insertmode
-inoremap <C-l> <C-o>A
-"inoremap <C-k> <Nop>
+inoremap <C-k> <Nop>
 
 " Search selected strings visualmode
 vnoremap * "zy:let @/ = '\V' . substitute(escape(@z, '\/'), '\n', '\\n', 'g')<CR>n
@@ -243,6 +239,7 @@ Plug 'mattn/ctrlp-launcher'
 Plug 'sgur/ctrlp-extensions.vim'
 Plug 'fisadev/vim-ctrlp-cmdpalette'
 Plug 'haya14busa/vim-migemo'
+Plug 'kaneshin/ctrlp-sonictemplate'
 
 " Basics
 "Plug 'vim-jp/vimdoc-ja'
@@ -263,6 +260,7 @@ Plug 'mattn/vim-goimports'
 Plug 'iamcco/mathjax-support-for-mkdp'
 Plug 'iamcco/markdown-preview.vim'
 Plug 'moorereason/vim-markdownfmt'
+Plug 'evanleck/vim-svelte', {'branch': 'main'}
 
 " LSP
 Plug 'prabirshrestha/async.vim'
@@ -271,8 +269,15 @@ Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
+"Plug 'Shougo/neosnippet.vim'
+"Plug 'Shougo/neosnippet-snippets'
+"Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
+"Plug 'thomasfaingnaert/vim-lsp-snippets'
+"Plug 'thomasfaingnaert/vim-lsp-neosnippet'
+
 " Others
 Plug 'mattn/sonictemplate-vim'
+Plug 'tkancf/vim-sonictemplate-templates'
 Plug 'haya14busa/vim-asterisk'
 Plug 'easymotion/vim-easymotion'
 Plug 'miyakogi/seiya.vim'
@@ -493,8 +498,55 @@ let g:asyncomplete_auto_popup = 1
 let g:asyncomplete_auto_completeopt = 1
 let g:asyncomplete_popup_delay = 200
 let g:lsp_text_edit_enabled = 1
+augroup vimrc
+  autocmd BufWritePre <buffer> LspDocumentFormatSync
+augroup END
+
 " }}}
 
+" {{{ 'lambdalisue/gina.vim'
+
+" }}}
+
+"{{{ 'snippet'
+
+"" Plugin key-mappings.
+"" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+"imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"xmap <C-k>     <Plug>(neosnippet_expand_target)
+"
+"" SuperTab like snippets behavior.
+"" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+""imap <expr><TAB>
+"" \ pumvisible() ? "\<C-n>" :
+"" \ neosnippet#expandable_or_jumpable() ?
+"" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+"smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+"\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+"
+"" For conceal markers.
+"if has('conceal')
+"  set conceallevel=2 concealcursor=niv
+"endif
+"
+"call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
+"    \ 'name': 'neosnippet',
+"    \ 'whitelist': ['*'],
+"    \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
+"    \ }))
+
+"}}}
+
+"{{{ 'sonictemplate-vim'
+
+let g:sonictemplate_vim_template_dir = ['~/.vim/plugged/vim-sonictemplate-templates']
+
+"}}}
+
 "==========================================================================}}}1
+
+nnoremap <C-e> :<C-u>CtrlPSonictemplate<CR>
+inoremap <C-e> <ESC>:<C-u>CtrlPSonictemplate<CR>
 
 " vim:foldmethod=marker
