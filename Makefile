@@ -38,18 +38,30 @@ backup: ## Backup bashrc, vimrc, zshrc
 
 .PHONY: remove
 remove: ## Remove bashrc, vimrc, zshrc
-	@echo "remove bashrc"
-	@rm $$HOME/.bashrc
-	@echo "remove zshrc"
-	@rm $$HOME/.zshrc
-	@echo "remove vimrc"
-	@rm $$HOME/.vimrc
-	@echo "remove vim"
-	@rm -rf $$HOME/.vim/
-	@echo "remove tmux.conf"
-	@rm $$HOME/.tmux.conf
-	@echo "remove gitconfig"
-	@rm $$HOME/.gitconfig
+	@if [ -f $$HOME/.bashrc ] ; then\
+		echo "remove bashrc";\
+		rm $$HOME/.bashrc;\
+	fi
+	@if [ -f $$HOME/.bashrc ] ; then\
+		echo "remove zshrc";\
+		rm $$HOME/.zshrc;\
+	fi
+	@if [ -f $$HOME/.bashrc ] ; then\
+		echo "remove vimrc";\
+		rm $$HOME/.vimrc;\
+	fi
+	@if [ -d $$HOME/.vim/ ] ; then\
+		echo "remove vim dir";\
+		unlink $$HOME/.vim/;\
+	fi
+	@if [ -f $$HOME/.bashrc ] ; then\
+		echo "remove tmux.conf";\
+		rm $$HOME/.tmux.conf;\
+	fi
+	@if [ -f $$HOME/.bashrc ] ; then\
+		echo "remove gitconfig";\
+		rm $$HOME/.gitconfig;\
+	fi
 
 .PHONY: link-all
 link-all: ## create symbolick link all files
