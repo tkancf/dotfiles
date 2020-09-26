@@ -7,5 +7,5 @@
 /emacs.d/elpa/*
 /emacs.d/straight/*
 /backup/*
-!/backup/.gitkee*
+!/backup/.gitkeep
 /vim/autoload/
