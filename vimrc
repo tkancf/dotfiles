@@ -405,6 +405,13 @@ augroup vimrc
 augroup END
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 
+augroup vimrc
+  au!
+  autocmd BufNewFile,BufRead *.crs setf rust
+  autocmd BufNewFile,BufRead *.rs  let g:quickrun_config.rust = {'exec' : 'cargo run'}
+  autocmd BufNewFile,BufRead *.crs let g:quickrun_config.rust = {'exec' : 'cargo script %s -- %a'}
+augroup END
+
 " }}}
 
 " 'soramugi/auto-ctags.vim' {{{
