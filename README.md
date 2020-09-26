@@ -3,7 +3,7 @@
 ## Install one liner
 
 ```
-bash -c "$(curl -LfSs https://raw.githubusercontent.com/tkancf/dotfiles/master/init.sh)"
+bash -c "$(curl -LfSs ggdg.tkan.dev/init.sh)"
 ```
 
 ## install commands
