@@ -71,7 +71,7 @@ link-vim: ## create symbolick link all files
 	@echo "link vimrc"
 	@ln -sf $$HOME/.dotfiles/vimrc $$HOME/.vimrc
 	@echo "link vim dir"
-	@ln -nsf $HOME/.dotfiles/vim $$HOME/.vim
+	@ln -nsf $$HOME/.dotfiles/vim $$HOME/.vim
 
 .PHONY: help
 help: ## Display this help messages
