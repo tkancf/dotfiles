@@ -8,4 +8,5 @@
 /emacs.d/straight/*
 /backup/*
 !/backup/.gitkeep
-/vim/autoload/
+/vim/autoload/*
+!/vim/autoload/.gitkeep
