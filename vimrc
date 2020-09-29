@@ -353,7 +353,6 @@ let g:memolist_template_dir_path = "~/.vim/template/"
 let g:memolist_path = $HOME . "/Dropbox/memo"
 let g:memolist_memo_date = "%Y-%m-%dT%H:%M:%S+09:00"
 let g:memolist_ex_cmd = 'CtrlP'
-
 " }}}
 
 " 'vim-jp/vimdoc-ja' {{{
@@ -434,7 +433,7 @@ map  <Space>w <Plug>(easymotion-bd-w)
 nmap <Space>w <Plug>(easymotion-overwin-w)
 " }}}
 
-" 'seiya.vim' {{{
+" 'miyakogi/seiya.vim' {{{
 let g:seiya_auto_enable=1
 " }}}
 
@@ -466,7 +465,12 @@ function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=yes
     nmap <buffer> gd <plug>(lsp-definition)
-    nmap <buffer> gr <plug>(lsp-rename)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
     nmap <buffer> K <plug>(lsp-hover)
     inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
     " refer to doc to add more commands
@@ -501,7 +505,7 @@ nnoremap <silent> <Space>gc :<C-u>Gina commit<CR>
 
 " }}}
 
-"{{{ 'sonictemplate-vim'
+"{{{ 'mattn/sonictemplate-vim'
 
 let g:sonictemplate_vim_template_dir = ['~/.vim/plugged/vim-sonictemplate-templates']
 nnoremap <C-e> :<C-u>CtrlPSonictemplate<CR>
