@@ -180,7 +180,7 @@ alias grep='ggrep --color=auto'
 alias t='tmux -2'
 alias vi='vim'
 # git
-alias g='git'
+alias gs='git status'
 alias gl='git log --graph'
 alias gg='git graph'
 alias ga='git add .'

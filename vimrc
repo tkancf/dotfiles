@@ -219,7 +219,7 @@ inoremap <C-k> <Nop>
 vnoremap * "zy:let @/ = '\V' . substitute(escape(@z, '\/'), '\n', '\\n', 'g')<CR>n
 
 " Edit macro
-nnoremap <leader>... :<c-u><c-r><c-r>='let @q = '. string(getreg('q'))<cr><c-f><left>
+nnoremap <Space>... :<c-u><c-r><c-r>='let @q = '. string(getreg('q'))<cr><c-f><left>
 
 "==========================================================================}}}1
 
@@ -237,25 +237,24 @@ Plug 'itchyny/lightline.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mattn/ctrlp-launcher'
 Plug 'sgur/ctrlp-extensions.vim'
-Plug 'fisadev/vim-ctrlp-cmdpalette'
 Plug 'haya14busa/vim-migemo'
 Plug 'kaneshin/ctrlp-sonictemplate'
 
 " Basics
 "Plug 'vim-jp/vimdoc-ja'
 Plug 'scrooloose/nerdtree'
-Plug 'thinca/vim-quickrun'
 Plug 'glidenote/memolist.vim'
-Plug 'kana/vim-operator-user'
-Plug 'rhysd/vim-operator-surround'
+
+Plug 'rhysd/vim-operator-surround' | Plug 'kana/vim-operator-user'
 Plug 'jiangmiao/auto-pairs'
 Plug 'kana/vim-submode'
 Plug 'lambdalisue/gina.vim'
-Plug 'previm/previm'
+Plug 'previm/previm' | Plug 'tyru/open-browser.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'jeetsukumaran/vim-buffergator'
 
 " Languages
+Plug 'thinca/vim-quickrun'
 Plug 'mattn/vim-goimports'
 Plug 'iamcco/mathjax-support-for-mkdp'
 Plug 'iamcco/markdown-preview.vim'
@@ -268,12 +267,6 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
-
-"Plug 'Shougo/neosnippet.vim'
-"Plug 'Shougo/neosnippet-snippets'
-"Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
-"Plug 'thomasfaingnaert/vim-lsp-snippets'
-"Plug 'thomasfaingnaert/vim-lsp-neosnippet'
 
 " Others
 Plug 'mattn/sonictemplate-vim'
@@ -309,17 +302,22 @@ colorscheme wombat256mod
 " }}}
 
 " 'previm/previm' {{{
-let g:previm_open_cmd = 'open '
+"let g:previm_open_cmd = 'open '
 "}}}
 
 " 'ctrlpvim/ctrlp.vim' {{{
+let g:ctrlp_map = '<Nop>'
 nnoremap <silent> <Space>b :<C-u>CtrlPBuffer<CR>
 nnoremap <silent> <Space>u :<C-u>CtrlPMRUFiles<CR>
-nnoremap <silent> <Space>p :<C-u>CtrlPMixed<CR>
 
-"let g:ctrlp_use_migemo = 1
-let g:ctrlp_extensions = ['quickfix', 'mixed', 'cmdline']
-let g:ctrlp_max_files  = 10000
+" 'mattn/ctrlp-launcher'
+nnoremap <silent> <Space><Space> :<C-u>CtrlPLauncher<CR>
+
+" 'sgur/ctrlp-extensions.vim'
+nnoremap <silent> <Space>p :<C-u>CtrlPMenu<CR>
+
+let g:ctrlp_extensions = ['quickfix', 'cmdline']
+let g:ctrlp_max_files  = 1000
 let g:ctrlp_by_filename = 1
 let g:ctrlp_max_depth = 20
 let g:ctrlp_working_path_mode = 'ra'
@@ -340,8 +338,6 @@ if executable('ag')
           \ --ignore "Applications/*"
           \ --ignore "Library/*"
           \ -g ""'
-
-    let g:ctrlp_use_caching = 0
 else
     let g:ctrlp_custom_ignore = {
       \ 'dir':  '\v[\/]\.(git|hg|svn)$',
@@ -349,18 +345,6 @@ else
       \ 'link': 'some_bad_symbolic_links',
       \ }
 endif
- " }}}
-
-" 'mattn/ctrlp-launcher' {{{
-nnoremap <Space><Space> :<C-u>CtrlPLauncher<CR>
-" }}}
-
-" 'sgur/ctrlp-extensions.vim' {{{
-nnoremap <Space>m :<C-u>CtrlPMenu<CR>
-" }}}
-
-" 'fisadev/vim-ctrlp-cmdpalette' {{{
-nnoremap <Space>c :<C-u>CtrlPCmdPalette<CR>
 " }}}
 
 " 'glidenote/memolist.vim' {{{
@@ -438,9 +422,8 @@ map g# <Plug>(asterisk-gz#)
 " }}}
 
 " 'easymotion/vim-easymotion' {{{
-" <Leader>f{char} to move to {char}
-map  <Space>f <Plug>(easymotion-bd-f)
-nmap <Space>f <Plug>(easymotion-overwin-f)
+map  <Space>i <Plug>(easymotion-bd-f)
+nmap <Space>i <Plug>(easymotion-overwin-f)
 
 " Move to line
 map <Space>l <Plug>(easymotion-bd-jk)
@@ -513,47 +496,19 @@ augroup END
 
 " {{{ 'lambdalisue/gina.vim'
 
+nnoremap <silent> <Space>gs :<C-u>Gina status<CR>
+nnoremap <silent> <Space>gc :<C-u>Gina commit<CR>
+
 " }}}
-
-"{{{ 'snippet'
-
-"" Plugin key-mappings.
-"" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-"imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-"smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-"xmap <C-k>     <Plug>(neosnippet_expand_target)
-"
-"" SuperTab like snippets behavior.
-"" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-""imap <expr><TAB>
-"" \ pumvisible() ? "\<C-n>" :
-"" \ neosnippet#expandable_or_jumpable() ?
-"" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-"smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-"\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-"
-"" For conceal markers.
-"if has('conceal')
-"  set conceallevel=2 concealcursor=niv
-"endif
-"
-"call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
-"    \ 'name': 'neosnippet',
-"    \ 'whitelist': ['*'],
-"    \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
-"    \ }))
-
-"}}}
 
 "{{{ 'sonictemplate-vim'
 
 let g:sonictemplate_vim_template_dir = ['~/.vim/plugged/vim-sonictemplate-templates']
+nnoremap <C-e> :<C-u>CtrlPSonictemplate<CR>
+inoremap <C-e> <ESC>:<C-u>CtrlPSonictemplate<CR>
 
 "}}}
 
 "==========================================================================}}}1
-
-nnoremap <C-e> :<C-u>CtrlPSonictemplate<CR>
-inoremap <C-e> <ESC>:<C-u>CtrlPSonictemplate<CR>
 
 " vim:foldmethod=marker
