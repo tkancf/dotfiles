@@ -105,7 +105,11 @@ if [ -d "$GOPATH" ]; then
 fi
 
 # node.js
-export NODEENV_PATH="$HOME/.nodebrew/current/bin:$PATH"
+# brew install nodebrew
+# nodebrew install-binary stable
+# nodebrew use vX.X.X
+
+export NODEENV_PATH="$HOME/.nodebrew/current/bin"
 if [ -d "$NODEENV_PATH" ]; then
   export PATH="$NODEENV_PATH:$PATH"
 fi
