@@ -129,24 +129,18 @@ set guioptions=c
 "==============================================================================
 augroup vimrc
     au!
-  " Haskell {{{
+  " Haskell
     autocmd FileType haskell setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
-  " }}}
-  " Markdown {{{
+  " Markdown
     autocmd FileType markdown setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
-  " }}}
-  " Go {{{
-    autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
-  " }}}
-  " Vue {{{
-    autocmd BufRead,BufNewFile *.vue setlocal filetype=vue
-  " }}}
-  " Elm {{{
+  " Go
+    autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
+  " Vue
+    autocmd BufRead,BufNewFile *.vue setfiletype vue
+  " Elm
     autocmd FileType elm setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
-  " }}}
-  " racket {{{
-    autocmd BufNewFile,BufRead,BufReadPost *.rkt,*.rktl set filetype=scheme
-  " }}}
+  " racket
+    autocmd BufNewFile,BufRead *.rkt,*.rktl setfiletype scheme 
 augroup END
 
 "==========================================================================}}}1
@@ -242,7 +236,7 @@ Plug 'haya14busa/vim-migemo'
 Plug 'kaneshin/ctrlp-sonictemplate'
 
 " Basics
-"Plug 'vim-jp/vimdoc-ja'
+Plug 'vim-jp/vimdoc-ja'
 Plug 'scrooloose/nerdtree'
 Plug 'thinca/vim-quickrun'
 Plug 'glidenote/memolist.vim'
@@ -268,12 +262,6 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
-
-"Plug 'Shougo/neosnippet.vim'
-"Plug 'Shougo/neosnippet-snippets'
-"Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
-"Plug 'thomasfaingnaert/vim-lsp-snippets'
-"Plug 'thomasfaingnaert/vim-lsp-neosnippet'
 
 " Others
 Plug 'mattn/sonictemplate-vim'
@@ -406,7 +394,6 @@ augroup END
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 
 augroup vimrc
-  au!
   autocmd BufNewFile,BufRead *.crs setf rust
   autocmd BufNewFile,BufRead *.rs  let g:quickrun_config.rust = {'exec' : 'cargo run'}
   autocmd BufNewFile,BufRead *.crs let g:quickrun_config.rust = {'exec' : 'cargo script %s -- %a'}
@@ -489,8 +476,7 @@ function! s:on_lsp_buffer_enabled() abort
     " refer to doc to add more commands
 endfunction
 
-augroup lsp_install
-    au!
+augroup vimrc
     " call s:on_lsp_buffer_enabled only for languages that has the server registered.
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
@@ -515,45 +501,13 @@ augroup END
 
 " }}}
 
-"{{{ 'snippet'
-
-"" Plugin key-mappings.
-"" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-"imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-"smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-"xmap <C-k>     <Plug>(neosnippet_expand_target)
-"
-"" SuperTab like snippets behavior.
-"" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-""imap <expr><TAB>
-"" \ pumvisible() ? "\<C-n>" :
-"" \ neosnippet#expandable_or_jumpable() ?
-"" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-"smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-"\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-"
-"" For conceal markers.
-"if has('conceal')
-"  set conceallevel=2 concealcursor=niv
-"endif
-"
-"call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
-"    \ 'name': 'neosnippet',
-"    \ 'whitelist': ['*'],
-"    \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
-"    \ }))
-
-"}}}
-
 "{{{ 'sonictemplate-vim'
 
 let g:sonictemplate_vim_template_dir = ['~/.vim/plugged/vim-sonictemplate-templates']
+nnoremap <C-e> :<C-u>CtrlPSonictemplate<CR>
 
 "}}}
 
 "==========================================================================}}}1
-
-nnoremap <C-e> :<C-u>CtrlPSonictemplate<CR>
-inoremap <C-e> <ESC>:<C-u>CtrlPSonictemplate<CR>
 
 " vim:foldmethod=marker
