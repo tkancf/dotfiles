@@ -1,13 +1,9 @@
 " Basic {{{1
 "==============================================================================
-" plug install
-let s:vim_plug_url='https://github.com/junegunn/vim-plug'
 
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
+augroup vimrc
+  au!
+augroup END
 
 " keyword define
 set iskeyword+=-
@@ -118,13 +114,6 @@ if filereadable(expand($HOME . '/.vimrc.local'))
   source $HOME/.vimrc.local
 endif
 
-"if has('mac')
-"  set shell=/usr/local/bin/zsh
-"else
-"  set shell=/usr/bin/zsh
-"endif
-
-
 "==========================================================================}}}1
 
 " GUI{{{1
@@ -147,7 +136,6 @@ set guioptions=c
 " File type{{{1
 "==============================================================================
 augroup vimrc
-  au!
   " Haskell
   autocmd FileType haskell setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
   " Markdown
@@ -217,47 +205,47 @@ nnoremap <ENTER><ENTER> :<C-u>w<CR>
 nnoremap <C-w>t :<C-u>tabnew<CR>
 nnoremap <C-w><C-t> :<C-u>tabnew<CR>
 
-" Change ; & :
+" Swap ; & :
 noremap ;  :
 noremap :  ;
 
-" Ex-mode
+" Q の誤入力 で Ex-mode になるのを防ぐ
 nnoremap gQ Q
 nnoremap Q <Nop>
 
-" Insertmode
+" Insert-mode の <C-k> 誤入力で不可視文字が入って泣いたことがあるので、Disable する
 inoremap <C-k> <Nop>
 
-" Search selected strings visualmode
+" Visual-mode の * をいい感じにする
 vnoremap * "zy:let @/ = '\V' . substitute(escape(@z, '\/'), '\n', '\\n', 'g')<CR>n
 
-" Edit macro
-nnoremap <Space>... :<c-u><c-r><c-r>='let @q = '. string(getreg('q'))<cr><c-f><left>
+" q に割り当てた macro を編集する
+nnoremap <Space>. :<c-u><c-r><c-r>='let @q = '. string(getreg('q'))<cr><c-f><left>
 
 "==========================================================================}}}1
 
 " Plugin Load {{{
 "==============================================================================
 
+" Plug install
+" vim-plug がない時に自動でインストール
+let s:vim_plug_url='https://github.com/junegunn/vim-plug'
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 call plug#begin($HOME . "/.vim/plugged")
-"
 
 " Color
 Plug 'vim-scripts/wombat256.vim'
 Plug 'itchyny/lightline.vim'
 
-" ctrlp
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'mattn/ctrlp-launcher'
-Plug 'sgur/ctrlp-extensions.vim'
-Plug 'haya14busa/vim-migemo'
-Plug 'kaneshin/ctrlp-sonictemplate'
-
 " Basics
 Plug 'vim-jp/vimdoc-ja'
 Plug 'scrooloose/nerdtree'
 Plug 'glidenote/memolist.vim'
-
 Plug 'rhysd/vim-operator-surround' | Plug 'kana/vim-operator-user'
 Plug 'jiangmiao/auto-pairs'
 Plug 'kana/vim-submode'
@@ -265,6 +253,17 @@ Plug 'lambdalisue/gina.vim'
 Plug 'previm/previm' | Plug 'tyru/open-browser.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'jeetsukumaran/vim-buffergator'
+Plug 'haya14busa/vim-asterisk'
+Plug 'easymotion/vim-easymotion'
+Plug 'miyakogi/seiya.vim'
+Plug 'rizzatti/dash.vim'
+
+" Ctrlp
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'mattn/ctrlp-launcher'
+Plug 'sgur/ctrlp-extensions.vim'
+Plug 'haya14busa/vim-migemo'
+Plug 'kaneshin/ctrlp-sonictemplate'
 
 " Languages
 Plug 'thinca/vim-quickrun'
@@ -273,6 +272,8 @@ Plug 'iamcco/mathjax-support-for-mkdp'
 Plug 'iamcco/markdown-preview.vim'
 Plug 'moorereason/vim-markdownfmt'
 Plug 'evanleck/vim-svelte', {'branch': 'main'}
+Plug 'mattn/sonictemplate-vim'
+Plug 'tkancf/vim-sonictemplate-templates'
 
 " LSP
 Plug 'prabirshrestha/vim-lsp'
@@ -284,14 +285,6 @@ if str2nr(strpart(system("node -v"), 1)) < 10.12
 else
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endif
-
-" Others
-Plug 'mattn/sonictemplate-vim'
-Plug 'tkancf/vim-sonictemplate-templates'
-Plug 'haya14busa/vim-asterisk'
-Plug 'easymotion/vim-easymotion'
-Plug 'miyakogi/seiya.vim'
-Plug 'rizzatti/dash.vim'
 
 " Twitter
 Plug 'basyura/TweetVim'
@@ -315,7 +308,7 @@ function! s:plug.is_installed(name)
   return has_key(self.plugs, a:name) ? isdirectory(self.plugs[a:name].dir) : 0
 endfunction
 
-" check the specified plugin is installed
+" プラグインが plug でインストールされているかチェックする
 function s:is_plugged(name)
   if exists('g:plugs') && has_key(g:plugs, a:name) && isdirectory(g:plugs[a:name].dir)
     return 1
@@ -324,13 +317,8 @@ function s:is_plugged(name)
   endif
 endfunction
 
-" {{{ Colorscheme
+" カラースキーム
 colorscheme wombat256mod
-" }}}
-
-" 'previm/previm' {{{
-"let g:previm_open_cmd = 'open '
-"}}}
 
 " 'ctrlpvim/ctrlp.vim' {{{
 let g:ctrlp_map = '<Nop>'
@@ -379,7 +367,7 @@ endif
 
 " 'glidenote/memolist.vim' {{{
 let g:memolist_memo_suffix = "md"
-let g:memolist_template_dir_path = "~/.vim/template/"
+let g:memolist_template_dir_path = $HOME . ".vim/template/"
 let g:memolist_path = $HOME . "/Dropbox/memo"
 let g:memolist_memo_date = "%Y-%m-%dT%H:%M:%S+09:00"
 let g:memolist_ex_cmd = 'CtrlP'
@@ -501,7 +489,7 @@ else
     nmap <buffer> gr <plug>(lsp-references)
     nmap <buffer> gi <plug>(lsp-implementation)
     nmap <buffer> gt <plug>(lsp-type-definition)
-    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> <Leader>rn <plug>(lsp-rename)
     nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
     nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
     nmap <buffer> K <plug>(lsp-hover)
@@ -601,11 +589,11 @@ if s:is_plugged("coc.nvim")
   autocmd CursorHold * silent call CocActionAsync('highlight')
 
   " Symbol renaming.
-  nmap <leader>rn <Plug>(coc-rename)
+  nmap <Leader>rn <Plug>(coc-rename)
 
   " Formatting selected code.
-  xmap <leader>f  <Plug>(coc-format-selected)
-  nmap <leader>f  <Plug>(coc-format-selected)
+  xmap <Leader>f  <Plug>(coc-format-selected)
+  nmap <Leader>f  <Plug>(coc-format-selected)
 
   augroup mygroup
     autocmd!
@@ -616,14 +604,14 @@ if s:is_plugged("coc.nvim")
   augroup end
 
   " Applying codeAction to the selected region.
-  " Example: `<leader>aap` for current paragraph
-  xmap <leader>a  <Plug>(coc-codeaction-selected)
-  nmap <leader>a  <Plug>(coc-codeaction-selected)
+  " Example: `<Leader>aap` for current paragraph
+  xmap <Leader>a  <Plug>(coc-codeaction-selected)
+  nmap <Leader>a  <Plug>(coc-codeaction-selected)
 
   " Remap keys for applying codeAction to the current buffer.
-  nmap <leader>ac  <Plug>(coc-codeaction)
+  nmap <Leader>ac  <Plug>(coc-codeaction)
   " Apply AutoFix to problem on the current line.
-  nmap <leader>qf  <Plug>(coc-fix-current)
+  nmap <Leader>qf  <Plug>(coc-fix-current)
 
   " Map function and class text objects
   " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
