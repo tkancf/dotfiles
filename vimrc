@@ -366,6 +366,7 @@ endif
 
 let g:quickrun_config = {
 \  "_" : {
+\    'runner' : 'job',
 \    'outputter/buffer/split' : ':botright 8sp',
 \    'outputter' : 'error',
 \    'outputter/error/success' : 'buffer',

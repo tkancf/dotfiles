@@ -138,7 +138,7 @@ function Vim-build () {
   local vim_source_dir="$HOME/src/github.com/vim/vim"
   cd $vim_source_dir
   git pull
-  ./configure --with-features=huge --enable-gui=gtk2  --enable-perlinterp --enable-rubyinterp  --enable-luainterp --with-lua-prefix=/usr/local/Cellar/lua/5.3.5_1 --enable-fail-if-missing
+  ./configure --with-features=huge --enable-fail-if-missing
   make
   sudo make install
   cd -
