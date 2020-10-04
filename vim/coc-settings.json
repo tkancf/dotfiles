@@ -2,7 +2,7 @@
   "languageserver": {
     "go": {
       "command": "~/.local/share/vim-lsp-settings/servers/gopls/gopls",
-      "rootPatterns": ["go.mod"],
+      "rootPatterns": ["go.mod", ".git", "main.go"],
       "trace.server": "verbose",
       "filetypes": ["go"]
     },
