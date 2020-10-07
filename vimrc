@@ -1,6 +1,7 @@
 " Basic {{{1
 "==============================================================================
 
+" Reset augroup
 augroup vimrc
   au!
 augroup END
@@ -49,7 +50,6 @@ if !filereadable(expand($HOME . '/.vim/tmp'))
 endif
 set directory=$HOME/.vim/tmp
 
-
 " Enable matchit
 if !exists('loaded_matchit')
   runtime macros/matchit.vim
@@ -97,9 +97,6 @@ set cmdheight=2
 " delays and poor user experience.
 set updatetime=300
 
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
-
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 if has("patch-8.1.1564")
@@ -118,6 +115,7 @@ endif
 
 " GUI{{{1
 "==============================================================================
+
 if has('mac')
   set guifont=RictyDiminished-Regular:h18
 else
@@ -131,31 +129,29 @@ set guioptions-=l
 set guioptions-=L
 set guioptions-=b
 set guioptions=c
+
 "==========================================================================}}}1
 
 " File type{{{1
 "==============================================================================
+
 augroup vimrc
-  " Haskell
   autocmd FileType haskell setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
-  " Markdown
   autocmd FileType markdown setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
-  " Go
   autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
-  " Vue
   autocmd BufRead,BufNewFile *.vue setfiletype vue
-  " Elm
   autocmd FileType elm setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
-  " racket
-  autocmd BufNewFile,BufRead *.rkt,*.rktl setfiletype scheme 
+  autocmd BufNewFile,BufRead *.rkt,*.rktl setfiletype scheme
 augroup END
 
 "==========================================================================}}}1
 
 " Function {{{
 "==============================================================================
-" {{{  Easy change directory
+
+" Easy change directory
 " > vim-users.jp/Hack #69
+" https://vim-jp.org/vim-users-jp/2009/09/08/Hack-69.html
 command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
 function! s:ChangeCurrentDir(directory, bang)
   if a:directory == ''
@@ -168,19 +164,21 @@ function! s:ChangeCurrentDir(directory, bang)
     pwd
   endif
 endfunction
-" }}}
 
-"{{{ Rename file
+"Rename file
 " > vim-users.jp/Hack #17
+" https://vim-jp.org/vim-users-jp/2009/05/27/Hack-17.html
 command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
-"}}}
 
 "===========================================================================}}}
 
 " Key map{{{1
 "==============================================================================
+
+" s, Space を無効化
 nnoremap s <Nop>
 nnoremap <Space> <Nop>
+nnoremap <Enter> <Nop>
 
 " j, kで見た目通りに移動
 nnoremap j gj
@@ -199,13 +197,13 @@ nnoremap <F3> :<C-u>vertical belowright help<Space>
 nnoremap <F2> :<C-u>tab help<Space>
 
 " Save file
-nnoremap <ENTER><ENTER> :<C-u>w<CR>
+nnoremap <Enter><Enter> :<C-u>w<CR>
 
 " Create new tab
 nnoremap <C-w>t :<C-u>tabnew<CR>
 nnoremap <C-w><C-t> :<C-u>tabnew<CR>
 
-" Swap ; & :
+" Swap ; :
 noremap ;  :
 noremap :  ;
 
@@ -251,8 +249,6 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'kana/vim-submode'
 Plug 'lambdalisue/gina.vim'
 Plug 'previm/previm' | Plug 'tyru/open-browser.vim'
-Plug 'junegunn/vim-easy-align'
-Plug 'jeetsukumaran/vim-buffergator'
 Plug 'haya14busa/vim-asterisk'
 Plug 'easymotion/vim-easymotion'
 Plug 'miyakogi/seiya.vim'
@@ -268,12 +264,10 @@ Plug 'kaneshin/ctrlp-sonictemplate'
 " Languages
 Plug 'thinca/vim-quickrun'
 Plug 'mattn/vim-goimports'
-Plug 'iamcco/mathjax-support-for-mkdp'
-Plug 'iamcco/markdown-preview.vim'
-Plug 'moorereason/vim-markdownfmt'
 Plug 'evanleck/vim-svelte', {'branch': 'main'}
 Plug 'mattn/sonictemplate-vim'
 Plug 'tkancf/vim-sonictemplate-templates'
+Plug 'plasticboy/vim-markdown' | Plug 'godlygeek/tabular'
 
 " LSP
 Plug 'prabirshrestha/vim-lsp'
@@ -284,6 +278,7 @@ if str2nr(strpart(system("node -v"), 1)) < 10.12
   Plug 'prabirshrestha/asyncomplete-lsp.vim'
 else
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'Shougo/neosnippet.vim' | Plug 'Shougo/neosnippet-snippets'
 endif
 
 " Twitter
@@ -400,8 +395,8 @@ let g:quickrun_config = {
       \}
 
 let g:quickrun_no_default_key_mappings = 1
-nnoremap <space>r :cclose<CR>:write<CR>:QuickRun -mode n<CR>
-xnoremap <space>r :<C-U>cclose<CR>:write<CR>gv:QuickRun -mode v<CR>
+nnoremap <Space>r :cclose<CR>:write<CR>:QuickRun -mode n<CR>
+xnoremap <Space>r :<C-U>cclose<CR>:write<CR>gv:QuickRun -mode v<CR>
 augroup vimrc
   autocmd FileType qf nnoremap <silent><buffer>q :quit<CR>
 augroup END
@@ -466,18 +461,11 @@ call submode#map('winsize', 'n', '', '+', '<C-w>+')
 call submode#map('winsize', 'n', '', '-', '<C-w>-')
 " }}}
 
-" 'junegunn/vim-easy-align'{{{
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-" }}}
-
 "{{{ 'scrooloose/nerdtree'
 nnoremap - :<C-u>NERDTreeToggle<CR>
 "}}}
 
-"" 'prabirshrestha/vim-lsp' {{{
+" 'prabirshrestha/vim-lsp' {{{
 
 if s:is_plugged("coc.nvim")
   let g:lsp_auto_enable = 0
@@ -486,10 +474,10 @@ else
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=yes
     nmap <buffer> gd <plug>(lsp-definition)
-    nmap <buffer> gr <plug>(lsp-references)
-    nmap <buffer> gi <plug>(lsp-implementation)
-    nmap <buffer> gt <plug>(lsp-type-definition)
-    nmap <buffer> <Leader>rn <plug>(lsp-rename)
+    nmap <buffer> gr <plug>(lsp-rename)
+    nmap <buffer> <Leader>r <plug>(lsp-references)
+    nmap <buffer> <Leader>i <plug>(lsp-implementation)
+    nmap <buffer> <Leader>t <plug>(lsp-type-definition)
     nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
     nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
     nmap <buffer> K <plug>(lsp-hover)
@@ -509,6 +497,7 @@ else
   let g:asyncomplete_auto_completeopt = 1
   let g:asyncomplete_popup_delay = 200
   let g:lsp_text_edit_enabled = 1
+
   augroup vimrc
     autocmd BufWritePre <buffer> LspDocumentFormatSync
   augroup END
@@ -534,13 +523,6 @@ nnoremap <C-e> :<C-u>CtrlPSonictemplate<CR>
 
 if s:is_plugged("coc.nvim")
 
-  " Some servers have issues with backup files, see #649.
-  " set nobackup
-  " set nowritebackup
-
-  " Use tab for trigger completion with characters ahead and navigate.
-  " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-  " other plugin before putting this into your config.
   inoremap <silent><expr> <TAB>
         \ pumvisible() ? "\<C-n>" :
         \ <SID>check_back_space() ? "\<TAB>" :
@@ -554,28 +536,20 @@ if s:is_plugged("coc.nvim")
 
   inoremap <silent><expr> <c-@> coc#refresh()
 
-  " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-  " position. Coc only does snippet and additional edit on confirm.
-  " <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
   if exists('*complete_info')
     inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
   else
     inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
   endif
 
-  " Use `[g` and `]g` to navigate diagnostics
-  " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
   nmap <silent> [g <Plug>(coc-diagnostic-prev)
   nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-  " GoTo code navigation.
   nmap <silent> gd <Plug>(coc-definition)
-  nmap <silent> gy <Plug>(coc-type-definition)
-  nmap <silent> gi <Plug>(coc-implementation)
-  nmap <silent> gr <Plug>(coc-references)
-
-  " Use K to show documentation in preview window.
+  nmap gr <Plug>(coc-rename)
   nnoremap <silent> K :call <SID>show_documentation()<CR>
+  nmap <silent> <Leader>t <Plug>(coc-type-definition)
+  nmap <silent> <Leader>r <Plug>(coc-references)
+  nmap <silent> <Leader>i <Plug>(coc-implementation)
 
   function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
@@ -585,18 +559,10 @@ if s:is_plugged("coc.nvim")
     endif
   endfunction
 
-  " Highlight the symbol and its references when holding the cursor.
+  " カーソルが止まった箇所をハイライト
   autocmd CursorHold * silent call CocActionAsync('highlight')
 
-  " Symbol renaming.
-  nmap <Leader>rn <Plug>(coc-rename)
-
-  " Formatting selected code.
-  xmap <Leader>f  <Plug>(coc-format-selected)
-  nmap <Leader>f  <Plug>(coc-format-selected)
-
-  augroup mygroup
-    autocmd!
+  augroup vimrc
     " Setup formatexpr specified filetype(s).
     autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
     " Update signature help on jump placeholder.
@@ -604,14 +570,13 @@ if s:is_plugged("coc.nvim")
   augroup end
 
   " Applying codeAction to the selected region.
-  " Example: `<Leader>aap` for current paragraph
-  xmap <Leader>a  <Plug>(coc-codeaction-selected)
-  nmap <Leader>a  <Plug>(coc-codeaction-selected)
+  xmap <Enter>s  <Plug>(coc-codeaction-selected)
+  nmap <Enter>s <Plug>(coc-codeaction-selected)
 
   " Remap keys for applying codeAction to the current buffer.
-  nmap <Leader>ac  <Plug>(coc-codeaction)
+  nmap <Enter>a  <Plug>(coc-codeaction)
   " Apply AutoFix to problem on the current line.
-  nmap <Leader>qf  <Plug>(coc-fix-current)
+  nmap <Enter>f  <Plug>(coc-fix-current)
 
   " Map function and class text objects
   " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
@@ -645,21 +610,21 @@ if s:is_plugged("coc.nvim")
 
   " Mappings for CoCList
   " Show all diagnostics.
-  nnoremap <silent><nowait> <Leader>a  :<C-u>CocList diagnostics<cr>
+  nnoremap <silent><nowait> <Enter>d  :<C-u>CocList diagnostics<cr>
   " Manage extensions.
-  nnoremap <silent><nowait> <Leader>e  :<C-u>CocList extensions<cr>
+  nnoremap <silent><nowait> <Enter>e  :<C-u>CocList extensions<cr>
   " Show commands.
-  nnoremap <silent><nowait> <Leader>c  :<C-u>CocList commands<cr>
+  nnoremap <silent><nowait> <Enter>c  :<C-u>CocList commands<cr>
   " Find symbol of current document.
-  nnoremap <silent><nowait> <Leader>o  :<C-u>CocList outline<cr>
+  nnoremap <silent><nowait> <Enter>o  :<C-u>CocList outline<cr>
   " Search workspace symbols.
-  nnoremap <silent><nowait> <Leader>s  :<C-u>CocList -I symbols<cr>
+  nnoremap <silent><nowait> <Enter>l  :<C-u>CocList -I symbols<cr>
   " Do default action for next item.
-  nnoremap <silent><nowait> <Leader>j  :<C-u>CocNext<CR>
+  nnoremap <silent><nowait> <Enter>j  :<C-u>CocNext<CR>
   " Do default action for previous item.
-  nnoremap <silent><nowait> <Leader>k  :<C-u>CocPrev<CR>
+  nnoremap <silent><nowait> <Enter>k  :<C-u>CocPrev<CR>
   " Resume latest coc list.
-  nnoremap <silent><nowait> <Leader>p  :<C-u>CocListResume<CR>
+  nnoremap <silent><nowait> <Enter>r  :<C-u>CocListResume<CR>
 
 endif
 
