@@ -259,7 +259,6 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mattn/ctrlp-launcher'
 Plug 'sgur/ctrlp-extensions.vim'
 Plug 'haya14busa/vim-migemo'
-Plug 'kaneshin/ctrlp-sonictemplate'
 
 " Languages
 Plug 'thinca/vim-quickrun'
@@ -514,7 +513,6 @@ nnoremap <silent> <Space>gc :<C-u>Gina commit<CR>
 "{{{ 'mattn/sonictemplate-vim'
 
 let g:sonictemplate_vim_template_dir = ['~/.vim/plugged/vim-sonictemplate-templates']
-nnoremap <C-e> :<C-u>CtrlPSonictemplate<CR>
 
 "}}}
 
