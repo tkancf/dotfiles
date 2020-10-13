@@ -369,6 +369,13 @@ let g:memolist_ex_cmd = 'CtrlP'
 set helplang=ja,en
 " }}}
 
+"{{{ 'tyru/open-browser.vim'
+
+nmap <Leader>o <Plug>(openbrowser-smart-search)
+vmap <Leader>o <Plug>(openbrowser-smart-search)
+
+"}}}
+
 " 'thinca/vim-quickrun' {{{
 if !exists("g:quickrun_config")
   let g:quickrun_config={}
