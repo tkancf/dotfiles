@@ -1,8 +1,8 @@
 [user]
-	name = tkancf
-	email = tkncf789@gmail.com
+  name = tkancf
+  email = tkncf789@gmail.com
 [include]
-	path = ~/.gitconfig.local
+  path = ~/.gitconfig.local
 
 [url "https://"]
 	insteadOf = git://
@@ -40,6 +40,13 @@
 
 [push]
 	default = matching
+
+[merge]
+	ff = false
+
+[pull]
+	ff = only
+
 [color]
 	ui = true
 [credential]
