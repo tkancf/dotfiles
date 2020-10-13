@@ -6,6 +6,8 @@ augroup vimrc
   au!
 augroup END
 
+set number
+
 " keyword define
 set iskeyword+=-
 
@@ -179,6 +181,10 @@ command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
 nnoremap s <Nop>
 nnoremap <Space> <Nop>
 nnoremap <Enter> <Nop>
+nnoremap <Up> <Nop>
+nnoremap <Down> <Nop>
+nnoremap <Left> <Nop>
+nnoremap <Right> <Nop>
 
 " j, kで見た目通りに移動
 nnoremap j gj
@@ -511,8 +517,16 @@ endif
 
 " {{{ 'lambdalisue/gina.vim'
 
-nnoremap <silent> <Space>gs :<C-u>Gina status<CR>
-nnoremap <silent> <Space>gc :<C-u>Gina commit<CR>
+nnoremap <silent> <Up> :<C-u>vertical split \| Gina status<CR>
+nnoremap <silent> <Down> :<C-u>Gina commit<CR>
+nnoremap <silent> <Right> :<C-u>vertical split \| Gina diff<CR>
+nnoremap <silent> <Left> :<C-u>Gina patch<CR>
+augroup vimrc
+    autocmd FileType gina-status nnoremap <buffer> q :<C-u>close<CR>
+    autocmd FileType gina-status nnoremap <buffer> <Up> :<C-u>close<CR>
+    autocmd FileType diff nnoremap <buffer> q :<C-u>close<CR>
+    autocmd FileType diff nnoremap <buffer> <Right> :<C-u>close<CR>
+augroup END
 
 " }}}
 
