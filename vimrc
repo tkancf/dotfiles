@@ -80,7 +80,7 @@ set completeopt=menu,preview
 set pumheight=10
 
 set list
-set listchars=tab:>-,trail:.
+set listchars=tab:»-,trail:.
 
 " incsearch setting
 set hlsearch
@@ -258,7 +258,6 @@ Plug 'previm/previm' | Plug 'tyru/open-browser.vim'
 Plug 'haya14busa/vim-asterisk'
 Plug 'easymotion/vim-easymotion'
 Plug 'miyakogi/seiya.vim'
-Plug 'rizzatti/dash.vim'
 
 " Ctrlp
 Plug 'ctrlpvim/ctrlp.vim'
@@ -283,6 +282,8 @@ else
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'Shougo/neosnippet.vim' | Plug 'Shougo/neosnippet-snippets'
 endif
+
+Plug 'tsuyoshicho/vim-efm-langserver-settings'
 
 " Twitter
 Plug 'basyura/TweetVim'
@@ -365,7 +366,7 @@ endif
 
 " 'glidenote/memolist.vim' {{{
 let g:memolist_memo_suffix = "md"
-let g:memolist_template_dir_path = $HOME . ".vim/template/"
+let g:memolist_template_dir_path = "~/.vim/template/"
 let g:memolist_path = $HOME . "/Dropbox/memo"
 let g:memolist_memo_date = "%Y-%m-%dT%H:%M:%S+09:00"
 let g:memolist_ex_cmd = 'CtrlP'
@@ -377,8 +378,8 @@ set helplang=ja,en
 
 "{{{ 'tyru/open-browser.vim'
 
-nmap <Leader>o <Plug>(openbrowser-smart-search)
-vmap <Leader>o <Plug>(openbrowser-smart-search)
+nmap <Space>o <Plug>(openbrowser-smart-search)
+vmap <Space>o <Plug>(openbrowser-smart-search)
 
 "}}}
 
@@ -643,9 +644,16 @@ if s:is_plugged("coc.nvim")
   " Resume latest coc list.
   nnoremap <silent><nowait> <Enter>r  :<C-u>CocListResume<CR>
 
+  command! -nargs=0 Prettier :CocCommand prettier.formatFile
+  command! -bang CocInstallPlugins call s:InstallCocPlugins()
+  function! s:InstallCocPlugins()
+    CocInstall coc-docker
+    CocInstall coc-yaml
+  endfunction
 endif
 
 " }}}
+
 
 "==========================================================================}}}1
 

@@ -2,6 +2,11 @@
   "coc.preferences.formatOnSaveFiletypes": [
     "Markdown"
   ],
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/docker/compose/master/compose/config/config_schema_v2.0.json": "**/docker-compose*.yml"
+  },
+  "prettier.tabWidth": 4,
+  "prettier.printWidth": 200,
   "markdownlint.config": {
     "default": true,
     "line_length": false,
