@@ -64,6 +64,11 @@ export LC_ALL="en_US.UTF-8"
 # Language Option
 #################################################
 
+GOOGLE_CLOUD_SDK_PATH='/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
+if [ -f "$GOOGLE_CLOUD_SDK_PATH" ]; then
+  source $GOOGLE_CLOUD_SDK_PATH
+fi
+
 # Ruby
 export RBENV_PATH=$HOME/.rbenv
 if [ -d "$RBENV_PATH" ]; then
