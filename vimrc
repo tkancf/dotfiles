@@ -270,6 +270,7 @@ Plug 'thinca/vim-quickrun'
 Plug 'mattn/vim-goimports'
 Plug 'evanleck/vim-svelte', {'branch': 'main'}
 Plug 'mattn/sonictemplate-vim'
+Plug 'tkancf/vim-sonictemplate-templates'
 
 " LSP
 Plug 'prabirshrestha/vim-lsp'
