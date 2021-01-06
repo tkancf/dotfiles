@@ -271,6 +271,7 @@ Plug 'mattn/vim-goimports'
 Plug 'evanleck/vim-svelte', {'branch': 'main'}
 Plug 'mattn/sonictemplate-vim'
 Plug 'tkancf/vim-sonictemplate-templates'
+Plug 'hashivim/vim-terraform'
 
 " LSP
 Plug 'prabirshrestha/vim-lsp'
@@ -657,5 +658,7 @@ endif
 
 
 "==========================================================================}}}1
+
+let g:terraform_align=1
 
 " vim:foldmethod=marker
