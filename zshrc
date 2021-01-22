@@ -204,3 +204,5 @@ if [ -f "$HOME/bin/gomi" ]; then
   alias rm='gomi'
 fi
 
+
+complete -o nospace -C /usr/local/bin/terraform terraform
