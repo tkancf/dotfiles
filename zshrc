@@ -181,6 +181,7 @@ ssh() {
 alias awk='gawk'
 
 # basics
+alias cdg='cd ~/src/github.com/$USER/'
 alias ll='ls -alF'
 alias l='ls -CF'
 alias la='ls -aF'
