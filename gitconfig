@@ -43,6 +43,8 @@
 
 [merge]
 	ff = false
+	tool = vimdiff
+	conflictstyle = diff3
 
 [pull]
 	ff = only
@@ -51,3 +53,5 @@
 	ui = true
 [credential]
 	helper = osxkeychain
+[mergetool]
+	prompt = false

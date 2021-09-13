@@ -69,12 +69,13 @@ if [ -f "$GOOGLE_CLOUD_SDK_PATH" ]; then
   source $GOOGLE_CLOUD_SDK_PATH
 fi
 
+# go
+export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
+
 # Ruby
-export RBENV_PATH=$HOME/.rbenv
-if [ -d "$RBENV_PATH" ]; then
-  export PATH="$RBENV_PATH/bin:$PATH"
-  eval "$(rbenv init -)"
-fi
+# export PATH="$HOME/.rbenv/bin:$PATH"
+# eval "$(rbenv init -)"
 
 # Rust
 export CARGO_PATH=$HOME/.cargo
@@ -101,13 +102,6 @@ fi
 # editorconfig
 export VISUAL="/usr/local/bin/vim"
 export EDITOR="$VISUAL"
-
-# Golang
-export GOPATH="$HOME"
-if [ -d "$GOPATH" ]; then
-  export PATH="$GOPATH/bin:$PATH"
-  export GO111MODULE=on
-fi
 
 # node.js
 # brew install nodebrew
@@ -194,10 +188,11 @@ alias g='git'
 alias gl='git log --graph'
 alias gg='git graph'
 alias ga='git add .'
+alias gs='git status'
 alias gd='git diff'
 alias gdc='git diff --cached'
 alias gc='git commit'
-alias gcm='git commit -m'
+alias gm='git commit -m'
 # ssh
 alias s='ssh'
 # others
@@ -205,5 +200,9 @@ if [ -f "$HOME/bin/gomi" ]; then
   alias rm='gomi'
 fi
 
+if [ -d "$HOME/.bookmarks" ]; then
+    export CDPATH=".:$HOME/.bookmarks:/"
+    alias to="cd -P"
+fi
 
 complete -o nospace -C /usr/local/bin/terraform terraform
