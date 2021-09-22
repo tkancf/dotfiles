@@ -276,14 +276,22 @@ Plug 'hashivim/vim-terraform'
 " LSP
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
-if str2nr(strpart(system("node -v"), 1)) < 10.12
-  Plug 'prabirshrestha/async.vim'
-  Plug 'prabirshrestha/asyncomplete.vim'
-  Plug 'prabirshrestha/asyncomplete-lsp.vim'
-else
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'Shougo/neosnippet.vim' | Plug 'Shougo/neosnippet-snippets'
-endif
+Plug 'vim-denops/denops.vim'
+Plug 'Shougo/ddc.vim'
+Plug 'Shougo/ddc-around'
+Plug 'shun/ddc-vim-lsp'
+Plug 'Shougo/ddc-matcher_head'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+
+"if str2nr(strpart(system("node -v"), 1)) < 10.12
+"  Plug 'prabirshrestha/async.vim'
+"  Plug 'prabirshrestha/asyncomplete.vim'
+"  Plug 'prabirshrestha/asyncomplete-lsp.vim'
+"else
+"  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"  Plug 'Shougo/neosnippet.vim' | Plug 'Shougo/neosnippet-snippets'
+"endif
 
 Plug 'tsuyoshicho/vim-efm-langserver-settings'
 
@@ -510,7 +518,7 @@ else
   let g:asyncomplete_auto_completeopt = 1
   let g:asyncomplete_popup_delay = 200
   let g:lsp_text_edit_enabled = 1
-
+  "let g:lsp_settings_servers_dir = $HOME/.local/share/vim-lsp-settings/servers
   augroup vimrc
     autocmd BufWritePre <buffer> LspDocumentFormatSync
   augroup END
@@ -661,8 +669,70 @@ let g:terraform_fmt_on_save=1
 " }}}
 
 let g:goimports = 1
-
 "==========================================================================}}}1
 
+" Customize global settings
+" Use around source.
+" https://github.com/Shougo/ddc-around
+call ddc#custom#patch_global('sources', ['around'])
+
+" Use matcher_head and sorter_rank.
+" https://github.com/Shougo/ddc-matcher_head
+" https://github.com/Shougo/ddc-sorter_rank
+call ddc#custom#patch_global('sourceOptions', {
+      \ '_': {
+      \   'matchers': ['matcher_head'],
+      \   'sorters': ['sorter_rank']},
+      \ })
+
+" Change source options
+call ddc#custom#patch_global('sourceOptions', {
+      \ 'around': {'mark': 'A'},
+      \ })
+call ddc#custom#patch_global('sourceParams', {
+      \ 'around': {'maxSize': 500},
+      \ })
+
+" Customize settings on a filetype
+"call ddc#custom#patch_filetype(['ruby', 'rb'], 'sources', ['solargraph'])
+call ddc#custom#patch_global('sources', ['ddc-vim-lsp'])
+call ddc#custom#patch_global('sourceOptions', {
+\ '_': { 'matchers': ['matcher_head'] },
+\ 'vsnip': {'mark': 'vsnip'},
+\ 'ddc-vim-lsp': {
+\   'mark': 'lsp',
+\   'forceCompletionPattern': '\\.|:|->',
+\   'minAutoCompleteLength': 1
+\ },
+\ })
+call ddc#custom#patch_global('sources', [
+\ 'vsnip',
+\ 'ddc-vim-lsp'
+\ ])
+
+call ddc#custom#patch_global('sourceOptions', {
+\ '_': { 'matchers': ['matcher_head'] },
+\ 'vsnip': {'mark': 'vsnip'},
+\ 'ddc-vim-lsp': {
+\   'mark': 'lsp',
+\   'forceCompletionPattern': '\\.|:|->',
+\   'minAutoCompleteLength': 1
+\ },
+\ })
+
+call ddc#custom#patch_filetype(['typescript', 'go', 'rust', 'ruby'], 'sources', ['ddc-vim-lsp', 'vsnip'])
+call ddc#custom#patch_filetype(['vim'], 'sources', ['vsnip'])
+
+" Mappings
+"" <TAB>: completion.
+"inoremap <silent><expr> <TAB>
+"\ pumvisible() ? '<C-n>' :
+"\ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
+"\ '<TAB>' : ddc#manual_complete()
+"
+"" <S-TAB>: completion back.
+"inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
+" Use ddc.
+call ddc#enable()
 
 " vim:foldmethod=marker
