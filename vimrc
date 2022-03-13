@@ -258,6 +258,7 @@ Plug 'previm/previm' | Plug 'tyru/open-browser.vim'
 Plug 'haya14busa/vim-asterisk'
 Plug 'easymotion/vim-easymotion'
 Plug 'miyakogi/seiya.vim'
+Plug 'freitass/todo.txt-vim'
 
 " Ctrlp
 Plug 'ctrlpvim/ctrlp.vim'
@@ -662,6 +663,10 @@ endif
 
 " {{{ 'hashivim/vim-terraform'
 let g:terraform_fmt_on_save=1
+" }}}
+
+" {{{ 'freitass/todo.txt-vim'
+let maplocalleader="s"
 " }}}
 
 let g:goimports = 1
