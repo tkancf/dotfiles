@@ -272,8 +272,8 @@ Plug 'mattn/sonictemplate-vim'
 Plug 'tkancf/vim-sonictemplate-templates'
 
 " LSP
-"Plug 'prabirshrestha/vim-lsp'
-"Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
 "Plug 'prabirshrestha/async.vim'
 "Plug 'prabirshrestha/asyncomplete.vim'
 "Plug 'prabirshrestha/asyncomplete-lsp.vim'
@@ -284,53 +284,9 @@ Plug 'vim-denops/denops.vim'
 Plug 'Shougo/ddc-around'
 Plug 'Shougo/ddc-matcher_head'
 Plug 'Shougo/ddc-sorter_rank'
+Plug 'shun/ddc-vim-lsp'
 
 call plug#end()
-
-" Customize global settings
-" Use around source.
-" https://github.com/Shougo/ddc-around
-call ddc#custom#patch_global('sources', ['around'])
-
-" Use matcher_head and sorter_rank.
-" https://github.com/Shougo/ddc-matcher_head
-" https://github.com/Shougo/ddc-sorter_rank
-call ddc#custom#patch_global('sourceOptions', {
-      \ '_': {
-      \   'matchers': ['matcher_head'],
-      \   'sorters': ['sorter_rank']},
-      \ })
-
-" Change source options
-call ddc#custom#patch_global('sourceOptions', {
-      \ 'around': {'mark': 'A'},
-      \ })
-call ddc#custom#patch_global('sourceParams', {
-      \ 'around': {'maxSize': 500},
-      \ })
-
-" Customize settings on a filetype
-call ddc#custom#patch_filetype(['c', 'cpp'], 'sources', ['around', 'clangd'])
-call ddc#custom#patch_filetype(['c', 'cpp'], 'sourceOptions', {
-      \ 'clangd': {'mark': 'C'},
-      \ })
-call ddc#custom#patch_filetype('markdown', 'sourceParams', {
-      \ 'around': {'maxSize': 100},
-      \ })
-
-" Mappings
-
-" <TAB>: completion.
-inoremap <silent><expr> <TAB>
-\ ddc#map#pum_visible() ? '<C-n>' :
-\ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
-\ '<TAB>' : ddc#map#manual_complete()
-
-" <S-TAB>: completion back.
-inoremap <expr><S-TAB>  ddc#map#pum_visible() ? '<C-p>' : '<C-h>'
-
-" Use ddc.
-call ddc#enable()
 
 "==========================================================================}}}1
 
@@ -517,42 +473,38 @@ nnoremap - :<C-u>NERDTreeToggle<CR>
 
 " 'prabirshrestha/vim-lsp' {{{
 
-if s:is_plugged("coc.nvim")
-  let g:lsp_auto_enable = 0
-else
-  function! s:on_lsp_buffer_enabled() abort
-    setlocal omnifunc=lsp#complete
-    setlocal signcolumn=yes
-    nmap <buffer> gd <plug>(lsp-definition)
-    nmap <buffer> gr <plug>(lsp-rename)
-    nmap <buffer> <Leader>r <plug>(lsp-references)
-    nmap <buffer> <Leader>i <plug>(lsp-implementation)
-    nmap <buffer> <Leader>t <plug>(lsp-type-definition)
-    nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
-    nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
-    nmap <buffer> K <plug>(lsp-hover)
-    inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
-    " refer to doc to add more commands
-  endfunction
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  setlocal signcolumn=yes
+  nmap <buffer> gd <plug>(lsp-definition)
+  nmap <buffer> gr <plug>(lsp-rename)
+  nmap <buffer> <Leader>r <plug>(lsp-references)
+  nmap <buffer> <Leader>i <plug>(lsp-implementation)
+  nmap <buffer> <Leader>t <plug>(lsp-type-definition)
+  nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
+  nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
+  nmap <buffer> K <plug>(lsp-hover)
+  inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
+  " refer to doc to add more commands
+endfunction
 
-  augroup vimrc
-    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
-    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-  augroup END
+augroup vimrc
+  " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
 
-  " 'mattn/vim-lsp-settings'
-  let g:lsp_diagnostics_enabled = 1
-  let g:lsp_diagnostics_echo_cursor = 1
-  let g:asyncomplete_auto_popup = 1
-  let g:asyncomplete_auto_completeopt = 1
-  let g:asyncomplete_popup_delay = 200
-  let g:lsp_text_edit_enabled = 1
-  "let g:lsp_settings_servers_dir = $HOME/.local/share/vim-lsp-settings/servers
-  augroup vimrc
-    autocmd BufWritePre <buffer> LspDocumentFormatSync
-  augroup END
+" 'mattn/vim-lsp-settings'
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
+let g:asyncomplete_auto_popup = 1
+let g:asyncomplete_auto_completeopt = 1
+let g:asyncomplete_popup_delay = 200
+let g:lsp_text_edit_enabled = 1
+"let g:lsp_settings_servers_dir = $HOME/.local/share/vim-lsp-settings/servers
+augroup vimrc
+  autocmd BufWritePre <buffer> LspDocumentFormatSync
+augroup END
 
-endif
 " }}}
 
 " {{{ 'lambdalisue/gina.vim'
@@ -576,7 +528,54 @@ let g:sonictemplate_vim_template_dir = ['~/.vim/plugged/vim-sonictemplate-templa
 
 "}}}
 
+"{{{ 'Shougo/ddc.vim'
+" Customize global settings
+" Use around source.
+" https://github.com/Shougo/ddc-around
+call ddc#custom#patch_global('sources', ['around'])
 
+" Use matcher_head and sorter_rank.
+" https://github.com/Shougo/ddc-matcher_head
+" https://github.com/Shougo/ddc-sorter_rank
+call ddc#custom#patch_global('sourceOptions', {
+      \ '_': {
+      \   'matchers': ['matcher_head'],
+      \   'sorters': ['sorter_rank']},
+      \ })
+
+" Change source options
+call ddc#custom#patch_global('sourceOptions', {
+      \ 'around': {'mark': 'A'},
+      \ })
+call ddc#custom#patch_global('sourceParams', {
+      \ 'around': {'maxSize': 500},
+      \ })
+
+call ddc#custom#patch_filetype('markdown', 'sourceParams', {
+      \ 'around': {'maxSize': 100},
+      \ })
+
+call ddc#custom#patch_global('sources', ['vim-lsp'])
+call ddc#custom#patch_global('sourceOptions', {
+    \ 'vim-lsp': {
+    \   'matchers': ['matcher_head'],
+    \   'mark': 'lsp',
+    \ },
+    \ })
+
+" if you want to use the unsupported CompleteProvider Server,
+" set true by'ignoreCompleteProvider'.
+call ddc#custom#patch_filetype(['css'], {
+   \ 'sourceParams': {
+   \   'vim-lsp': {
+   \     'ignoreCompleteProvider': v:true,
+   \   },
+   \ },
+   \ })
+
+call ddc#enable()
+
+"}}}
 
 let g:goimports = 1
 "==========================================================================}}}1
