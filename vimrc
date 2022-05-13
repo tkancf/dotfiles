@@ -263,7 +263,6 @@ Plug 'miyakogi/seiya.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mattn/ctrlp-launcher'
 Plug 'sgur/ctrlp-extensions.vim'
-Plug 'kaneshin/ctrlp-sonictemplate'
 
 " Languages
 Plug 'thinca/vim-quickrun'
@@ -271,31 +270,21 @@ Plug 'mattn/vim-goimports'
 Plug 'evanleck/vim-svelte', {'branch': 'main'}
 Plug 'mattn/sonictemplate-vim'
 Plug 'tkancf/vim-sonictemplate-templates'
-Plug 'hashivim/vim-terraform'
 
 " LSP
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
+"Plug 'prabirshrestha/async.vim'
+"Plug 'prabirshrestha/asyncomplete.vim'
+"Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-if str2nr(strpart(system("node -v"), 1)) < 10.12
-  Plug 'prabirshrestha/async.vim'
-  Plug 'prabirshrestha/asyncomplete.vim'
-  Plug 'prabirshrestha/asyncomplete-lsp.vim'
-else
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'Shougo/neosnippet.vim' | Plug 'Shougo/neosnippet-snippets'
-endif
-
-Plug 'tsuyoshicho/vim-efm-langserver-settings'
-
-" Twitter
-Plug 'basyura/TweetVim'
-Plug 'mattn/webapi-vim'
-Plug 'basyura/twibill.vim'
-Plug 'basyura/bitly.vim'
+" Shougo ware
+Plug 'Shougo/ddc.vim'
+Plug 'vim-denops/denops.vim'
+Plug 'Shougo/ddc-around'
+Plug 'Shougo/ddc-matcher_head'
+Plug 'Shougo/ddc-sorter_rank'
+Plug 'shun/ddc-vim-lsp'
 
 call plug#end()
 
@@ -484,42 +473,38 @@ nnoremap - :<C-u>NERDTreeToggle<CR>
 
 " 'prabirshrestha/vim-lsp' {{{
 
-if s:is_plugged("coc.nvim")
-  let g:lsp_auto_enable = 0
-else
-  function! s:on_lsp_buffer_enabled() abort
-    setlocal omnifunc=lsp#complete
-    setlocal signcolumn=yes
-    nmap <buffer> gd <plug>(lsp-definition)
-    nmap <buffer> gr <plug>(lsp-rename)
-    nmap <buffer> <Leader>r <plug>(lsp-references)
-    nmap <buffer> <Leader>i <plug>(lsp-implementation)
-    nmap <buffer> <Leader>t <plug>(lsp-type-definition)
-    nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
-    nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
-    nmap <buffer> K <plug>(lsp-hover)
-    inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
-    " refer to doc to add more commands
-  endfunction
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  setlocal signcolumn=yes
+  nmap <buffer> gd <plug>(lsp-definition)
+  nmap <buffer> gr <plug>(lsp-rename)
+  nmap <buffer> <Leader>r <plug>(lsp-references)
+  nmap <buffer> <Leader>i <plug>(lsp-implementation)
+  nmap <buffer> <Leader>t <plug>(lsp-type-definition)
+  nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
+  nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
+  nmap <buffer> K <plug>(lsp-hover)
+  inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
+  " refer to doc to add more commands
+endfunction
 
-  augroup vimrc
-    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
-    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-  augroup END
+augroup vimrc
+  " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
 
-  " 'mattn/vim-lsp-settings'
-  let g:lsp_diagnostics_enabled = 1
-  let g:lsp_diagnostics_echo_cursor = 1
-  let g:asyncomplete_auto_popup = 1
-  let g:asyncomplete_auto_completeopt = 1
-  let g:asyncomplete_popup_delay = 200
-  let g:lsp_text_edit_enabled = 1
-  "let g:lsp_settings_servers_dir = $HOME/.local/share/vim-lsp-settings/servers
-  augroup vimrc
-    autocmd BufWritePre <buffer> LspDocumentFormatSync
-  augroup END
+" 'mattn/vim-lsp-settings'
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
+let g:asyncomplete_auto_popup = 1
+let g:asyncomplete_auto_completeopt = 1
+let g:asyncomplete_popup_delay = 200
+let g:lsp_text_edit_enabled = 1
+"let g:lsp_settings_servers_dir = $HOME/.local/share/vim-lsp-settings/servers
+augroup vimrc
+  autocmd BufWritePre <buffer> LspDocumentFormatSync
+augroup END
 
-endif
 " }}}
 
 " {{{ 'lambdalisue/gina.vim'
@@ -543,126 +528,54 @@ let g:sonictemplate_vim_template_dir = ['~/.vim/plugged/vim-sonictemplate-templa
 
 "}}}
 
-" {{{ 'neoclide/coc.nvim'
+"{{{ 'Shougo/ddc.vim'
+" Customize global settings
+" Use around source.
+" https://github.com/Shougo/ddc-around
+call ddc#custom#patch_global('sources', ['around'])
 
-if s:is_plugged("coc.nvim")
+" Use matcher_head and sorter_rank.
+" https://github.com/Shougo/ddc-matcher_head
+" https://github.com/Shougo/ddc-sorter_rank
+call ddc#custom#patch_global('sourceOptions', {
+      \ '_': {
+      \   'matchers': ['matcher_head'],
+      \   'sorters': ['sorter_rank']},
+      \ })
 
-  inoremap <silent><expr> <TAB>
-        \ pumvisible() ? "\<C-n>" :
-        \ <SID>check_back_space() ? "\<TAB>" :
-        \ coc#refresh()
-  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" Change source options
+call ddc#custom#patch_global('sourceOptions', {
+      \ 'around': {'mark': 'A'},
+      \ })
+call ddc#custom#patch_global('sourceParams', {
+      \ 'around': {'maxSize': 500},
+      \ })
 
-  function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-  endfunction
+call ddc#custom#patch_filetype('markdown', 'sourceParams', {
+      \ 'around': {'maxSize': 100},
+      \ })
 
-  inoremap <silent><expr> <c-@> coc#refresh()
+call ddc#custom#patch_global('sources', ['vim-lsp'])
+call ddc#custom#patch_global('sourceOptions', {
+    \ 'vim-lsp': {
+    \   'matchers': ['matcher_head'],
+    \   'mark': 'lsp',
+    \ },
+    \ })
 
-  if exists('*complete_info')
-    inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-  else
-    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-  endif
+" if you want to use the unsupported CompleteProvider Server,
+" set true by'ignoreCompleteProvider'.
+call ddc#custom#patch_filetype(['css'], {
+   \ 'sourceParams': {
+   \   'vim-lsp': {
+   \     'ignoreCompleteProvider': v:true,
+   \   },
+   \ },
+   \ })
 
-  nmap <silent> [g <Plug>(coc-diagnostic-prev)
-  nmap <silent> ]g <Plug>(coc-diagnostic-next)
-  nmap <silent> gd <Plug>(coc-definition)
-  nmap gr <Plug>(coc-rename)
-  nnoremap <silent> K :call <SID>show_documentation()<CR>
-  nmap <silent> <Leader>t <Plug>(coc-type-definition)
-  nmap <silent> <Leader>r <Plug>(coc-references)
-  nmap <silent> <Leader>i <Plug>(coc-implementation)
+call ddc#enable()
 
-  function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-      execute 'h '.expand('<cword>')
-    else
-      call CocActionAsync('doHover')
-    endif
-  endfunction
-
-  " カーソルが止まった箇所をハイライト
-  autocmd CursorHold * silent call CocActionAsync('highlight')
-
-  augroup vimrc
-    " Setup formatexpr specified filetype(s).
-    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-    " Update signature help on jump placeholder.
-    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-  augroup end
-
-  " Applying codeAction to the selected region.
-  xmap <Enter>s  <Plug>(coc-codeaction-selected)
-  nmap <Enter>s <Plug>(coc-codeaction-selected)
-
-  " Remap keys for applying codeAction to the current buffer.
-  nmap <Enter>a  <Plug>(coc-codeaction)
-  " Apply AutoFix to problem on the current line.
-  nmap <Enter>f  <Plug>(coc-fix-current)
-
-  " Map function and class text objects
-  " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-  xmap if <Plug>(coc-funcobj-i)
-  omap if <Plug>(coc-funcobj-i)
-  xmap af <Plug>(coc-funcobj-a)
-  omap af <Plug>(coc-funcobj-a)
-  xmap ic <Plug>(coc-classobj-i)
-  omap ic <Plug>(coc-classobj-i)
-  xmap ac <Plug>(coc-classobj-a)
-  omap ac <Plug>(coc-classobj-a)
-
-  " Use CTRL-S for selections ranges.
-  " Requires 'textDocument/selectionRange' support of language server.
-  nmap <silent> <C-s> <Plug>(coc-range-select)
-  xmap <silent> <C-s> <Plug>(coc-range-select)
-
-  " Add `:Format` command to format current buffer.
-  command! -nargs=0 Format :call CocAction('format')
-
-  " Add `:Fold` command to fold current buffer.
-  command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-  " Add `:OR` command for organize imports of the current buffer.
-  command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-  " Add (Neo)Vim's native statusline support.
-  " NOTE: Please see `:h coc-status` for integrations with external plugins that
-  " provide custom statusline: lightline.vim, vim-airline.
-  set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-  " Mappings for CoCList
-  " Show all diagnostics.
-  nnoremap <silent><nowait> <Enter>d  :<C-u>CocList diagnostics<cr>
-  " Manage extensions.
-  nnoremap <silent><nowait> <Enter>e  :<C-u>CocList extensions<cr>
-  " Show commands.
-  nnoremap <silent><nowait> <Enter>c  :<C-u>CocList commands<cr>
-  " Find symbol of current document.
-  nnoremap <silent><nowait> <Enter>o  :<C-u>CocList outline<cr>
-  " Search workspace symbols.
-  nnoremap <silent><nowait> <Enter>l  :<C-u>CocList -I symbols<cr>
-  " Do default action for next item.
-  nnoremap <silent><nowait> <Enter>j  :<C-u>CocNext<CR>
-  " Do default action for previous item.
-  nnoremap <silent><nowait> <Enter>k  :<C-u>CocPrev<CR>
-  " Resume latest coc list.
-  nnoremap <silent><nowait> <Enter>r  :<C-u>CocListResume<CR>
-
-  command! -nargs=0 Prettier :CocCommand prettier.formatFile
-  command! -bang CocInstallPlugins call s:InstallCocPlugins()
-  function! s:InstallCocPlugins()
-    CocInstall coc-docker
-    CocInstall coc-yaml
-  endfunction
-endif
-
-" }}}
-
-" {{{ 'hashivim/vim-terraform'
-let g:terraform_fmt_on_save=1
-" }}}
+"}}}
 
 let g:goimports = 1
 "==========================================================================}}}1
