@@ -258,6 +258,7 @@ Plug 'previm/previm' | Plug 'tyru/open-browser.vim'
 Plug 'haya14busa/vim-asterisk'
 Plug 'easymotion/vim-easymotion'
 Plug 'miyakogi/seiya.vim'
+Plug 'freitass/todo.txt-vim'
 
 " Ctrlp
 Plug 'ctrlpvim/ctrlp.vim'
@@ -267,16 +268,12 @@ Plug 'sgur/ctrlp-extensions.vim'
 " Languages
 Plug 'thinca/vim-quickrun'
 Plug 'mattn/vim-goimports'
-Plug 'evanleck/vim-svelte', {'branch': 'main'}
 Plug 'mattn/sonictemplate-vim'
 Plug 'tkancf/vim-sonictemplate-templates'
 
 " LSP
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
-"Plug 'prabirshrestha/async.vim'
-"Plug 'prabirshrestha/asyncomplete.vim'
-"Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 " Shougo ware
 Plug 'Shougo/ddc.vim'
@@ -362,7 +359,7 @@ endif
 " 'glidenote/memolist.vim' {{{
 let g:memolist_memo_suffix = "md"
 let g:memolist_template_dir_path = "~/.vim/template/"
-let g:memolist_path = $HOME . "/Dropbox/memo"
+let g:memolist_path = $HOME . "/memo"
 let g:memolist_memo_date = "%Y-%m-%dT%H:%M:%S+09:00"
 let g:memolist_ex_cmd = 'CtrlP'
 " }}}
