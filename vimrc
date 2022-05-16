@@ -65,9 +65,9 @@ set noerrorbells
 " Tab setting
 " Expand TAB to Space
 set expandtab
-" TAB characters that appear 2-Spaces-wide 
+" TAB characters that appear 2-Spaces-wide
 set tabstop=2
-" TAB characters(auto indent) that appear 2-Spaces-wide 
+" TAB characters(auto indent) that appear 2-Spaces-wide
 set shiftwidth=2
 " Sets the number of columns for a TAB
 set softtabstop=2
@@ -185,6 +185,7 @@ nnoremap <Up> <Nop>
 nnoremap <Down> <Nop>
 nnoremap <Left> <Nop>
 nnoremap <Right> <Nop>
+let maplocalleader="s"
 
 " j, kで見た目通りに移動
 nnoremap j gj
@@ -276,11 +277,14 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 
 " Shougo ware
-Plug 'Shougo/ddc.vim'
-Plug 'vim-denops/denops.vim'
 Plug 'Shougo/ddc-around'
+Plug 'Shougo/ddc-converter_remove_overlap'
 Plug 'Shougo/ddc-matcher_head'
 Plug 'Shougo/ddc-sorter_rank'
+Plug 'Shougo/ddc.vim'
+Plug 'Shougo/pum.vim'
+Plug 'vim-denops/denops.vim'
+Plug 'LumaKernel/ddc-file'
 Plug 'shun/ddc-vim-lsp'
 
 call plug#end()
@@ -526,49 +530,51 @@ let g:sonictemplate_vim_template_dir = ['~/.vim/plugged/vim-sonictemplate-templa
 "}}}
 
 "{{{ 'Shougo/ddc.vim'
-" Customize global settings
-" Use around source.
-" https://github.com/Shougo/ddc-around
-call ddc#custom#patch_global('sources', ['around'])
 
-" Use matcher_head and sorter_rank.
-" https://github.com/Shougo/ddc-matcher_head
-" https://github.com/Shougo/ddc-sorter_rank
+call ddc#custom#patch_global('completionMenu', 'pum.vim')
+call ddc#custom#patch_global('sources', [
+ \ 'around',
+ \ 'vim-lsp',
+ \ 'file'
+ \ ])
 call ddc#custom#patch_global('sourceOptions', {
-      \ '_': {
-      \   'matchers': ['matcher_head'],
-      \   'sorters': ['sorter_rank']},
-      \ })
-
-" Change source options
-call ddc#custom#patch_global('sourceOptions', {
-      \ 'around': {'mark': 'A'},
-      \ })
-call ddc#custom#patch_global('sourceParams', {
-      \ 'around': {'maxSize': 500},
-      \ })
-
-call ddc#custom#patch_filetype('markdown', 'sourceParams', {
-      \ 'around': {'maxSize': 100},
-      \ })
-
-call ddc#custom#patch_global('sources', ['vim-lsp'])
-call ddc#custom#patch_global('sourceOptions', {
-    \ 'vim-lsp': {
-    \   'matchers': ['matcher_head'],
-    \   'mark': 'lsp',
-    \ },
-    \ })
+ \ '_': {
+ \   'matchers': ['matcher_head'],
+ \   'sorters': ['sorter_rank'],
+ \   'converters': ['converter_remove_overlap'],
+ \   'minAutoCompleteLength': 2,
+ \ },
+ \ 'around': {'mark': 'Around'},
+ \ 'vim-lsp': {
+ \   'mark': 'LSP',
+ \   'matchers': ['matcher_head'],
+ \   'forceCompletionPattern': '\.|:|->|"\w+/*'
+ \ },
+ \ 'file': {
+ \   'mark': 'file',
+ \   'isVolatile': v:true,
+ \   'forceCompletionPattern': '\S/\S*'
+ \ }})
 
 " if you want to use the unsupported CompleteProvider Server,
 " set true by'ignoreCompleteProvider'.
-call ddc#custom#patch_filetype(['css'], {
-   \ 'sourceParams': {
-   \   'vim-lsp': {
-   \     'ignoreCompleteProvider': v:true,
-   \   },
-   \ },
-   \ })
+call ddc#custom#patch_filetype(['css', 'vim', 'txt'], {
+ \ 'sourceParams': {
+ \   'vim-lsp': {
+ \     'ignoreCompleteProvider': v:true,
+ \   },
+ \ },
+ \ })
+
+inoremap <silent><expr> <TAB>
+      \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
+      \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
+      \ '<TAB>' : ddc#manual_complete()
+inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
+inoremap <C-n>   <Cmd>call pum#map#select_relative(+1)<CR>
+inoremap <C-p>   <Cmd>call pum#map#select_relative(-1)<CR>
+inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
+inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
 
 call ddc#enable()
 
