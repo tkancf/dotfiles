@@ -271,6 +271,7 @@ Plug 'thinca/vim-quickrun'
 Plug 'mattn/vim-goimports'
 Plug 'mattn/sonictemplate-vim'
 Plug 'tkancf/vim-sonictemplate-templates'
+Plug 'github/copilot.vim'
 
 " LSP
 Plug 'prabirshrestha/vim-lsp'
