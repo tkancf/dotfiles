@@ -64,54 +64,13 @@ export LC_ALL="en_US.UTF-8"
 # Language Option
 #################################################
 
-GOOGLE_CLOUD_SDK_PATH='/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
-if [ -f "$GOOGLE_CLOUD_SDK_PATH" ]; then
-  source $GOOGLE_CLOUD_SDK_PATH
-fi
-
 # go
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 
-# Ruby
-# export PATH="$HOME/.rbenv/bin:$PATH"
-# eval "$(rbenv init -)"
-
-# Rust
-export CARGO_PATH=$HOME/.cargo
-if [ -d "$CARGO_PATH" ]; then
-  source $CARGO_PATH/env
-  export PATH="$CARGO_PATH/bin:$PATH"
-fi
-
-# Haskell
-if [ -d "$HOME/.stack" ]; then
-  export PATH="~/.local/bin/stack:$PATH"
-  export STACK_BIN="$HOME/.stack/bin"
-  export HASKELL_BIN="$HOME/.local/bin"
-  export PATH="$STACK_BIN:$HASKELL_BIN:$PATH"
-fi
-
-# anyenv
-export ANYENV_PATH="$HOME/.anyenv/bin"
-if [ -d "$ANYENV_PATH" ]; then
-  export PATH="$ANYENV_PATH:$PATH"
-  eval "$(anyenv init -)"
-fi
-
 # editorconfig
 export VISUAL="/usr/local/bin/vim"
 export EDITOR="$VISUAL"
-
-# node.js
-# brew install nodebrew
-# nodebrew install-binary stable
-# nodebrew use vX.X.X
-
-export NODEENV_PATH="$HOME/.nodebrew/current/bin"
-if [ -d "$NODEENV_PATH" ]; then
-  export PATH="$NODEENV_PATH:$PATH"
-fi
 
 #################################################
 # Function
@@ -145,14 +104,6 @@ function Vim-build () {
   make
   sudo make install
   cd -
-}
-
-# anyenv install
-
-function anyenv-install ()
-{
-  git clone https://github.com/riywo/anyenv ~/.anyenv
-  exec $SHELL -l
 }
 
 # ssh
@@ -195,14 +146,8 @@ alias gc='git commit'
 alias gm='git commit -m'
 # ssh
 alias s='ssh'
-# others
-if [ -f "$HOME/bin/gomi" ]; then
-  alias rm='gomi'
-fi
 
 if [ -d "$HOME/.bookmarks" ]; then
     export CDPATH=".:$HOME/.bookmarks:/"
     alias to="cd -P"
 fi
-
-complete -o nospace -C /usr/local/bin/terraform terraform
