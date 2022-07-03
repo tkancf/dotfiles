@@ -9,4 +9,4 @@ else
     git clone https://github.com/tkancf/dotfiles "$INSTALL_DIR"
 fi
 
-/bin/bash "$INSTALL_DIR/scripts/setup.bash"
+/bin/bash "$INSTALL_DIR/scripts/init-scripts/setup.bash"
