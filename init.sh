@@ -6,7 +6,7 @@ if [ -d "$INSTALL_DIR" ]; then
     git -C "$INSTALL_DIR" pull
 else
     echo "Installing dotfiles..."
-    git clone "$INSTALL_DIR"
+    git clone https://github.com/tkancf/dotfiles "$INSTALL_DIR"
 fi
 
 /bin/bash "$INSTALL_DIR/scripts/setup.bash"
