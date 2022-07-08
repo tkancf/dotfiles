@@ -8,5 +8,7 @@ mkdir -p \
     "$XDG_STATE_HOME" \
     "$XDG_DATA_HOME"
 
-ln -sfv "$REPO_DIR/config/"* "$XDG_CONFIG_HOME"
-ln -sfv "$XDG_CONFIG_HOME/zsh/.zshenv" "$HOME/.zshenv"
+ln -sfv "$REPO_CONF_DIR/config/"* "$XDG_CONFIG_HOME"
+ln -sfv "$REPO_CONF_DIR/vim" "$HOME/.vim"
+ln -sfv "$REPO_CONF_DIR/vim/.vimrc" "$HOME/.vimrc"
+ln -sfv "$REPO_CONF_DIR/zsh/.zshenv" "$HOME/.zshenv"

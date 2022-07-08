@@ -76,12 +76,6 @@ export EDITOR="$VISUAL"
 # Function
 #################################################
 
-# Git
-
-local git==git
-branchname=`${git} symbolic-ref --short HEAD 2> /dev/null`
-function git(){hub "$@"} # zsh
-
 # Peco
 
 function peco-src () {
