@@ -10,3 +10,5 @@
 !/backup/.gitkeep
 /vim/autoload/*
 !/vim/autoload/.gitkeep
+/config/zsh/.zsh_history
+/config/zsh/.zcompdump
