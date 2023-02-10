@@ -1,0 +1,33 @@
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/core"
+brew "chezmoi"
+brew "deno"
+brew "ghq"
+brew "git"
+brew "lazygit"
+brew "mas"
+brew "peco"
+brew "tmux"
+brew "vim"
+cask "1password"
+cask "1password-cli"
+cask "alfred"
+cask "bettertouchtool"
+cask "deepl"
+cask "discord"
+cask "gitkraken"
+cask "google-chrome"
+cask "google-japanese-ime"
+cask "iterm2"
+cask "karabiner-elements"
+cask "kindle"
+cask "obsidian"
+cask "visual-studio-code"
+
+mas "BetterSnapTool", id: 417375580
+mas "GarageBand", id: 682658836
+mas "iMovie", id: 408981434
+mas "Keynote", id: 409183694
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
