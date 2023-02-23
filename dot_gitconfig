@@ -55,3 +55,6 @@
 	helper = osxkeychain
 [mergetool]
 	prompt = false
+[init]
+	defaultBranch = main
+
