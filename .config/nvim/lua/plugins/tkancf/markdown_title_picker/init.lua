@@ -75,12 +75,5 @@ function M.open_markdown_by_title()
     end)
 end
 
--- 設定を行うための関数
-function M.setup()
-    vim.api.nvim_set_keymap('n', '<Leader>oo',
-        "<cmd>lua require('plugins.tkancf.markdown_title_picker').open_markdown_by_title()<CR>",
-        { noremap = true, silent = true })
-end
-
 -- モジュールテーブルを返す
 return M

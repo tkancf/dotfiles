@@ -157,18 +157,11 @@ return {
         vim.fn.jobstart({ "open", url }) -- Mac OS
         -- vim.fn.jobstart({"xdg-open", url})  -- linux
       end,
-
-      vim.api.nvim_set_keymap('n', '<leader>on', '<cmd>ObsidianNew<cr>', { noremap = true, silent = true }),
-      vim.api.nvim_set_keymap('n', '<leader>os', '<cmd>ObsidianFollowLink hsplit<cr>',
-      { noremap = true, silent = true }),
-      vim.api.nvim_set_keymap('n', '<leader>ot', '<cmd>ObsidianToday<cr>',
-      { noremap = true, silent = true }),
-      vim.api.nvim_set_keymap('n', '<leader>ob', '<cmd>ObsidianBacklinks<cr>',
-      { noremap = true, silent = true }),
     },
   },
   {
     "https://github.com/arakkkkk/marktodo.nvim",
+    ft = 'markdown',
     config = function()
       require("marktodo").setup()
     end,
