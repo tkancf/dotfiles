@@ -27,6 +27,7 @@ return {
     },
   },
   {
-    "https://github.com/github/copilot.vim"
+    "https://github.com/github/copilot.vim",
+    event = 'WinEnter',
   }
 }
