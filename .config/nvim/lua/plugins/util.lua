@@ -1,5 +1,9 @@
 return {
     {
+        'https://github.com/nvim-lua/plenary.nvim',
+        lazy = true,
+    },
+    {
         'https://github.com/adelarsq/image_preview.nvim',
         ft = 'markdown',
         --event = 'VeryLazy',
