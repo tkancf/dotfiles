@@ -6,11 +6,11 @@ return {
     {
         'https://github.com/adelarsq/image_preview.nvim',
         ft = 'markdown',
-        --event = 'VeryLazy',
     },
     {
         'https://github.com/cohama/lexima.vim',
-        event = 'BufRead',
+        event = { 'CmdlineEnter', 'InsertEnter' },
+        lazy = true,
         config = function()
             vim.g.lexima_enable_space_rules = 0
         end,
@@ -26,7 +26,7 @@ return {
         dependencies = {
             'https://github.com/cohama/lexima.vim'
         },
-        event = 'BufRead',
+        event = { 'CmdlineEnter' },
         config = function()
             vim.cmd [[
                 LeximaAlterCommand obw ObsidianWorkspace
