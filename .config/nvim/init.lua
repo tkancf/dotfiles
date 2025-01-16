@@ -1,5 +1,4 @@
 require('basic')
-require('markdown_highlights').setup()
 
 -- lazy.nvim
 

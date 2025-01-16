@@ -3,7 +3,6 @@
 vim.o.encoding = 'utf-8'
 vim.scriptencoding = 'utf-8'
 vim.o.ambiwidth = 'single'
-vim.o.conceallevel = 0
 vim.o.tabstop = 2
 vim.o.softtabstop = 2
 vim.o.shiftwidth = 2
@@ -37,10 +36,6 @@ vim.opt.listchars = {
     -- space = '_' -- Space characters
 }
 
--- disable netrw
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
 -- remap
 vim.g.mapleader = " "
 vim.api.nvim_set_keymap('n', 's', '', { noremap = true })
@@ -57,21 +52,21 @@ if vim.g.gui_vimr then
 end
 
 -- optimize
-vim.g.did_install_default_menus = 1
-vim.g.did_install_syntax_menu = 1
-vim.g.did_indent_on = 1
--- vim.g.did_load_filetypes = 1
--- vim.g.did_load_ftplugin = 1
-vim.g.loaded_2html_plugin = 1
-vim.g.loaded_gzip = 1
-vim.g.loaded_man = 1
-vim.g.loaded_matchit = 1
-vim.g.loaded_matchparen = 1
-vim.g.loaded_netrwPlugin = 1
-vim.g.loaded_remote_plugins = 1
-vim.g.loaded_shada_plugin = 1
-vim.g.loaded_spellfile_plugin = 1
-vim.g.loaded_tarPlugin = 1
-vim.g.loaded_tutor_mode_plugin = 1
-vim.g.loaded_zipPlugin = 1
-vim.g.skip_loading_mswin = 1
+vim.g.did_install_default_menus = 0
+vim.g.did_install_syntax_menu = 0
+vim.g.did_indent_on = 0
+-- vim.g.did_load_filetypes = 0
+-- vim.g.did_load_ftplugin = 0
+vim.g.loaded_2html_plugin = 0
+vim.g.loaded_gzip = 0
+vim.g.loaded_man = 0
+vim.g.loaded_matchit = 0
+vim.g.loaded_matchparen = 0
+vim.g.loaded_netrwPlugin = 0
+vim.g.loaded_remote_plugins = 0
+vim.g.loaded_shada_plugin = 0
+vim.g.loaded_spellfile_plugin = 0
+vim.g.loaded_tarPlugin = 0
+vim.g.loaded_tutor_mode_plugin = 0
+vim.g.loaded_zipPlugin = 0
+vim.g.skip_loading_mswin = 0
