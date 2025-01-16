@@ -6,6 +6,7 @@ return {
     },
     {
         'https://github.com/cohama/lexima.vim',
+        event = 'BufRead',
         config = function()
             vim.g.lexima_enable_space_rules = 0
         end,
@@ -21,6 +22,7 @@ return {
         dependencies = {
             'https://github.com/cohama/lexima.vim'
         },
+        event = 'BufRead',
         config = function()
             vim.cmd [[
                 LeximaAlterCommand obw ObsidianWorkspace
