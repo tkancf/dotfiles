@@ -2,6 +2,7 @@ return {
     {
         'https://github.com/nvim-telescope/telescope.nvim',
         dependencies = { 'https://github.com/nvim-lua/plenary.nvim' },
+        event = 'BufWinEnter',
         config = function()
           local wk = require("which-key")
           wk.add({

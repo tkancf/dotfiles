@@ -41,9 +41,11 @@ return {
   },
   {
     'https://github.com/lambdalisue/gin.vim',
-    dependencies = {
-      'https://github.com/vim-denops/denops.vim',
-    },
+    event = { 'BufRead' },
+  },
+  {
+    'https://github.com/vim-denops/denops.vim',
+    event = { 'BufRead' },
   },
   {
     'https://github.com/monaqa/dial.nvim',

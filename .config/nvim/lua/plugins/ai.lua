@@ -28,6 +28,6 @@ return {
   },
   {
     "https://github.com/github/copilot.vim",
-    event = 'WinEnter',
+    event = 'BufRead',
   }
 }
