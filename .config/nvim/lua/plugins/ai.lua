@@ -1,12 +1,9 @@
 return {
   {
     "olimorris/codecompanion.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-    --config = true,
+    event = 'WinEnter',
     opts = {
-      language = "Japanese",
+      language = "日本語",
       adapters = {
         ollama = function()
           return require("codecompanion.adapters").extend("ollama", {
@@ -21,7 +18,7 @@ return {
       strategies = {
         -- Change the default chat adapter
         chat = {
-          adapter = "ollama",
+          adapter = "copilot",
         },
         inline = {
           adapter = "copilot",
