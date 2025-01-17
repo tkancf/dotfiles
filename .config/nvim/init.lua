@@ -14,6 +14,10 @@ if not vim.loop.fs_stat(lazypath) then
     })
 end
 
+local opts = {
+  version = false,
+}
+
 vim.opt.rtp:prepend(lazypath)
-require("lazy").setup("plugins")
+require("lazy").setup("plugins", opts)
 

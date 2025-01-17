@@ -16,10 +16,12 @@ return {
     end,
   },
   {
-    'https://github.com/rbtnn/vim-ambiwidth'
+    'https://github.com/rbtnn/vim-ambiwidth',
+    event = { 'VimEnter' },
   },
   {
-    'https://github.com/thinca/vim-qfreplace'
+    'https://github.com/thinca/vim-qfreplace',
+    event = { 'CmdlineEnter' },
   },
   {
     'https://github.com/yuki-yano/lexima-alter-command.vim',
@@ -38,6 +40,7 @@ return {
   },
   {
     'https://github.com/machakann/vim-sandwich',
+    enabled = false,
   },
   {
     'https://github.com/lambdalisue/gin.vim',
@@ -71,6 +74,7 @@ return {
   },
   {
     'https://github.com/haya14busa/vim-asterisk',
+    keys = { '*', '#', 'g*', 'g#' },
     config = function()
       local opts = { noremap = true, silent = true }
 
