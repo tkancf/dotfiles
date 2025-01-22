@@ -1,10 +1,5 @@
 return {
   {
-    'https://github.com/mattn/vim-maketable',
-    lazy = true,
-    ft = 'markdown',
-  },
-  {
     "https://github.com/epwalsh/obsidian.nvim",
     version = "*", -- recommended, use latest release instead of latest commit
     lazy = true,
@@ -158,12 +153,5 @@ return {
         -- vim.fn.jobstart({"xdg-open", url})  -- linux
       end,
     },
-  },
-  {
-    "https://github.com/arakkkkk/marktodo.nvim",
-    ft = 'markdown',
-    config = function()
-      require("marktodo").setup()
-    end,
   },
 }

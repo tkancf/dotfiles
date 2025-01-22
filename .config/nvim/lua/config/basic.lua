@@ -1,3 +1,6 @@
+--- Basic settings for Neovim
+-- @module config.basic
+
 -- Basic
 -- encoding
 vim.o.encoding = 'utf-8'

@@ -7,8 +7,4 @@ return {
       vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
     end
   },
-  { "echasnovski/mini.icons",
-    opts = {},
-    lazy = true,
-  }
 }
