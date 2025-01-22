@@ -2,6 +2,8 @@
 yarn = "latest"
 go = "latest"
 "go:github.com/rhysd/vim-startuptime" = "latest"
+neovim = "latest"
+deno = "latest"
 
 [settings]
 experimental = true
