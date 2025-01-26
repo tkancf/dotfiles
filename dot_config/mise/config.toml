@@ -1,0 +1,13 @@
+[tools]
+yarn = "latest"
+go = "latest"
+"go:github.com/rhysd/vim-startuptime" = "latest"
+neovim = "latest"
+deno = "latest"
+ripgrep = "latest"
+zoxide = "latest"
+ghq = "latest"
+fzf = "latest"
+
+[settings]
+experimental = true
