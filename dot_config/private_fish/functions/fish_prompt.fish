@@ -18,17 +18,17 @@ function fish_prompt --description 'Write out the prompt'
             for i in (git status --porcelain | string sub -l 2 | sort | uniq)
                 switch $i
                     case "."
-                        set git_status "$git_status"(set_color green)✚
+                        set git_status "$git_status"(set_color green)✚ 
                     case " D"
-                        set git_status "$git_status"(set_color red)✖
+                        set git_status "$git_status"(set_color red)✖ 
                     case "*M*"
-                        set git_status "$git_status"(set_color green)✱
+                        set git_status "$git_status"(set_color green)✱ 
                     case "*R*"
-                        set git_status "$git_status"(set_color purple)➜
+                        set git_status "$git_status"(set_color purple)➜ 
                     case "*U*"
-                        set git_status "$git_status"(set_color brown)═
+                        set git_status "$git_status"(set_color brown)═ 
                     case "??"
-                        set git_status "$git_status"(set_color red)≠
+                        set git_status "$git_status"(set_color red)≠ 
                 end
             end
         else
