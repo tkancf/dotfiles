@@ -3,3 +3,5 @@ if status is-interactive
 end
 # fish起動時のメッセージ削除
 set fish_greeting
+
+abbr -a cnv "cd ~/.config/nvim/ && nvim ./lua/plugins/"

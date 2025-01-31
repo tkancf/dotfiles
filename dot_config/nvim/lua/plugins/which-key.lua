@@ -55,37 +55,20 @@ return {
         '<cmd>lua require("image_preview").previewimage(vim.fn.getcwd() .. "/" .. vim.fn.expand("<cfile>"))<cr>',
         desc = "preview image"
       },
-      -- vim.api.nvim_set_keymap('n', '<leader>on', '<cmd>obsidiannew<cr>', { noremap = true, silent = true }),
-      {
-        "<leader>on",
-        "<cmd>obsidiannew<cr>",
-        desc = "obsidian new"
-      },
-      -- vim.api.nvim_set_keymap('n', '<leader>os', '<cmd>obsidianfollowlink hsplit<cr>',
-      -- { noremap = true, silent = true }),
       {
         "<leader>os",
-        "<cmd>obsidianfollowlink hsplit<cr>",
-        desc = "obsidian follow link"
-      },
-      {
-        "<leader>ot",
-        "<cmd>obsidiantoday<cr>",
-        desc = "obsidian today"
+        "<cmd>ObsidianFollowLink hsplit<cr>",
+        desc = "Obsidian Follow Link"
       },
       {
         "<leader>ob",
-        "<cmd>obsidianbacklinks<cr>",
-        desc = "obsidian backlinks"
+        "<cmd>ObsidianBacklinks<cr>",
+        desc = "Obsidian Backlinks"
       },
       {
-        --    vim.api.nvim_set_keymap('n', '<leader>oo',
-        --        "<cmd>lua require('plugins.tkancf.markdown_title_picker').open_markdown_by_title()<cr>",
-        --        { noremap = true, silent = true })
-        --end
         "<leader>oo",
         "<cmd>lua require('plugins.tkancf.markdown_title_picker').open_markdown_by_title()<cr>",
-        desc = "open markdown by title"
+        desc = "Open Markdown by Title"
       }
     })
   end
