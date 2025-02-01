@@ -8,6 +8,8 @@ ripgrep = "latest"
 zoxide = "latest"
 ghq = "latest"
 fzf = "latest"
+lazygit = "latest"
+delta = "latest"
 
 [settings]
 experimental = true
