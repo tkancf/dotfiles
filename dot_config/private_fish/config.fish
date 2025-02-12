@@ -13,6 +13,7 @@ end
 # fish起動時のメッセージ削除
 set fish_greeting
 set -x XDG_CONFIG_HOME "$HOME/.config"
+set -x EDITOR "nvim"
 
 # abbr
 ## edit config
@@ -22,7 +23,12 @@ abbr -a cc "chezmoi cd"
 abbr -a ca "chezmoi re-add ~/.config/"
 abbr -a cz "chezmoi"
 
+## Vim/Neovim
+abbr -a v "neovim"
+abbr -a vr "vimr -s"
+
 ## git
+abbr -a g "lazygit"
 abbr -a gs "git status"
 abbr -a ga "git add"
 abbr -a ga. "git add ."

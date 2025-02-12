@@ -19,15 +19,11 @@ return {
     },
     workspaces = {
       {
-        name = "Memo",
-        path = "~/Dropbox/Memo",
+        name = "blog",
+        path = "~/src/github.com/tkancf/tkancf.com/content/",
       },
       {
-        name = "Note",
-        path = "~/Dropbox/Note",
-      },
-      {
-        name = "note.tkancf.com",
+        name = "note",
         path = "~/src/github.com/tkancf/note.tkancf.com/content",
       },
     },

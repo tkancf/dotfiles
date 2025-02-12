@@ -1,7 +1,7 @@
 # tkancf/dotfiles
 
 ## 事前準備
-
+<!--{{{-->
 - [homebrew](https://brew.sh/)のインストール
 - [chezmoi](https://www.chezmoi.io/)のインストール
 
@@ -16,10 +16,22 @@
 ```bash
 brew install chezmoi
 ```
-
+<!--}}}-->
 ## 初期設定
 
 ```bash
 chezmoi init tkancf --apply --ssh -v
 ```
 
+## ツール
+
+- Neovim
+    - メインエディタ
+- tmux
+- mise
+    - 主なツールのインストール
+- Vim
+    - サブエディタ
+
+
+" vim: foldmethod=marker foldlevel=1

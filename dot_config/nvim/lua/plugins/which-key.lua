@@ -17,32 +17,32 @@ return {
     local wk = require("which-key")
     wk.add({
       {
-        "<leader>;",
+        "<leader>t;",
         "<cmd>lua telescope command_history()<cr>",
         desc = "command history",
       },
       {
-        "<leader>b",
+        "<leader>tb",
         "<cmd>lua require('telescope.builtin').buffers()<cr>",
         desc = "buffers",
       },
       {
-        "<leader>f",
+        "<leader>tf",
         "<cmd>lua require('telescope.builtin').find_files()<cr>",
         desc = "find files"
       },
       {
-        "<leader>g",
+        "<leader>tg",
         "<cmd>lua require('telescope.builtin').live_grep()<cr>",
         desc = "live grep"
       },
       {
-        "<leader>h",
+        "<leader>th",
         "<cmd>lua require('telescope.builtin').help_tags()<cr>",
         desc = "help tags"
       },
       {
-        "<leader>u",
+        "<leader>tu",
         "<cmd>lua require('telescope.builtin').oldfiles()<cr>",
         desc = "recent files"
       },

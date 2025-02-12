@@ -27,6 +27,13 @@ vim.o.conceallevel = 2
 vim.o.autochdir = false
 vim.o.modeline = true
 
+-- バックスペースの動作を個別に設定
+vim.opt.backspace:append({
+    'indent', -- インデントの削除を許可
+    'eol',    -- 改行の削除を許可
+    'start'   -- 挿入開始位置より前の削除を許可
+})
+
 -- Set list option to show hidden characters
 vim.opt.list = true
 vim.opt.listchars = {

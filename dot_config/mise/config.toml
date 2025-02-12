@@ -10,6 +10,10 @@ ghq = "latest"
 fzf = "latest"
 lazygit = "latest"
 delta = "latest"
+gitui = "latest"
+yazi = "latest"
+node = "latest"
+bun = "latest"
 
 [settings]
 experimental = true
