@@ -60,12 +60,6 @@ return {
     version = false,
   },
   {
-    'neovim/nvim-lspconfig',
-    event = { 'InsertEnter' },
-    lazy = true,
-    version = false,
-  },
-  {
     'hrsh7th/cmp-nvim-lsp',
     event = { 'InsertEnter' },
     lazy = true,
