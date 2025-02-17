@@ -9,5 +9,6 @@ return {
     lspconfig.lua_ls.setup{
       capabilities = capabilities,
     }
-  end
+    vim.keymap.set('n', 'gD', vim.diagnostic.open_float, { desc = 'LSP Diagnostic'})
+  end,
 }

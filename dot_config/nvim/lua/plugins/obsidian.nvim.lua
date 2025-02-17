@@ -11,7 +11,7 @@ return {
       img_folder = "assets", -- This is the default
       ---@param client obsidian.Client
       ---@param path obsidian.Path the absolute path to the image file
-      ---@return string
+      ---@return type string
       img_text_func = function(client, path)
         path = client:vault_relative_path(path) or path
         return string.format("![%s](%s)", path.name, path)
@@ -69,9 +69,8 @@ return {
         end,
       },
     },
-    ---@param title string|?
     ---@return string
-    note_id_func = function(title)
+    note_id_func = function()
       -- Generate a unique ID YYYYMMDDHHMMSS format
       return tostring(os.date("%Y%m%d%H%M%S"))
     end,
@@ -109,4 +108,21 @@ return {
       -- vim.fn.jobstart({"xdg-open", url})  -- linux
     end,
   },
+  keys = {
+    {
+      "<leader>os",
+      "<cmd>ObsidianFollowLink hsplit<cr>",
+      desc = "Obsidian Follow Link"
+    },
+    {
+      "<leader>ob",
+      "<cmd>ObsidianBacklinks<cr>",
+      desc = "Obsidian Backlinks"
+    },
+    {
+      "<leader>oo",
+      "<cmd>lua require('plugins.tkancf.markdown_title_picker').open_markdown_by_title()<cr>",
+      desc = "Open Markdown by Title"
+    }
+  }
 }
