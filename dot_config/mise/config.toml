@@ -14,6 +14,9 @@ gitui = "latest"
 yazi = "latest"
 node = "latest"
 bun = "latest"
+lua-language-server = "latest"
+fd = "latest"
+github-cli = "latest"
 
 [settings]
 experimental = true

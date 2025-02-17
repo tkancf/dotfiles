@@ -20,7 +20,7 @@ set -x EDITOR "nvim"
 abbr -a cnn "cd ~/.config/nvim/ && nvim ./lua/plugins/ # edit neovim config"
 abbr -a cnf "cd ~/.config/fish/ && nvim config.fish # edit fish config"
 abbr -a cc "chezmoi cd"
-abbr -a ca "chezmoi add ~/.config/nvim/ ~/.config/fish/  ~/.config/wezterm/ ~/.config/lazygit/ ~/.config/wezterm/ ~/.tmux.conf ~/.gitconfig ~/.vimrc"
+abbr -a ca "chezmoi add ~/.config/nvim/ ~/.config/fish/  ~/.config/wezterm/ ~/.config/lazygit/ ~/.config/wezterm/ ~/.tmux.conf ~/.gitconfig ~/.vimrc ~/.config/mise/"
 abbr -a cz "chezmoi"
 
 ## Vim/Neovim
