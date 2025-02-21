@@ -17,6 +17,9 @@ bun = "latest"
 lua-language-server = "latest"
 fd = "latest"
 github-cli = "latest"
+"ubi:babarot/gomi" = "latest"
+"go:github.com/babarot/gomi" = "latest"
+"npm:typescript-language-server" = "latest"
 
 [settings]
 experimental = true
