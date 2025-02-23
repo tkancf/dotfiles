@@ -21,6 +21,7 @@ github-cli = "latest"
 "go:github.com/babarot/gomi" = "latest"
 "npm:typescript-language-server" = "latest"
 "go:golang.org/x/tools/gopls" = "latest"
+tmux = "latest"
 
 [settings]
 experimental = true
