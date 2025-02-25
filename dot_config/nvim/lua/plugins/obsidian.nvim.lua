@@ -118,11 +118,6 @@ return {
       "<leader>ob",
       "<cmd>ObsidianBacklinks<cr>",
       desc = "Obsidian Backlinks"
-    },
-    {
-      "<leader>oo",
-      "<cmd>lua require('plugins.tkancf.markdown_title_picker').open_markdown_by_title()<cr>",
-      desc = "Open Markdown by Title"
     }
-  }
+  },
 }
