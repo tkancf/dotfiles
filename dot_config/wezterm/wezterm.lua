@@ -5,8 +5,18 @@ config.color_scheme = 'Molokai'
 config.window_background_opacity = 0.85
 config.hide_tab_bar_if_only_one_tab = true
 config.font = wezterm.font_with_fallback({
-  { family = "Cica" },
-  { family = "Cica", assume_emoji_presentation = true },
+  { family = "Hack Nerd Font Mono" },
+  { family = "Hack Nerd Font Mono", assume_emoji_presentation = true },
 })
+
+config.keys = {
+  { key="t", mods="CMD", action=wezterm.action{SpawnTab="CurrentPaneDomain"}},
+  { key="w", mods="CMD", action=wezterm.action{CloseCurrentTab={confirm=true}}},
+  { key = '5', mods = 'CMD', action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' }},
+  { key = '\'', mods = 'CMD', action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' }},
+  { key="c", mods="CMD", action=wezterm.action{CopyTo="Clipboard"}},
+  { key="v", mods="CMD", action=wezterm.action{PasteFrom="Clipboard"}},
+  { key="Insert", mods="CMD", action=wezterm.action{PasteFrom="Clipboard"}},
+}
 
 return config
