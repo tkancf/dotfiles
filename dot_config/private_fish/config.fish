@@ -37,6 +37,16 @@ abbr -a gd "git diff"
 abbr -a gdc "git diff --cached"
 abbr -a gg "git log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short"
 
+## blog
+abbr -a blog "cd ~/src/github.com/tkancf/tkancf.com/content && nvim blogs.md"
+
 ## fzf
 abbr -a bb "abbr --show | fzf"
 abbr -a cdg "cd (ghq list --full-path | fzf)"
+
+# pnpm
+set -gx PNPM_HOME "/Users/tkan/Library/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
