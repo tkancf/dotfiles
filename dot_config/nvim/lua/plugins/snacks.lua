@@ -153,67 +153,67 @@ return {
   config = function ()
     local picker = require("snacks.picker")
 
-    -- Markdown ファイルからタイトルを抽出するピッカーを作成
-    local function markdown_titles()
-      picker({
-        -- finderでMarkdownファイルを検索してタイトルを抽出
-        finder = function()
-          local items = {}
-          local idx = 1
-          -- findコマンドでMarkdownファイルを検索
-          local handle = io.popen('find . -type f -name "*.md"')
-          if not handle then return items end
-          local files = handle:read("*a")
-          handle:close()
-          -- 各ファイルを処理
-          for file in files:gmatch("[^\n]+") do
-            local f = io.open(file, "r")
-            if f then
-              local content = f:read("*all")
-              f:close()
-              -- title: で始まる行を検索
-              for line in content:gmatch("[^\n]+") do
-                local title = line:match("^title:%s*(.+)")
-                if title then
-                  -- ピッカーのアイテムを作成
-                  table.insert(items, {
-                    idx = idx,
-                    score = 0,
-                    text = title,
-                    file = file,
-                    line = line,
-                  })
-                  idx = idx + 1
-                end
-              end
-            end
+    local function get_markdown_files()
+      local handle = io.popen('find . -type f -name "*.md"')
+      if not handle then return {} end
+      local files = handle:read("*a")
+      handle:close()
+      return files
+    end
+
+    local function extract_titles_from_file(file)
+      local items = {}
+      local idx = 1
+      local f = io.open(file, "r")
+      if f then
+        local content = f:read("*all")
+        f:close()
+        for line in content:gmatch("[^\n]+") do
+          local title = line:match("^title:%s*(.+)")
+          if title then
+            table.insert(items, {
+              idx = idx,
+              score = 0,
+              text = title,
+              file = file,
+              line = line,
+            })
+            idx = idx + 1
           end
-          return items
-        end,
-        -- アイテムが選択されたときの動作
+        end
+      end
+      return items
+    end
+
+    local function markdown_titles()
+      local items = {}
+      local files = get_markdown_files()
+      for file in files:gmatch("[^\n]+") do
+        local file_items = extract_titles_from_file(file)
+        for _, item in ipairs(file_items) do
+          table.insert(items, item)
+        end
+      end
+
+      picker({
+        finder = function() return items end,
         confirm = function(the_picker, item)
           the_picker:close()
-          -- ファイルを開く
           vim.cmd('edit ' .. item.file)
-          -- タイトル行を検索
           local bufnr = vim.api.nvim_get_current_buf()
           local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
           for i, line in ipairs(lines) do
             if line:match(item.line) then
-              -- カーソルを該当行に移動
               vim.api.nvim_win_set_cursor(0, {i, 0})
               break
             end
           end
         end,
-        -- 表示設定
         format = "text",
-        -- レイアウト設定
         layout = { preset = "default" },
       })
     end
 
-    -- キーマップの設定例
     vim.keymap.set('n', '<leader>oo', markdown_titles, { desc = 'Markdown Titles' })
   end
 }
