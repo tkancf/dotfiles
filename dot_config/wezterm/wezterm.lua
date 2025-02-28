@@ -5,7 +5,7 @@ config.color_scheme = 'Molokai'
 config.window_background_opacity = 0.85
 config.hide_tab_bar_if_only_one_tab = true
 config.font = wezterm.font_with_fallback({
-  { family = "Cica" },
+  { family = "Hack Nerd Font", assume_emoji_presentation = false },
   { family = "Cica", assume_emoji_presentation = true },
 })
 
