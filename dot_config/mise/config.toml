@@ -23,6 +23,9 @@ github-cli = "latest"
 "go:golang.org/x/tools/gopls" = "latest"
 tmux = "latest"
 ffmpeg = "latest"
+pnpm = "latest"
+rust = "latest"
+"cargo:create-tauri-app" = "latest"
 
 [settings]
 experimental = true
