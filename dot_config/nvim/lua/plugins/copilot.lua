@@ -1,7 +1,7 @@
 return {
   {
-    "https://github.com/github/copilot.vim",
+    "zbirenbaum/copilot.lua",
     enabled = true,
-    --event = 'VimEnter',
+    event = 'VeryLazy',
   }
 }
