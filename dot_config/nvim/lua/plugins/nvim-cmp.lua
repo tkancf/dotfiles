@@ -21,7 +21,6 @@ return {
         sources = cmp.config.sources({
           { name = 'nvim_lsp' },
           { name = 'vsnip' },
-          { name = "copilot", max_item_count = 15, keyword_length = 2 }, --copilotを補完ソースに追加する
           { name = 'buffer' },
         }),
         window = {
@@ -58,5 +57,4 @@ return {
   { 'hrsh7th/cmp-buffer', event = { 'InsertEnter' }, lazy = true, version = false, },
   { 'hrsh7th/cmp-path', event = { 'InsertEnter' }, lazy = true, version = false, },
   { 'hrsh7th/cmp-cmdline', event = { 'CmdlineEnter' }, lazy = true, version = false, },
-  { "zbirenbaum/copilot-cmp", config = true, event = "InsertEnter" },
 }
