@@ -1,7 +1,11 @@
 return {
-  {
-    "zbirenbaum/copilot.lua",
-    enabled = true,
-    event = 'VeryLazy',
-  }
+  "zbirenbaum/copilot.lua",
+  cmd = "Copilot",
+  -- event = "InsertEnter",
+  config = function()
+    require("copilot").setup({
+      suggestion = { enabled = false },
+      panel = { enabled = false },
+    })
+  end,
 }
