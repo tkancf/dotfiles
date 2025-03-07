@@ -24,6 +24,7 @@ pnpm = "latest"
 rust = "latest"
 "cargo:create-tauri-app" = "latest"
 "npm:@anthropic-ai/claude-code" = "latest"
+"npm:@github/copilot-language-server" = "latest"
 
 [settings]
 experimental = true
