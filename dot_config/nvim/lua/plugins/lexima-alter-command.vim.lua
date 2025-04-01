@@ -5,11 +5,11 @@ return {
   },
   event = { 'CmdlineEnter' },
   config = function()
-    vim.cmd [[
-    LeximaAlterCommand obw ObsidianWorkspace
-    LeximaAlterCommand obd ObsidianDailies
-    LeximaAlterCommand obt ObsidianToday
-    LeximaAlterCommand obe ObsidianExtractNote
-    ]]
+    -- vim.cmd [[
+    --   LeximaAlterCommand obw ObsidianWorkspace
+    --   LeximaAlterCommand obd ObsidianDailies
+    --   LeximaAlterCommand obt ObsidianToday
+    --   LeximaAlterCommand obe ObsidianExtractNote
+    -- ]]
   end,
 }

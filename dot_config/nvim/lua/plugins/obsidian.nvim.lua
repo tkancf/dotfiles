@@ -90,6 +90,8 @@ return {
     ---@return string
     note_id_func = function()
       -- Generate a unique ID YYYYMMDDHHMMSS format
+      -- return "blog/" + YYYYMMDDHHMMSS
+      -- return tostring(os.date("%Y%m%d%H%M%S"))
       return tostring(os.date("%Y%m%d%H%M%S"))
     end,
     ---@return table
@@ -104,6 +106,7 @@ return {
         id = note.id,
         title = note.title,
         aliases = note.aliases,
+        description = note.title,
         tags = note.tags,
         created = created_time,
         updated = updated_time
