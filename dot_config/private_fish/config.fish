@@ -9,6 +9,12 @@ if status is-interactive
 
   # zoxide
   zoxide init fish | source
+
+  # スクリプトが既に実行中でない場合のみバックグラウンドで実行
+  if not pgrep -f "periodic_script.fish" > /dev/null
+    nohup ~/.config/fish/scripts/periodic_script.fish > /dev/null 2>&1 &
+  end
+
 end
 # fish起動時のメッセージ削除
 set fish_greeting
@@ -52,3 +58,6 @@ if not string match -q -- $PNPM_HOME $PATH
   set -gx PATH "$PNPM_HOME" $PATH
 end
 # pnpm end
+
+# uv
+fish_add_path "/Users/tkan/.local/bin"
