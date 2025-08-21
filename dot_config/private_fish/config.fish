@@ -45,12 +45,24 @@ abbr -a gd "git diff"
 abbr -a gdc "git diff --cached"
 abbr -a gg "git log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short"
 
-## blog
-abbr -a blog "cd ~/src/github.com/tkancf/tkancf.com/content && nvim blogs.md"
+## Neovim
+abbr -a blog "cd ~/src/github.com/tkancf/tkancf.com/content && set -gx NVIM_APPNAME 'nvim' && nvim index.md"
+abbr -a note "set -gx NVIM_APPNAME 'nvim-note' && cd ~/Library/CloudStorage/Dropbox/Note/ && nvim refile.md"
+abbr -a memo "set -gx NVIM_APPNAME 'nvim' && cd ~/Library/CloudStorage/Dropbox/Memo/ && nvim index.md"
+
+## note
+abbr -a note-serve "cd ~/src/github.com/tkancf/Note/ && npx quartz build --serve"
+abbr -a blog-serve "cd ~/src/github.com/tkancf/tkancf.com/ && npx quartz build --serve"
 
 ## fzf
 abbr -a bb "abbr --show | fzf"
-abbr -a cdg "cd (ghq list --full-path | fzf)"
+abbr -a dd "cd (ghq list --full-path | fzf)"
+
+## claude
+abbr -a c "claude --dangerously-skip-permissions --continue"
+
+## VSCode
+abbr -a e "code ."
 
 # pnpm
 set -gx PNPM_HOME "/Users/tkan/Library/pnpm"

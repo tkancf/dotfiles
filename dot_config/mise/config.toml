@@ -27,6 +27,7 @@ rust = "latest"
 "npm:@github/copilot-language-server" = "latest"
 mdbook = "latest"
 python = "latest"
+"npm:ccmanager" = "latest"
 
 [settings]
 experimental = true

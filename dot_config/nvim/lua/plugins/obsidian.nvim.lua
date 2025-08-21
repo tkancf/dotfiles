@@ -19,12 +19,12 @@ return {
     },
     workspaces = {
       {
-        name = "blog",
-        path = "~/src/github.com/tkancf/tkancf.com/content/",
+        name = "memo",
+        path = "~/Library/CloudStorage/Dropbox/Memo",
       },
       {
-        name = "note",
-        path = "~/src/github.com/tkancf/note.tkancf.com/content",
+        name = "blog",
+        path = "~/src/github.com/tkancf/tkancf.com/content/",
       },
     },
     completion = {
@@ -71,7 +71,7 @@ return {
     },
     picker = {
       -- Set your preferred picker. Can be one of 'telescope.nvim', 'fzf-lua', 'mini.pick' or 'snacks.pick'.
-      name = "snacks.pick",
+      name = "telescope.nvim",
       -- Optional, configure key mappings for the picker. These are the defaults.
       -- Not all pickers support all mappings.
       note_mappings = {
@@ -90,9 +90,7 @@ return {
     ---@return string
     note_id_func = function()
       -- Generate a unique ID YYYYMMDDHHMMSS format
-      -- return "blog/" + YYYYMMDDHHMMSS
-      -- return tostring(os.date("%Y%m%d%H%M%S"))
-      return tostring(os.date("%Y%m%d%H%M%S"))
+      return "blog/" .. tostring(os.date("%Y%m%d%H%M%S"))
     end,
     ---@return table
     note_frontmatter_func = function(note)
@@ -140,5 +138,5 @@ return {
       "<cmd>ObsidianBacklinks<cr>",
       desc = "Obsidian Backlinks"
     }
-  },
+  }
 }
