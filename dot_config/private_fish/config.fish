@@ -47,11 +47,9 @@ abbr -a gg "git log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgre
 
 ## Neovim
 abbr -a blog "cd ~/src/github.com/tkancf/tkancf.com/content && set -gx NVIM_APPNAME 'nvim' && nvim index.md"
-abbr -a note "set -gx NVIM_APPNAME 'nvim-note' && cd ~/Library/CloudStorage/Dropbox/Note/ && nvim refile.md"
-abbr -a memo "set -gx NVIM_APPNAME 'nvim' && cd ~/Library/CloudStorage/Dropbox/Memo/ && nvim index.md"
+abbr -a note "set -gx NVIM_APPNAME 'nvim' && cd ~/Library/CloudStorage/Dropbox/Note/ && nvim refile.md"
 
 ## note
-abbr -a note-serve "cd ~/src/github.com/tkancf/Note/ && npx quartz build --serve"
 abbr -a blog-serve "cd ~/src/github.com/tkancf/tkancf.com/ && npx quartz build --serve"
 
 ## fzf
