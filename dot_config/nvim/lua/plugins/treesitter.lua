@@ -1,15 +1,14 @@
 return {
-  "nvim-treesitter/nvim-treesitter",
+  'https://github.com/nvim-treesitter/nvim-treesitter',
+  branch = 'master',
+  lazy = false,
   build = ":TSUpdate",
-  event = { "BufReadPost" },
-  lazy = true,
   config = function()
-    require 'nvim-treesitter.configs'.setup {
-      highlight = {
-        ensure_installed = { "markdown" },
-        enable = true,
-        additional_vim_regex_highlighting = false,
-      },
-    }
+    require('nvim-treesitter.configs').setup({
+      -- auto-install parsers
+      ensure_installed = { 'lua', 'markdown' },
+      highlight = { enable = true },
+    })
   end,
 }
+
