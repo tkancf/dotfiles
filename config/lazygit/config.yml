@@ -12,5 +12,4 @@ customCommands:
     command: 'gh repo view --web' # GitHub CLIを使用する場合
     context: 'files'
     description: 'Open repository in GitHub'
-# gui:
-#   nerdFontsVersion: "3"
+

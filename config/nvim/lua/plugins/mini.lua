@@ -101,10 +101,6 @@ return {
       },
     })
 
-    -- git diff表示
-    -- mini.diff
-    require('mini.diff').setup()
-
     -- git コマンド追加
     -- mini.git
     require('mini.git').setup()

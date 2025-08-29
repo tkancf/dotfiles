@@ -1,17 +1,18 @@
 #!/bin/bash
 
 DOTFILES_CONFIG=(
-    ".zshrc:.zshrc"
-    ".zprofile:.zprofile"
-    ".vimrc:.vimrc"
-    ".config/fish:.config/fish"
-    ".config/homebrew:.config/homebrew"
-    ".config/karabiner:.config/karabiner"
-    ".config/karabiner-config:.config/karabiner-config"
-    ".config/kitty:.config/kitty"
-    ".config/lazygit:.config/lazygit"
-    ".config/mise:.config/mise"
-    ".config/wezterm:.config/wezterm"
+    "zshrc:.zshrc"
+    "zprofile:.zprofile"
+    "vimrc:.vimrc"
+    "config/nvim:.config/nvim"
+    "config/fish:.config/fish"
+    "config/homebrew:.config/homebrew"
+    "config/karabiner:.config/karabiner"
+    "config/karabiner-config:.config/karabiner-config"
+    "config/kitty:.config/kitty"
+    "config/lazygit:.config/lazygit"
+    "config/mise:.config/mise"
+    "config/wezterm:.config/wezterm"
 )
 
 BACKUP_DIR=".backup/$(date +%Y%m%d%H%M%S)"
