@@ -37,7 +37,7 @@ require("lazy").setup({
     { import = 'plugins.telescope' },
     { import = 'plugins.treesitter' },
     { import = 'plugins.wip' },
-    { import = 'plugins.snacks-nvim' },
+    { import = 'plugins.snacks' },
   },
   -- automatically check for plugin updates
   checker = { enabled = true },
