@@ -1,2 +1,3 @@
 dot_git/
 .backup
+.config/nvim/lazy-lock.json
