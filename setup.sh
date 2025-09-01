@@ -6,7 +6,6 @@ DOTFILES_CONFIG=(
     "vimrc:.vimrc"
     "config/nvim:.config/nvim"
     "config/fish:.config/fish"
-    "config/homebrew:.config/homebrew"
     "config/karabiner:.config/karabiner"
     "config/karabiner-config:.config/karabiner-config"
     "config/kitty:.config/kitty"

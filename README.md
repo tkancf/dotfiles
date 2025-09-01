@@ -1,7 +1,15 @@
 # dotfiles
 
-## Usage
+tkancf dotfiles
+
+## setup
 
 ```bash
-chezmoi init tkancf --apply --ssh
+git clone --depth 1 https://github.com/tkancf/dotfiles ~/.config/dotfiles
+cd ~/.config/dotfiles
+chmod +x setup.sh
+./setup.sh
+brew bundle --file=config/homebrew/Brewfile
 ```
+
+
