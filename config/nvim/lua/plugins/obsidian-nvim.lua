@@ -61,7 +61,7 @@ return {
       ---@return string
       note_id_func = function()
         -- Generate a unique ID YYYYMMDDHHMMSS format
-        if vault_path == nil then
+        if vault_path == "~/src/github.com/tkancf/tkancf.com/content/" then
           return "blog/" .. tostring(os.date("%Y%m%d%H%M%S"))
         else
           return tostring(os.date("%Y%m%d%H%M%S"))
@@ -79,7 +79,6 @@ return {
           id = note.id,
           title = note.title,
           aliases = note.aliases,
-          description = note.title,
           tags = note.tags,
           created = created_time,
           updated = updated_time

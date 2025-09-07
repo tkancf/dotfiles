@@ -12,6 +12,17 @@ return {
     lspconfig.ts_ls.setup{
       capabilities = capabilities,
     }
+    lspconfig.rust_analyzer.setup({
+      capabilities = capabilities,
+      settings = {
+        ["rust-analyzer"] = {
+          check = {
+            command = "clippy",
+          },
+        },
+      },
+    })
+
     vim.keymap.set('n', 'gD', vim.diagnostic.open_float, { desc = 'LSP Diagnostic'})
 
   end,

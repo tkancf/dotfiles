@@ -9,12 +9,6 @@ if status is-interactive
 
   # zoxide
   zoxide init fish | source
-
-  # スクリプトが既に実行中でない場合のみバックグラウンドで実行
-  if not pgrep -f "periodic_script.fish" > /dev/null
-    nohup ~/.config/fish/scripts/periodic_script.fish > /dev/null 2>&1 &
-  end
-
 end
 # fish起動時のメッセージ削除
 set fish_greeting
@@ -47,7 +41,7 @@ abbr -a gg "git log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgre
 
 ## Neovim
 abbr -a blog "cd ~/src/github.com/tkancf/tkancf.com/content && set -gx NVIM_APPNAME 'nvim' && nvim index.md"
-abbr -a note "set -gx NVIM_APPNAME 'nvim' && cd ~/Library/CloudStorage/Dropbox/Note/ && nvim refile.md"
+abbr -a memo "set -gx NVIM_APPNAME 'nvim' && cd ~/Library/CloudStorage/Dropbox/Memo/ && nvim refile.md"
 
 ## note
 abbr -a blog-serve "cd ~/src/github.com/tkancf/tkancf.com/ && npx quartz build --serve"
@@ -62,12 +56,6 @@ abbr -a c "claude --dangerously-skip-permissions --continue"
 ## VSCode
 abbr -a e "code ."
 
-# pnpm
-set -gx PNPM_HOME "/Users/tkan/Library/pnpm"
-if not string match -q -- $PNPM_HOME $PATH
-  set -gx PATH "$PNPM_HOME" $PATH
-end
-# pnpm end
-
 # uv
-fish_add_path "/Users/tkan/.local/bin"
+fish_add_path "$HOME/.local/bin"
+

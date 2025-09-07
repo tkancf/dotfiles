@@ -1,13 +1,20 @@
 return {
-  'https://github.com/nvim-treesitter/nvim-treesitter',
-  branch = 'master',
+  'nvim-treesitter/nvim-treesitter',
   lazy = false,
-  build = ":TSUpdate",
+  branch = 'main',
+  build = ':TSUpdate',
   config = function()
-    require('nvim-treesitter.configs').setup({
-      -- auto-install parsers
-      ensure_installed = { 'lua', 'markdown' },
-      highlight = { enable = true },
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = { 'markdown', 'markdown_inline', 'rust' },
+      callback = function()
+        vim.treesitter.start()
+      end,
+    })
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = { 'rust' },
+      callback = function()
+        vim.treesitter.start()
+      end,
     })
   end,
 }
