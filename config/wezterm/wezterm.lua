@@ -103,7 +103,7 @@ config.keys = {
     },
     -- コピーモード
     {
-        key = "v",
+        key = "s",
         mods = "CMD",
         action = wezterm.action.ActivateCopyMode
     },
@@ -125,7 +125,7 @@ config.keys = {
         action = wezterm.action{ CopyTo = "Clipboard" }
     },
     {
-        key = "Enter",
+        key = "v",
         mods = "CMD",
         action = wezterm.action{ PasteFrom = "Clipboard" }
     },
