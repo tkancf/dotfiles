@@ -2,14 +2,10 @@ if status is-interactive
   # Homebrew
   eval (/opt/homebrew/bin/brew shellenv)
 
-  # mise
-  ## do nothing! mise is automatically activated when using brew and fish
-  ## you can disable this behavior with `set -Ux MISE_FISH_AUTO_ACTIVATE 0`
-
-
   # zoxide
   zoxide init fish | source
 end
+
 # fish起動時のメッセージ削除
 set fish_greeting
 set -x XDG_CONFIG_HOME "$HOME/.config"
@@ -58,4 +54,6 @@ abbr -a e "code ."
 
 # uv
 fish_add_path "$HOME/.local/bin"
+
+source $HOME/.config/local.fish
 
