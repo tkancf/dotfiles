@@ -11,11 +11,6 @@ config.font = wezterm.font_with_fallback({
 })
 
 config.keys = {
-    {
-        key = 'p',
-        mods = 'CMD',
-        action = wezterm.action.ActivateCommandPalette,
-    },
     -- タブ操作
     {
         key = "t",
