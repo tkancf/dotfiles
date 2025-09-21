@@ -3,7 +3,7 @@ if status is-interactive
   eval (/opt/homebrew/bin/brew shellenv)
 
   # zoxide
-  zoxide init fish | source
+  $HOME/.local/bin/mise activate fish | source
 end
 
 # fish起動時のメッセージ削除
@@ -57,3 +57,4 @@ fish_add_path "$HOME/.local/bin"
 
 source $HOME/.config/local.fish
 
+zoxide init fish | source

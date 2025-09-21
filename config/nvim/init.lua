@@ -38,6 +38,7 @@ require("lazy").setup({
     { import = 'plugins.treesitter' },
     { import = 'plugins.wip' },
     { import = 'plugins.snacks' },
+    -- { import = 'plugins.iwe-nvim' },
   },
   -- automatically check for plugin updates
   checker = { enabled = true },
