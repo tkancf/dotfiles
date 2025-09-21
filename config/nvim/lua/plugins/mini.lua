@@ -57,19 +57,23 @@ return {
     local hipatterns = require('mini.hipatterns')
     -- mini.extra
     local hi_words = require('mini.extra').gen_highlighter.words
-    vim.api.nvim_set_hl(0, 'MiniHipatternsNext', { fg = '#000000', bg = '#EC4CE6', bold = true })
-    vim.api.nvim_set_hl(0, 'MiniHipatternsDone', { fg = '#000000', bg = '#F296B2', bold = true })
-    vim.api.nvim_set_hl(0, 'MiniHipatternsWait', { fg = '#000000', bg = '#FFB400', bold = true })
-    vim.api.nvim_set_hl(0, 'MiniHipatternsWill', { fg = '#000000', bg = '#A77563', bold = true })
+    vim.api.nvim_set_hl(0, 'MiniHipatternsTODO', { fg = '#000000', bg = '#ffc0cb', bold = true })
+    vim.api.nvim_set_hl(0, 'MiniHipatternsWIP', { fg = '#000000', bg = '#4169e1', bold = true })
+    vim.api.nvim_set_hl(0, 'MiniHipatternsDONE', { fg = '#FFFFFF', bg = '#696969', bold = true })
+    vim.api.nvim_set_hl(0, 'MiniHipatternsSCHE', { fg = '#000000', bg = '#3cb371', bold = true })
+    vim.api.nvim_set_hl(0, 'MiniHipatternsNEXT', { fg = '#000000', bg = '#afeeee', bold = true })
+    vim.api.nvim_set_hl(0, 'MiniHipatternsWAIT', { fg = '#000000', bg = '#f0e68c', bold = true })
+    vim.api.nvim_set_hl(0, 'MiniHipatternsWILL', { fg = '#000000', bg = '#00ced1', bold = true })
+
     hipatterns.setup({
       highlighters = {
-        todo = hi_words({ 'TODO' }, 'MiniHipatternsTodo'),
-        wip  = hi_words({ 'WIP' }, 'MiniHipatternsHack'),
-        done = hi_words({ 'DONE' }, 'MiniHipatternsDone'),
-        sche = hi_words({ 'SCHE' }, 'MiniHipatternsNote'),
-        next = hi_words({ 'NEXT' }, 'MiniHipatternsNext'),
-        wait = hi_words({ 'WAIT' }, 'MiniHipatternsWait'),
-        will = hi_words({ 'WILL' }, 'MiniHipatternsWill'),
+        todo = hi_words({ 'TODO' }, 'MiniHipatternsTODO'),
+        wip  = hi_words({ 'WIP' },  'MiniHipatternsWIP'),
+        done = hi_words({ 'DONE' }, 'MiniHipatternsDONE'),
+        sche = hi_words({ 'SCHE' }, 'MiniHipatternsNOTE'),
+        next = hi_words({ 'NEXT' }, 'MiniHipatternsNEXT'),
+        wait = hi_words({ 'WAIT' }, 'MiniHipatternsWAIT'),
+        will = hi_words({ 'WILL' }, 'MiniHipatternsWILL'),
         -- Highlight hex color strings (`#rrggbb`) using that color
         hex_color = hipatterns.gen_highlighter.hex_color(),
       },

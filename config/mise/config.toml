@@ -2,7 +2,6 @@
 yarn = "latest"
 go = "latest"
 "go:github.com/rhysd/vim-startuptime" = "latest"
-neovim = "latest"
 deno = "latest"
 ripgrep = "latest"
 zoxide = "latest"
@@ -28,6 +27,7 @@ rust = "latest"
 mdbook = "latest"
 python = "latest"
 "npm:ccmanager" = "latest"
+"aqua:neovim" = "nightly"
 
 [settings]
 experimental = true
