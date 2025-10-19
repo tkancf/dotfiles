@@ -19,7 +19,7 @@ rust = "latest"
 "npm:@github/copilot-language-server" = "latest"
 python = "latest"
 "aqua:neovim" = "latest"
-"github:iwe-org/iwe" = "latest"
+lua = "latest"
 
 [settings]
 experimental = true

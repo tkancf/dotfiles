@@ -284,7 +284,6 @@ Plug 'Shougo/ddc-matcher_head'
 Plug 'Shougo/ddc-sorter_rank'
 Plug 'Shougo/ddc.vim'
 Plug 'Shougo/pum.vim'
-Plug 'vim-denops/denops.vim'
 Plug 'LumaKernel/ddc-file'
 Plug 'shun/ddc-vim-lsp'
 

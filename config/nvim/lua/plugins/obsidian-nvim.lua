@@ -12,6 +12,22 @@ return {
       vault_path = "~/src/github.com/tkancf/tkancf.com/content/"
     end
 
+    -- 36進数の文字セット（0-9, a-z）
+    local base36_chars = "0123456789abcdefghijklmnopqrstuvwxyz"
+
+    -- 乱数の初期化
+    math.randomseed(os.time())
+
+    -- 7桁の36進数乱数を返す関数
+    function generate_7digit_base36()
+        local result = ""
+        for i = 1, 7 do
+            local random_index = math.random(1, 36)
+            result = result .. string.sub(base36_chars, random_index, random_index)
+        end
+        return result
+    end
+
     require("obsidian").setup({
       legacy_commands = false,
       ui = {
@@ -58,15 +74,18 @@ return {
           insert_tag = "<C-l>",
         },
       },
+
+
       ---@return string
       note_id_func = function()
-        -- Generate a unique ID YYYYMMDDHHMMSS format
+        -- Generate a unique ID
         if vault_path == "~/src/github.com/tkancf/tkancf.com/content/" then
-          return "blog/" .. tostring(os.date("%Y%m%d%H%M%S"))
+          return "blog/" .. generate_7digit_base36()
         else
           return tostring(os.date("%Y%m%d%H%M%S"))
         end
       end,
+
       ---@return table
       note_frontmatter_func = function(note)
         if note.title then

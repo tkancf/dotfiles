@@ -22,7 +22,7 @@ abbr -a capd "chezmoi init tkancf --apply --ssh -v --dry-run"
 abbr -a cz "chezmoi"
 
 ## Vim/Neovim
-abbr -a v "neovim"
+abbr -a v "nvim"
 abbr -a vr "vimr -s"
 
 ## git
