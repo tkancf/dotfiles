@@ -54,6 +54,8 @@ abbr -a e "code ."
 
 # uv
 fish_add_path "$HOME/.local/bin"
+fish_add_path "/Users/tkan/.local/bin/roc_nightly-macos_apple_silicon-2025-09-09-d73ea109cc2/"
+fish_add_path "/Users/tkan/.local/bin/zig-aarch64-macos-0.15.1/"
 
 source $HOME/.config/local.fish
 

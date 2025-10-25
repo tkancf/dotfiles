@@ -20,6 +20,7 @@ rust = "latest"
 python = "latest"
 "aqua:neovim" = "latest"
 lua = "latest"
+"npm:@openai/codex" = "latest"
 
 [settings]
 experimental = true
