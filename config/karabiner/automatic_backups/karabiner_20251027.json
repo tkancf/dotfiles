@@ -116,6 +116,7 @@
                 ]
             },
             "name": "JS-Mac-Keyboard",
+            "selected": true,
             "simple_modifications": [
                 {
                     "from": { "key_code": "right_command" },
@@ -167,8 +168,7 @@
                     }
                 ]
             },
-            "name": "tofu65",
-            "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
+            "name": "tofu65"
         },
         {
             "complex_modifications": {
@@ -283,11 +283,6 @@
                 ]
             },
             "name": "karabiner-ts",
-            "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
-        },
-        {
-            "name": "Ergo68",
-            "selected": true,
             "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
         }
     ]
