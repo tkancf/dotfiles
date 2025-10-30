@@ -31,7 +31,7 @@ require("lazy").setup({
     { import = 'plugins.telescope' },
     { import = 'plugins.dial-nvim' },
     { import = 'plugins.nvim-cmp' },
-    { import = 'plugins.nvim-lspconfig.lua' },
+    { import = 'plugins.nvim-lspconfig' },
     { import = 'plugins.telescope' },
     { import = 'plugins.treesitter' },
     { import = 'plugins.wip' },
