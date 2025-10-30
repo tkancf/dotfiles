@@ -29,20 +29,19 @@ require("lazy").setup({
     { import = 'plugins.mini' },
     { import = 'plugins.misc' },
     { import = 'plugins.telescope' },
-    { import = 'plugins.nvim-ufo' },
     { import = 'plugins.dial-nvim' },
-    { import = 'plugins.obsidian-nvim' },
     { import = 'plugins.nvim-cmp' },
-    { import = 'plugins.lsp' },
+    { import = 'plugins.nvim-lspconfig.lua' },
     { import = 'plugins.telescope' },
     { import = 'plugins.treesitter' },
     { import = 'plugins.wip' },
-    { import = 'plugins.snacks' },
-    -- { import = 'plugins.iwe-nvim' },
   },
   -- automatically check for plugin updates
   checker = { enabled = true },
 })
+
+-- load lua/config/lsp.lua setting
+require('config.lsp')
 
 -- Basic Neovim settings
 vim.o.ambiwidth = 'single'
