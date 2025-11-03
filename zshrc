@@ -66,39 +66,9 @@ SPROMPT="%{$fg[red]%}correct: %R -> %r [nyae]? %{$reset_color%}"
 # locale
 export LC_ALL="en_US.UTF-8"
 
-#################################################
-# Language Option
-#################################################
-
-# go
-export PATH="$HOME/bin:$PATH"
-export PATH="$HOME/go/bin:$PATH"
-
 # editorconfig
 export VISUAL="nvim"
 export EDITOR="nvim"
-
-# zoxideがインストールされていたら、zoxideの初期化を行う
-if command -v zoxide >/dev/null 2>&1; then
-  eval "$(zoxide init --cmd cd zsh)"
-fi
-
-#################################################
-# Function
-#################################################
-
-# Peco
-
-function peco-src() {
-  local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
-  if [ -n "$selected_dir" ]; then
-    BUFFER="cd ${selected_dir}"
-    zle accept-line
-  fi
-  zle clear-screen
-}
-zle -N peco-src
-bindkey '^]' peco-src
 
 #################################################
 # Alias
@@ -110,10 +80,6 @@ alias l='ls -CF'
 alias la='ls -aF'
 alias t='tmux -2'
 alias vi='vim'
-alias brewupdate='cd /tmp/ && \
-curl -sO https://gist.githubusercontent.com/tkancf/231b9c11a9a5ea8e93a2fc1a1ea15228/raw/Brewfile &&
-brew bundle --file Brewfile --clean &&
-rm Brewfile'
 # git
 alias g='git'
 alias gl='git log --graph'
@@ -145,3 +111,6 @@ path=(
   /usr/local/sbin(N-/)
   /Library/Apple/usr/bin
 )
+
+eval "$(atuin init zsh)"
+eval "$(mise activate zsh)"
