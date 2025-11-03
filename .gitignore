@@ -2,3 +2,4 @@
 .config/nvim/lazy-lock.json
 config/fish/fish_variables
 config/nvim/lazy-lock.json
+config/zsh/.zcompdump
