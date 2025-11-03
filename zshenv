@@ -2,7 +2,7 @@
 export ZDOTDIR="$HOME/.config/dotfiles/config/zsh"
 
 # History file configuration
-HISTFILE=~/.histfile
+HISTFILE=$ZDOTDIR/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 
