@@ -16,8 +16,8 @@ brew bundle --file=config/homebrew/Brewfile
 
 Two Dockerfiles are provided to speed up image builds:
 
-1. `Dockerfile.base` installs Fish, Git, build essentials, the latest Neovim release, and bundles the `mise` runtime manager.
-2. `Dockerfile.dev` extends the base image with an SSH server and a `DevUser` account configured to use Fish by default.
+1. `Dockerfile.base` installs Fish, Git, build essentials, the latest Neovim release, bundles the `mise` runtime manager, provisions an OpenSSH server, and creates a passwordless `dev` user whose default shell is Fish.
+2. `Dockerfile.dev` extends the base image and simply configures the container to run the bundled SSH daemon.
 
 Build the layered images:
 
@@ -38,4 +38,4 @@ docker run -d \
   dev-environment:latest
 ```
 
-The container exposes SSH on port 22 (mapped to 2222 above) with the `DevUser` account configured for passwordless login (press Enter when prompted for a password). The default shell is Fish, and the Neovim binary is available at `/usr/local/bin/nvim`.
+The container exposes SSH on port 22 (mapped to 2222 above) with the `dev` account configured for passwordless login (press Enter when prompted for a password). The default shell is Fish, and the Neovim binary is available at `/usr/local/bin/nvim`.

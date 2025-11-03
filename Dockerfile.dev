@@ -2,27 +2,6 @@
 ARG BASE_IMAGE=dev-base:latest
 FROM ${BASE_IMAGE}
 
-ENV DEBIAN_FRONTEND=noninteractive
-
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends openssh-server \
-    && rm -rf /var/lib/apt/lists/*
-
-# Configure SSH daemon
-RUN mkdir -p /var/run/sshd \
-    && sed -i 's/^#\?PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config \
-    && sed -i 's/^#\?PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config \
-    && sed -i 's/^#\?PermitEmptyPasswords.*/PermitEmptyPasswords yes/' /etc/ssh/sshd_config \
-    && sed -i 's/^#\?PubkeyAuthentication.*/PubkeyAuthentication no/' /etc/ssh/sshd_config \
-    && sed -i 's/^#\?UsePAM.*/UsePAM no/' /etc/ssh/sshd_config
-
-# Create development user with fish shell
-RUN useradd -m -s /usr/bin/fish DevUser \
-    && usermod -aG sudo DevUser \
-    && passwd -d DevUser \
-    && echo 'DevUser ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/devuser \
-    && chmod 0440 /etc/sudoers.d/devuser
-
 EXPOSE 22
 
 CMD ["/usr/sbin/sshd", "-D"]
