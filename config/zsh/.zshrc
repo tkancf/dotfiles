@@ -3,9 +3,6 @@
 #################################################
 
 # Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
-HISTSIZE=1000000
-SAVEHIST=1000000
 setopt hist_ignore_all_dups # 過去と重複する行は記録しない
 setopt share_history        # 同時に起動したzshの間でヒストリを共有する
 setopt hist_reduce_blanks   # 余分なスペースを削除してヒストリに保存する
@@ -63,13 +60,6 @@ PROMPT="%B%F{green}❯❯%1(v|%1v|)%f%b %B%F{blue}%~%f%b
 PROMPT2="%{$fg[green]%}%_> %{$reset_color%}"
 SPROMPT="%{$fg[red]%}correct: %R -> %r [nyae]? %{$reset_color%}"
 
-# locale
-export LC_ALL="en_US.UTF-8"
-
-# editorconfig
-export VISUAL="nvim"
-export EDITOR="nvim"
-
 #################################################
 # Alias
 #################################################
@@ -95,22 +85,3 @@ alias s='ssh'
 # nvim
 alias n='nvim'
 
-#################################################
-# Path
-#################################################
-
-typeset -U path PATH
-path=(
-  /opt/homebrew/bin(N-/)
-  /opt/homebrew/sbin(N-/)
-  /usr/bin
-  /usr/sbin
-  /bin
-  /sbin
-  /usr/local/bin(N-/)
-  /usr/local/sbin(N-/)
-  /Library/Apple/usr/bin
-)
-
-eval "$(atuin init zsh)"
-eval "$(mise activate zsh)"
