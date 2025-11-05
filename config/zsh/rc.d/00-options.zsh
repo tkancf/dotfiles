@@ -1,5 +1,7 @@
 # General shell options and history behaviour.
 
+
+
 # Lines configured by zsh-newuser-install
 setopt hist_ignore_all_dups # 過去と重複する行は記録しない
 setopt share_history        # 同時に起動したzshの間でヒストリを共有する
