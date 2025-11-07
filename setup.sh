@@ -11,9 +11,8 @@ USAGE
 }
 
 MINIMAL_CONFIG=(
-    "zshenv:.zshenv"
-    "config/sheldon:.config/sheldon"
     "config/nvim:.config/nvim"
+    "config/fish:.config/fish"
 )
 
 FULL_CONFIG=(
