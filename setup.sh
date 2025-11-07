@@ -11,14 +11,14 @@ USAGE
 }
 
 MINIMAL_CONFIG=(
-    "zshrc:.zshrc"
-    "zprofile:.zprofile"
+    "zshenv:.zshenv"
+    "config/sheldon:.config/sheldon"
     "config/nvim:.config/nvim"
 )
 
 FULL_CONFIG=(
-    "zshrc:.zshrc"
-    "zprofile:.zprofile"
+    "zshenv:.zshenv"
+    "config/sheldon:.config/sheldon"
     "vimrc:.vimrc"
     "config/nvim:.config/nvim"
     "config/fish:.config/fish"
