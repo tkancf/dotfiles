@@ -1,14 +1,17 @@
 local wezterm = require 'wezterm'
-local config = wezterm.config_builder()
+local config = wezterm.config_builder and wezterm.config_builder() or {}
 
+config.treat_east_asian_ambiguous_width_as_wide = false
+config.cell_width = 1.0
 config.color_scheme = 'Molokai'
 config.window_background_opacity = 0.9
 config.hide_tab_bar_if_only_one_tab = true
+
 config.font = wezterm.font_with_fallback({
-    { family = "Hack Nerd Font Mono", assume_emoji_presentation = false },
-    { family = "Cica",                assume_emoji_presentation = true },
+    { family = "Cica",                assume_emoji_presentation = false },
+    { family = "Hack Nerd Font Mono", assume_emoji_presentation = true },
 })
-config.font_size = 17
+config.font_size = 19
 config.keys = {
     -- タブ操作
     {
