@@ -1,17 +1,17 @@
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-  if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
-      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
-      { "\nPress any key to exit..." },
-    }, true, {})
-    vim.fn.getchar()
-    os.exit(1)
-  end
+    local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+    local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+    if vim.v.shell_error ~= 0 then
+        vim.api.nvim_echo({
+            { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+            { out,                            "WarningMsg" },
+            { "\nPress any key to exit..." },
+        }, true, {})
+        vim.fn.getchar()
+        os.exit(1)
+    end
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -23,21 +23,23 @@ vim.g.maplocalleader = "\\"
 
 -- Setup lazy.nvim
 require("lazy").setup({
-  spec = {
-    -- import your plugins
-    { import = 'plugins.colorscheme' },
-    { import = 'plugins.mini' },
-    { import = 'plugins.misc' },
-    { import = 'plugins.telescope' },
-    { import = 'plugins.dial-nvim' },
-    { import = 'plugins.nvim-cmp' },
-    { import = 'plugins.nvim-lspconfig' },
-    { import = 'plugins.telescope' },
-    { import = 'plugins.treesitter' },
-    { import = 'plugins.wip' },
-  },
-  -- automatically check for plugin updates
-  checker = { enabled = true },
+    spec = {
+        -- import your plugins
+        { import = 'plugins.colorscheme' },
+        { import = 'plugins.mini' },
+        { import = 'plugins.misc' },
+        -- { import = 'plugins.telescope' },
+        { import = 'plugins.obsidian-nvim' },
+        { import = 'plugins.dial-nvim' },
+        { import = 'plugins.nvim-cmp' },
+        { import = 'plugins.nvim-lspconfig' },
+        { import = 'plugins.treesitter' },
+        { import = 'plugins.snacks-nvim' },
+        { import = 'plugins.which-key-nvim' },
+        { import = 'plugins.wip' },
+    },
+    -- automatically check for plugin updates
+    checker = { enabled = true },
 })
 
 -- load lua/config/lsp.lua setting
@@ -86,4 +88,3 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<cr>', { desc = 'Clear search highl
 
 -- Terminal mappings
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-
