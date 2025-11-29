@@ -21,16 +21,6 @@ return {
 
         -- mini.icons
         require('mini.icons').setup()
-        -- mini.notify
-        vim.notify = require('mini.notify').make_notify({})
-        -- 過去のnotifyを見直す
-        -- https://zenn.dev/kawarimidoll/books/6064bf6f193b51/viewer/b5a24a
-        vim.api.nvim_create_user_command('NotifyHistory', function()
-            require('mini.notify').show_history()
-        end, { desc = 'Show notify history' })
-
-        -- mini.icons
-        require('mini.icons').setup()
 
         -- mini.operators
         require('mini.operators').setup({
@@ -41,17 +31,6 @@ return {
 
         -- mini.cursorword
         require('mini.cursorword').setup()
-
-        -- mini.files
-        require('mini.files').setup()
-        vim.api.nvim_create_user_command(
-            'Files',
-            function()
-                MiniFiles.open()
-            end,
-            { desc = 'Open file exproler' }
-        )
-        -- vim.keymap.set('n', '<leader>e', '<cmd>lua MiniFiles.open()<cr>', { desc = 'Open file explorer' })
 
         -- mini.hipatterns
         local hipatterns = require('mini.hipatterns')
@@ -109,66 +88,6 @@ return {
         -- mini.git
         require('mini.git').setup()
         vim.keymap.set({ 'n', 'x' }, '<space>gs', MiniGit.show_at_cursor, { desc = 'Show at cursor' })
-
-        -- キーマップ表示
-        -- mini.clue
-        local function mode_nx(keys)
-            return { mode = 'n', keys = keys }, { mode = 'x', keys = keys }
-        end
-        local clue = require('mini.clue')
-        clue.setup({
-            triggers = {
-                -- Leader triggers
-                mode_nx('<leader>'),
-
-                -- Built-in completion
-                { mode = 'i', keys = '<c-x>' },
-
-                -- `g` key
-                mode_nx('g'),
-
-                -- Marks
-                mode_nx("'"),
-                mode_nx('`'),
-
-                -- Registers
-                mode_nx('"'),
-                { mode = 'i', keys = '<c-r>' },
-                { mode = 'c', keys = '<c-r>' },
-
-                -- Window commands
-                { mode = 'n', keys = '<c-w>' },
-
-                -- bracketed commands
-                { mode = 'n', keys = '[' },
-                { mode = 'n', keys = ']' },
-
-                -- `z` key
-                mode_nx('z'),
-
-                -- surround
-                mode_nx('s'),
-
-                -- text object
-                { mode = 'x', keys = 'i' },
-                { mode = 'x', keys = 'a' },
-                { mode = 'o', keys = 'i' },
-                { mode = 'o', keys = 'a' },
-
-                -- option toggle (mini.basics)
-                { mode = 'n', keys = 'm' },
-            },
-
-            clues = {
-                -- Enhance this by adding descriptions for <Leader> mapping groups
-                clue.gen_clues.builtin_completion(),
-                clue.gen_clues.g(),
-                clue.gen_clues.marks(),
-                clue.gen_clues.registers({ show_contents = true }),
-                clue.gen_clues.windows({ submode_resize = true, submode_move = true }),
-                clue.gen_clues.z(),
-            },
-        })
 
         -- session管理
         -- mini.sessions
