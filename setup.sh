@@ -16,17 +16,11 @@ MINIMAL_CONFIG=(
 )
 
 FULL_CONFIG=(
-    "zshenv:.zshenv"
-    "config/sheldon:.config/sheldon"
     "vimrc:.vimrc"
     "config/nvim:.config/nvim"
     "config/fish:.config/fish"
-    "config/karabiner:.config/karabiner"
-    "config/karabiner-config:.config/karabiner-config"
-    "config/kitty:.config/kitty"
-    "config/lazygit:.config/lazygit"
     "config/mise:.config/mise"
-    "config/wezterm:.config/wezterm"
+    "config/ghostty:.config/ghostty"
 )
 
 MODE="minimal"
