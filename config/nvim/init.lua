@@ -36,7 +36,7 @@ require("lazy").setup({
         { import = 'plugins.treesitter' },
         { import = 'plugins.snacks-nvim' },
         { import = 'plugins.which-key-nvim' },
-        { import = 'plugins.wip' },
+        { import = 'plugins.fyler-nvim' },
     },
     -- automatically check for plugin updates
     checker = { enabled = true },
