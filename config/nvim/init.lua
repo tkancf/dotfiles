@@ -24,19 +24,21 @@ vim.g.maplocalleader = "\\"
 -- Setup lazy.nvim
 require("lazy").setup({
     spec = {
-        -- import your plugins
         { import = 'plugins.colorscheme' },
+        { import = 'plugins.dial' },
+        { import = 'plugins.fyler' },
+        { import = 'plugins.gitsigns' },
+        { import = 'plugins.lasterisk' },
         { import = 'plugins.mini' },
-        { import = 'plugins.misc' },
-        -- { import = 'plugins.telescope' },
-        { import = 'plugins.obsidian-nvim' },
-        { import = 'plugins.dial-nvim' },
         { import = 'plugins.nvim-cmp' },
         { import = 'plugins.nvim-lspconfig' },
+        { import = 'plugins.obsidian' },
+        { import = 'plugins.snacks' },
+        -- { import = 'plugins.telescope' },
         { import = 'plugins.treesitter' },
-        { import = 'plugins.snacks-nvim' },
-        { import = 'plugins.which-key-nvim' },
-        { import = 'plugins.fyler-nvim' },
+        { import = 'plugins.which-key' },
+        { 'thinca/vim-qfreplace' },
+        { 'mattn/vim-maketable' },
     },
     -- automatically check for plugin updates
     checker = { enabled = true },
