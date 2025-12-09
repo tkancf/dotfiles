@@ -4,7 +4,6 @@ return {
         name = 'mini.basics',
         version = false,
         lazy = false,
-        main = 'mini.basics',
         opts = {
             options = { extra_ui = true },
             mappings = { option_toggle_prefix = 'm' },
@@ -15,7 +14,6 @@ return {
         name = 'mini.statusline',
         version = false,
         lazy = false,
-        main = 'mini.statusline',
         opts = {},
         init = function()
             vim.opt.laststatus = 2
@@ -26,14 +24,12 @@ return {
         'https://github.com/nvim-mini/mini.icons',
         name = 'mini.icons',
         version = false,
-        main = 'mini.icons',
         opts = {},
     },
     {
         'https://github.com/nvim-mini/mini.operators',
         name = 'mini.operators',
         version = false,
-        main = 'mini.operators',
         keys = {
             { 'RR', 'R', mode = 'n', desc = 'Replace mode' },
         },
@@ -46,14 +42,12 @@ return {
         'https://github.com/nvim-mini/mini.cursorword',
         name = 'mini.cursorword',
         version = false,
-        main = 'mini.cursorword',
         opts = {},
     },
     {
         'https://github.com/nvim-mini/mini.hipatterns',
         name = 'mini.hipatterns',
         version = false,
-        main = 'mini.hipatterns',
         dependencies = { 'https://github.com/nvim-mini/mini.extra' },
         opts = {},
         config = function(_, opts)
@@ -83,28 +77,24 @@ return {
         'https://github.com/nvim-mini/mini.tabline',
         name = 'mini.tabline',
         version = false,
-        main = 'mini.tabline',
         opts = {},
     },
     {
         'https://github.com/nvim-mini/mini.pairs',
         name = 'mini.pairs',
         version = false,
-        main = 'mini.pairs',
         opts = {},
     },
     {
         'https://github.com/nvim-mini/mini.surround',
         name = 'mini.surround',
         version = false,
-        main = 'mini.surround',
         opts = {},
     },
     {
         'https://github.com/nvim-mini/mini.ai',
         name = 'mini.ai',
         version = false,
-        main = 'mini.ai',
         dependencies = { 'https://github.com/nvim-mini/mini.extra' },
         opts = {},
         config = function(_, opts)
@@ -124,7 +114,6 @@ return {
         'https://github.com/nvim-mini/mini.sessions',
         name = 'mini.sessions',
         version = false,
-        main = 'mini.sessions',
         opts = {},
         config = function(_, opts)
             require('mini.sessions').setup(opts)
@@ -177,21 +166,18 @@ return {
         'https://github.com/nvim-mini/mini.starter',
         name = 'mini.starter',
         version = false,
-        main = 'mini.starter',
         opts = {},
     },
     {
         'https://github.com/nvim-mini/mini.bracketed',
         name = 'mini.bracketed',
         version = false,
-        main = 'mini.bracketed',
         opts = {},
     },
     {
         'https://github.com/nvim-mini/mini.misc',
         name = 'mini.misc',
         version = false,
-        main = 'mini.misc',
         config = function()
             require('mini.misc').setup_restore_cursor()
         end,
@@ -200,7 +186,6 @@ return {
         'https://github.com/nvim-mini/mini.extra',
         name = 'mini.extra',
         version = false,
-        main = 'mini.extra',
         opts = {},
     },
 }
