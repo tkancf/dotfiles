@@ -18,9 +18,10 @@ rust = "latest"
 "npm:@anthropic-ai/claude-code" = "latest"
 "npm:@github/copilot-language-server" = "latest"
 python = "latest"
-"aqua:neovim" = "latest"
+# "aqua:neovim" = "latest"
 lua = "latest"
 "npm:@openai/codex" = "latest"
+"asdf:neovim" = "nightly"
 
 [settings]
 experimental = true

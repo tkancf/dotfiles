@@ -33,6 +33,7 @@ require("lazy").setup({
         { import = 'plugins.nvim-cmp' },
         { import = 'plugins.nvim-lspconfig' },
         { import = 'plugins.obsidian' },
+        { import = 'plugins.overlook' },
         { import = 'plugins.snacks' },
         -- { import = 'plugins.telescope' },
         { import = 'plugins.treesitter' },
@@ -76,8 +77,6 @@ vim.o.visualbell = true
 vim.o.wrap = true
 vim.opt.clipboard:append { 'unnamedplus' }
 vim.scriptencoding = 'utf-8'
--- Leader key
-vim.g.mapleader = ' '
 
 vim.api.nvim_set_keymap('n', ':', ';', { noremap = true })
 vim.api.nvim_set_keymap('n', ';', ':', { noremap = true })
