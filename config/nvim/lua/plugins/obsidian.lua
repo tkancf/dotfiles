@@ -48,7 +48,7 @@ return {
             preferred_link_style = "markdown",
             daily_notes = {
                 folder = "",
-                date_format = "%Y-%m",
+                date_format = "%Y-%m-%d",
                 template = nil
             },
             picker = {
