@@ -4,7 +4,7 @@
 theme = "wombat"
 
 # Font Settings
-font-family = 'Hack Nerd Font MonoF'
+font-family = 'HackGen Console NF'
 font-feature = "-calt"
 font-feature = "-dlig"
 font-feature = "-liga"
@@ -49,3 +49,5 @@ palette = 13=#ddaaff
 palette = 14=#b7fff9
 palette = 15=#ffffff
 font-feature = -calt
+# すべてのデフォルトキーバインディングをクリアする
+keybind = clear
