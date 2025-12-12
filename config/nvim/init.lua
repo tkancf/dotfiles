@@ -19,7 +19,7 @@ vim.opt.rtp:prepend(lazypath)
 -- loading lazy.nvim so that mappings are correct.
 -- This is also a good place to setup other settings (vim.opt)
 vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+vim.g.maplocalleader = "s"
 
 -- Setup lazy.nvim
 require("lazy").setup({
@@ -78,10 +78,10 @@ vim.o.wrap = true
 vim.opt.clipboard:append { 'unnamedplus' }
 vim.scriptencoding = 'utf-8'
 
-vim.api.nvim_set_keymap('n', ':', ';', { noremap = true })
-vim.api.nvim_set_keymap('n', ';', ':', { noremap = true })
-vim.api.nvim_set_keymap('v', ':', ';', { noremap = true })
-vim.api.nvim_set_keymap('v', ';', ':', { noremap = true })
+vim.api.nvim_set_keymap('n', ':', ';', { noremap = true, desc = "Swap : ;" })
+vim.api.nvim_set_keymap('n', ';', ':', { noremap = true, desc = "Swap : ;" })
+vim.api.nvim_set_keymap('v', ':', ';', { noremap = true, desc = "Swap : ;" })
+vim.api.nvim_set_keymap('v', ';', ':', { noremap = true, desc = "Swap : ;" })
 
 vim.api.nvim_set_keymap('n', '<Esc><Esc>', ':nohl<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 's', '', { noremap = true })

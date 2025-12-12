@@ -1,9 +1,10 @@
 -- 参考: [今からNeovimを始める人のLSP最短設定 (0.11, 2025-10-04現在)](https://zenn.dev/ras96/articles/4d9d9493d29c06)
 vim.lsp.enable({
-    -- nvim-lspconfig で"lua_ls"という名前で設定したプリセットが読まれる
     -- https://github.com/neovim/nvim-lspconfig/blob/master/lsp/lua_ls.lua
     "lua_ls",
+    -- https://github.com/neovim/nvim-lspconfig/blob/master/lsp/roc_ls.lua
     "roc_ls",
+    -- https://github.com/neovim/nvim-lspconfig/blob/master/lsp/gopls.lua
     "gopls",
 })
 
@@ -24,6 +25,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         if client:supports_method("textDocument/hover") then
             vim.keymap.set("n", "<leader>k",
+                function() vim.lsp.buf.hover({ border = "single" }) end,
+                { buffer = buf, desc = "Show hover documentation" })
+            vim.keymap.set("n", "<leader>ls",
                 function() vim.lsp.buf.hover({ border = "single" }) end,
                 { buffer = buf, desc = "Show hover documentation" })
         end

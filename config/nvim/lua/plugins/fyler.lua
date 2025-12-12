@@ -1,8 +1,8 @@
 return {
     "A7Lavinraj/fyler.nvim",
     dependencies = { "nvim-mini/mini.icons" },
-    branch = "stable", -- Use stable branch for production
-    lazy = false,      -- Necessary for `default_explorer` to work properly
+    branch = "stable",
+    lazy = false, -- `default_explorer` が正しく動作するために必要
     keys = {
         { "<leader>e", "<cmd>Fyler<cr>", desc = "Open Fyler View" },
     },

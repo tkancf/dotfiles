@@ -1,6 +1,5 @@
 return {
     "https://github.com/WilliamHsieh/overlook.nvim",
-    opts = {},
     keys = {
         { "<leader>pd", function() require("overlook.api").peek_definition() end,         desc = "Peek definition" },
         { "<leader>pp", function() require("overlook.api").peek_cursor() end,             desc = "Peek cursor" },
@@ -13,4 +12,5 @@ return {
         { "<leader>pt", function() require("overlook.api").open_in_tab() end,             desc = "Open popup in tab" },
         { "<leader>po", function() require("overlook.api").open_in_original_window() end, desc = "Open popup in current window" },
     },
+    opts = {},
 }
