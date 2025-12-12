@@ -1,7 +1,7 @@
 return {
     {
         'https://github.com/nvim-mini/mini.basics',
-        name = 'mini.basics',
+        enabled = false,
         version = false,
         lazy = false,
         opts = {
@@ -11,7 +11,7 @@ return {
     },
     {
         'https://github.com/nvim-mini/mini.statusline',
-        name = 'mini.statusline',
+        enabled = true,
         version = false,
         lazy = false,
         opts = {},
@@ -22,13 +22,12 @@ return {
     },
     {
         'https://github.com/nvim-mini/mini.icons',
-        name = 'mini.icons',
         version = false,
         opts = {},
     },
     {
         'https://github.com/nvim-mini/mini.operators',
-        name = 'mini.operators',
+        enabled = false,
         version = false,
         keys = {
             { 'RR', 'R', mode = 'n', desc = 'Replace mode' },
@@ -40,13 +39,13 @@ return {
     },
     {
         'https://github.com/nvim-mini/mini.cursorword',
-        name = 'mini.cursorword',
+        enabled = false,
         version = false,
         opts = {},
     },
     {
         'https://github.com/nvim-mini/mini.hipatterns',
-        name = 'mini.hipatterns',
+        enabled = false,
         version = false,
         dependencies = { 'https://github.com/nvim-mini/mini.extra' },
         opts = {},
@@ -75,25 +74,24 @@ return {
     },
     {
         'https://github.com/nvim-mini/mini.tabline',
-        name = 'mini.tabline',
+        enabled = false,
         version = false,
         opts = {},
     },
     {
         'https://github.com/nvim-mini/mini.pairs',
-        name = 'mini.pairs',
+        enabled = false,
         version = false,
         opts = {},
     },
     {
         'https://github.com/nvim-mini/mini.surround',
-        name = 'mini.surround',
         version = false,
         opts = {},
     },
     {
         'https://github.com/nvim-mini/mini.ai',
-        name = 'mini.ai',
+        enabled = false,
         version = false,
         dependencies = { 'https://github.com/nvim-mini/mini.extra' },
         opts = {},
@@ -111,72 +109,14 @@ return {
         end,
     },
     {
-        'https://github.com/nvim-mini/mini.sessions',
-        name = 'mini.sessions',
-        version = false,
-        opts = {},
-        config = function(_, opts)
-            require('mini.sessions').setup(opts)
-
-            local function is_blank(arg)
-                return arg == nil or arg == ''
-            end
-            local function get_sessions(lead)
-                return vim
-                    .iter(vim.fs.dir(MiniSessions.config.directory))
-                    :map(function(v)
-                        local name = vim.fs.basename(v)
-                        return vim.startswith(name, lead) and name or nil
-                    end)
-                    :totable()
-            end
-
-            vim.api.nvim_create_user_command('SessionWrite', function(arg)
-                local session_name = is_blank(arg.args) and vim.v.this_session or arg.args
-                if is_blank(session_name) then
-                    vim.notify('No session name specified', vim.log.levels.WARN)
-                    return
-                end
-                vim.cmd('%argdelete')
-                MiniSessions.write(session_name)
-            end, { desc = 'Write session', nargs = '?', complete = get_sessions })
-
-            vim.api.nvim_create_user_command('SessionDelete', function(arg)
-                MiniSessions.select('delete', { force = arg.bang })
-            end, { desc = 'Delete session', bang = true })
-
-            vim.api.nvim_create_user_command('SessionLoad', function()
-                MiniSessions.select('read', { verbose = true })
-            end, { desc = 'Load session' })
-
-            vim.api.nvim_create_user_command('SessionEscape', function()
-                vim.v.this_session = ''
-            end, { desc = 'Escape session' })
-
-            vim.api.nvim_create_user_command('SessionReveal', function()
-                if is_blank(vim.v.this_session) then
-                    vim.print('No session')
-                    return
-                end
-                vim.print(vim.fs.basename(vim.v.this_session))
-            end, { desc = 'Reveal session' })
-        end,
-    },
-    {
-        'https://github.com/nvim-mini/mini.starter',
-        name = 'mini.starter',
-        version = false,
-        opts = {},
-    },
-    {
         'https://github.com/nvim-mini/mini.bracketed',
-        name = 'mini.bracketed',
+        enabled = false,
         version = false,
         opts = {},
     },
     {
         'https://github.com/nvim-mini/mini.misc',
-        name = 'mini.misc',
+        enabled = false,
         version = false,
         config = function()
             require('mini.misc').setup_restore_cursor()
@@ -184,7 +124,7 @@ return {
     },
     {
         'https://github.com/nvim-mini/mini.extra',
-        name = 'mini.extra',
+        enabled = false,
         version = false,
         opts = {},
     },
