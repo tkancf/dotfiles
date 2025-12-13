@@ -6,6 +6,7 @@ return {
         spec = {
             mode = { "n", "x" },
             { "<leader>f", group = "File/Find" },
+            { "<leader>b", group = "Buffer" },
             { "<leader>g", group = "Git" },
             { "<leader>l", group = "Lsp" },
         },
@@ -17,6 +18,7 @@ return {
             { "z",        mode = { "n", "v" } },
             { "-",        mode = { "n", "v" } },
             { "g",        mode = { "n", "v" } },
+            { "Z",        mode = { "n", "v" } },
         },
     },
     keys = {

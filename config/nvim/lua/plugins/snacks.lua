@@ -29,6 +29,9 @@ return {
     keys = {
         { "<leader><space>", function() Snacks.picker.smart() end,                                   desc = "Smart Find Files" },
         { "<leader>,",       function() Snacks.picker.buffers() end,                                 desc = "Buffers" },
+        -- buffer
+        { "<leader>bb",      function() Snacks.picker.buffers() end,                                 desc = "Buffers" },
+        { "<leader>bd",      function() Snacks.bufdelete() end,                                      desc = "Delete Buffer" },
         { "<leader>/",       function() Snacks.picker.grep() end,                                    desc = "Grep" },
         { "<leader>n",       function() Snacks.picker.notifications() end,                           desc = "Notification History" },
         { "<leader>E",       function() Snacks.explorer() end,                                       desc = "File Explorer" },
@@ -90,12 +93,11 @@ return {
         { "<leader>ss",      function() Snacks.picker.lsp_symbols() end,                             desc = "LSP Symbols" },
         { "<leader>sS",      function() Snacks.picker.lsp_workspace_symbols() end,                   desc = "LSP Workspace Symbols" },
         -- Other
-        { "<leader>z",       function() Snacks.zen() end,                                            desc = "Toggle Zen Mode" },
-        { "<leader>Z",       function() Snacks.zen.zoom() end,                                       desc = "Toggle Zoom" },
+        { "<leader>Z",       function() Snacks.zen() end,                                            desc = "Toggle Zen Mode" },
+        { "<leader>z",       function() Snacks.zen.zoom() end,                                       desc = "Toggle Zoom" },
         { "<leader>..",      function() Snacks.scratch() end,                                        desc = "Toggle Scratch Buffer" },
         { "<leader>.S",      function() Snacks.scratch.select() end,                                 desc = "Select Scratch Buffer" },
         { "<leader>n",       function() Snacks.notifier.show_history() end,                          desc = "Notification History" },
-        { "<leader>bd",      function() Snacks.bufdelete() end,                                      desc = "Delete Buffer" },
         { "<leader>cR",      function() Snacks.rename.rename_file() end,                             desc = "Rename File" },
         { "<leader>gB",      function() Snacks.gitbrowse() end,                                      desc = "Git Browse",                 mode = { "n", "v" } },
         { "<leader>gg",      function() Snacks.lazygit() end,                                        desc = "Lazygit" },

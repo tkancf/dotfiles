@@ -97,4 +97,13 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 -- 参考: https://blog.atusy.net/2025/12/02/nvim-restart/
 vim.keymap.set("n", "ZR", function()
     vim.cmd([[restart +xa lua require("persistence").load({ last = true })]])
-end)
+end, { desc = 'Restart後に最後のセッションを復元' })
+
+vim.api.nvim_set_keymap('n', 'sl', '<C-w>l', { noremap = true, desc = 'Window left' })
+vim.api.nvim_set_keymap('n', 'sh', '<C-w>h', { noremap = true, desc = 'Window right' })
+vim.api.nvim_set_keymap('n', 'sj', '<C-w>j', { noremap = true, desc = 'Window down' })
+vim.api.nvim_set_keymap('n', 'sk', '<C-w>k', { noremap = true, desc = 'Window up' })
+vim.api.nvim_set_keymap('n', 'sv', '<C-w>v', { noremap = true, desc = 'Split window vertical' })
+vim.api.nvim_set_keymap('n', 'ss', '<C-w>s', { noremap = true, desc = 'Split window' })
+vim.api.nvim_set_keymap('n', 'sn', ']b', { noremap = false, desc = 'Buffer next' })
+vim.api.nvim_set_keymap('n', 'sp', '[b', { noremap = false, desc = 'Buffer previous' })
