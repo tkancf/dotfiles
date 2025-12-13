@@ -29,6 +29,7 @@ require("lazy").setup({
         { import = 'plugins.gitsigns' },
         { import = 'plugins.lasterisk' },
         { import = 'plugins.mini' },
+        { import = 'plugins.nvim-automa' },
         { import = 'plugins.nvim-cmp' },
         { import = 'plugins.nvim-lspconfig' },
         { import = 'plugins.obsidian' },
@@ -79,6 +80,7 @@ vim.o.wrap = true
 vim.opt.clipboard:append { 'unnamedplus' }
 vim.scriptencoding = 'utf-8'
 
+-- :と;を入れ替え
 vim.api.nvim_set_keymap('n', ':', ';', { noremap = true, desc = "Swap : ;" })
 vim.api.nvim_set_keymap('n', ';', ':', { noremap = true, desc = "Swap : ;" })
 vim.api.nvim_set_keymap('v', ':', ';', { noremap = true, desc = "Swap : ;" })
