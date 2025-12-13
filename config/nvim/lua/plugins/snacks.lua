@@ -127,6 +127,10 @@ return {
         vim.api.nvim_create_autocmd("User", {
             pattern = "VeryLazy",
             callback = function()
+                vim.api.nvim_create_user_command("BD", function()
+                    Snacks.bufdelete()
+                end, { desc = "Delete buffer" })
+
                 -- Setup some globals for debugging (lazy-loaded)
                 _G.dd = function(...)
                     Snacks.debug.inspect(...)

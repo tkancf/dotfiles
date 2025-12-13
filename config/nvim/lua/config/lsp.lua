@@ -32,12 +32,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 { buffer = buf, desc = "Show hover documentation" })
         end
 
-        if client:supports_method("textDocument/completion") then
-            client.server_capabilities.completionProvider.triggerCharacters = chars
-            client.server_capabilities.completionProvider.triggerCharacters =
-                vim.split("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.", "")
-            vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
-        end
+        -- if client:supports_method("textDocument/completion") then
+        --     client.server_capabilities.completionProvider.triggerCharacters = chars
+        --     client.server_capabilities.completionProvider.triggerCharacters =
+        --         vim.split("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.", "")
+        --     vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+        -- end
 
         -- Auto-format ("lint") on save.
         -- Usually not needed if server supports "textDocument/willSaveWaitUntil".

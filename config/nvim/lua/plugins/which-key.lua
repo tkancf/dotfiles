@@ -2,6 +2,14 @@ return {
     "folke/which-key.nvim",
     event = "VeryLazy",
     opts = {
+        ---@type wk.Spec
+        spec = {
+            mode = { "n", "x" },
+            { "<leader>f", group = "File/Find" },
+            { "<leader>g", group = "Git" },
+            { "<leader>l", group = "Lsp" },
+        },
+        ---@type wk.Spec
         triggers = {
             { "<leader>", mode = { "n", "v" } },
             { "s",        mode = { "n", "v" } },
@@ -9,7 +17,7 @@ return {
             { "z",        mode = { "n", "v" } },
             { "-",        mode = { "n", "v" } },
             { "g",        mode = { "n", "v" } },
-        }
+        },
     },
     keys = {
         {

@@ -50,4 +50,3 @@ palette = 14=#b7fff9
 palette = 15=#ffffff
 font-feature = -calt
 # すべてのデフォルトキーバインディングをクリアする
-keybind = clear
