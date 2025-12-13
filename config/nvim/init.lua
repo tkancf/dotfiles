@@ -92,3 +92,9 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<cr>', { desc = 'Clear search highl
 
 -- Terminal mappings
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+
+-- restart後に最後のセッションを復元する
+-- 参考: https://blog.atusy.net/2025/12/02/nvim-restart/
+vim.keymap.set("n", "ZR", function()
+    vim.cmd([[restart +xa lua require("persistence").load({ last = true })]])
+end)
