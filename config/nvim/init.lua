@@ -72,6 +72,7 @@ vim.o.smartindent = true
 vim.o.softtabstop = 4
 vim.o.tabstop = 4
 vim.o.termguicolors = true
+vim.o.autoread = true
 vim.o.undodir = vim.fn.stdpath('cache') .. '/undo'
 vim.o.undofile = true
 vim.o.updatetime = 250
@@ -99,6 +100,11 @@ vim.keymap.set("n", "ZR", function()
     vim.cmd([[restart +xa lua require("persistence").load({ last = true })]])
 end, { desc = 'Restart後に最後のセッションを復元' })
 
+-- 外部更新を検知して自動で再読込
+vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave", "CursorHold", "CursorHoldI", "BufEnter" },
+    { command = "checktime" })
+
+-- ウィンドウ移動・分割のショートカット
 vim.api.nvim_set_keymap('n', 'sl', '<C-w>l', { noremap = true, desc = 'Window left' })
 vim.api.nvim_set_keymap('n', 'sh', '<C-w>h', { noremap = true, desc = 'Window right' })
 vim.api.nvim_set_keymap('n', 'sj', '<C-w>j', { noremap = true, desc = 'Window down' })
