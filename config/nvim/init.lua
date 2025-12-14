@@ -36,6 +36,7 @@ require("lazy").setup({
         { import = 'plugins.overlook' },
         { import = 'plugins.snacks' },
         -- { import = 'plugins.telescope' },
+        { import = 'plugins.bufferline' },
         { import = 'plugins.noice' },
         { import = 'plugins.treesitter' },
         { import = 'plugins.which-key' },
