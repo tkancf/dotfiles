@@ -4,7 +4,7 @@ return {
     branch = "stable",
     lazy = false, -- `default_explorer` が正しく動作するために必要
     keys = {
-        { "<leader>e", "<cmd>Fyler<cr>", desc = "Open Fyler View" },
+        { "<leader>fo", "<cmd>Fyler<cr>", desc = "Open Fyler View" },
     },
     opts = {
     },

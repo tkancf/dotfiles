@@ -34,7 +34,7 @@ return {
         { "<leader>bd",      function() Snacks.bufdelete() end,                                      desc = "Delete Buffer" },
         { "<leader>/",       function() Snacks.picker.grep() end,                                    desc = "Grep" },
         { "<leader>n",       function() Snacks.picker.notifications() end,                           desc = "Notification History" },
-        { "<leader>E",       function() Snacks.explorer() end,                                       desc = "File Explorer" },
+        { "<leader>fe",      function() Snacks.explorer() end,                                       desc = "File Explorer" },
         -- find
         { "<leader>fb",      function() Snacks.picker.buffers() end,                                 desc = "Buffers" },
         { "<leader>fc",      function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
