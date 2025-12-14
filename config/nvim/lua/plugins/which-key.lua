@@ -5,10 +5,15 @@ return {
         ---@type wk.Spec
         spec = {
             mode = { "n", "x" },
-            { "<leader>f", group = "File/Find" },
-            { "<leader>b", group = "Buffer" },
-            { "<leader>g", group = "Git" },
-            { "<leader>l", group = "Lsp" },
+            { "<leader>f",  group = "File/Find" },
+            { "<leader>b",  group = "Buffer" },
+            { "<leader>g",  group = "Git" },
+            { "<leader>l",  group = "Lsp" },
+            { "<leader>s",  group = "Search" },
+            { "<leader>lc", group = "Lsp Calls" },
+            { "<leader>S",  group = "Session" },
+            { "<leader>p",  group = "Overlook popup" },
+            { "<leader>.",  group = "Scrach Buffer" },
         },
         ---@type wk.Spec
         triggers = {
