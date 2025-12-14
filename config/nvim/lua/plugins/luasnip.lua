@@ -11,8 +11,6 @@ return {
         local ls = require("luasnip")
         local s = ls.snippet
         local i = ls.insert_node
-        local t = ls.text_node
-        local events = require("luasnip.util.events")
         local fmt = require("luasnip.extras.fmt").fmt
 
         ls.setup(opts)
@@ -33,20 +31,62 @@ return {
                     { i(1, "カーソル") }
                 )
             ),
+        })
+
+        -- bash
+        ls.add_snippets("sh", {
             s(
-                "codenorm",
-                { t({ "```", "カーソルはここだけど、ノーマルモードにしたい", "```" }) },
-                {
-                    callbacks = {
-                        [-1] = {
-                            [events.enter] = function()
-                                vim.schedule(function()
-                                    vim.cmd("stopinsert")
-                                end)
-                            end,
-                        },
-                    },
-                }
+                "bashmain",
+                fmt([[
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+
+{}
+]], { i(1, "# your code") })
+            ),
+        })
+
+        -- Go
+        ls.add_snippets("go", {
+            s(
+                "gom",
+                fmt([[
+package main
+
+import "fmt"
+
+func main() {{
+\t{}
+}}
+]], { i(1, [[fmt.Println("hello")]]) })
+            ),
+            s(
+                "got",
+                fmt([[
+package {}
+
+import "testing"
+
+func Test{}(t *testing.T) {{
+\t{}
+}}
+]], { i(1, "package_name"), i(2, "Name"), i(3, "// TODO") })
+            ),
+        })
+
+        -- Python
+        ls.add_snippets("python", {
+            s(
+                "pymain",
+                fmt([[
+def main():
+    {}
+
+
+if __name__ == "__main__":
+    main()
+]], { i(1, "pass") })
             ),
         })
     end,
