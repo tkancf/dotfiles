@@ -4,7 +4,10 @@ return {
     event = { "InsertEnter", "CmdlineEnter" },
     opts = {
         sources = {
-            default = { "lsp", "path", "buffer" },
+            default = { "lsp", "path", "snippets", "buffer" },
+        },
+        snippets = {
+            preset = "luasnip",
         },
         cmdline = {
             enabled = true,

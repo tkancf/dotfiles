@@ -32,6 +32,7 @@ require("lazy").setup({
         { import = 'plugins.nvim-automa' },
         -- { import = 'plugins.nvim-cmp' },
         { import = 'plugins.blink-cmp' },
+        { import = 'plugins.luasnip' },
         { import = 'plugins.nvim-lspconfig' },
         { import = 'plugins.obsidian' },
         { import = 'plugins.overlook' },
