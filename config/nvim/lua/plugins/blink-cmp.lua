@@ -1,10 +1,15 @@
 return {
     "saghen/blink.cmp",
     version = "*",
-    event = "InsertEnter",
+    event = { "InsertEnter", "CmdlineEnter" },
     opts = {
         sources = {
             default = { "lsp", "path", "buffer" },
+        },
+        cmdline = {
+            enabled = true,
+            keymap = { preset = "cmdline" },
+            sources = { "cmdline", "path", "buffer" },
         },
         keymap = {
             preset = "default", -- nvim-cmpに近いキーマップ
