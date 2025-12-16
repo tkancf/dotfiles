@@ -29,7 +29,7 @@ require("lazy").setup({
         { import = 'plugins.gitsigns' },
         { import = 'plugins.lasterisk' },
         { import = 'plugins.mini' },
-        { import = 'plugins.nvim-automa' },
+        -- { import = 'plugins.nvim-automa' },
         { import = 'plugins.nvim-cmp' },
         -- { import = 'plugins.blink-cmp' },
         -- { import = 'plugins.luasnip' },
