@@ -3,7 +3,6 @@ return {
     ft = "markdown",
     dependencies = {
         'nvim-lua/plenary.nvim',
-        'saghen/blink.cmp',
     },
     config = function()
         local vault_path = "~/Memo/"
@@ -43,8 +42,8 @@ return {
                 },
             },
             completion = {
-                blink = true,
-                min_chars = 1,
+                nvim_cmp = true,
+                min_chars = 2,
             },
             preferred_link_style = "markdown",
             daily_notes = {

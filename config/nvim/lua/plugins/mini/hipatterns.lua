@@ -1,6 +1,5 @@
 return {
     'https://github.com/nvim-mini/mini.hipatterns',
-    enabled = false,
     version = false,
     dependencies = { 'https://github.com/nvim-mini/mini.extra' },
     opts = {},
