@@ -1,3 +1,4 @@
+-- Tree-sitter による構文解析の設定
 return {
   'nvim-treesitter/nvim-treesitter',
   lazy = false,

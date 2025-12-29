@@ -1,3 +1,4 @@
+-- nvim-snippy のスニペット設定
 return {
     "dcampos/nvim-snippy",
     dependencies = {

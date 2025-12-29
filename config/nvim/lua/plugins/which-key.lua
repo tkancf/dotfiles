@@ -1,3 +1,4 @@
+-- which-key のキーマップガイド設定
 return {
     "folke/which-key.nvim",
     event = "VeryLazy",

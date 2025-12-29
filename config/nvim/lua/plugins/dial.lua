@@ -1,3 +1,4 @@
+-- 数値や日付の増減を拡張する設定
 return {
   'https://github.com/monaqa/dial.nvim',
   config = function()

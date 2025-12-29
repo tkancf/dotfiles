@@ -1,3 +1,4 @@
+-- バッファタブの表示を整える設定
 return {
     "akinsho/bufferline.nvim",
     version = "*",

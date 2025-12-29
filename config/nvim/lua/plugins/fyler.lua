@@ -1,3 +1,4 @@
+-- ファイルエクスプローラ Fyler の設定
 return {
     "A7Lavinraj/fyler.nvim",
     dependencies = { "nvim-mini/mini.icons" },

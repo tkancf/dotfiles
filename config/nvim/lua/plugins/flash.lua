@@ -1,3 +1,4 @@
+-- 画面内ジャンプを高速化する設定
 return {
     "folke/flash.nvim",
     event = "VeryLazy",

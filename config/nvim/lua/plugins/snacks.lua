@@ -1,3 +1,4 @@
+-- Snacks の各種 UI 機能をまとめて設定
 return {
     "folke/snacks.nvim",
     priority = 1000,

@@ -1,3 +1,4 @@
+-- * 検索を拡張する設定
 return {
     'rapan931/lasterisk.nvim',
     config = function()

@@ -1,3 +1,4 @@
+-- TODO などのキーワードを強調表示する設定
 return {
     'https://github.com/nvim-mini/mini.hipatterns',
     version = false,

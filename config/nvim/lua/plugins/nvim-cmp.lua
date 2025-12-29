@@ -1,3 +1,4 @@
+-- nvim-cmp の補完設定
 return {
     'hrsh7th/nvim-cmp',
     dependencies = {

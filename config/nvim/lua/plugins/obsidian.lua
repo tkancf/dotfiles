@@ -1,3 +1,4 @@
+-- Obsidian 連携の設定
 return {
     "obsidian-nvim/obsidian.nvim",
     version = "*", -- use latest release, remove to use latest commit

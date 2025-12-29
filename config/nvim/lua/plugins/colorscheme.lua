@@ -1,3 +1,4 @@
+-- catppuccin のカラースキームを適用する設定
 return {
   "catppuccin/nvim",
   name = "catppuccin",
