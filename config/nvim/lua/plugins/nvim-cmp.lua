@@ -1,11 +1,9 @@
 return {
     'hrsh7th/nvim-cmp',
     dependencies = {
-        'hrsh7th/vim-vsnip',
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-buffer',
-        'hrsh7th/cmp-path',
-        --'hrsh7th/cmp-cmdline',
+        'dcampos/cmp-snippy',
     },
     config = function()
         -- nvim-cmp 本体と設定
@@ -15,7 +13,7 @@ return {
         cmp.setup({
             snippet = {
                 expand = function(args)
-                    vim.fn["vsnip#anonymous"](args.body)
+                    require("snippy").expand_snippet(args.body)
                 end,
             },
             mapping = cmp.mapping.preset.insert({
@@ -27,31 +25,13 @@ return {
             }),
             sources = cmp.config.sources({
                 { name = 'nvim_lsp' },
-                { name = 'vsnip' },
                 { name = 'buffer' },
+                { name = 'snippy' },
             }),
             window = {
-                -- completion = cmp.config.window.bordered(),
-                -- documentation = cmp.config.window.bordered(),
+                completion = cmp.config.window.bordered(),
+                documentation = cmp.config.window.bordered(),
             },
         })
-
-        -- cmdline設定
-        -- cmp.setup.cmdline({ '/', '?' }, {
-        --   mapping = cmp.mapping.preset.cmdline(),
-        --   sources = {
-        --     { name = 'buffer' }
-        --   }
-        -- })
-
-        -- cmp.setup.cmdline(':', {
-        --   mapping = cmp.mapping.preset.cmdline(),
-        --   sources = cmp.config.sources({
-        --     { name = 'path' }
-        --   }, {
-        --     { name = 'cmdline' }
-        --   }),
-        --   matching = { disallow_symbol_nonprefix_matching = false }
-        -- })
     end,
 }

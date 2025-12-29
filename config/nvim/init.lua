@@ -37,6 +37,7 @@ require("lazy").setup({
         { import = 'plugins.nvim-cmp' },
         { import = 'plugins.nvim-insx' },
         { import = 'plugins.nvim-lspconfig' },
+        { import = 'plugins.nvim-snippy' },
         { import = 'plugins.obsidian' },
         { import = 'plugins.snacks' },
         { import = 'plugins.bufferline' },
