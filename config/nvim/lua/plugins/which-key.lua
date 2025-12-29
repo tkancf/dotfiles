@@ -14,6 +14,7 @@ return {
             { "<leader>S",  group = "Session" },
             { "<leader>p",  group = "Overlook popup" },
             { "<leader>.",  group = "Scrach Buffer" },
+            { "<leader>o",  group = "Obsidian" },
         },
         ---@type wk.Spec
         triggers = {

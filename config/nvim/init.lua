@@ -25,20 +25,21 @@ require("lazy").setup({
     spec = {
         { import = 'plugins.colorscheme' },
         { import = 'plugins.dial' },
+        { import = 'plugins.flash' },
         { import = 'plugins.fyler' },
         { import = 'plugins.gitsigns' },
         { import = 'plugins.lasterisk' },
-        { import = 'plugins.mini' },
-        -- { import = 'plugins.nvim-automa' },
+        { import = 'plugins.mini-hipatterns' },
+        { import = 'plugins.mini-cmdline' },
+        { import = 'plugins.mini-icons' },
+        { import = 'plugins.mini-statusline' },
+        { import = 'plugins.mini-surround' },
         { import = 'plugins.nvim-cmp' },
-        -- { import = 'plugins.blink-cmp' },
-        -- { import = 'plugins.luasnip' },
+        { import = 'plugins.nvim-insx' },
         { import = 'plugins.nvim-lspconfig' },
         { import = 'plugins.obsidian' },
-        { import = 'plugins.overlook' },
         { import = 'plugins.snacks' },
         { import = 'plugins.bufferline' },
-        { import = 'plugins.noice' },
         { import = 'plugins.treesitter' },
         { import = 'plugins.which-key' },
         { import = 'plugins.persistence' },
@@ -85,7 +86,7 @@ vim.o.wrap = true
 vim.opt.clipboard:append { 'unnamedplus' }
 vim.scriptencoding = 'utf-8'
 
--- :と;を入れ替え
+-- :と;を入れ替え
 vim.api.nvim_set_keymap('n', ':', ';', { noremap = true, desc = "Swap : ;" })
 vim.api.nvim_set_keymap('n', ';', ':', { noremap = true, desc = "Swap : ;" })
 vim.api.nvim_set_keymap('v', ':', ';', { noremap = true, desc = "Swap : ;" })
@@ -114,6 +115,5 @@ vim.api.nvim_set_keymap('n', 'sh', '<C-w>h', { noremap = true, desc = 'Window ri
 vim.api.nvim_set_keymap('n', 'sj', '<C-w>j', { noremap = true, desc = 'Window down' })
 vim.api.nvim_set_keymap('n', 'sk', '<C-w>k', { noremap = true, desc = 'Window up' })
 vim.api.nvim_set_keymap('n', 'sv', '<C-w>v', { noremap = true, desc = 'Split window vertical' })
-vim.api.nvim_set_keymap('n', 'ss', '<C-w>s', { noremap = true, desc = 'Split window' })
 vim.api.nvim_set_keymap('n', 'sn', ']b', { noremap = false, desc = 'Buffer next' })
 vim.api.nvim_set_keymap('n', 'sp', '[b', { noremap = false, desc = 'Buffer previous' })

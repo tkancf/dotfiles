@@ -33,13 +33,12 @@ return {
         { "<leader>/",       function() Snacks.picker.grep() end,                                    desc = "Grep" },
         { "<leader>n",       function() Snacks.picker.notifications() end,                           desc = "Notification History" },
         -- buffer
-        { "<leader>bb",      function() Snacks.picker.buffers() end,                                 desc = "Buffers" },
         { "<leader>b/",      function() Snacks.picker.grep_buffers() end,                            desc = "Grep Open Buffers" },
         { "<leader>bd",      function() Snacks.bufdelete() end,                                      desc = "Delete Buffer" },
         { "<leader>fe",      function() Snacks.explorer() end,                                       desc = "File Explorer" },
         { "<leader>bl",      function() Snacks.picker.lines() end,                                   desc = "Buffer Lines" },
         -- find
-        { "<leader>ff",      function() Snacks.picker.files() end,                                   desc = "Find Files" },
+        { "<leader>fi",      function() Snacks.picker.files() end,                                   desc = "Find Files" },
         { "<leader>fg",      function() Snacks.picker.git_files() end,                               desc = "Find Git Files" },
         { "<leader>fu",      function() Snacks.picker.recent() end,                                  desc = "Recently Used" },
         { "<leader>fc",      function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
