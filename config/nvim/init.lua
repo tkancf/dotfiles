@@ -45,7 +45,7 @@ require("lazy").setup({
         { import = 'plugins.treesitter' },
         { import = 'plugins.which-key' },
         { import = 'plugins.persistence' },
-        { 'thinca/vim-qfreplace' },
+        { import = 'plugins.quicker' },
         { 'mattn/vim-maketable' },
     },
     -- automatically check for plugin updates
