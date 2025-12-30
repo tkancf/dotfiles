@@ -6,6 +6,8 @@ vim.lsp.enable({
     "roc_ls",
     -- https://github.com/neovim/nvim-lspconfig/blob/master/lsp/gopls.lua
     "gopls",
+    -- https://github.com/neovim/nvim-lspconfig/blob/master/lsp/pyright.lua
+    "pyright",
 })
 
 -- 言語サーバーがアタッチされた時に呼ばれる
