@@ -39,7 +39,7 @@ require("lazy").setup({
         { import = 'plugins.nvim-lspconfig' },
         { import = 'plugins.nvim-snippy' },
         { import = 'plugins.obsidian' },
-        { import = 'plugins.aibo' },
+        { import = 'plugins.neogit' },
         { import = 'plugins.snacks' },
         { import = 'plugins.bufferline' },
         { import = 'plugins.treesitter' },
