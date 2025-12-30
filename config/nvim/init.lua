@@ -88,6 +88,16 @@ vim.o.wrap = true
 vim.opt.clipboard:append { 'unnamedplus' }
 vim.scriptencoding = 'utf-8'
 
+-- Keep jumplist/history per startup directory.
+do
+    local cwd = vim.fn.getcwd()
+    local base = vim.fn.stdpath("state") .. "/shada"
+    vim.fn.mkdir(base, "p")
+    local name = vim.fn.fnamemodify(cwd, ":t")
+    local hash = vim.fn.sha256(cwd):sub(1, 8)
+    vim.o.shadafile = string.format("%s/%s-%s.shada", base, name, hash)
+end
+
 -- :と;を入れ替え
 vim.api.nvim_set_keymap('n', ':', ';', { noremap = true, desc = "Swap : ;" })
 vim.api.nvim_set_keymap('n', ';', ':', { noremap = true, desc = "Swap : ;" })
