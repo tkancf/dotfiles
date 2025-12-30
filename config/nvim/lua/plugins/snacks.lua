@@ -52,9 +52,13 @@ return {
         { "<leader>fR",      function() Snacks.rename.rename_file() end,                             desc = "Rename File" },
         { "<leader>fw",      function() Snacks.picker.grep_word() end,                               desc = "Find word or visual selection", mode = { "n", "x" } },
         -- git
-        { "<leader>gl",      function() Snacks.picker.git_log_line() end,                            desc = "Git Log Line" },
+        { "<leader>gb",      function() Snacks.picker.git_branches() end,                            desc = "Git Branches" },
         { "<leader>gd",      function() Snacks.picker.git_diff() end,                                desc = "Git Diff (Hunks)" },
+        { "<leader>gl",      function() Snacks.picker.git_log() end,                                 desc = "Git Log" },
+        { "<leader>gL",      function() Snacks.picker.git_log_line() end,                            desc = "Git Log Line" },
         { "<leader>gf",      function() Snacks.picker.git_log_file() end,                            desc = "Git Log File" },
+        { "<leader>gs",      function() Snacks.picker.git_status() end,                              desc = "Git Status" },
+        { "<leader>gS",      function() Snacks.picker.git_stash() end,                               desc = "Git Stash" },
         -- gh
         { "<leader>gi",      function() Snacks.picker.gh_issue() end,                                desc = "GitHub Issues (open)" },
         { "<leader>gI",      function() Snacks.picker.gh_issue({ state = "all" }) end,               desc = "GitHub Issues (all)" },
@@ -69,7 +73,7 @@ return {
         { "<leader>sR",      function() Snacks.picker.resume() end,                                  desc = "Resume" },
         { "<leader>su",      function() Snacks.picker.undo() end,                                    desc = "Undo History" },
         { "<leader>uC",      function() Snacks.picker.colorschemes() end,                            desc = "Colorschemes" },
-        { "<leader>t",       function() require("snacks_picker").sonictemplate() end,               desc = "Sonictemplate" },
+        { "<leader>t",       function() require("snacks_picker").sonictemplate() end,                desc = "Sonictemplate" },
         -- LSP
         { "gd",              function() Snacks.picker.lsp_definitions() end,                         desc = "LSP Goto Definition" },
         { "gD",              function() Snacks.picker.lsp_declarations() end,                        desc = "LSP Goto Declaration" },
@@ -112,7 +116,7 @@ return {
 
                 -- Override print to use snacks for `:=` command
                 if vim.fn.has("nvim-0.11") == 1 then
-                    vim._print = function(_, ...)
+                    vim.print = function(_, ...)
                         dd(...)
                     end
                 else
