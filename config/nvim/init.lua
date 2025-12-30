@@ -119,3 +119,8 @@ vim.api.nvim_set_keymap('n', 'sk', '<C-w>k', { noremap = true, desc = 'Window up
 vim.api.nvim_set_keymap('n', 'sv', '<C-w>v', { noremap = true, desc = 'Split window vertical' })
 vim.api.nvim_set_keymap('n', 'sn', ']b', { noremap = false, desc = 'Buffer next' })
 vim.api.nvim_set_keymap('n', 'sp', '[b', { noremap = false, desc = 'Buffer previous' })
+
+-- Show diagnostics at cursor
+vim.keymap.set('n', '<leader>d', function()
+    vim.diagnostic.open_float(nil, { border = 'single' })
+end, { desc = 'Show diagnostics' })

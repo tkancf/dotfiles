@@ -77,7 +77,7 @@ return {
         -- LSP
         { "gd",              function() Snacks.picker.lsp_definitions() end,                         desc = "LSP Goto Definition" },
         { "gD",              function() Snacks.picker.lsp_declarations() end,                        desc = "LSP Goto Declaration" },
-        { "gr",              function() Snacks.picker.lsp_references() end,                          nowait = true,                          desc = "LSP References" },
+        { "gR",              function() Snacks.picker.lsp_references() end,                          nowait = true,                          desc = "LSP References" },
         { "gI",              function() Snacks.picker.lsp_implementations() end,                     desc = "LSP Goto Implementation" },
         { "gy",              function() Snacks.picker.lsp_type_definitions() end,                    desc = "LSP Goto T[y]pe Definition" },
         { "<leader>lci",     function() Snacks.picker.lsp_incoming_calls() end,                      desc = "LSP Calls Incoming" },

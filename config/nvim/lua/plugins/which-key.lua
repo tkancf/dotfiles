@@ -26,6 +26,8 @@ return {
             { "-",        mode = { "n", "v" } },
             { "g",        mode = { "n", "v" } },
             { "Z",        mode = { "n", "v" } },
+            { "]",        mode = { "n", "v" } },
+            { "[",        mode = { "n", "v" } },
         },
     },
     keys = {
