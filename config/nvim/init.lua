@@ -119,8 +119,14 @@ vim.keymap.set("n", "ZR", function()
 end, { desc = 'Restart後に最後のセッションを復元' })
 
 -- 外部更新を検知して自動で再読込
-vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave", "CursorHold", "CursorHoldI", "BufEnter" },
-    { command = "checktime" })
+vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave", "CursorHold", "CursorHoldI", "BufEnter" }, {
+    callback = function()
+        if vim.fn.getcmdwintype() ~= "" or vim.api.nvim_get_mode().mode == "c" then
+            return
+        end
+        vim.cmd("checktime")
+    end,
+})
 
 -- ウィンドウ移動・分割のショートカット
 vim.api.nvim_set_keymap('n', 'sl', '<C-w>l', { noremap = true, desc = 'Window left' })
