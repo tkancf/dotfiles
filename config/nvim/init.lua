@@ -126,9 +126,39 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<cr>', { desc = 'Clear search highl
 -- Terminal mappings
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
+-- quitするときに特殊ウィンドウを一気に閉じる
+-- 参考: https://zenn.dev/vim_jp/articles/ff6cd224fab0c7
+local function close_special_windows_if_only_specials()
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+        local buf = vim.api.nvim_win_get_buf(win)
+        if vim.bo[buf].buftype == "quickfix" then
+            vim.api.nvim_win_close(win, true)
+        end
+    end
+
+    local current_win = vim.api.nvim_get_current_win()
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+        if win ~= current_win then
+            local buf = vim.api.nvim_win_get_buf(win)
+            if vim.bo[buf].buftype == "" then
+                return
+            end
+        end
+    end
+    vim.cmd.only({ bang = true })
+end
+
+vim.api.nvim_create_autocmd("QuitPre", {
+    callback = function()
+        close_special_windows_if_only_specials()
+    end,
+    desc = "Close all special buffers and quit Neovim",
+})
+
 -- restart後に最後のセッションを復元する
 -- 参考: https://blog.atusy.net/2025/12/02/nvim-restart/
 vim.keymap.set("n", "ZR", function()
+    close_special_windows_if_only_specials()
     vim.cmd([[restart +xa lua require("persistence").load({ last = true })]])
 end, { desc = 'Restart後に最後のセッションを復元' })
 
