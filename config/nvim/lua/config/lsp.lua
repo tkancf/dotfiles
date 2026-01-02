@@ -8,6 +8,12 @@ vim.lsp.enable({
     "gopls",
     -- https://github.com/neovim/nvim-lspconfig/blob/master/lsp/pyright.lua
     "pyright",
+    -- https://github.com/neovim/nvim-lspconfig/blob/master/lsp/ts_ls.lua
+    "ts_ls",
+    -- https://github.com/neovim/nvim-lspconfig/blob/master/lsp/terraformls.lua
+    "terraformls",
+    -- https://github.com/neovim/nvim-lspconfig/blob/master/lsp/ansiblels.lua
+    "ansiblels",
 })
 
 -- 言語サーバーがアタッチされた時に呼ばれる
