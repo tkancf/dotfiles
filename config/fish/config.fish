@@ -46,6 +46,9 @@ abbr -a blog-serve "cd ~/src/github.com/tkancf/tkancf.com/ && npx quartz build -
 abbr -a bb "abbr --show | fzf"
 abbr -a dd "cd (ghq list --full-path | fzf)"
 
+## tmux
+abbr -a t "if tmux has-session 2>/dev/null; tmux a; else; tmux; end"
+
 ## claude
 abbr -a c "claude --dangerously-skip-permissions --continue"
 
