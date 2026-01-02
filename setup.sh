@@ -21,6 +21,7 @@ FULL_CONFIG=(
     "config/fish:.config/fish"
     "config/mise:.config/mise"
     "config/ghostty:.config/ghostty"
+    "tmux.conf:.tmux.conf"
 )
 
 MODE="minimal"
