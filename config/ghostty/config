@@ -22,5 +22,4 @@ copy-on-select = true
 macos-option-as-alt = true
 
 # Theme Settings
-#theme = "wombat"
-theme = TokyoNight Moon
+theme = Catppuccin Mocha

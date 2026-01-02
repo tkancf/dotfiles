@@ -57,37 +57,51 @@ require("lazy").setup({
 require('config.lsp')
 
 -- Basic Neovim settings
-vim.o.ambiwidth = 'single'
-vim.o.autochdir = false
-vim.o.autoindent = true
-vim.o.conceallevel = 2
+vim.opt.ambiwidth = 'single'
+vim.opt.autochdir = false
+vim.opt.autoindent = true
+vim.opt.conceallevel = 2
 vim.opt.laststatus = 3
 vim.opt.cmdheight = 1
-vim.o.encoding = 'utf-8'
-vim.o.expandtab = true
-vim.o.hlsearch = true
-vim.o.ignorecase = true
-vim.o.incsearch = true
-vim.o.matchtime = 1
-vim.o.modeline = true
-vim.o.number = true
-vim.o.relativenumber = false
-vim.o.shiftwidth = 4
-vim.o.showmatch = true
-vim.o.signcolumn = 'yes'
-vim.o.smartcase = true
-vim.o.smartindent = true
-vim.o.softtabstop = 4
-vim.o.tabstop = 4
-vim.o.termguicolors = true
-vim.o.autoread = true
-vim.o.undodir = vim.fn.stdpath('cache') .. '/undo'
-vim.o.undofile = true
-vim.o.updatetime = 250
-vim.o.visualbell = true
-vim.o.wrap = true
+vim.opt.encoding = 'utf-8'
+vim.opt.expandtab = true
+vim.opt.hlsearch = true
+vim.opt.ignorecase = true
+vim.opt.incsearch = true
+vim.opt.matchtime = 1
+vim.opt.modeline = true
+vim.opt.number = true
+vim.opt.relativenumber = false
+vim.opt.shiftwidth = 4
+vim.opt.showmatch = true
+vim.opt.signcolumn = 'yes'
+vim.opt.smartcase = true
+vim.opt.smartindent = true
+vim.opt.softtabstop = 4
+vim.opt.tabstop = 4
+vim.opt.termguicolors = true
+vim.opt.autoread = true
+vim.opt.undodir = vim.fn.stdpath('cache') .. '/undo'
+vim.opt.undofile = true
+vim.opt.updatetime = 250
+vim.opt.visualbell = true
+vim.opt.wrap = true
 vim.opt.clipboard:append { 'unnamedplus' }
 vim.scriptencoding = 'utf-8'
+
+-- Enable extui if available (Neovim 0.10+)
+do
+    local ok, extui = pcall(require, 'vim._extui')
+    if ok then
+        extui.enable({
+            enable = true,
+            msg = {
+                target = 'cmd',
+                timeout = 5000,
+            },
+        })
+    end
+end
 
 -- Keep jumplist/history per startup directory.
 do
@@ -96,10 +110,10 @@ do
     vim.fn.mkdir(base, "p")
     local name = vim.fn.fnamemodify(cwd, ":t")
     local hash = vim.fn.sha256(cwd):sub(1, 8)
-    vim.o.shadafile = string.format("%s/%s-%s.shada", base, name, hash)
+    vim.opt.shadafile = string.format("%s/%s-%s.shada", base, name, hash)
 end
 
--- :と;を入れ替え
+-- :と;を入れ替え
 vim.api.nvim_set_keymap('n', ':', ';', { noremap = true, desc = "Swap : ;" })
 vim.api.nvim_set_keymap('n', ';', ':', { noremap = true, desc = "Swap : ;" })
 vim.api.nvim_set_keymap('v', ':', ';', { noremap = true, desc = "Swap : ;" })
