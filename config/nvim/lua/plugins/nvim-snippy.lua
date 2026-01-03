@@ -1,6 +1,7 @@
 -- nvim-snippy のスニペット設定
 return {
     "dcampos/nvim-snippy",
+    event = "InsertEnter",
     dependencies = {
         "dcampos/cmp-snippy",
     },

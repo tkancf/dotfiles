@@ -1,11 +1,10 @@
 -- * 検索を拡張する設定
 return {
     'rapan931/lasterisk.nvim',
-    config = function()
-        local lasterisk = require("lasterisk")
-        vim.keymap.set('n', '*', function() lasterisk.search() end)
-        vim.keymap.set('v', '*', function() lasterisk.search({ is_whole = false }) end)
-        vim.keymap.set('n', 'g*', function() lasterisk.search({ is_whole = false }) end)
-        vim.keymap.set('x', 'g*', function() lasterisk.search({ is_whole = false }) end)
-    end
+    keys = {
+        { "*", function() require("lasterisk").search() end, mode = "n", desc = "Search word under cursor" },
+        { "*", function() require("lasterisk").search({ is_whole = false }) end, mode = "x", desc = "Search selection" },
+        { "g*", function() require("lasterisk").search({ is_whole = false }) end, mode = "n", desc = "Search word (partial)" },
+        { "g*", function() require("lasterisk").search({ is_whole = false }) end, mode = "x", desc = "Search selection (partial)" },
+    },
 }

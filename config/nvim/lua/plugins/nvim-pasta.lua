@@ -1,10 +1,11 @@
 -- ペースト時の履歴とインデント調整を改善する設定
 return {
     "hrsh7th/nvim-pasta",
+    keys = {
+        { "p", function() require("pasta.mapping").p() end, mode = { "n", "x" }, desc = "Paste (pasta)" },
+        { "P", function() require("pasta.mapping").P() end, mode = { "n", "x" }, desc = "Paste before (pasta)" },
+    },
     config = function()
-        vim.keymap.set({ "n", "x" }, "p", require("pasta.mapping").p, { desc = "Paste (pasta)" })
-        vim.keymap.set({ "n", "x" }, "P", require("pasta.mapping").P, { desc = "Paste before (pasta)" })
-
         local pasta = require("pasta")
         pasta.config.next_key = vim.keycode("<C-n>")
         pasta.config.prev_key = vim.keycode("<C-p>")

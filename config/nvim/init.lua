@@ -47,7 +47,8 @@ require("lazy").setup({
         { import = 'plugins.which-key' },
         { import = 'plugins.persistence' },
         { import = 'plugins.quicker' },
-        { 'mattn/vim-maketable' },
+        { import = 'plugins.snacks-picker-sonictemplate' },
+        { 'mattn/vim-maketable', cmd = { "MakeTable" } },
     },
     -- automatically check for plugin updates
     checker = { enabled = false },

@@ -3,6 +3,7 @@ return {
     'https://github.com/nvim-mini/mini.hipatterns',
     version = false,
     dependencies = { 'https://github.com/nvim-mini/mini.extra' },
+    event = { "BufReadPost", "BufNewFile" },
     opts = {},
     config = function(_, opts)
         local hipatterns = require('mini.hipatterns')

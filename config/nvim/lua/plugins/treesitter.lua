@@ -1,7 +1,7 @@
 -- Tree-sitter による構文解析の設定
 return {
   'nvim-treesitter/nvim-treesitter',
-  lazy = false,
+  event = { "BufReadPre", "BufNewFile" },
   version = false,
   build = ':TSUpdate',
   config = function()
@@ -13,4 +13,3 @@ return {
     })
   end,
 }
-

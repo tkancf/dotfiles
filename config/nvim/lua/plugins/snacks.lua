@@ -1,11 +1,6 @@
 -- Snacks の各種 UI 機能をまとめて設定
 return {
     "folke/snacks.nvim",
-    dependencies = {
-        "IMOKURI/snacks-picker-sonictemplate.nvim",
-        "mattn/vim-sonictemplate",
-        "nvim-lua/plenary.nvim",
-    },
     priority = 1000,
     lazy = false,
     ---@type snacks.Config
@@ -73,7 +68,6 @@ return {
         { "<leader>sR",      function() Snacks.picker.resume() end,                                  desc = "Resume" },
         { "<leader>su",      function() Snacks.picker.undo() end,                                    desc = "Undo History" },
         { "<leader>uC",      function() Snacks.picker.colorschemes() end,                            desc = "Colorschemes" },
-        { "<leader>t",       function() require("snacks_picker").sonictemplate() end,                desc = "Sonictemplate" },
         -- LSP
         { "gd",              function() Snacks.picker.lsp_definitions() end,                         desc = "LSP Goto Definition" },
         { "gD",              function() Snacks.picker.lsp_declarations() end,                        desc = "LSP Goto Declaration" },
@@ -98,7 +92,6 @@ return {
         { "[[",              function() Snacks.words.jump(-vim.v.count1) end,                        desc = "Prev Reference",                mode = { "n", "t" } },
     },
     init = function()
-        vim.g.sonictemplate_vim_template_dir = { string.format("%s/template", vim.fn.stdpath("config")) }
         vim.api.nvim_create_autocmd("User", {
             pattern = "VeryLazy",
             callback = function()
