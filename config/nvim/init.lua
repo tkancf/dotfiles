@@ -50,7 +50,7 @@ require("lazy").setup({
         { 'mattn/vim-maketable' },
     },
     -- automatically check for plugin updates
-    checker = { enabled = true },
+    checker = { enabled = false },
 })
 
 -- load lua/config/lsp.lua setting
