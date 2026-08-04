@@ -49,6 +49,7 @@ require("lazy").setup({
         { import = 'plugins.bufferline' },
         { import = 'plugins.treesitter' },
         { import = 'plugins.which-key' },
+        { import = 'plugins.moonbit' },
         { import = 'plugins.persistence' },
         { import = 'plugins.quicker' },
         { import = 'plugins.snacks-picker-sonictemplate' },

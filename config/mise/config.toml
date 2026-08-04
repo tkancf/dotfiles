@@ -1,13 +1,9 @@
 [tools]
 go = "latest"
 node = "latest"
-bun = "latest"
-lua-language-server = "latest"
-"npm:typescript-language-server" = "latest"
-"go:golang.org/x/tools/gopls" = "latest"
 "asdf:neovim" = "nightly"
-"npm:pyright" = "latest"
-python = "3.13"
+python = "latest"
+pnpm = "latest"
 
 [settings]
 experimental = true

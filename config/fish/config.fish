@@ -70,3 +70,10 @@ source ~/.orbstack/shell/init2.fish 2>/dev/null || :
 
 # moonbit
 fish_add_path "$HOME/.moon/bin"
+
+# pnpm
+set -gx PNPM_HOME "/Users/tkan/Library/pnpm"
+if not string match -q -- "$PNPM_HOME/bin" $PATH
+  set -gx PATH "$PNPM_HOME/bin" $PATH
+end
+# pnpm end

@@ -6,7 +6,7 @@ return {
   build = ':TSUpdate',
   config = function()
     vim.api.nvim_create_autocmd('FileType', {
-      pattern = { 'roc', 'markdown', 'markdown_inline', 'rust' },
+      pattern = { 'roc', 'markdown', 'markdown_inline', 'rust', 'moonbit' },
       callback = function()
         vim.treesitter.start()
       end,
