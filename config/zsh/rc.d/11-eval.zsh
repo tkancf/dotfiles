@@ -17,7 +17,8 @@ fi
 
 # atuin
 if command -v atuin >/dev/null 2>&1; then
-  eval "$(atuin init zsh)"
+  atuin_init="$(atuin init zsh 2>/dev/null)"
+  [ -n "$atuin_init" ] && eval "$atuin_init"
 fi
 
 # fzf shell integration
