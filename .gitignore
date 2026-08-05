@@ -4,3 +4,4 @@ config/fish/fish_variables
 config/zsh/.zcompdump
 config/zsh/.zsh_history
 config/fish/local.fish
+config/zsh/local.zsh

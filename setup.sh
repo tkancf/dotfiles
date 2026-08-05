@@ -11,14 +11,16 @@ USAGE
 }
 
 MINIMAL_CONFIG=(
+    "zshenv:.zshenv"
+    "config/zsh:.config/zsh"
     "config/nvim:.config/nvim"
-    "config/fish:.config/fish"
 )
 
 FULL_CONFIG=(
     "vimrc:.vimrc"
     "config/nvim:.config/nvim"
-    "config/fish:.config/fish"
+    "zshenv:.zshenv"
+    "config/zsh:.config/zsh"
     "config/mise:.config/mise"
     "config/ghostty:.config/ghostty"
     "tmux.conf:.tmux.conf"
