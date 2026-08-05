@@ -8,7 +8,11 @@ setopt HIST_NO_STORE        # historyコマンドは記録しない
 unsetopt beep nomatch
 
 # Disable XON/XOFF so Ctrl+S works, then enable typo correction and keymap.
-stty stop undef
-stty start undef
+# Guard terminal-only commands with a tty check: they error when stdin is
+# not a terminal (e.g. `zsh -i` under a pipe/CI).
+if [[ -t 0 ]]; then
+  stty stop undef
+  stty start undef
+  bindkey -e
+fi
 setopt correct
-bindkey -e

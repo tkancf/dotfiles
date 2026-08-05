@@ -29,12 +29,9 @@ if command -v fzf >/dev/null 2>&1; then
   [ -f "$HOME/.fzf.zsh" ] && source "$HOME/.fzf.zsh"
 fi
 
-# zsh-autosuggestions / zsh-syntax-highlighting (optional)
+# zsh-autosuggestions (optional)
 if [ -f /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
   source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-fi
-if [ -f /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-  source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 # Rust/cargo
@@ -49,6 +46,14 @@ case ":$PATH:" in
   *":$PNPM_HOME/bin:"*) ;;
   *) export PATH="$PNPM_HOME/bin:$PATH" ;;
 esac
+
+# OPENCODE_API_KEY from 1Password (op://Private/opencode/OPENCODE_API_KEY).
+# Falls back to local.zsh below if op is unavailable or locked.
+if command -v op >/dev/null 2>&1; then
+  local opencode_key
+  opencode_key="$(op read 'op://Private/opencode/OPENCODE_API_KEY' 2>/dev/null)"
+  [[ -n "$opencode_key" ]] && export OPENCODE_API_KEY="$opencode_key"
+fi
 
 # Local machine settings (gitignored)
 local_zsh="${ZDOTDIR:-$HOME/.config/dotfiles/config/zsh}/local.zsh"

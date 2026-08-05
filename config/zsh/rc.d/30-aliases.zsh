@@ -36,11 +36,9 @@ alias gm='git commit -m'
 
 # notes / blog
 blog() {
-  local NVIM_APPNAME=nvim
   cd ~/src/github.com/tkancf/tkancf.com/content && nvim index.md
 }
 memo() {
-  local NVIM_APPNAME=nvim
   cd ~/Library/CloudStorage/Dropbox/Memo/ && nvim refile.md
 }
 blog-serve() { cd ~/src/github.com/tkancf/tkancf.com/ && npx quartz build --serve; }
@@ -55,7 +53,9 @@ dd() {
 
 # tmux
 t() {
-  if tmux has-session 2>/dev/null; then
+  if [[ -n "$TMUX" ]]; then
+    echo "already in tmux" >&2
+  elif tmux has-session 2>/dev/null; then
     tmux a
   else
     tmux

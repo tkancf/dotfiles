@@ -24,7 +24,7 @@ path=(
   /usr/local/bin(N-/)
   /usr/local/sbin(N-/)
   /Library/Apple/usr/bin
-  $HOME/.local/bin
+  $HOME/.local/bin(N-/)
   $HOME/.local/bin/roc_nightly-*/(N-/)
   $HOME/.local/bin/zig-*/(N-/)
 )
