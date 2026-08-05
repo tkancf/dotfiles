@@ -25,6 +25,8 @@ FULL_CONFIG=(
     "config/mise:.config/mise"
     "config/ghostty:.config/ghostty"
     "config/herdr/config.toml:.config/herdr/config.toml"
+    "config/opencode:.config/opencode"
+    "config/omo:.omo"
     "tmux.conf:.tmux.conf"
 )
 

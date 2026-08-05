@@ -1,0 +1,61 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/omo.schema.json",
+
+  "[opencode]": {
+    "agents": {
+      "sisyphus": {
+        "model": "opencode-go/kimi-k3"
+      },
+      "prometheus": {
+        "model": "opencode-go/kimi-k3"
+      },
+      "metis": {
+        "model": "opencode-go/kimi-k3"
+      },
+      "atlas": {
+        "model": "opencode-go/kimi-k3"
+      },
+      "sisyphus-junior": {
+        "model": "opencode-go/kimi-k3"
+      },
+      "oracle": {
+        "model": "opencode-go/glm-5.2"
+      },
+      "momus": {
+        "model": "opencode-go/glm-5.2"
+      },
+      "explore": {
+        "model": "opencode-go/qwen3.7-plus"
+      },
+      "librarian": {
+        "model": "opencode-go/qwen3.7-plus"
+      },
+      "multimodal-looker": {
+        "model": "opencode-go/kimi-k3"
+      }
+    },
+    "categories": {
+      "visual-engineering": {
+        "model": "opencode-go/kimi-k3"
+      },
+      "unspecified-high": {
+        "model": "opencode-go/kimi-k3"
+      },
+      "unspecified-low": {
+        "model": "opencode-go/qwen3.7-plus"
+      },
+      "quick": {
+        "model": "opencode-go/minimax-m2.7"
+      },
+      "writing": {
+        "model": "opencode-go/kimi-k3"
+      },
+      "artistry": {
+        "model": "opencode-go/kimi-k3"
+      }
+    }
+  },
+  "_migrations": [
+    "2026-08-reasoning-unification"
+  ]
+}
