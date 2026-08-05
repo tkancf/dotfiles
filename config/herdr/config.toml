@@ -1,0 +1,47 @@
+[theme]
+name = "terminal"
+auto_switch = false
+
+[terminal]
+# Executable used for new interactive panes.
+default_shell = "/opt/homebrew/bin/zsh"
+
+[keys]
+# tmux-like prefix and navigation.
+prefix = "ctrl+space"
+
+# Core tmux-style shortcuts.
+help = "prefix+?"
+settings = "prefix+s"
+detach = "prefix+d"
+reload_config = "prefix+r"
+workspace_picker = "prefix+w"
+goto = "prefix+g"
+new_workspace = "prefix+shift+n"
+new_worktree = "prefix+shift+g"
+rename_workspace = "prefix+shift+w"
+close_workspace = "prefix+shift+d"
+
+# Tab and pane management.
+new_tab = "prefix+c"
+rename_tab = "prefix+comma"
+previous_tab = "prefix+p"
+next_tab = "prefix+n"
+switch_tab = "prefix+1..9"
+close_tab = "prefix+ampersand"
+rename_pane = "prefix+shift+p"
+edit_scrollback = "prefix+e"
+close_pane = "prefix+x"
+zoom = "prefix+z"
+
+# Pane focus and layout.
+focus_pane_left = "prefix+h"
+focus_pane_down = "prefix+j"
+focus_pane_up = "prefix+k"
+focus_pane_right = "prefix+l"
+split_vertical = "prefix+v"
+split_horizontal = "prefix+minus"
+toggle_sidebar = "prefix+b"
+
+# Resize mode is kept separate from reload so prefix+r can reload config.
+resize_mode = "prefix+shift+r"

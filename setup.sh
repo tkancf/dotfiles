@@ -13,6 +13,7 @@ USAGE
 MINIMAL_CONFIG=(
     "zshenv:.zshenv"
     "config/zsh:.config/zsh"
+    "config/herdr/config.toml:.config/herdr/config.toml"
     "config/nvim:.config/nvim"
 )
 
@@ -23,6 +24,7 @@ FULL_CONFIG=(
     "config/zsh:.config/zsh"
     "config/mise:.config/mise"
     "config/ghostty:.config/ghostty"
+    "config/herdr/config.toml:.config/herdr/config.toml"
     "tmux.conf:.tmux.conf"
 )
 
