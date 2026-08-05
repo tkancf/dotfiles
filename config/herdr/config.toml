@@ -1,47 +1,108 @@
+# herdr configuration (tmux.conf から移行、super+ 直打ちスタイル)
+# 全コマンドを prefix なしの super(cmd)+ キーで実行する。
+# prefix (ctrl+space) はコピーモード等のサブモード用に残す。
+
 [theme]
 name = "terminal"
 auto_switch = false
 
 [terminal]
-# Executable used for new interactive panes.
+# tmux.conf の default-shell を移行 (fish は使わず zsh を維持)
 default_shell = "/opt/homebrew/bin/zsh"
 
 [keys]
-# tmux-like prefix and navigation.
+# tmux-like prefix. サブモード(コピーモード等)用。
 prefix = "ctrl+space"
 
-# Core tmux-style shortcuts.
-help = "prefix+?"
-settings = "prefix+s"
-detach = "prefix+d"
-reload_config = "prefix+r"
-workspace_picker = "prefix+w"
-goto = "prefix+g"
-new_workspace = "prefix+shift+n"
-new_worktree = "prefix+shift+g"
-rename_workspace = "prefix+shift+w"
-close_workspace = "prefix+shift+d"
+# Core commands (super 直打ち)
+help = "super+shift+slash"     # tmux: prefix+? (list-keys 相当)
+settings = "super+comma"       # tmux: prefix+, (options 相当)
+detach = "super+d"             # tmux: prefix+d detach
+reload_config = "super+r"      # tmux: bind r source-file ~/.tmux.conf
+workspace_picker = "super+alt+w"
+goto = "super+g"               # tmux: prefix+g 相当のナビゲータ
+new_workspace = "super+c"      # tmux: bind C new-session
+new_worktree = "super+shift+g"
+rename_workspace = "super+shift+w"
+close_workspace = "super+shift+d"
+previous_workspace = "super+[" # tmux: bind [ switch-client -p
+next_workspace = "super+]"     # tmux: bind ] switch-client -n
+open_notification_target = "super+o"
 
-# Tab and pane management.
-new_tab = "prefix+c"
-rename_tab = "prefix+comma"
-previous_tab = "prefix+p"
-next_tab = "prefix+n"
-switch_tab = "prefix+1..9"
-close_tab = "prefix+ampersand"
-rename_pane = "prefix+shift+p"
-edit_scrollback = "prefix+e"
-close_pane = "prefix+x"
-zoom = "prefix+z"
+# Agent navigation
+previous_agent = "super+shift+h"
+next_agent = "super+shift+l"
 
-# Pane focus and layout.
-focus_pane_left = "prefix+h"
-focus_pane_down = "prefix+j"
-focus_pane_up = "prefix+k"
-focus_pane_right = "prefix+l"
-split_vertical = "prefix+v"
-split_horizontal = "prefix+minus"
-toggle_sidebar = "prefix+b"
+# Tab management
+new_tab = "super+t"            # tmux: prefix+c new-window
+rename_tab = "super+shift+t"   # tmux: prefix+, rename-window
+previous_tab = "super+p"     # tmux: prefix+p previous-window
+next_tab = "super+n"         # tmux: prefix+n next-window
+close_tab = "super+w"          # tmux: prefix+& kill-window (ブラウザ式)
+# switch_tab は [keys.indexed] tabs = "super" (super+1..9) で実現
 
-# Resize mode is kept separate from reload so prefix+r can reload config.
-resize_mode = "prefix+shift+r"
+# Pane management
+rename_pane = "super+shift+p"
+edit_scrollback = "super+e"    # tmux: prefix+v copy-mode 相当 (scrollback編集)
+copy_mode = "super+shift+c"    # tmux: copy-mode (vi)
+close_pane = "super+x"         # tmux: prefix+x kill-pane
+zoom = "super+z"               # tmux: prefix+z zoom-pane
+
+# Pane focus and layout
+# focus_pane_* は下の [[keys.command]] (super+h/j/k/l) で実装。
+# zoom 中に移動したら tmux 同様 zoom も解除する。
+focus_pane_left = ""
+focus_pane_down = ""
+focus_pane_up = ""
+focus_pane_right = ""
+split_vertical = "super+y"     # tmux: bind % split-window -h (pane_current_path で分割)
+split_horizontal = "super+minus"  # tmux: bind ' split-window -v (pane_current_path で分割)
+toggle_sidebar = "super+b"
+
+# tmux: bind -r H/J/K/L resize-pane に相当。herdr はモーダルなリサイズモード。
+resize_mode = "super+shift+r"
+
+[keys.indexed]
+# super+1..9 = タブ切替 / super+shift+1..9 = ワークスペース切替 / super+alt+1..9 = エージェント
+tabs = "super"
+workspaces = "super+shift"
+agents = "super+alt"
+
+# ペイン移動: zoom 中なら解除してから移動 (tmux の挙動に合わせる)
+[[keys.command]]
+key = "super+h"
+type = "shell"
+command = "\"$HERDR_BIN_PATH\" pane zoom --off >/dev/null 2>&1; \"$HERDR_BIN_PATH\" pane focus --direction left"
+
+[[keys.command]]
+key = "super+j"
+type = "shell"
+command = "\"$HERDR_BIN_PATH\" pane zoom --off >/dev/null 2>&1; \"$HERDR_BIN_PATH\" pane focus --direction down"
+
+[[keys.command]]
+key = "super+k"
+type = "shell"
+command = "\"$HERDR_BIN_PATH\" pane zoom --off >/dev/null 2>&1; \"$HERDR_BIN_PATH\" pane focus --direction up"
+
+[[keys.command]]
+key = "super+l"
+type = "shell"
+command = "\"$HERDR_BIN_PATH\" pane zoom --off >/dev/null 2>&1; \"$HERDR_BIN_PATH\" pane focus --direction right"
+
+[ui]
+# tmux: set-option -g mouse on 相当
+mouse_capture = true
+# tmux: focus-events on 相当 (フォーカス復帰時に再描画)
+redraw_on_focus_gained = true
+# 新規タブ作成時に名前確認をしない (即座に生成)
+prompt_new_tab_name = false
+
+[advanced]
+# tmux: set-option -g history-limit 1000000 相当 (バイト単位のため概算)
+scrollback_limit_bytes = 100000000
+
+# 引き継ぎ不可だった tmux 設定:
+# - session-color.sh (セッションごとの色分け): herdr に同等機能なし
+# - synchronize-panes (bind e / E): herdr に同等機能なし
+# - mode-keys vi / copy-command pbcopy: herdr は独自 copy_mode とネイティブクリップボードを使用
+# - escape-time / allow-passthrough / Tc カラー: herdr は自身で描画するため不要

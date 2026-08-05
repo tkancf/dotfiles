@@ -23,3 +23,78 @@ macos-option-as-alt = true
 
 # Theme Settings
 theme = Catppuccin Mocha
+
+# ============================================================
+# herdr 用に super+ キーを解放 (herdr が受信できるようにする)
+# herdr 側の [keys] が super+ 直打ちバインドを使用するため、
+# ここで衝突する ghostty デフォルトを無効化 (unbind) する。
+#
+# 注: ghostty 1.3.1 では keybind 行のインラインコメントを付けると
+#     InvalidAction になるため、コメントはこのブロックのみに記載する。
+#     (アクションは `none` でなく `unbind` を使用)
+# ============================================================
+# copy → herdr new_workspace
+keybind = super+c=unbind
+# next_tab → herdr 側で super+n に変更済み。ghostty の new_window を無効化
+keybind = super+n=unbind
+# new_tab → herdr new_tab
+keybind = super+t=unbind
+# close_surface → herdr close_tab
+keybind = super+w=unbind
+# close_window → herdr rename_workspace
+keybind = super+shift+w=unbind
+# close_tab:this → herdr workspace_picker
+keybind = super+alt+w=unbind
+# new_split:right → herdr detach
+keybind = super+d=unbind
+# new_split:down → herdr close_workspace
+keybind = super+shift+d=unbind
+# undo → herdr zoom
+keybind = super+z=unbind
+# undo → herdr rename_tab
+keybind = super+shift+t=unbind
+# navigate_search:next → herdr goto
+keybind = super+g=unbind
+# navigate_search:previous → herdr new_worktree
+keybind = super+shift+g=unbind
+# search_selection → herdr edit_scrollback
+keybind = super+e=unbind
+# scroll_to_selection → herdr focus_pane_down
+keybind = super+j=unbind
+# write_screen_file:paste → herdr swap_pane_down
+keybind = super+shift+j=unbind
+# toggle_command_palette → herdr rename_pane
+keybind = super+shift+p=unbind
+# open_config → herdr settings
+keybind = super+,=unbind
+# decrease_font_size → herdr split_horizontal
+keybind = super+-=unbind
+# clear_screen → herdr focus_pane_up
+keybind = super+k=unbind
+# goto_split:previous → herdr previous_workspace
+keybind = super+[=unbind
+# goto_split:next → herdr next_workspace
+keybind = super+]=unbind
+# previous_tab → herdr 側で super+p に変更済み。ghostty のタブ機能を無効化して維持
+keybind = super+shift+[=unbind
+# next_tab → herdr 側で super+n に変更済み。ghostty のタブ機能を無効化して維持
+keybind = super+shift+]=unbind
+# goto_tab:1..9 / last_tab → herdr switch_tab (indexed)
+keybind = super+1=unbind
+keybind = super+2=unbind
+keybind = super+3=unbind
+keybind = super+4=unbind
+keybind = super+5=unbind
+keybind = super+6=unbind
+keybind = super+7=unbind
+keybind = super+8=unbind
+keybind = super+9=unbind
+# 数字キーの別名トリガー (super+digit_1..8)
+keybind = super+digit_1=unbind
+keybind = super+digit_2=unbind
+keybind = super+digit_3=unbind
+keybind = super+digit_4=unbind
+keybind = super+digit_5=unbind
+keybind = super+digit_6=unbind
+keybind = super+digit_7=unbind
+keybind = super+digit_8=unbind
