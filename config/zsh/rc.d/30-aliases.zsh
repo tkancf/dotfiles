@@ -36,11 +36,11 @@ alias gm='git commit -m'
 
 # notes / blog
 blog() {
-  export NVIM_APPNAME=nvim
+  local NVIM_APPNAME=nvim
   cd ~/src/github.com/tkancf/tkancf.com/content && nvim index.md
 }
 memo() {
-  export NVIM_APPNAME=nvim
+  local NVIM_APPNAME=nvim
   cd ~/Library/CloudStorage/Dropbox/Memo/ && nvim refile.md
 }
 blog-serve() { cd ~/src/github.com/tkancf/tkancf.com/ && npx quartz build --serve; }

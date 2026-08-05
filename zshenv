@@ -25,6 +25,6 @@ path=(
   /usr/local/sbin(N-/)
   /Library/Apple/usr/bin
   $HOME/.local/bin
-  $HOME/.local/bin/roc_nightly-macos_apple_silicon-2025-09-09-d73ea109cc2/(N-/)
-  $HOME/.local/bin/zig-aarch64-macos-0.15.1/(N-/)
+  $HOME/.local/bin/roc_nightly-*/(N-/)
+  $HOME/.local/bin/zig-*/(N-/)
 )
