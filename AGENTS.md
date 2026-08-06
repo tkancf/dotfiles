@@ -25,6 +25,7 @@ dotfiles/
     ├── nvim/             # lazy.nvim; one spec file per plugin
     ├── fish/             # secondary shell; functions/ is mostly vendored plugin code
     ├── herdr/            # multiplexer config (tmux successor)
+    ├── agents/skills/    # herdr agent skill → ~/.agents/skills (npx skills add)
     ├── ghostty/          # terminal config
     ├── mise/             # tool version pinning (go/node/python/pnpm, nvim nightly)
     ├── opencode/         # opencode AI agent config + herdr plugin
@@ -47,6 +48,7 @@ dotfiles/
 | Packages | `Brewfile` |
 | Tool versions | `config/mise/config.toml` |
 | AI tool configs | `config/opencode/`, `config/omo/` |
+| Agent skills (herdr) | `config/agents/skills/herdr/` → `~/.agents/skills/herdr` (full mode) |
 
 ## CODE MAP
 No program code — "symbols" are config entry points and their wiring:
@@ -91,7 +93,7 @@ No program code — "symbols" are config entry points and their wiring:
 ## COMMANDS
 ```bash
 ./setup.sh                   # deploy minimal (zshenv, zsh, herdr, nvim)
-./setup.sh full              # deploy everything (vimrc, tmux, mise, ghostty, opencode, omo)
+./setup.sh full              # deploy everything (vimrc, tmux, mise, ghostty, opencode, omo, agents/skills)
 brew bundle --file=Brewfile  # install packages
 git pull                     # update (no dedicated update script)
 ```
