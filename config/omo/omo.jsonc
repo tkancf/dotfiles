@@ -1,6 +1,9 @@
 {
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/omo.schema.json",
 
+  // Disable macOS notification when a session finishes ("Agent is ready for input").
+  "disabled_hooks": ["session-notification"],
+
   "[opencode]": {
     "agents": {
       "build": {
