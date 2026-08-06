@@ -19,7 +19,6 @@ dotfiles/
 ├── README.md             # clone/setup instructions
 ├── .backup/              # timestamped pre-symlink backups (gitignored)
 ├── .codex/               # Codex CLI skill (nvim-plugin-add)
-├── .omo/                 # omo runtime state (gitignored)
 └── config/
     ├── zsh/              # LIVE zsh config via ZDOTDIR indirection
     ├── nvim/             # lazy.nvim; one spec file per plugin
@@ -29,7 +28,6 @@ dotfiles/
     ├── ghostty/          # terminal config
     ├── mise/             # tool version pinning (go/node/python/pnpm, nvim nightly)
     ├── opencode/         # opencode AI agent config + herdr plugin
-    ├── omo/              # omo agent config → ~/.omo
     ├── keyboard/         # tofu_jr keyboard layout (tracked, NOT deployed)
     └── tmux/             # session-color.sh helper (tracked, NOT deployed)
 ```
@@ -47,7 +45,7 @@ dotfiles/
 | Multiplexer | `config/herdr/config.toml` (tmux.conf is legacy) |
 | Packages | `Brewfile` |
 | Tool versions | `config/mise/config.toml` |
-| AI tool configs | `config/opencode/`, `config/omo/` |
+| AI tool configs | `config/opencode/` |
 | Agent skills (herdr) | `config/agents/skills/herdr/` → `~/.agents/skills/herdr` (full mode) |
 
 ## CODE MAP
@@ -66,7 +64,7 @@ No program code — "symbols" are config entry points and their wiring:
 | config.toml | multiplexer | config/herdr/ | ~/.config/herdr | herdr settings (tmux successor) |
 
 ## CONVENTIONS
-- Deploy by symlink only (`ln -sf`), never copy. `./setup.sh [minimal|full]`; minimal = zshenv/zsh/herdr/nvim, full adds vimrc/tmux/mise/ghostty/opencode/omo.
+- Deploy by symlink only (`ln -sf`), never copy. `./setup.sh [minimal|full]`; minimal = zshenv/zsh/herdr/nvim, full adds vimrc/tmux/mise/ghostty/opencode/agents-skills.
 - Machine-local overrides go in gitignored files: `config/zsh/local.zsh`, `config/fish/local.fish`, `~/.gitconfig.local`. Never put machine-specific settings in tracked configs.
 - zsh rc.d loads by `NN-` numeric prefix; `90-highlighting.zsh` MUST stay last (syntax highlighting wraps ZLE widgets).
 - nvim: one lazy.nvim spec file per plugin in `lua/plugins/`, registered via `{ import = 'plugins.<name>' }` in init.lua. Keymaps need `desc`, prefer `<leader>`.
@@ -76,7 +74,7 @@ No program code — "symbols" are config entry points and their wiring:
 - No lint/format tooling exists in this repo — do not invent any.
 
 ## ANTI-PATTERNS (THIS PROJECT)
-- NEVER commit: `.backup/`, `.omo/`, `config/nvim/lazy-lock.json`, `config/fish/fish_variables`, `config/zsh/.zcompdump`, `config/zsh/.zsh_history`, `config/fish/local.fish`, `config/zsh/local.zsh`.
+- NEVER commit: `.backup/`, `config/nvim/lazy-lock.json`, `config/fish/fish_variables`, `config/zsh/.zcompdump`, `config/zsh/.zsh_history`, `config/fish/local.fish`, `config/zsh/local.zsh`.
 - Never add machine-specific settings to tracked files — use the `local.*` overrides.
 - Never add zsh rc.d files that must load after `90-` (that prefix is the ceiling).
 - Never add nvim plugins outside `lua/plugins/` or register them outside init.lua's import list.
@@ -93,7 +91,7 @@ No program code — "symbols" are config entry points and their wiring:
 ## COMMANDS
 ```bash
 ./setup.sh                   # deploy minimal (zshenv, zsh, herdr, nvim)
-./setup.sh full              # deploy everything (vimrc, tmux, mise, ghostty, opencode, omo, agents/skills)
+./setup.sh full              # deploy everything (vimrc, tmux, mise, ghostty, opencode, agents/skills)
 brew bundle --file=Brewfile  # install packages
 git pull                     # update (no dedicated update script)
 ```

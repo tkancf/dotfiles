@@ -3,7 +3,6 @@
   "model": "opencode-go/deepseek-v4-flash",
   "small_model": "opencode-go/deepseek-v4-flash",
   "plugin": [
-    "oh-my-openagent",
     [
       // opencode-sandbox-runtime: 全プロジェクトで bash ツールを sandbox-exec で隔離
       "/Users/tkan/src/github.com/tkancf/opencode-sandbox-runtime/src/index.ts",

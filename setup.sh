@@ -26,7 +26,6 @@ FULL_CONFIG=(
     "config/ghostty:.config/ghostty"
     "config/herdr/config.toml:.config/herdr/config.toml"
     "config/opencode:.config/opencode"
-    "config/omo:.omo"
     "config/agents/skills/herdr:.agents/skills/herdr"
     "tmux.conf:.tmux.conf"
 )

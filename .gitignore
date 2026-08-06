@@ -1,5 +1,4 @@
 .backup
-.omo
 .config/nvim/lazy-lock.json
 config/fish/fish_variables
 config/zsh/.zcompdump
