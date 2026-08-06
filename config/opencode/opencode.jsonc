@@ -2,5 +2,46 @@
   "$schema": "https://opencode.ai/config.json",
   "model": "opencode-go/deepseek-v4-flash",
   "small_model": "opencode-go/deepseek-v4-flash",
-  "plugin": ["oh-my-openagent"]
+  "plugin": [
+    "oh-my-openagent",
+    [
+      // opencode-sandbox-runtime: 全プロジェクトで bash ツールを sandbox-exec で隔離
+      "/Users/tkan/src/github.com/tkancf/opencode-sandbox-runtime/src/index.ts",
+      {
+        "enabled": true,
+        // 書込許可: プロジェクト + /tmp + ホームのキャッシュ/設定系ディレクトリ
+        // (npm install や各種ツールのキャッシュ書き込みがサンドボックス内で動くように)
+        "allowWrite": [
+          ".",
+          "/tmp",
+          "~/.npm",
+          "~/.cache",
+          "~/Library/Caches",
+          "~/.config",
+          "~/.local",
+          "~/.cargo",
+          "~/.moon"
+        ],
+        // 書込保護: allowWrite 内でも常に拒否するシークレット類
+        // (.env / .env.* はプロジェクト配下、他は ~ 配下の資格情報)
+        "denyWrite": [
+          ".env",
+          ".env.*",
+          "~/.ssh/**",
+          "~/.aws/**",
+          "~/.gnupg/**",
+          "~/.local/share/opencode/auth.json"
+        ],
+        // サンドボックスでは確実に失敗する/対話が必要なコマンドは素通し
+        // (sudo はTTYとシステム書込、brew は /opt/homebrew 書込、
+        //  open は Apple Events が必要、git config --global は ~/.gitconfig の必須拒否)
+        "ignoreCommands": [
+          "sudo **",
+          "brew **",
+          "open **",
+          "git config --global **"
+        ]
+      }
+    ]
+  ]
 }
