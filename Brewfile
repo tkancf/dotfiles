@@ -3,6 +3,7 @@ tap "homebrew/cask"
 tap "homebrew/core"
 tap "emanuelcasco/tap"
 
+brew "atuin"
 brew "git"
 brew "mas"
 brew "ocgo"
