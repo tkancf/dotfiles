@@ -51,17 +51,6 @@ dd() {
   [[ -n "$dir" ]] && cd "$dir"
 }
 
-# tmux
-t() {
-  if [[ -n "$TMUX" ]]; then
-    echo "already in tmux" >&2
-  elif tmux has-session 2>/dev/null; then
-    tmux a
-  else
-    tmux
-  fi
-}
-
 # claude
 alias c='claude --dangerously-skip-permissions --continue'
 
