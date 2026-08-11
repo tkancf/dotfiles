@@ -4,6 +4,7 @@ node = "latest"
 "asdf:neovim" = "nightly"
 python = "latest"
 pnpm = "latest"
+pipx = "latest"
 
 [settings]
 experimental = true

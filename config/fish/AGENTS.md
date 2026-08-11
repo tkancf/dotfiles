@@ -16,7 +16,7 @@ Secondary shell with a full config tree. ~90% of `functions/` is vendored fisher
 ## CONVENTIONS
 
 - All abbreviations live in `config.fish` via `abbr -a`, grouped under comment headers: edit config, Vim/Neovim, git, fzf, tmux, claude, VSCode, uv.
-- `g` = lazygit; `g*` (gs, ga, gcm, gd, gg…) = git; `c` = claude; `v` = nvim.
+- `g*` (gs, ga, gcm, gd, gg…) = git; `c` = claude; `v` = nvim. (`g` alone was removed with lazygit.)
 - Naming scopes:
   - `__name` — private/plugin internals: `__z*` (z), `__abbr_tips_*`, legacy `__fzf_*` widgets.
   - `_name` — fzf.fish internals (`_fzf_*`, `_fzf_extract_var_info`).
@@ -32,7 +32,7 @@ Secondary shell with a full config tree. ~90% of `functions/` is vendored fisher
 
 ## NOTES
 
-- Fish is NOT in `setup.sh` — `~/.config/fish` is a manual symlink to this dir (known installer gap).
+- Fish is deployed by `setup.sh full` via a symlink (`config/fish:.config/fish`); not part of the `minimal` list.
 - Two fzf stacks coexist: modern `_fzf_*` search bindings (fzf.fish) + legacy `__fzf_*` cd/complete widgets.
 - `completions/docker.fish`, `kubectl.fish`, `orbctl.fish` are symlinks into `OrbStack.app`.
 - `conf.d/fish_frozen_*.fish` are fish 4.3 migration artifacts.

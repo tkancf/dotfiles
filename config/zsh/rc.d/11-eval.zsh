@@ -51,9 +51,6 @@ fi
 # Rust/cargo
 [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 
-# OrbStack integration
-[ -f "$HOME/.orbstack/shell/init.zsh" ] && source "$HOME/.orbstack/shell/init.zsh"
-
 # pnpm
 export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
@@ -80,9 +77,10 @@ if command -v op >/dev/null 2>&1 && [[ -z "${OPENCODE_API_KEY:-}" ]]; then
     opencode_key="$(op read 'op://Private/opencode/OPENCODE_API_KEY' 2>/dev/null)"
     if [[ -n "$opencode_key" ]]; then
       mkdir -p "${opencode_key_cache:h}"
+      opencode_old_umask="$(umask)"
       umask 077
       printf '%s\n' "$opencode_key" > "$opencode_key_cache"
-      umask 022
+      umask "$opencode_old_umask"
     fi
   fi
   [[ -n "$opencode_key" ]] && export OPENCODE_API_KEY="$opencode_key"

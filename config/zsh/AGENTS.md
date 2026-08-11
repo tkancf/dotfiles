@@ -32,5 +32,5 @@ Primary shell of the repo. Loaded via ZDOTDIR indirection: root `zshenv` sets ZD
 
 ## NOTES
 - `11-eval.zsh` reads `OPENCODE_API_KEY` from 1Password via `op read 'op://Private/opencode/OPENCODE_API_KEY'`, cached in `~/.cache/opencode-api-key` (0600, 24h TTL; skipped if env already set), with `local.zsh` as fallback.
-- zsh aliases contain chezmoi references (`cad`/`cap`) but the repo deploys via plain symlinks.
+- Deployment is plain symlinks; the legacy chezmoi aliases were removed in the 2026-08-07 review.
 - `~/.zshrc` in HOME is vestigial; ZDOTDIR redirects startup to this dir.

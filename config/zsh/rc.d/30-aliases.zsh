@@ -6,14 +6,9 @@ alias l='ls -CF'
 alias la='ls -aF'
 alias e='code .'
 
-# config / chezmoi
+# config
 cnn() { cd ~/.config/nvim && nvim ./lua/plugins/; }
-cnf() { cd ~/.config/dotfiles/config/zsh && nvim .zshrc; }
-alias cc='chezmoi cd'
-cad() { chezmoi add ~/.config/nvim ~/.config/zsh ~/.config/mise ~/.tmux.conf ~/.gitconfig ~/.vimrc; }
-alias cap='chezmoi init tkancf --apply --ssh -v'
-alias capd='chezmoi init tkancf --apply --ssh -v --dry-run'
-alias cz='chezmoi'
+cnf() { cd ~/.config/dotfiles/config/zsh/rc.d && nvim; }
 
 # vim/neovim
 alias v='nvim'
@@ -22,7 +17,6 @@ alias vi='vim'
 alias n='nvim'
 
 # git
-alias g='lazygit'
 alias gs='git status'
 alias ga='git add'
 alias ga.='git add .'

@@ -1,6 +1,7 @@
 [user]
 	name = tkancf
 	email = 18424095+tkancf@users.noreply.github.com
+	useConfigOnly = true
 [include]
   path = ~/.gitconfig.local
 
@@ -9,9 +10,6 @@
 
 [ghq]
 	root = ~/src
-
-[user]
-	useConfigOnly = true
 
 [core]
 	editor = vim
@@ -27,18 +25,14 @@
 	info = remote show origin
 	l = log --graph -n 20 --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(green)- %an, %cr%Creset'
 	ll = log --stat --abbrev-commit
-	s = status
 	s = status --short --branch
 	st = status
 	su = submodule update
 	a = add
-	d = diff
-	dc = diff --cached
-	info = remote show origin
 	see = browse
 
 [push]
-	default = matching
+	default = simple
 
 [merge]
 	ff = false

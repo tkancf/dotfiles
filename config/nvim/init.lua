@@ -126,7 +126,7 @@ vim.api.nvim_set_keymap('v', ':', ';', { noremap = true, desc = "Swap : ;" })
 vim.api.nvim_set_keymap('v', ';', ':', { noremap = true, desc = "Swap : ;" })
 
 vim.api.nvim_set_keymap('n', '<Esc><Esc>', ':nohl<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', 's', '', { noremap = true })
+vim.keymap.del('n', 's')
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<cr>', { desc = 'Clear search highlights' })
 
 -- Terminal mappings
@@ -179,10 +179,10 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave", "CursorHo
 })
 
 -- ウィンドウ移動・分割のショートカット
-vim.api.nvim_set_keymap('n', 'sl', '<C-w>l', { noremap = true, desc = 'Window left' })
-vim.api.nvim_set_keymap('n', 'sh', '<C-w>h', { noremap = true, desc = 'Window right' })
-vim.api.nvim_set_keymap('n', 'sj', '<C-w>j', { noremap = true, desc = 'Window down' })
-vim.api.nvim_set_keymap('n', 'sk', '<C-w>k', { noremap = true, desc = 'Window up' })
+vim.keymap.set('n', 'sl', '<C-w>l', { noremap = true, desc = 'Window right' })
+vim.keymap.set('n', 'sh', '<C-w>h', { noremap = true, desc = 'Window left' })
+vim.keymap.set('n', 'sj', '<C-w>j', { noremap = true, desc = 'Window down' })
+vim.keymap.set('n', 'sk', '<C-w>k', { noremap = true, desc = 'Window up' })
 vim.api.nvim_set_keymap('n', 'sn', ']b', { noremap = false, desc = 'Buffer next' })
 vim.api.nvim_set_keymap('n', 'sp', '[b', { noremap = false, desc = 'Buffer previous' })
 

@@ -7,7 +7,7 @@ HISTSIZE=1000000
 SAVEHIST=1000000
 
 # Locale and editor defaults
-export LC_ALL="en_US.UTF-8"
+export LANG="en_US.UTF-8"
 export VISUAL="nvim"
 export EDITOR="nvim"
 
@@ -25,6 +25,4 @@ path=(
   /usr/local/sbin(N-/)
   /Library/Apple/usr/bin
   $HOME/.local/bin(N-/)
-  $HOME/.local/bin/roc_nightly-*/(N-/)
-  $HOME/.local/bin/zig-*/(N-/)
 )
