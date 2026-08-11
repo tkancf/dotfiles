@@ -59,20 +59,31 @@ case ":$PATH:" in
 esac
 
 # OPENCODE_API_KEY from 1Password (op://Private/opencode/OPENCODE_API_KEY).
-# Cached in ~/.cache/opencode-api-key (0600) with a 24h TTL so opening a new
-# shell/tab doesn't trigger a 1Password CLI unlock prompt on every start.
-# Falls back to local.zsh below if op is unavailable or locked.
+# Keychain に保存しておき起動ごとの 1Password CLI 呼び出しを回避する
+# (初回のみ security add-generic-password の許可プロンプトが出る)。
+# Keychain が使えない環境向けに ~/.cache/opencode-api-key (0600, 24h TTL) も
+# 併用し、両方が無い場合のみ op を叩く。最後に local.zsh がフォールバック。
 if command -v op >/dev/null 2>&1 && [[ -z "${OPENCODE_API_KEY:-}" ]]; then
-  opencode_key_cache="$HOME/.cache/opencode-api-key"
   opencode_key=""
-  # Fresh cache hit: reuse without calling op.
-  if [[ -f "$opencode_key_cache" ]]; then
+  opencode_key_attr="opencode"
+  opencode_key_service="opencode-api-key"
+  opencode_key_cache="$HOME/.cache/opencode-api-key"
+
+  # 1) Keychain から読む (login 済みならプロンプトなし)
+  if command -v security >/dev/null 2>&1; then
+    opencode_key="$(security find-generic-password \
+      -s "$opencode_key_service" -a "$opencode_key_attr" -w 2>/dev/null)"
+  fi
+
+  # 2) フォールバック: キャッシュファイル (24h 以内)
+  if [[ -z "$opencode_key" && -f "$opencode_key_cache" ]]; then
     opencode_cache_age=$(( $(date +%s) - $(stat -f %m "$opencode_key_cache" 2>/dev/null || echo 0) ))
     if (( opencode_cache_age < 86400 )); then
       opencode_key="$(<"$opencode_key_cache")"
     fi
   fi
-  # Miss/stale: fetch from 1Password and refresh the cache.
+
+  # 3) Miss: 1Password から取得して Keychain + キャッシュに保存
   if [[ -z "$opencode_key" ]]; then
     opencode_key="$(op read 'op://Private/opencode/OPENCODE_API_KEY' 2>/dev/null)"
     if [[ -n "$opencode_key" ]]; then
@@ -81,6 +92,10 @@ if command -v op >/dev/null 2>&1 && [[ -z "${OPENCODE_API_KEY:-}" ]]; then
       umask 077
       printf '%s\n' "$opencode_key" > "$opencode_key_cache"
       umask "$opencode_old_umask"
+      if command -v security >/dev/null 2>&1; then
+        security add-generic-password -s "$opencode_key_service" -a "$opencode_key_attr" \
+          -w "$opencode_key" -U >/dev/null 2>&1
+      fi
     fi
   fi
   [[ -n "$opencode_key" ]] && export OPENCODE_API_KEY="$opencode_key"

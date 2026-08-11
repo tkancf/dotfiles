@@ -5,9 +5,6 @@
 [include]
   path = ~/.gitconfig.local
 
-[url "https://"]
-	insteadOf = git://
-
 [ghq]
 	root = ~/src
 
@@ -21,7 +18,7 @@
 	dc = diff --cached
 	g = log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short
 	graph = log --graph --date-order --all --pretty=format:'%h %Cred%d %Cgreen%ad %Cblue%cn %Creset%s' --date=short
-	ignore = !([ ! -e .gitignore ] && touch .gitignore) | echo $1 >> .gitignore
+	ignore = "!f() { [ -e .gitignore ] || touch .gitignore; printf '%s\\n' \"$1\" >> .gitignore; }; f"
 	info = remote show origin
 	l = log --graph -n 20 --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(green)- %an, %cr%Creset'
 	ll = log --stat --abbrev-commit

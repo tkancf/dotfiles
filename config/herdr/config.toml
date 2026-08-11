@@ -3,7 +3,7 @@
 # prefix (ctrl+space) はコピーモード等のサブモード用に残す。
 
 [theme]
-name = "terminal"
+name = "catppuccin"
 auto_switch = false
 
 [terminal]
@@ -51,10 +51,6 @@ zoom = "super+z"               # tmux: prefix+z zoom-pane
 # Pane focus and layout
 # focus_pane_* は下の [[keys.command]] (super+h/j/k/l) で実装。
 # zoom 中に移動したら tmux 同様 zoom も解除する。
-focus_pane_left = ""
-focus_pane_down = ""
-focus_pane_up = ""
-focus_pane_right = ""
 split_vertical = "super+y"     # tmux: bind % split-window -h (pane_current_path で分割)
 split_horizontal = "super+minus"  # tmux: bind ' split-window -v (pane_current_path で分割)
 toggle_sidebar = "super+b"

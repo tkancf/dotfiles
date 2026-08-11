@@ -24,3 +24,4 @@ idiomatic_version_file_enable_tools = ["node"]
 "~/.agents/skills/herdr" = "../agents/skills/herdr"
 "~/.tmux.conf" = "../../tmux.conf"
 "~/.gitignore" = "../../gitignore"
+"~/.gitconfig" = "../../gitconfig"

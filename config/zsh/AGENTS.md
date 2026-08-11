@@ -31,6 +31,6 @@ Primary shell of the repo. Loaded via ZDOTDIR indirection: root `zshenv` sets ZD
 - Don't hardcode machine-specific paths in tracked rc.d files.
 
 ## NOTES
-- `11-eval.zsh` reads `OPENCODE_API_KEY` from 1Password via `op read 'op://Private/opencode/OPENCODE_API_KEY'`, cached in `~/.cache/opencode-api-key` (0600, 24h TTL; skipped if env already set), with `local.zsh` as fallback.
+- `11-eval.zsh` reads `OPENCODE_API_KEY` from 1Password via `op read 'op://Private/opencode/OPENCODE_API_KEY'`. Keychain (`security add-generic-password`, service `opencode-api-key` / account `opencode`) に保存して毎回の op 呼び出しを回避し、`~/.cache/opencode-api-key` (0600, 24h TTL) をフォールバックに併用。`local.zsh` が最終フォールバック。
 - Deployment is plain symlinks; the legacy chezmoi aliases were removed in the 2026-08-07 review.
 - `~/.zshrc` in HOME is vestigial; ZDOTDIR redirects startup to this dir.
