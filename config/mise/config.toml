@@ -9,3 +9,18 @@ pipx = "latest"
 [settings]
 experimental = true
 idiomatic_version_file_enable_tools = ["node"]
+
+# Dotfiles managed by `mise bootstrap dotfiles apply`
+# (replaces setup.sh; sources are relative to this file's directory)
+[dotfiles]
+"~/.zshenv" = "../../zshenv"
+"~/.config/zsh" = "../zsh"
+"~/.config/herdr/config.toml" = "../herdr/config.toml"
+"~/.config/nvim" = "../nvim"
+"~/.vimrc" = "../../vimrc"
+"~/.config/fish" = "../fish"
+"~/.config/mise" = "."
+"~/.config/ghostty" = "../ghostty"
+"~/.agents/skills/herdr" = "../agents/skills/herdr"
+"~/.tmux.conf" = "../../tmux.conf"
+"~/.gitignore" = "../../gitignore"

@@ -5,19 +5,18 @@
 **Branch:** main
 
 ## OVERVIEW
-tkancf's macOS dotfiles: zsh (primary) + fish (secondary) shells, Neovim, herdr multiplexer, git, legacy tmux/vim. Plain git repo at `~/.config/dotfiles`, deployed via symlinks (`setup.sh`, minimal/full modes); packages via Homebrew (`Brewfile`).
+tkancf's macOS dotfiles: zsh (primary) + fish (secondary) shells, Neovim, herdr multiplexer, git, legacy tmux/vim. Plain git repo at `~/.config/dotfiles`, deployed via `mise bootstrap dotfiles` (`[dotfiles]` in `config/mise/config.toml`); packages via Homebrew (`Brewfile`).
 
 ## STRUCTURE
 ```
 dotfiles/
-├── setup.sh              # symlink installer (minimal|full); backs up targets to .backup/
 ├── Brewfile              # brew bundle: git, mas, ocgo, casks, 1 MAS app
 ├── zshenv                # sets ZDOTDIR → config/zsh (the only zsh file actually linked)
-├── gitconfig             # git identity + include ~/.gitconfig.local (NOT linked by setup.sh)
+├── gitconfig             # git identity + include ~/.gitconfig.local (NOT deployed)
 ├── tmux.conf             # legacy tmux (being replaced by herdr)
 ├── vimrc                 # legacy vim
 ├── README.md             # clone/setup instructions
-├── .backup/              # timestamped pre-symlink backups (gitignored)
+├── .backup/              # pre-mise-migration backups (gitignored)
 ├── .codex/               # Codex CLI skill (nvim-plugin-add)
 └── config/
     ├── zsh/              # LIVE zsh config via ZDOTDIR indirection
@@ -26,8 +25,8 @@ dotfiles/
     ├── herdr/            # multiplexer config (tmux successor)
     ├── agents/skills/    # herdr agent skill → ~/.agents/skills (npx skills add)
     ├── ghostty/          # terminal config
-    ├── mise/             # tool version pinning (go/node/python/pnpm, nvim nightly)
-    ├── opencode/         # opencode AI agent config + herdr plugin
+    ├── mise/             # [dotfiles] deploy list + tool version pinning (go/node/python/pnpm, nvim nightly)
+    ├── opencode/         # opencode AI agent config + herdr plugin (NOT deployed; see NOTES)
     ├── keyboard/         # tofu_jr keyboard layout (tracked, NOT deployed)
     └── tmux/             # session-color.sh helper (tracked, NOT deployed)
 ```
@@ -35,7 +34,7 @@ dotfiles/
 ## WHERE TO LOOK
 | Task | Location |
 |------|----------|
-| What gets deployed where | `setup.sh` (single source of truth) |
+| What gets deployed where | `config/mise/config.toml` `[dotfiles]` (single source of truth) |
 | Shell startup | `zshenv` → `config/zsh/.zshrc` → `config/zsh/rc.d/` |
 | Fish config | `config/fish/config.fish` + `conf.d/`, `functions/` |
 | Neovim plugins | `config/nvim/init.lua` → `lua/plugins/` |
@@ -46,7 +45,7 @@ dotfiles/
 | Packages | `Brewfile` |
 | Tool versions | `config/mise/config.toml` |
 | AI tool configs | `config/opencode/` |
-| Agent skills (herdr) | `config/agents/skills/herdr/` → `~/.agents/skills/herdr` (full mode) |
+| Agent skills (herdr) | `config/agents/skills/herdr/` → `~/.agents/skills/herdr` |
 
 ## CODE MAP
 No program code — "symbols" are config entry points and their wiring:
@@ -56,21 +55,21 @@ No program code — "symbols" are config entry points and their wiring:
 | zshenv | shell startup | repo root | ~/.zshenv | sets ZDOTDIR to config/zsh |
 | .zshrc | shell startup | config/zsh/ | via ZDOTDIR | sources rc.d/*.zsh in order |
 | rc.d/*.zsh | snippets | config/zsh/rc.d/ | sourced by .zshrc | 00-options … 90-highlighting |
-| config.fish | shell startup | config/fish/ | ~/.config/fish (manual link) | abbrs, PATH, init |
+| config.fish | shell startup | config/fish/ | ~/.config/fish | abbrs, PATH, init |
 | init.lua | editor entry | config/nvim/ | ~/.config/nvim | lazy.nvim bootstrap + plugin imports |
 | lua/plugins/*.lua | editor modules | config/nvim/lua/plugins/ | imported by init.lua | one lazy spec per plugin |
-| setup.sh | installer | repo root | n/a | links configs, backs up targets |
+| mise config.toml | deploy list | config/mise/ | ~/.config/mise | [dotfiles] entries + [tools] pins |
 | Brewfile | packages | repo root | n/a | brew bundle manifest |
 | config.toml | multiplexer | config/herdr/ | ~/.config/herdr | herdr settings (tmux successor) |
 
 ## CONVENTIONS
-- Deploy by symlink only (`ln -sf`), never copy. `./setup.sh [minimal|full]`; minimal = zshenv/zsh/herdr/nvim, full adds vimrc/tmux/fish/mise/ghostty/opencode/agents-skills/gitignore.
+- Deploy by symlink only, never copy. `mise bootstrap dotfiles apply` (entries in `config/mise/config.toml` `[dotfiles]`); pass targets to apply a subset (minimal = zshenv/zsh/herdr/nvim, everything else is deployed with the default full set).
 - Machine-local overrides go in gitignored files: `config/zsh/local.zsh`, `config/fish/local.fish`, `~/.gitconfig.local`. Never put machine-specific settings in tracked configs.
 - zsh rc.d loads by `NN-` numeric prefix; `90-highlighting.zsh` MUST stay last (syntax highlighting wraps ZLE widgets).
 - nvim: one lazy.nvim spec file per plugin in `lua/plugins/`, registered via `{ import = 'plugins.<name>' }` in init.lua. Keymaps need `desc`, prefer `<leader>`.
 - Keep edits ASCII-only unless the file already uses non-ASCII (existing files contain Japanese comments).
 - git: branch `main`, `pull.ff = only`, `merge.ff = false`, `conflictstyle = diff3`, `useConfigOnly = true`.
-- All packages via `Brewfile`; tool versions via mise (`config/mise/config.toml`).
+- All packages via `Brewfile`; tool versions + dotfile deployment via mise (`config/mise/config.toml`).
 - No lint/format tooling exists in this repo — do not invent any.
 
 ## ANTI-PATTERNS (THIS PROJECT)
@@ -82,26 +81,28 @@ No program code — "symbols" are config entry points and their wiring:
 
 ## UNIQUE STYLES
 - ZDOTDIR indirection: only `zshenv` is symlinked; all other zsh startup loads from the repo via ZDOTDIR. `~/.zshrc` on disk is vestigial.
-- `config/fish` is deployed by `setup.sh full` (secondary shell); still absent from the `minimal` list.
-- `gitconfig` is NOT deployed by setup.sh; `~/.gitconfig` is a manual copy (currently identical). `gitignore` (global excludes) IS deployed in `full` mode.
-- setup.sh moves existing targets to `.backup/<timestamp>/` before linking and prunes to the 5 most recent backups.
+- `config/fish` is deployed by mise (secondary shell); still absent from the `minimal` target set.
+- `gitconfig` is NOT deployed; `~/.gitconfig` is a manual copy (currently identical). `gitignore` (global excludes) IS deployed.
+- mise refuses to overwrite unmanaged files without `--force`; `mise bootstrap dotfiles status` reports applied/missing/differs. `.backup/` holds pre-mise-migration files (gitignored).
 - zsh/fish use plain-symlink deployment; the legacy chezmoi aliases (`cad`/`cap`/`cc`/`cz`) were removed in the 2026-08-07 review.
-- herdr is migrating in as tmux's successor; tmux.conf still deployed in `full` mode.
+- herdr is migrating in as tmux's successor; tmux.conf still deployed.
 
 ## COMMANDS
 ```bash
-./setup.sh                   # deploy minimal (zshenv, zsh, herdr, nvim)
-./setup.sh full              # deploy everything (vimrc, tmux, fish, mise, ghostty, opencode, agents/skills, gitignore)
-brew bundle --file=Brewfile  # install packages
-git pull                     # update (no dedicated update script)
+mise bootstrap dotfiles apply                    # deploy all dotfiles
+mise bootstrap dotfiles apply ~/.zshenv ~/.config/zsh ~/.config/herdr/config.toml ~/.config/nvim  # minimal set
+mise bootstrap dotfiles status                   # show applied/missing/differs
+brew bundle --file=Brewfile                      # install packages
+git pull                                         # update (no dedicated update script)
 ```
 
 ## NOTES
-- setup.sh resolves its own directory at runtime; the repo no longer needs to live at `$HOME/.config/dotfiles`.
+- Dotfile sources in `[dotfiles]` resolve relative to `config/mise/`; the repo can live anywhere. First run on a new machine needs `MISE_CONFIG_FILE=~/.config/dotfiles/config/mise/config.toml` before the `~/.config/mise` symlink exists (see README).
 - `11-eval.zsh` reads OPENCODE_API_KEY from 1Password (`op read`), cached in `~/.cache/opencode-api-key` (0600, 24h TTL) to avoid an unlock prompt on every new tab; falls back to `local.zsh`.
 - `config/fish/local.fish` currently holds a live API key — keep gitignored.
 - `config/opencode/plugins/herdr-agent-state.js` is regenerated by herdr — treat as generated.
-- Reviewed 2026-08-07: deduped gitconfig, hardened setup.sh, completed Brewfile (herdr/mise/opencode/fzf/ghq/zoxide/claude-code/ghostty), portable opencode plugin path, removed zig/roc/OrbStack/chezmoi leftovers.
+- `config/opencode` is NOT in `[dotfiles]`; `~/.config/opencode` is a live directory (opencode manages node_modules etc. there). Sync `config/opencode/*` by hand and never re-add it to the deploy list.
+- Reviewed 2026-08-07: deduped gitconfig, hardened setup.sh (removed 2026-08-11 in favor of `mise bootstrap dotfiles`), completed Brewfile (herdr/mise/opencode/fzf/ghq/zoxide/claude-code/ghostty), portable opencode plugin path, removed zig/roc/OrbStack/chezmoi leftovers.
 
 ## SUBPROJECTS
 - `config/zsh/AGENTS.md` — shell startup, rc.d ordering
